@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get "settings/index"
+
   devise_for :users, :skip => :all
 
   root :to => "sessions#new"
