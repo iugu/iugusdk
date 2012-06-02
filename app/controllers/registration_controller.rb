@@ -17,9 +17,6 @@ class RegistrationController < ApplicationController
       # TODO: Can we do better?
       new_account = Account.create({})
       account_user = new_account.account_users.create( { :user => @user } )
-
-      cookies[:last_used_account_id] = { :value => new_account.id, :expires => 365.days.from_now }
-
       redirect_to Iugusdk::app_main_url, :notice => "Thank you for sign up"
     else  
       render :action => 'new'  

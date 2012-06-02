@@ -1,9 +1,12 @@
 class Account < ActiveRecord::Base
   # Validators
 
-  # Optional for now
-  # validates :name, :presence => true
+  has_many :account_users, :dependent => :destroy, :include => [:roles,:account]
+  has_many :users, :through => :account_users
 
-  has_many :account_users, :dependent => :destroy
-  
+  def valid_user_for_account?( user )
+    user = user.try(:id) if user.is_a? Object
+    users.exists? user
+  end
+
 end

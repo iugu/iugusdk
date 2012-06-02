@@ -3,7 +3,9 @@ class User < ActiveRecord::Base
   # :token_authenticatable, :trackable, :validatable, :confirmable,
   # :lockable and :timeoutable 
   
-  has_many :account_users, :dependent => :destroy
+  # TODO: Tests of Association
+  has_many :account_users, :dependent => :destroy, :include => [:roles,:account]
+  has_many :accounts, :through => :account_users
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :omniauthable, :validatable
@@ -15,4 +17,5 @@ class User < ActiveRecord::Base
   def email_required?
     true
   end
+
 end

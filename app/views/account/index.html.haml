@@ -1,2 +1,14 @@
 %h3
   Account Settings
+
+- if current_user_account
+  %div
+    Account Number #
+    = current_user_account.id
+  %div
+    User Roles on Account: 
+    = current_user_account.roles.map(&:name).to_s
+
+- if current_user
+  %div
+    = current_user.id

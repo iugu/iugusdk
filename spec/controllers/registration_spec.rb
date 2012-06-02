@@ -22,11 +22,15 @@ describe RegistrationController do
 
   context "action create" do
 
-    before(:each) do
+    it "should create the user when data is right" do
       post 'create', :user => { :email => "teste@teste.teste", :password => "123456" }
+      response.should redirect_to Iugusdk::app_main_url
     end
 
-    it { response.should redirect_to Iugusdk::app_main_url }
+    it "should redirect to :new if cant create" do
+      post 'create', :user => { :email => "testeteste", :password => "123456" }
+      response.should render_template(:new)
+    end
   end
 
 end

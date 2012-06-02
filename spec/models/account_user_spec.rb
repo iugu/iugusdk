@@ -3,36 +3,31 @@ require 'spec_helper'
 describe AccountUser do
   before(:each) { @account_user = Fabricate(:account_user) }
 
-  it { should have_many :account_roles }
+  it { should have_many :roles }
 
   context "is? method" do
-    context "when has the role" do
-    
-      it 'should return true' do
-        @account_user.account_roles << Fabricate(:account_role) { name "user" }
-        @account_user.is?("user").should be_true
-      end
-    
+    before(:each) do
+      @account_user.roles.destroy_all()
+      @account_user.roles << Fabricate( :account_role, :name => "user", :account_user => @account_user )
     end
 
-    context "when dont has the role" do
+    it 'should return true when have the role' do
+      @account_user.is?("user").should be_true
+    end
     
-      it 'should return false' do
-        @account_user.account_roles.destroy_all()
-        @account_user.account_roles << Fabricate(:account_role) { name "user" }
-        @account_user.is?("admin").should be_false
-      end
-    
+    it 'should return false when dont have the role' do
+      @account_user.is?("admin").should be_false
     end
 
+    it 'should return true when have the role but searched with :param' do
+      @account_user.is?(:user).should be_true
+    end
+  end
 
-    context "when we use :name" do
-    
-      it 'should return true' do
-        @account_user.account_roles << Fabricate(:account_role) { name "user" }
-        @account_user.is?(:user).should be_true
-      end
-    
+  context "is? method with different roles" do
+
+    before(:each) do
+      @account_user.roles.destroy_all()
     end
 
     context "when we have configured alias for roles" do
@@ -43,12 +38,12 @@ describe AccountUser do
       end
 
       it "should find by the role when trying to check owner" do
-        @account_user.account_roles << Fabricate(:account_role) { name "my_owner" }
+        @account_user.roles << Fabricate(:account_role, :name => "my_owner", :account_user => @account_user)
         @account_user.is?("owner").should be_true
       end
 
       it "should find by the role when trying to check admin" do
-        @account_user.account_roles << Fabricate(:account_role) { name "my_user" }
+        @account_user.roles << Fabricate(:account_role, :name =>"my_user", :account_user => @account_user )
         @account_user.is?( "admin" ).should be_true
       end
 

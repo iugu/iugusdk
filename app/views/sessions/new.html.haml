@@ -2,6 +2,8 @@
 
   You are signed in as 
   = current_user.email
+  = link_to "Settings", settings_path
+  = ' | '
   = link_to "Sign out", users_sign_out_path, :method => :delete
 
 - else
@@ -18,11 +20,3 @@
       = f.label :remember_me
     %div
       = f.submit "Sign in"
-
-- if @current_user_on_account
-  %div
-    Account Number #
-    = @current_user_on_account.account_id
-  %div
-    User Roles on Account: 
-    = @current_roles_on_account

@@ -9,9 +9,6 @@ module Iugusdk
 
   mattr_accessor :app_root
 
-  # Custom Variables Testing
-  mattr_accessor :app_title
-
   mattr_accessor :no_signup_form
   mattr_accessor :app_main_url
   mattr_accessor :default_subscription_name
