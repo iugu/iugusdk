@@ -9,8 +9,8 @@ class SessionsController < ApplicationController
   def create
     user = authenticate_user!(:recall => "sessions#new")
     flash[:notice] = "You are now signed in!"
-    sign_in user
-    redirect_to root_path
+    sign_in_and_redirect user
+    # redirect_to root_path
   end
 
   def destroy

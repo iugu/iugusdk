@@ -17,6 +17,7 @@ module Iugusdk
   mattr_accessor :guest_user_prefix
   mattr_accessor :multiple_accounts_per_user
   mattr_accessor :custom_domain_for_accounts
+  mattr_accessor :default_layout
 
   self.no_signup_form = false
   self.app_main_url = '/'
@@ -24,6 +25,7 @@ module Iugusdk
   self.guest_user_prefix = 'appuser'
   self.multiple_accounts_per_user = false
   self.custom_domain_for_accounts = false
+  self.default_layout = "settings"
 
   def initialize
   end

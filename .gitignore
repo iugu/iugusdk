@@ -26,3 +26,7 @@ log/**
 */*/*/log
 spec/dummy/log/*/*
 spec/dummy/log/**
+spec/dummy/tmp/
+spec/dummy/tmp/*/*
+spec/dummy/tmp/**
+*.sqlite3

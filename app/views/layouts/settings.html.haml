@@ -1,0 +1,28 @@
+!!! 5
+%html{:lang => "en"}
+  %head
+    %meta{:charset => "utf-8"}/
+    %title= content_for?(:title) ? yield(:title) : "Settings"
+    = csrf_meta_tags
+    
+    = stylesheet_link_tag    "settings"
+    = javascript_include_tag "settings"
+
+  %body
+
+    - if user_signed_in?
+
+      You are signed in as 
+      = current_user.email
+      = link_to "Settings", settings_path
+      = ' | '
+      = link_to "Sign out", users_sign_out_path, :method => :delete
+
+    %h1
+      Settings Page
+
+    - flash.each do |name, msg|
+      = content_tag :div, msg, :id => "flash_#{name}" if msg.is_a?(String)
+
+    = content_for?(:title) ? yield(:flash) : ''
+

@@ -1,9 +1,6 @@
-class AccountController < ApplicationController
+class AccountController < SettingsController
   
   def index
-  end
-
-  def signup
   end
 
 end

@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-  get "settings/index"
+
+  get "settings" => "settings#index", :as => "settings"
+  get "settings/account" => "account#index", :as => "account_settings"
 
   devise_for :users, :skip => :all
 
@@ -11,9 +13,4 @@ Rails.application.routes.draw do
   post "signup" => "registration#create", :as => 'registration_create'
 
   get "dummy/test"
-
-  get "settings/profile"
-
-  # get "signup" => 'account#index'
-  # post "signup" => 'account#signup'
 end
