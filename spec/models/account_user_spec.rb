@@ -18,6 +18,7 @@ describe AccountUser do
     context "when dont has the role" do
     
       it 'should return false' do
+        @account_user.account_roles.destroy_all()
         @account_user.account_roles << Fabricate(:account_role) { name "user" }
         @account_user.is?("admin").should be_false
       end

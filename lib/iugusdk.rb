@@ -2,6 +2,7 @@ require 'haml'
 require 'haml-rails'
 require 'simple_form'
 require 'devise'
+require 'iugusdk/controllers/helpers'
 require "iugusdk/engine"
 
 module Iugusdk

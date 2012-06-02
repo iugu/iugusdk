@@ -1,6 +1,9 @@
 class Account < ActiveRecord::Base
   # Validators
 
-  validates :name, :presence => true
+  # Optional for now
+  # validates :name, :presence => true
+
+  has_many :account_users, :dependent => :destroy
   
 end

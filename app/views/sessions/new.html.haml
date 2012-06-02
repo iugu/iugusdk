@@ -19,3 +19,10 @@
     %div
       = f.submit "Sign in"
 
+- if @current_user_on_account
+  %div
+    Account Number #
+    = @current_user_on_account.account_id
+  %div
+    User Roles on Account: 
+    = @current_roles_on_account

@@ -2,6 +2,8 @@ class AccountRole < ActiveRecord::Base
   belongs_to :account_user
   validate :valid_role?
 
+  # TODO: Need to be unique per account_user_id ( account_user_id + name )
+
   def self.roles
     APP_ROLES['roles']
   end
