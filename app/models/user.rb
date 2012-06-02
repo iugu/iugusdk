@@ -3,7 +3,6 @@ class User < ActiveRecord::Base
   # :token_authenticatable, :trackable, :validatable, :confirmable,
   # :lockable and :timeoutable 
   
-  # TODO: Tests of Association
   has_many :account_users, :dependent => :destroy, :include => [:roles,:account]
   has_many :accounts, :through => :account_users
 
