@@ -5,7 +5,7 @@ class SettingsController < ApplicationController
   layout Iugusdk.default_layout
 
   def index
-    redirect_to :account_settings, :notice => flash[:notice]
+    redirect_to :profile_settings, :notice => flash[:notice]
   end
 
 end

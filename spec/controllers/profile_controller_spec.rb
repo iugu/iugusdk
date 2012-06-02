@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe SettingsController do
+describe ProfileController do
   include Devise::TestHelpers
 
   describe "GET 'index'" do
@@ -9,7 +9,5 @@ describe SettingsController do
       response.should_not be_success
     end
   end
-
-  # TODO: after logged, verify paths
 
 end
