@@ -4,6 +4,9 @@ class SessionsController < ApplicationController
 
   def new
     @user = User.new(params[:user])
+    # TODO: Rewrite
+    @current_user_on_account = current_user_account
+    @current_roles_on_account = current_user_account.account_roles.map(&:name).to_s if @current_user_on_account
   end
   
   def create
