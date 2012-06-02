@@ -24,5 +24,9 @@
     - flash.each do |name, msg|
       = content_tag :div, msg, :id => "flash_#{name}" if msg.is_a?(String)
 
-    = content_for?(:title) ? yield(:flash) : ''
 
+    = link_to "Account", account_settings_path
+    = ' | '
+    = link_to "Profile", profile_settings_path
+
+    = yield()
