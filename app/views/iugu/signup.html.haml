@@ -1,18 +1,19 @@
 %h2
   Sign up
 
-= form_for @user, :url => registration_create_path do |f|
+- @user = User.new unless @user
+= form_for @user, :url => signup_path do |f|
 
   - if @user.errors.any?
     #error_explanation{ :style => "margin-bottom: 15px" }
       %h2
-      = pluralize(@user.errors.count, "error")
-      prohibited this post from being saved:
+        = pluralize(@user.errors.count, "error")
+        in your signup form
 
       %ul
-      - @user.errors.full_messages.each do |msg|
-        %li
-          = msg
+        - @user.errors.full_messages.each do |msg|
+          %li
+            = msg
 
   %div
     = f.label :email

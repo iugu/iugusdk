@@ -12,6 +12,7 @@ module IuguSDK
   mattr_accessor :application_title
   mattr_accessor :no_signup_form
   mattr_accessor :app_main_url
+  mattr_accessor :app_root_url
   mattr_accessor :default_subscription_name
   mattr_accessor :guest_user_prefix
   mattr_accessor :multiple_accounts_per_user
@@ -21,6 +22,7 @@ module IuguSDK
   self.application_title = 'Application Name'
   self.no_signup_form = false
   self.app_main_url = '/'
+  self.app_root_url = '/'
   self.default_subscription_name = 'free'
   self.guest_user_prefix = 'appuser'
   self.multiple_accounts_per_user = false

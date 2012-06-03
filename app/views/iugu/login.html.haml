@@ -4,11 +4,11 @@
   = current_user.email
   = link_to "Settings", settings_path
   = ' | '
-  = link_to "Sign out", users_sign_out_path, :method => :delete
+  = link_to "Sign out", logout_path, :method => :delete
 
 - else
 
-  = form_for @user, :url => users_sign_in_path do |f|
+  = form_for @user, :url => login_path do |f|
     %div
       = f.label :email
       = f.email_field :email
@@ -20,5 +20,3 @@
       = f.label :remember_me
     %div
       = f.submit "Sign in"
-
-= body_classes

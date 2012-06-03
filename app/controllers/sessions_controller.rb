@@ -4,6 +4,7 @@ class SessionsController < ApplicationController
 
   def new
     @user = User.new(params[:user])
+    render 'iugu/login'
   end
   
   def create
@@ -17,7 +18,7 @@ class SessionsController < ApplicationController
   def destroy
     sign_out
     flash[:notice] = "You are now signed out!"
-    redirect_to root_path
+    redirect_to IuguSDK::app_root_url
   end
 
 end

@@ -6,12 +6,10 @@ Rails.application.routes.draw do
 
   devise_for :users, :skip => :all
 
-  root :to => "sessions#new"
-  post "login" => "sessions#create", :as => 'users_sign_in'
-  delete "logout" => "sessions#destroy", :as => 'users_sign_out'
+  get"login" => "sessions#new", :as => 'login'
+  post "login" => "sessions#create", :as => 'login'
+  delete "logout" => "sessions#destroy", :as => 'logout'
 
-  get "signup" => "registration#new", :as => 'registration_new'
-  post "signup" => "registration#create", :as => 'registration_create'
-
-  get "dummy/test"
+  get "signup" => "registration#new", :as => 'signup'
+  post "signup" => "registration#create", :as => 'signup'
 end

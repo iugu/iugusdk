@@ -9,7 +9,7 @@ describe SessionsController do
 
   context "new action" do
     before(:each) { get :new }
-    it { should render_template(:new) }
+    it { should render_template('iugu/login') }
   end
 
   context "create action" do
@@ -25,7 +25,7 @@ describe SessionsController do
 
     context "should be able to logout" do
       before(:each) { post :destroy }
-      it { should redirect_to root_path }
+      it { should redirect_to IuguSDK::app_root_url }
     end
   end
   

@@ -6,14 +6,24 @@
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
 </head>
-<body>
+<body class="<%= body_classes.join(' ') %>">
 
+  <div class="container">
+    <div class="wrapper">
+      <% if user_signed_in? %>
+        You are signed in as <%= current_user.email %>
+        <%= link_to "Settings", settings_path %> | <%= link_to "Sign out", logout_path, :method => :delete %>
+      <% end %>
 
-<% flash.each do |name, msg| %>
-  <%= content_tag :div, msg, :id => "flash_#{name}" if msg.is_a?(String) %>
-<% end %>  
+      <h4><%= link_to "Dummy", root_path %></h4>
 
-<%= yield %>
+      <% flash.each do |name, msg| %>
+        <%= content_tag :div, msg, :id => "flash_#{name}", :class => "flash" if msg.is_a?(String) %>
+      <% end %>
+
+      <%= yield %>
+    </div>
+  </div>
 
 </body>
 </html>

@@ -8,6 +8,7 @@ class RegistrationController < ApplicationController
 
   def new
     @user = User.new
+    render 'iugu/signup'
   end
 
   def create
@@ -19,7 +20,8 @@ class RegistrationController < ApplicationController
       account_user = new_account.account_users.create( { :user => @user } )
       redirect_to IuguSDK::app_main_url, :notice => "Thank you for sign up"
     else  
-      render :action => 'new'  
+      # render :action => 'new'
+      render 'iugu/signup'
     end  
   end
   

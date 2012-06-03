@@ -20,7 +20,7 @@ describe RegistrationController do
 
     context "after a invalid user signup" do
       before { post :create, :user => { :email => "absdf" } }
-      it { should render_template(:new) }
+      it { should render_template('iugu/signup') }
     end
 
   end

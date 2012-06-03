@@ -3,7 +3,7 @@ require 'spec_helper'
 describe "new registration requests" do
 
   before(:each) do
-    visit '/signup'
+    visit signup_path
   end
 
   it { page.should have_content "Email" }
