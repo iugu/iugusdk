@@ -15,7 +15,7 @@ describe RegistrationController do
       @user = Fabricate(:user)
       sign_in @user
       get 'new'
-      response.should redirect_to Iugusdk::app_main_url
+      response.should redirect_to IuguSDK::app_main_url
     end
     
   end
@@ -24,7 +24,7 @@ describe RegistrationController do
 
     it "should create the user when data is right" do
       post 'create', :user => { :email => "teste@teste.teste", :password => "123456" }
-      response.should redirect_to Iugusdk::app_main_url
+      response.should redirect_to IuguSDK::app_main_url
     end
 
     it "should redirect to :new if cant create" do
