@@ -1,7 +1,5 @@
 require 'spec_helper'
 
-# TODO: Refactor this test
-
 class StubIuguHelpersController < SessionsController
   def render_result_of( condition )
     if condition
@@ -37,83 +35,58 @@ end
 
 describe StubIuguHelpersController do
 
-  include Devise::TestHelpers
-  include IuguSDK::Controllers::Helpers
-
-  before(:each) do
-    @request.env["devise.mapping"] = Devise.mappings[:user]
+  def with_stub_routing
+    with_routing do |map|
+      map.draw do
+        match '/stub/iugu/helpers/index' => "stub_iugu_helpers#test_current_user_account"
+        match '/stub/iugu/helpers/test_is_active' => "stub_iugu_helpers#test_is_active"
+        match '/stub/iugu/helpers/test_is_inactive' => "stub_iugu_helpers#test_is_inactive"
+        match '/stub/iugu/helpers/test_body_classes' => "stub_iugu_helpers#test_body_classes"
+      end
+      yield
+    end
   end
 
   context "with a logged user" do
-    before(:each) do
-      @user = Fabricate(:user, :email => "me@me.com", :password => "123456", :password_confirmation => "123456" )
-      @account = Fabricate(:account)
-      @account.account_users << Fabricate(:account_user, :user => @user)
-      with_routing do |map|
-        map.draw do
-          match '/stub/iugu/helpers/login' => "stub_iugu_helpers#create"
-        end
-        begin
-          post :create, :user => { :email => "me@me.com", :password => "123456" }
-        rescue
-        end
-      end
-    end
+
+    login_as_user
 
     it "should be signed_in" do
-      with_routing do |map|
-        map.draw do
-          match '/stub/iugu/helpers/index' => "stub_iugu_helpers#test_current_user_account"
-          match '/stub/iugu/helpers/login' => "stub_iugu_helpers#create"
-        end
+      with_stub_routing do
         get :test_current_user_account
-        response.code.should eq("200") 
+        response.should be_success
       end
     end
   end
 
   context "with no logged user" do
     it "should not have a user account" do
-      with_routing do |map|
-        map.draw do
-          match '/stub/iugu/helpers/index' => "stub_iugu_helpers#test_current_user_account"
-        end
+      with_stub_routing do
         get :test_current_user_account
-        response.code.should eq("404") 
+        response.should_not be_success
       end
     end
   end
 
   context "helpers" do
     it "should return true for is_active at test_is_active" do
-      with_routing do |map|
-        map.draw do
-          match '/stub/iugu/helpers/test_is_active' => "stub_iugu_helpers#test_is_active"
-          match '/stub/iugu/helpers/test_is_inactive' => "stub_iugu_helpers#test_is_inactive"
-        end
+      with_stub_routing do
         get :test_is_active
-        response.code.should eq("200") 
+        response.should be_success
       end
     end
 
     it "should return false for is_active at test_is_inactive" do
-      with_routing do |map|
-        map.draw do
-          match '/stub/iugu/helpers/test_is_active' => "stub_iugu_helpers#test_is_active"
-          match '/stub/iugu/helpers/test_is_inactive' => "stub_iugu_helpers#test_is_inactive"
-        end
+      with_stub_routing do
         get :test_is_inactive
-        response.code.should eq("404") 
+        response.should_not be_success
       end
     end
 
     it "should return true for body_classes check" do
-      with_routing do |map|
-        map.draw do
-          match '/stub/iugu/helpers/test_body_classes' => "stub_iugu_helpers#test_body_classes"
-        end
+      with_stub_routing do
         get :test_body_classes
-        response.code.should eq("200") 
+        response.should be_success
       end
     end
   end

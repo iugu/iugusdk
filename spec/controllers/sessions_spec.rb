@@ -1,44 +1,32 @@
 require 'spec_helper'
 
 describe SessionsController do
-  include Devise::TestHelpers
 
   before(:each) do
-    @user = Fabricate(:user) do
-      email "teste@teste.teste"
-      password "123456"
-    end
+    @credentials = { :email => "teste@teste.com", :password => "123456" }
+    @user = (Fabricate :user, @credentials)
   end
 
   context "new action" do
-
-    before(:each) do
-      get 'new'
-    end
-
-    it { response.should render_template :new } 
-  
+    before(:each) { get :new }
+    it { should render_template(:new) }
   end
 
   context "create action" do
-    
-    before(:each) do
-      sign_in @user
-      post 'create'
+    context "signing with a user" do
+      before(:each) { post :create, :user => @credentials }
+
+      it { should redirect_to IuguSDK::app_main_url }
     end
-
-    it { response.should redirect_to root_path }
-
   end
 
-  context "create action" do
-    
-    before(:each) do
-      sign_in @user
-      post 'destroy'
-    end
+  context "with a user logged in" do
+    login_as_user
 
-    it { response.should redirect_to root_path }
+    context "should be able to logout" do
+      before(:each) { post :destroy }
+      it { should redirect_to root_path }
+    end
   end
   
 end
