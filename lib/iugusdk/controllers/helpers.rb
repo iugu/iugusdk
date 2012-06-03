@@ -1,4 +1,4 @@
-module Iugusdk
+module IuguSDK
   module Controllers
     module Helpers
       extend ActiveSupport::Concern
@@ -20,6 +20,23 @@ module Iugusdk
           session[ :current_account_id ] = selected_account.id
         end
         selected_account
+      end
+
+      def is_active?(control, action="", id="")
+        if id == ""
+          if action == ""
+            return true if controller_name == control.gsub("/", "")
+          else
+            return true if controller_name == control.gsub("/", "") && action_name == action
+          end
+        else
+          return true if controller_name == control.gsub("/", "") && action_name == action && id == params[:id]
+        end
+        return false
+      end
+
+      def body_classes
+        [controller_name,action_name,'page-' + controller_name + '-' + action_name]
       end
     end
   end

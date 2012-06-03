@@ -6,7 +6,7 @@ require "iugusdk/version"
 # Describe your gem and declare its dependencies:
 Gem::Specification.new do |s|
   s.name        = "iugusdk"
-  s.version     = Iugusdk::VERSION
+  s.version     = IuguSDK::VERSION
   s.authors     = ["TODO: Your name"]
   s.email       = ["TODO: Your email"]
   s.homepage    = "TODO"
