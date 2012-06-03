@@ -13,6 +13,8 @@ require 'fabrication'
 require 'capybara/rspec'
 require 'database_cleaner'
 
+require File.dirname(__FILE__) + "/controller_macros"
+
 ENGINE_RAILS_ROOT=File.join(File.dirname(__FILE__), '../')
 
 Fabrication.configure do |config|
@@ -31,7 +33,12 @@ RSpec.configure do |config|
   # config.mock_with :mocha
   # config.mock_with :flexmock
   # config.mock_with :rr
-  #
+  
+  config.include Devise::TestHelpers, :type => :controller
+  config.include Devise::TestHelpers, :type => :view
+  config.include Devise::TestHelpers, :type => :helper
+  config.include IuguSDK::Controllers::Helpers, :type => :controller
+  config.include ControllerMacros, :type => :controller
 
   config.before(:suite) do
     DatabaseCleaner.strategy = :transaction

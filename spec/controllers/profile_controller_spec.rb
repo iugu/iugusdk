@@ -1,13 +1,7 @@
 require 'spec_helper'
 
 describe ProfileController do
-  include Devise::TestHelpers
 
-  describe "GET 'index'" do
-    it "returns false because need authentication" do
-      get 'index'
-      response.should_not be_success
-    end
-  end
+  it_should_require_login_for_actions :index
 
 end

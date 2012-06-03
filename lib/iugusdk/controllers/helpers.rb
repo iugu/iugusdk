@@ -13,8 +13,11 @@ module IuguSDK
       end
 
       def select_account( account_id=nil )
+        user = current_user if defined? current_user
+        user = controller.current_user if defined? controller
+        return unless user
         account_id = account_id.id if account_id.is_a? Account
-        selected_account = current_user.accounts.where( [ "accounts.id = ? or accounts.id = ?", account_id, cookies[:last_used_account_id] ] ).first || current_user.accounts.first
+        selected_account = user.accounts.where( [ "accounts.id = ? or accounts.id = ?", account_id, cookies[:last_used_account_id] ] ).first || user.accounts.first
         if selected_account
           cookies[:last_used_account_id] = { :value => selected_account.id, :expires => 365.days.from_now }
           session[ :current_account_id ] = selected_account.id
