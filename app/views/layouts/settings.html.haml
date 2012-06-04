@@ -1,4 +1,8 @@
 !!! 5
+:plain
+  <!--[if IE 8 ]><html class="ie8 ie"> <![endif]-->
+  <!--[if (gte IE 9)]><html class="ie9 ie"> <![endif]-->
+  <!--[if !(IE)]><!--><html><!--<![endif]-->
 %html{:lang => "en"}
   %head
     %meta{:charset => "utf-8"}/
@@ -8,11 +12,14 @@
     = stylesheet_link_tag    "settings"
     = javascript_include_tag "settings"
 
-  %body{ :class => body_classes.join(' ') + ' settings' }
+  %body{ :class => body_classes.join(' ') + ' settings iugu-ui' }
 
 
     .header
       = link_to image_tag('application_logo.png'), IuguSDK::app_main_url
+
+      = link_to 'Back to ' + IuguSDK::application_title, IuguSDK::app_main_url, :class => "button", :id => "btn-settings-back"
+
 
     .container
       .wrapper
@@ -31,6 +38,13 @@
         = yield()
 
 
-        You are signed in as 
-        = current_user.email
-        = link_to "Sign out", logout_path, :method => :delete
+
+        %div
+          You are signed in as 
+          = current_user.email
+          = link_to 'Sign out', logout_path, :class => "button"
+
+        %div
+          = link_to 'Ough Bough!', IuguSDK::app_main_url, :class => "button button-large"
+:plain
+  </html>
