@@ -3,4 +3,50 @@
 %h3
   = I18n.t "iugu.profile_settings"
 
+= simple_form_for @user, :url => profile_update_path, :method => :post do |f|
+  - if @user.errors.any?
+    #error_explanation{ :style => "margin-bottom: 15px" }
+      %h2
+        = pluralize(@user.errors.count, "error")
+        in your settings form
+
+      %ul
+        - @user.errors.full_messages.each do |msg|
+          %li
+            = msg
+
+  %div 
+    = f.label :name
+    = f.text_field :name
+
+  %div
+    = f.label :email
+    = f.email_field :email
+
+  %div
+    = f.input :birthdate, :as => :date, :start_year => Date.today.year - 100, :end_year => Date.today.year - 5, :order => [:day, :month, :year]
+
+  %div
+    = f.input :locale, :collection => AvailableLanguage.all
+
+  %div
+    = f.submit "OK"
+
+    %br
+
+    %h3
+      = I18n.t "iugu.change_password"
+
+= simple_form_for @user, :url => profile_update_path, :method => :post do |f|
+
+  %div
+    = f.label :password
+    = f.password_field :password
+
+  %div
+    = f.label :password_confirmation
+    = f.password_field :password_confirmation
+
+  %div
+    = f.submit "OK"
 

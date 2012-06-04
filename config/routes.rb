@@ -8,6 +8,7 @@ Rails.application.routes.draw do
     get "settings" => "settings#index", :as => "settings"
     get "settings/account" => "account#index", :as => "account_settings"
     get "settings/profile" => "profile#index", :as => "profile_settings"
+    post "settings/profile" => "profile#update", :as => "profile_update"
 
     devise_for :users, :skip => :all
 
