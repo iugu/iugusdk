@@ -2,11 +2,12 @@ require 'spec_helper'
 
 describe  "new session requests" do
   before(:each) do
+    @base_domain = "http://" + IuguSDK::application_main_host
     Fabricate(:user) do
       email "teste@teste.teste"
       password "123456"
     end
-    visit login_path
+    visit @base_domain + login_path
   end
 
   it { page.should have_content "Email" }

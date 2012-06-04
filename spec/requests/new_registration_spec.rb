@@ -3,7 +3,8 @@ require 'spec_helper'
 describe "new registration requests" do
 
   before(:each) do
-    visit signup_path
+    @base_domain = "http://" + IuguSDK::application_main_host
+    visit @base_domain + signup_path
   end
 
   it { page.should have_content "Email" }
