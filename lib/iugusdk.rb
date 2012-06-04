@@ -3,6 +3,8 @@ require 'haml-rails'
 require 'simple_form'
 require 'devise'
 require 'iugusdk/controllers/helpers'
+require 'iugusdk/valid_tenancy_urls'
+require 'iugusdk/root_tenancy_url'
 require "iugusdk/engine"
 require "http_accept_language"
 
@@ -20,7 +22,17 @@ module IuguSDK
   mattr_accessor :custom_domain_for_accounts
   mattr_accessor :default_layout
 
+  mattr_accessor :application_main_host
+  self.application_main_host = "iugusdk.dev"
+  
+  mattr_accessor :custom_domain_invalid_prefixes
+  self.custom_domain_invalid_prefixes = ['www','blog','help','api']
+
+  mattr_accessor :custom_domain_invalid_hosts
+  self.custom_domain_invalid_hosts = ['localhost']
+
   self.application_title = 'Application Name'
+
   self.no_signup_form = false
   self.app_main_url = '/'
   self.app_root_url = '/'

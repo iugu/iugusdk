@@ -2,7 +2,16 @@ Dummy::Application.routes.draw do
   # The priority is based upon order of creation:
   # first created -> highest priority.
   
-  root :to => 'dashboard#index'
+  constraints(IuguSDK::ValidTenancyUrls) do
+    # Child Applications or Client Side View of Accounts
+    match '*path' => 'my_dummy#index'
+    root :to => 'my_dummy#index'
+  end
+
+  constraints(IuguSDK::RootTenancyUrl) do
+    # Main Application URL's
+    root :to => 'dashboard#index'
+  end
 
   # Sample of regular route:
   #   match 'products/:id' => 'catalog#view'
