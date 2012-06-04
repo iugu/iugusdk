@@ -4,6 +4,7 @@ require 'simple_form'
 require 'devise'
 require 'iugusdk/controllers/helpers'
 require "iugusdk/engine"
+require "http_accept_language"
 
 module IuguSDK
 

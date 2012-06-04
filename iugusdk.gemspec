@@ -34,6 +34,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'kaminari'
   s.add_dependency 'devise', "~> 2.1"
   s.add_dependency 'omniauth'
+  s.add_dependency 'http_accept_language'
   # s.add_dependency "jquery-rails"
 
   s.add_development_dependency "mysql2"

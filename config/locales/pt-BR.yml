@@ -1,0 +1,15 @@
+pt-BR:
+  errors:
+    messages:
+      invalid_role: "Cargo invalido"
+  iugu:
+    signed_in: "Você está logado como"
+    settings: "Preferencias"
+    sign_out: "Deslogar"
+    sign_in: "Logar"
+    sign_up: "Cadastro"
+    profile_settings: "Profile Settings"
+    account_settings: "Account Settings"
+    account_number: "Account Number"
+    account_roles: "User roles on account"
+              

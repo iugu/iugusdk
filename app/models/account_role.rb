@@ -11,6 +11,6 @@ class AccountRole < ActiveRecord::Base
 
   private
   def valid_role?
-    errors.add(:name, "Not a valid role") unless APP_ROLES['roles'].include? name
+    errors.add(:name, "errors.messages.invalid_role") unless APP_ROLES['roles'].include? name
   end
 end

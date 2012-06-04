@@ -12,7 +12,7 @@ class RegistrationController < ApplicationController
   end
 
   def create
-    @user = User.new(params[:user])
+    @user = User.new(params[:user].merge({:locale => detect_locale}))
     if @user.save
       # TODO: Write tests HERE
       # TODO: Can we do better?
@@ -23,6 +23,12 @@ class RegistrationController < ApplicationController
       # render :action => 'new'
       render 'iugu/signup'
     end  
+  end
+
+  private
+
+  def detect_locale
+    request.preferred_language_from(AvailableLanguage.all)
   end
   
 end

@@ -1,5 +1,5 @@
 %h2
-  Sign up
+  = I18n.t "iugu.sign_up"
 
 - @user = User.new unless @user
 = form_for @user, :url => signup_path do |f|
@@ -28,4 +28,4 @@
     = f.password_field :password_confirmation
 
   %div
-    = f.submit "Sign up"
+    = f.submit I18n.t "iugu.sign_up"

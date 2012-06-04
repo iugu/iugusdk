@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120531171438) do
+ActiveRecord::Schema.define(:version => 20120604131034) do
 
   create_table "account_roles", :force => true do |t|
     t.string  "name"
@@ -44,6 +44,7 @@ ActiveRecord::Schema.define(:version => 20120531171438) do
     t.datetime "updated_at"
     t.date     "birthdate"
     t.string   "name"
+    t.string   "locale"
   end
 
   add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true
