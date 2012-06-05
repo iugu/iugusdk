@@ -7,6 +7,7 @@ require 'iugusdk/valid_tenancy_urls'
 require 'iugusdk/root_tenancy_url'
 require "iugusdk/engine"
 require "http_accept_language"
+require 'omniauth-twitter'
 
 module IuguSDK
 

@@ -6,5 +6,6 @@ describe User do
 
   it { should have_many(:account_users) }
   it { should have_many(:accounts).through(:account_users) }
+  it { should have_many(:social_accounts) }
 
 end

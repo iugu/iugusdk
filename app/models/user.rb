@@ -5,6 +5,7 @@ class User < ActiveRecord::Base
   
   has_many :account_users, :dependent => :destroy, :include => [:roles,:account]
   has_many :accounts, :through => :account_users
+  has_many :social_accounts, :dependent => :destroy
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :omniauthable, :validatable
