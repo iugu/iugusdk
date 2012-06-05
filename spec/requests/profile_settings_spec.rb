@@ -22,4 +22,17 @@ describe "Profile settings page" do
   it { page.should have_content "Password" }
   it { page.should have_content "Password confirmation" }
 
+  context "when typing bad info" do
+    before(:each) do
+     fill_in 'Password', :with => "password" 
+     fill_in 'Password confirmation', :with => "drowssap" 
+     click_button "new_password_submit"
+    end
+
+    it 'should flash an error' do
+      page.should have_content "error"
+    end
+  
+  end
+
 end
