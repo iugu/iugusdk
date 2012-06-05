@@ -13,4 +13,6 @@ pt-BR:
     account_number: "Account Number"
     account_roles: "User roles on account"
     change_password: "Mudar senha"
+    notices:
+      sign_up: "Obrigado por se cadastrar"
               

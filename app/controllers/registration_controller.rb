@@ -19,7 +19,7 @@ class RegistrationController < AuthenticableController
       account_user = new_account.account_users.create( { :user => @user } )
 
       sign_in_and_select_account_for @user
-      redirect_to IuguSDK::app_main_url, :notice => "Thank you for sign up"
+      redirect_to IuguSDK::app_main_url, :notice => I18n.t("iugu.notices.sign_up")
     else  
       render 'iugu/signup'
     end  

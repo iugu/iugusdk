@@ -8,7 +8,7 @@ class ProfileController < SettingsController
   def update
     @user = current_user
     if @user.update_attributes(params[:user])
-      flash[:notice] = 'User was successfully updated.'
+      flash[:notice] = I18n.t('iugu.notices.user_update')
     else
       flash[:error] = @user.errors.full_messages
     end
