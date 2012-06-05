@@ -1,4 +1,4 @@
-class RegistrationController < ApplicationController
+class RegistrationController < AuthenticableController
 
   before_filter :disable_for_logged_users
 
@@ -14,13 +14,13 @@ class RegistrationController < ApplicationController
   def create
     @user = User.new(params[:user].merge({:locale => detect_locale}))
     if @user.save
-      # TODO: Write tests HERE
-      # TODO: Can we do better?
+
       new_account = Account.create({})
       account_user = new_account.account_users.create( { :user => @user } )
+
+      sign_in_and_select_account_for @user
       redirect_to IuguSDK::app_main_url, :notice => "Thank you for sign up"
     else  
-      # render :action => 'new'
       render 'iugu/signup'
     end  
   end
