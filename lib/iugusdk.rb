@@ -1,13 +1,16 @@
 require 'haml'
 require 'haml-rails'
 require 'simple_form'
-require 'devise'
 require 'iugusdk/controllers/helpers'
 require 'iugusdk/valid_tenancy_urls'
 require 'iugusdk/root_tenancy_url'
 require "iugusdk/engine"
 require "http_accept_language"
+require 'devise'
+require 'omniauth'
 require 'omniauth-twitter'
+# TODO: ALE - Acho q vai precisar disto
+# require 'oauth2'
 
 module IuguSDK
 
