@@ -52,6 +52,19 @@
     %div
       %h3
         = I18n.t "iugu.social_account"
+    
+    - if twitter = @social_accounts.where(:provider => "twitter").first 
+      Twitter UID:
+      = twitter.social_id
+      = link_to "Remove", social_destroy_path(:id => twitter.id)
+    - else
+      %div
+        = link_to "Sign in with Twitter", "/login/using/twitter"
 
-    %div
-      = link_to "Sign in with Twitter", "/settings/account/link/twitter"
+
+
+
+
+
+
+

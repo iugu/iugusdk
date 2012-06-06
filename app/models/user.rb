@@ -15,9 +15,22 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me, :locale
 
+  def find_or_create_social(auth)
+    social_accounts.where("provider = ? AND social_id = ?", auth["provider"], auth["uid"]).first || create_social(auth)
+  end
+
+
+  private
 
   def email_required?
     true
+  end
+
+  def create_social(auth)
+    social_accounts.create! do |social_account|
+      social_account.provider = auth["provider"]
+      social_account.social_id = auth["uid"]
+    end
   end
 
 end
