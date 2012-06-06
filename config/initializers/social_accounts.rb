@@ -2,9 +2,8 @@
 
 Rails.application.config.middleware.use OmniAuth::Builder do
     configure do |config|
-      # TODO: ALE - Setar path aqui
-      # config.path_prefix = "/login/from"
+      config.path_prefix = "/settings/account/link"
     end
-    provider :developer unless Rails.env.production?
-    provider :twitter, ENV['532382714-LQq2JqAVbc8FMa6b2t9HV7fYE00YzOVYA6cOGiz2'], ENV['1IFrG2vSjpGZ2xNPOaSE6Qsf8CeUKKEn8gAixJ9P1cU']
+    #provider :developer unless Rails.env.production?
+    provider :twitter, 'BoAbWcBtO2j3zIVMaQNmg', 'M4n1alFTKQlDQ8geFDXByIDUYfVggde5EDB1PinBs'
 end

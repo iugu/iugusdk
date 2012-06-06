@@ -13,6 +13,7 @@ en:
     account_number: "Account Number"
     account_roles: "User roles on account"
     change_password: "Change password"
+    social_account: "Social network accounts"
     notices:
       sign_up: "Thank you for signing up"
       user_update: "User was successfully updated."

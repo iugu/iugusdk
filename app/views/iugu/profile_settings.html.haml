@@ -1,7 +1,7 @@
 - content_for :title do "Profile Settings" end
-
-%h3
-  = I18n.t "iugu.profile_settings"
+%div
+  %h3
+    = I18n.t "iugu.profile_settings"
 
 = simple_form_for @user, :url => profile_update_path, :method => :post do |f|
   - if @user.errors.any?
@@ -32,10 +32,9 @@
   %div
     = f.submit "OK"
 
-    %br
-
-    %h3
-      = I18n.t "iugu.change_password"
+    %div
+      %h3
+        = I18n.t "iugu.change_password"
 
 = simple_form_for @user, :url => profile_update_path, :method => :post do |f|
 
@@ -50,9 +49,9 @@
   %div
     = f.submit "OK", :id => "new_password_submit"
 
-    %br
+    %div
+      %h3
+        = I18n.t "iugu.social_account"
 
-    %h3
-      = I18n.t "iugu.social_account"
-
+    %div
       = link_to "Sign in with Twitter", "/settings/account/link/twitter"
