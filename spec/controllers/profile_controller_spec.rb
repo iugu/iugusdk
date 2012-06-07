@@ -11,13 +11,28 @@ describe ProfileController do
     it { should render_template 'iugu/profile_settings' }
   end
 
-  #describe "add_social action" do
-    #login_as_user
-    #before(:each) do
-      #@request.env["omniauth.auth"] = 'uid'.stub!(:[]).and_return("1111")
-      #get :add_social
-    #end 
-    #it { should redirect_to profile_settings_path }
-  #end
+  context "with omniauth mockup for twitter" do
+    before do
+      env = {
+        "omniauth.auth" => OmniAuth.config.mock_auth[:twitter]
+      }
+      @controller.stub!(:env).and_return env
+    end
+
+    login_as_user
+
+    it "should link twitter into users account" do
+      get :add_social
+      response.should be_redirect
+    end
+
+    it "should unlink twitter off users account" do
+      # TODO: Create this test
+      get :add_social
+      response.should be_redirect
+      get :destroy_social, { :id => @user.social_accounts.first.id }
+      response.should be_redirect
+    end
+  end
 
 end

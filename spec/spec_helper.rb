@@ -21,6 +21,27 @@ Fabrication.configure do |config|
   config.fabricator_dir = "../fabricators"
 end
 
+OmniAuth.config.test_mode = true
+
+# Enable OmniAuth Mockup for Twitter
+OmniAuth.config.add_mock(
+  :twitter,
+  {
+    :provider => "twitter",
+    :uid      => "1234",
+    :user_info => {
+      :name => "Bob Hope",
+      :nickname => "bobby",
+      :urls     => {
+        :Twitter => "www.twitter.com/bobster"
+      }
+    },
+    :credentials => {
+      :token => "lk2j3lkjasldkjflk3ljsdf"
+    }
+  }
+)
+
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
 Dir[File.join(ENGINE_RAILS_ROOT, "spec/support/**/*.rb")].each {|f| require f}

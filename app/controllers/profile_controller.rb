@@ -18,7 +18,6 @@ class ProfileController < SettingsController
   end
 
   def add_social
-    puts env["omniauth.auth"]
     current_user.find_or_create_social(env["omniauth.auth"])
     redirect_to :action => 'index'
   end
