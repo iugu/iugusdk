@@ -9,7 +9,8 @@ Rails.application.routes.draw do
     get "settings/account" => "account#index", :as => "account_settings"
     get "settings/profile" => "profile#index", :as => "profile_settings"
     post "settings/profile" => "profile#update", :as => "profile_update"
-    get "login/using/twitter/callback" => "profile#add_social", :as => 'social_callback'
+    get "login/using/twitter/callback" => "profile#add_social"
+    get "login/using/facebook/callback" => "profile#add_social"
     get "settings/profile/destroy_social" => "profile#destroy_social", :as => 'social_destroy'
 
     devise_for :users, :skip => :all

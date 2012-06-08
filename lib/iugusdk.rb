@@ -9,6 +9,7 @@ require "http_accept_language"
 require 'devise'
 require 'omniauth'
 require 'omniauth-twitter'
+require 'omniauth-facebook'
 # TODO: ALE - Acho q vai precisar disto
 # require 'oauth2'
 

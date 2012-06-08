@@ -21,6 +21,7 @@ PATH
       less
       nokogiri
       omniauth
+      omniauth-facebook
       omniauth-twitter
       paperclip
       prawn
@@ -63,6 +64,7 @@ GEM
       activesupport (= 3.1.4)
     activesupport (3.1.4)
       multi_json (~> 1.0)
+    addressable (2.2.7)
     arel (2.2.3)
     bcrypt-ruby (3.0.1)
     builder (3.0.0)
@@ -95,6 +97,10 @@ GEM
     fabrication (1.2.0)
     faker (1.0.1)
       i18n (~> 0.4)
+    faraday (0.7.6)
+      addressable (~> 2.2)
+      multipart-post (~> 1.1)
+      rack (~> 1.1)
     ffi (1.0.11)
     fuubar (1.0.0)
       rspec (~> 2.0)
@@ -109,6 +115,7 @@ GEM
     hashie (1.2.0)
     hike (1.2.1)
     http_accept_language (1.0.2)
+    httpauth (0.1)
     i18n (0.6.0)
     jquery-rails (1.0.19)
       railties (~> 3.0)
@@ -129,14 +136,24 @@ GEM
       treetop (~> 1.4.8)
     mime-types (1.18)
     multi_json (1.3.5)
+    multipart-post (1.1.5)
     mysql2 (0.3.11)
     nokogiri (1.5.2)
     oauth (0.4.5)
+    oauth2 (0.6.0)
+      faraday (~> 0.7)
+      httpauth (~> 0.1)
+      multi_json (~> 1.0)
     omniauth (1.1.0)
       hashie (~> 1.2)
       rack
+    omniauth-facebook (1.2.0)
+      omniauth-oauth2 (~> 1.0.0)
     omniauth-oauth (1.0.1)
       oauth
+      omniauth (~> 1.0)
+    omniauth-oauth2 (1.0.1)
+      oauth2 (~> 0.6.0)
       omniauth (~> 1.0)
     omniauth-twitter (0.0.9)
       omniauth-oauth (~> 1.0)

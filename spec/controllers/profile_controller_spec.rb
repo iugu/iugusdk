@@ -35,4 +35,29 @@ describe ProfileController do
     end
   end
 
+  context "with omniauth mockup for facebook" do
+    before do
+      env = {
+        "omniauth.auth" => OmniAuth.config.mock_auth[:facebook]
+      }
+      @controller.stub!(:env).and_return env
+    end
+
+    login_as_user
+    
+    it "should link facebook into users account" do
+      get :add_social
+      response.should be_redirect
+    end
+  
+    it "should unlink twitter off users account" do
+      # TODO: Create this test
+      get :add_social
+      response.should be_redirect
+      get :destroy_social, { :id => @user.social_accounts.first.id }
+      response.should be_redirect
+    end
+  
+  end
+
 end

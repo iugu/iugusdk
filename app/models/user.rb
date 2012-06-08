@@ -30,6 +30,7 @@ class User < ActiveRecord::Base
     social_accounts.create! do |social_account|
       social_account.provider = auth["provider"]
       social_account.social_id = auth["uid"]
+      social_account.token = auth["credentials"]["token"]
     end
   end
 

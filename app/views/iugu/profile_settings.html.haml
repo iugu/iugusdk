@@ -52,14 +52,21 @@
     %div
       %h3
         = I18n.t "iugu.social_account"
-    
-    - if twitter = @social_accounts.where(:provider => "twitter").first 
-      Twitter UID:
-      = twitter.social_id
-      = link_to "Remove", social_destroy_path(:id => twitter.id)
-    - else
+
+    - @social_accounts.each do |social_account|
+
       %div
-        = link_to "Sign in with Twitter", "/login/using/twitter"
+        = social_account.provider.capitalize
+        UID:
+        = social_account.social_id
+        = link_to "Remove", social_destroy_path(:id => social_account.id)
+
+    - SOCIAL_ACC.keys.each do |provider|
+    
+      - unless @social_accounts.where(:provider => provider).first 
+        %div
+          = link_to "Sign in with #{provider.capitalize}", "/login/using/#{provider}"
+
 
 
 
