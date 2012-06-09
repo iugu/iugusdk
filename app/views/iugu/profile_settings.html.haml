@@ -61,7 +61,7 @@
         = social_account.social_id
         = link_to "Remove", social_destroy_path(:id => social_account.id)
 
-    - SOCIAL_ACC.keys.each do |provider|
+    - SOCIAL_ACCOUNTS.keys.each do |provider|
     
       - unless @social_accounts.where(:provider => provider).first 
         %div
