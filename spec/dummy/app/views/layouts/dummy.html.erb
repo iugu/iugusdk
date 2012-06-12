@@ -11,7 +11,7 @@
   <div class="container">
     <div class="wrapper">
       <% flash.each do |name, msg| %>
-        <%= content_tag :div, msg, :id => "flash_#{name}", :class => "flash" if msg.is_a?(String) %>
+        <%= content_tag :div, "#{I18n.t(msg)}", :id => "flash_#{name}", :class => "flash" if msg.is_a?(String) %>
       <% end %>
 
       <%= yield %>
