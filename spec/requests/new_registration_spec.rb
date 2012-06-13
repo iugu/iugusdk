@@ -11,4 +11,6 @@ describe "new registration requests" do
   it { page.should have_content "Password" }
   it { page.should have_content "Password confirmation" }
   it { page.should have_button "Sign up" }
+  it { page.should have_link "Sign in with Twitter" }
+  it { page.should have_link "Sign in with Facebook" }
 end

@@ -14,7 +14,6 @@ class RegistrationController < AuthenticableController
   def create
     @user = User.new(params[:user].merge({:locale => detect_locale}))
     if @user.save
-
       new_account = Account.create({})
       account_user = new_account.account_users.create( { :user => @user } )
 

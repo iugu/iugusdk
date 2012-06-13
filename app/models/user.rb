@@ -13,17 +13,27 @@ class User < ActiveRecord::Base
   # :omniauthable, :validatable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :locale
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :locale, :name, :birthdate
+
+  def has_social?
+    !social_accounts.empty?
+  end
 
   def find_or_create_social(auth)
     social_accounts.where("provider = ? AND social_id = ?", auth["provider"], auth["uid"]).first || create_social(auth)
   end
 
-
-  private
-
-  def email_required?
-    true
+  def self.find_or_create_by_social(auth)
+    unless user = SocialAccount.where("provider = ? AND social_id = ?", auth["provider"], auth["uid"]).first.try(:user)
+      password = Devise.friendly_token[0,20]
+      user = User.new
+      user.email = auth["extra"]["raw_info"]["email"] if auth["provider"] == "facebook"
+      user.password = password
+      user.password_confirmation = password
+      user.save(:validate => false)
+      user.create_social(auth)
+    end
+    user
   end
 
   def create_social(auth)
@@ -32,6 +42,13 @@ class User < ActiveRecord::Base
       social_account.social_id = auth["uid"]
       social_account.token = auth["credentials"]["token"]
     end
+  end
+
+
+  private
+
+  def email_required?
+    !has_social?
   end
 
 end

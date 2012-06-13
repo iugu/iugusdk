@@ -1,6 +1,6 @@
 class SettingsController < ApplicationController
 
-  before_filter :authenticate_user!
+  before_filter :authenticate_user!, :except => :add_social
 
   layout IuguSDK.default_layout
 

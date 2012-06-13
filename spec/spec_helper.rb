@@ -48,10 +48,15 @@ OmniAuth.config.add_mock(
     :provider => "facebook",
     :uid      => "1234",
     :user_info => {
-      :name => "Bob Hope",
+      :name => "Bob Hope"
     },
     :credentials => {
       :token => "lk2j3lkjasldkjflk3ljsdf"
+    },
+    :extra => {
+      :raw_info => {
+        :email => "0987654321@09876543421.test"
+      }
     }
   }
 )

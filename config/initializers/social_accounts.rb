@@ -10,8 +10,7 @@ Rails.application.config.middleware.use OmniAuth::Builder do
       config.path_prefix = "/login/using"
     end
     #provider :developer unless Rails.env.production?
-    SOCIAL_ACCOUNTS.keys.each do |provider|
-      provider provider.to_sym, SOCIAL_ACCOUNTS[provider]['token']
-      provider provider.to_sym, SOCIAL_ACCOUNTS[provider]['secret']
+    SOCIAL_ACCOUNTS.keys.each do |provider_name|
+      provider provider_name.to_sym, SOCIAL_ACCOUNTS[provider_name]['token'], SOCIAL_ACCOUNTS[provider_name]['secret']
     end
 end

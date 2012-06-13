@@ -29,3 +29,8 @@
 
   %div
     = f.submit I18n.t "iugu.sign_up"
+
+  - SOCIAL_ACCOUNTS.keys.each do |provider|
+    %div
+      = link_to "Sign in with #{provider.capitalize}", "/login/using/#{provider}"
+

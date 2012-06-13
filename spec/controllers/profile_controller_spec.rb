@@ -12,52 +12,83 @@ describe ProfileController do
   end
 
   context "with omniauth mockup for twitter" do
-    before do
-      env = {
-        "omniauth.auth" => OmniAuth.config.mock_auth[:twitter]
-      }
-      @controller.stub!(:env).and_return env
+    context "already logged in" do
+      before do
+        env = {
+          "omniauth.auth" => OmniAuth.config.mock_auth[:twitter]
+        }
+        @controller.stub!(:env).and_return env
+      end
+  
+      login_as_user
+  
+      it "should link twitter into users account" do
+        get :add_social
+        response.should be_redirect
+      end
+  
+      it "should unlink twitter off users account" do
+        # TODO: Create this test
+        get :add_social
+        response.should be_redirect
+        get :destroy_social, { :id => @user.social_accounts.first.id }
+        response.should be_redirect
+      end
     end
 
-    login_as_user
+    context "not logged in" do
+      before do
+        env = {
+          "omniauth.auth" => OmniAuth.config.mock_auth[:twitter]
+        }
+        @controller.stub!(:env).and_return env
+      end
 
-    it "should link twitter into users account" do
-      get :add_social
-      response.should be_redirect
-    end
-
-    it "should unlink twitter off users account" do
-      # TODO: Create this test
-      get :add_social
-      response.should be_redirect
-      get :destroy_social, { :id => @user.social_accounts.first.id }
-      response.should be_redirect
+      it 'should redirect to root' do
+        get :add_social
+        response.should redirect_to '/'
+      end
     end
   end
 
   context "with omniauth mockup for facebook" do
-    before do
-      env = {
-        "omniauth.auth" => OmniAuth.config.mock_auth[:facebook]
-      }
-      @controller.stub!(:env).and_return env
+    context "already logged in" do
+      before do
+        env = {
+          "omniauth.auth" => OmniAuth.config.mock_auth[:facebook]
+        }
+        @controller.stub!(:env).and_return env
+      end
+  
+      login_as_user
+      
+      it "should link facebook into users account" do
+        get :add_social
+        response.should be_redirect
+      end
+    
+      it "should unlink twitter off users account" do
+        # TODO: Create this test
+        get :add_social
+        response.should be_redirect
+        get :destroy_social, { :id => @user.social_accounts.first.id }
+        response.should be_redirect
+      end
     end
 
-    login_as_user
+    context "not logged in" do
+      before do
+        env = {
+          "omniauth.auth" => OmniAuth.config.mock_auth[:facebook]
+        }
+        @controller.stub!(:env).and_return env
+      end
     
-    it "should link facebook into users account" do
-      get :add_social
-      response.should be_redirect
+      it 'should redirect to root' do
+        get :add_social
+        response.should redirect_to '/'
+      end
     end
-  
-    it "should unlink twitter off users account" do
-      # TODO: Create this test
-      get :add_social
-      response.should be_redirect
-      get :destroy_social, { :id => @user.social_accounts.first.id }
-      response.should be_redirect
-    end
-  
   end
 
 end

@@ -18,8 +18,13 @@ class ProfileController < SettingsController
   end
 
   def add_social
-    current_user.find_or_create_social(env["omniauth.auth"])
-    redirect_to :action => 'index'
+    if current_user 
+      current_user.find_or_create_social(env["omniauth.auth"])
+      redirect_to :action => 'index'
+    else
+      sign_in user = User.find_or_create_by_social(env["omniauth.auth"])
+      redirect_to after_sign_in_path_for( user )
+    end
   end
 
   def destroy_social

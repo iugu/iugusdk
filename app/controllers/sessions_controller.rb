@@ -9,8 +9,8 @@ class SessionsController < AuthenticableController
   
   def create
     user = authenticate_user!(:recall => "sessions#new")
-    flash[:notice] = I18n.t("devise.sessions.signed_in")
     sign_in_and_select_account_for user
+    flash[:notice] = I18n.t("devise.sessions.signed_in")
     redirect_to after_sign_in_path_for( user )
   end
 

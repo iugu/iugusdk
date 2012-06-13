@@ -14,6 +14,9 @@ describe  "new session requests" do
   it { page.should have_content "Password" }
   it { page.should have_content "Remember me" }
   it { page.should have_button "Sign in" }
+  it { page.should have_link "Sign in with Twitter" }
+  it { page.should have_link "Sign in with Facebook" }
+
 
   context "when loggin in" do
 
