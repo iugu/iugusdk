@@ -89,6 +89,24 @@ describe ProfileController do
         response.should redirect_to '/'
       end
     end
+
+    context "with an email already used" do
+      before do
+        env = {
+          "omniauth.auth" => OmniAuth.config.mock_auth[:facebook]
+        }
+        @controller.stub!(:env).and_return env
+        Fabricate(:user) do
+          email env["omniauth.auth"]["extra"]["raw_info"]["email"]
+        end
+      end
+
+      it 'should redirect to signup' do
+        get :add_social
+        response.should redirect_to signup_path
+      end
+    
+    end
   end
 
 end

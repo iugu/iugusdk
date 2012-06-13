@@ -38,6 +38,10 @@ OmniAuth.config.add_mock(
     },
     :credentials => {
       :token => "lk2j3lkjasldkjflk3ljsdf"
+    },
+    :extra => {
+      :raw_info => {
+      }
     }
   }
 )

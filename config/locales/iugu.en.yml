@@ -2,6 +2,8 @@ en:
   errors:
     messages:
       invalid_role: "Not a valid role"
+      only_social_and_no_email: "You need an email to unlink this Social Account"
+      email_already_in_use: "This email is already in use"
   iugu:
     signed_in: "You are signed in as"
     settings: "Settings"

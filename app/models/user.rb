@@ -15,6 +15,7 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me, :locale, :name, :birthdate
 
+
   def has_social?
     !social_accounts.empty?
   end
@@ -25,11 +26,11 @@ class User < ActiveRecord::Base
 
   def self.find_or_create_by_social(auth)
     unless user = SocialAccount.where("provider = ? AND social_id = ?", auth["provider"], auth["uid"]).first.try(:user)
-      password = Devise.friendly_token[0,20]
       user = User.new
-      user.email = auth["extra"]["raw_info"]["email"] if auth["provider"] == "facebook"
-      user.password = password
-      user.password_confirmation = password
+      if auth["extra"]["raw_info"]["email"]
+        return false if !User.where(:email => auth["extra"]["raw_info"]["email"]).empty?
+        user.email = auth["extra"]["raw_info"]["email"]
+      end
       user.save(:validate => false)
       user.create_social(auth)
     end
@@ -41,6 +42,7 @@ class User < ActiveRecord::Base
       social_account.provider = auth["provider"]
       social_account.social_id = auth["uid"]
       social_account.token = auth["credentials"]["token"]
+      social_account.user_id = self.id
     end
   end
 
