@@ -3,3 +3,8 @@ Fabricator(:user) do
   password "123456"
   confirmed_at Time.now
 end
+
+Fabricator(:user_without_email, :class_name => :user) do
+  password "123456"
+  confirmed_at Time.now
+end

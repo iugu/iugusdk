@@ -1,13 +1,13 @@
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
-  # :token_authenticatable, :trackable, :validatable, :confirmable,
+  # :token_authenticatable, :trackable, :validatable,
   # :lockable and :timeoutable 
   
   has_many :account_users, :dependent => :destroy, :include => [:roles,:account]
   has_many :accounts, :through => :account_users
   has_many :social_accounts, :dependent => :destroy
 
-  devise :database_authenticatable, :registerable,
+  devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :validatable
   # TODO: ALE - ERRO DO OMNIAUTH TAVA AQUI
   # :omniauthable, :validatable
@@ -31,6 +31,7 @@ class User < ActiveRecord::Base
         return false if !User.where(:email => auth["extra"]["raw_info"]["email"]).empty?
         user.email = auth["extra"]["raw_info"]["email"]
       end
+      user.skip_confirmation!
       user.save(:validate => false)
       user.create_social(auth)
     end
