@@ -11,6 +11,8 @@ require 'devise'
 require 'omniauth'
 require 'omniauth-twitter'
 require 'omniauth-facebook'
+require 'delayed_job'
+require 'delayed_job_active_record'
 # TODO: ALE - Acho q vai precisar disto
 # require 'oauth2'
 
