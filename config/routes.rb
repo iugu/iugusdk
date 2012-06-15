@@ -12,7 +12,9 @@ Rails.application.routes.draw do
     get "login/using/twitter/callback" => "profile#add_social"
     get "login/using/facebook/callback" => "profile#add_social"
     get "settings/profile/destroy_social" => "profile#destroy_social", :as => 'social_destroy'
-    get 'email_confirmation' => "devise/confirmations#show", :as => 'user_confirmation'
+    devise_scope :user do
+      get 'email_confirmation' => "devise/confirmations#show", :as => 'user_confirmation'
+    end
 
     devise_for :users, :skip => :all
 

@@ -27,7 +27,7 @@ Dummy::Application.configure do
   # Tell Action Mailer not to deliver emails to the real world.
   # The :test delivery method accumulates sent emails in the
   # ActionMailer::Base.deliveries array.
-  config.action_mailer.default_url_options = { :host => 'localhost:3000' }
+  config.action_mailer.default_url_options = { :host => 'iugusdk.dev:3000' }
   config.action_mailer.delivery_method = :test
 
   # Use SQL instead of Active Record's schema dumper when creating the test database.

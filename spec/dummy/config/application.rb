@@ -47,6 +47,19 @@ module Dummy
       g.test_framework  :rspec, :fixture => true
       g.fixture_replacement :fabrication, :dir => "spec/fabricators"
     end
+    
+    # Config Mailer
+
+    config.action_mailer.smtp_settings = { 
+      address: "smtp.gmail.com",
+      port: 587,
+      domain: "iugu.com.br",
+      user_name: "envio@iugu.com.br",
+      password: "envioiugu",
+      authentication: :plain,
+      enable_starttls_auto: true
+    }   
+
 
   end
 end
