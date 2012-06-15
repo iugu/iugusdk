@@ -37,6 +37,9 @@ module IuguSDK
   mattr_accessor :custom_domain_invalid_hosts
   self.custom_domain_invalid_hosts = ['localhost']
 
+  mattr_accessor :delay_account_exclusion
+  self.delay_account_exclusion = 0
+
   self.application_title = 'Application Name'
 
   self.no_signup_form = false
