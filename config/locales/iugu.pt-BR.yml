@@ -2,6 +2,8 @@ pt-BR:
   errors:
     messages:
       invalid_role: "Cargo invalido"
+      only_social_and_no_email: "Você precisa de um email para poder apagar essa rede social"
+      email_already_in_use: "Esse email já foi utilizado"
   iugu:
     signed_in: "Você está logado como"
     settings: "Preferencias"
@@ -15,5 +17,6 @@ pt-BR:
     change_password: "Mudar senha"
     social_account: "Redes sociais"
     notices:
-      sign_up: "Obrigado por se cadastrar"
+      sign_up: "Obrigado por se cadastrar."
+      user_update: "Seus dados foram atualizados."
               

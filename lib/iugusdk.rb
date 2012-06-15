@@ -5,6 +5,7 @@ require 'iugusdk/controllers/helpers'
 require 'iugusdk/valid_tenancy_urls'
 require 'iugusdk/root_tenancy_url'
 require "iugusdk/engine"
+require "iugusdk/locale_filter"
 require "http_accept_language"
 require 'devise'
 require 'omniauth'
