@@ -1,7 +1,7 @@
 class AccountController < SettingsController
   
   def index
-    render 'iugu/account_settings'
+    render 'iugu/settings/account'
   end
 
 end

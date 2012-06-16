@@ -15,6 +15,7 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me, :locale, :name, :birthdate
 
+  after_create :create_account_for_user
 
   def has_social?
     !social_accounts.empty?
@@ -47,6 +48,28 @@ class User < ActiveRecord::Base
     end
   end
 
+  def devise_mailer
+    IuguMailer
+  end
+
+  def get_a
+    puts @accountable
+    puts @reconfirmable
+    puts self.class.reconfirmable
+  end
+
+  def accountable?
+    !!!@skip_account_creation
+  end
+
+  def skip_create_account!
+    @skip_account_creation = true
+  end
+
+  def default_account( account_id=nil )
+    account_id = account_id.id if account_id.is_a? Account
+    self.accounts.where( [ "accounts.id = ?", account_id] ).first || self.accounts.first
+  end
 
   private
 
@@ -54,4 +77,16 @@ class User < ActiveRecord::Base
     !has_social?
   end
 
+  #def self.reconfirmable
+  #  true
+  #end
+
+  @reconfirmable = true
+  
+  def create_account_for_user
+    if accountable?
+      new_account = Account.create({})
+      account_user = new_account.account_users.create( { :user => self } )
+    end
+  end
 end

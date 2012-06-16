@@ -12,7 +12,7 @@
     <div class="wrapper">
       <% if user_signed_in? %>
         You are signed in as <%= current_user.email %>
-        <%= link_to "Settings", settings_path %> | <%= link_to "Sign out", logout_path, :method => :delete %>
+        <%= link_to "Settings", settings_path %> | <%= link_to "Sign out", destroy_user_session_path, :method => :delete %>
       <% end %>
 
       <h4><%= link_to "Dummy", root_path %></h4>

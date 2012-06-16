@@ -1,0 +1,18 @@
+- content_for :title do "Account Settings" end
+
+%h3
+  = I18n.t "iugu.account_settings"
+
+Current User Account
+- if current_user_account
+  %div
+    = I18n.t "iugu.account_number"
+    = "#"
+    = current_user_account.id
+  %div
+    = I18n.t "iugu.account_roles"
+    = current_user_account.roles.map(&:name).to_s
+
+- if current_user
+  %div
+    = current_user.id

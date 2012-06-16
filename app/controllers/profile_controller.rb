@@ -3,7 +3,7 @@ class ProfileController < SettingsController
   def index
     @user = current_user
     @social_accounts = @user.social_accounts
-    render 'iugu/profile_settings'
+    render 'iugu/settings/profile'
   end
 
   def update
@@ -14,7 +14,7 @@ class ProfileController < SettingsController
     else
       flash[:error] = @user.errors.full_messages
     end
-    render 'iugu/profile_settings'
+    render 'iugu/settings/profile'
   end
 
   def add_social

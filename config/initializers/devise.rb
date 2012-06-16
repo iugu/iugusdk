@@ -8,8 +8,7 @@ Devise.setup do |config|
   config.mailer_sender = "please-change-me-at-config-initializers-devise@example.com"
 
   # Configure the class responsible to send e-mails.
-  # config.mailer = "Devise::Mailer"
-  config.mailer = "UserMailer"
+  config.mailer = "Devise::Mailer"
 
   # ==> ORM configuration
   # Load and configure the ORM. Supports :active_record (default) and
@@ -98,7 +97,7 @@ Devise.setup do |config|
   # initial account confirmation) to be applied. Requires additional unconfirmed_email
   # db field (see migrations). Until confirmed new email is stored in
   # unconfirmed email column, and copied to email column on successful confirmation.
-  config.reconfirmable = true
+  # config.reconfirmable = true
 
   # Defines which key will be used when confirming an account
   # config.confirmation_keys = [ :email ]
@@ -215,4 +214,18 @@ Devise.setup do |config|
   #   manager.intercept_401 = false
   #   manager.default_strategies(:scope => :user).unshift :some_external_strategy
   # end
+
 end
+
+Warden::Manager.after_authentication do |record,auth,opts|
+  if record && record.respond_to?(:accounts)
+    include IuguSDK::Controllers::Helpers
+    account = record.default_account()
+    if account
+      cookie_name = account.class.name;
+      auth.cookies['last_' + cookie_name.downcase + '_id'] = { :value => account.id, :expires => 365.days.from_now }
+      auth.env['rack.session'][ 'current_' + cookie_name.downcase + '_id'  ] = account.id
+    end
+  end
+end
+

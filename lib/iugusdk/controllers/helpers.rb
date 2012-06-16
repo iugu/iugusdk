@@ -12,12 +12,11 @@ module IuguSDK
         @current_user_account ||= search_user_account( session[:current_account_id] )
       end
 
-      def select_account( account_id=nil )
-        user = current_user if defined? current_user
-        user = controller.current_user if defined? controller
-        return unless user
-        account_id = account_id.id if account_id.is_a? Account
-        selected_account = user.accounts.where( [ "accounts.id = ? or accounts.id = ?", account_id, cookies[:last_used_account_id] ] ).first || user.accounts.first
+      def select_account( resource, account_id=nil )
+        if account_nil == nil
+          account_id = cookies[:last_used_account_id] if cookies[:last_used_account_id]
+        end
+        selected_account = resource.default_account( account_id )
         if selected_account
           cookies[:last_used_account_id] = { :value => selected_account.id, :expires => 365.days.from_now }
           session[ :current_account_id ] = selected_account.id
