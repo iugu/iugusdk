@@ -60,6 +60,40 @@ describe User do
       @user.create_social(@env)
       User.find_or_create_by_social(@env).should == @user
     end
+  end
+
+  context "create" do
+
+    it 'should create an account for the user' do
+      user = User.create(:email => "test@email.test", :password => "secretpassword", :password_confirmation => "secretpassword")
+      user.accounts.empty?.should be_false
+    end
+
+    it 'should no create an account if skip_create_account!' do
+      user = User.new(:email => "test@email.test", :password => "secretpassword", :password_confirmation => "secretpassword")
+      user.skip_create_account!
+      user.save
+      user.accounts.empty?.should be_true
+    end
+  
+  end
+
+  context "default_account" do
+    before do
+      @user = Fabricate(:user)
+    end
+
+    it 'should return an account' do
+      @user.default_account.class.should == Account
+    end
+
+    it 'should accept as account' do
+      @user.default_account(@user.accounts.first).class.should == Account
+    end
+
+    it 'should accept as account id' do
+      @user.default_account(@user.accounts.first.id).class.should == Account
+    end
   
   end
 
