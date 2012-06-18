@@ -52,12 +52,6 @@ class User < ActiveRecord::Base
     IuguMailer
   end
 
-  def get_a
-    puts @accountable
-    puts @reconfirmable
-    puts self.class.reconfirmable
-  end
-
   def accountable?
     !!!@skip_account_creation
   end
