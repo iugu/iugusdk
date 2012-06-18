@@ -30,3 +30,4 @@ spec/dummy/tmp/
 spec/dummy/tmp/*/*
 spec/dummy/tmp/**
 *.sqlite3
+lixo
