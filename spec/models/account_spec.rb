@@ -28,4 +28,22 @@ describe Account do
   
   end
 
+  context "destrying? method" do
+    before(:each) do
+      @account = Fabricate(:account)
+    end
+
+    it 'should return true if account has a destruction job' do
+      @account.destroy
+      @account.destroying?.should be_true
+    end
+
+    it 'should return false if account dont has a destruction job' do
+      @account.destroying?.should be_false
+    end
+  
+    
+  
+  end
+
 end

@@ -11,6 +11,10 @@ class Account < ActiveRecord::Base
     Delayed::Job.find_by_queue("account_#{id}_destroy")
   end
 
+  def destroying?
+    !!destruction_job
+  end
+
   def valid_user_for_account?( user )
     user = user.try(:id) if user.is_a? Object
     users.exists? user
