@@ -9,6 +9,7 @@ Rails.application.routes.draw do
     get "settings/account" => "account#index", :as => "account_settings"
     get "settings/profile" => "profile#index", :as => "profile_settings"
     post "settings/profile" => "profile#update", :as => "profile_update"
+    get "settings/profile/social/destroy" => "profile#destroy_social", :as => "social_destroy"
 
     devise_for :users,
       :path => 'account',
@@ -39,7 +40,7 @@ Rails.application.routes.draw do
       put 'forgot_password' => 'iugu/passwords#update', :as => 'update_user_pasword'
 
       # Omniauth Stuff
-      #get '/account/auth/:provider' => 'iugu/omniauth_callbacks#passthru'
+      get '/account/auth/:provider' => 'iugu/omniauth_callbacks#passthru'
 
       
     end

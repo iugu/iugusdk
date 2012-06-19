@@ -21,6 +21,8 @@ Fabrication.configure do |config|
   config.fabricator_dir = "../fabricators"
 end
 
+Capybara.app_host = 'http://iugusdk.dev'
+
 OmniAuth.config.test_mode = true
 
 # Enable OmniAuth Mockup for Twitter
