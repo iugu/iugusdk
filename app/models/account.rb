@@ -7,6 +7,10 @@ class Account < ActiveRecord::Base
                         :run_at => Proc.new { DateTime.now + IuguSDK::delay_account_exclusion }
   
 
+  def destruction_job
+    Delayed::Job.find_by_queue("account_#{id}_destroy")
+  end
+
   def valid_user_for_account?( user )
     user = user.try(:id) if user.is_a? Object
     users.exists? user

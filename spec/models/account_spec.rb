@@ -12,4 +12,20 @@ describe Account do
     @account.valid_user_for_account?( @user ).should be_true
   end
 
+  context "destruction_job method" do
+    before(:each) do
+      @account = Fabricate(:account)
+    end
+
+    it 'should return a job' do
+      @account.destroy
+      @account.destruction_job.class.should == Delayed::Backend::ActiveRecord::Job 
+    end
+    
+    it 'should return null if account has no destruction job' do
+      @account.destruction_job.should be_nil
+    end
+  
+  end
+
 end
