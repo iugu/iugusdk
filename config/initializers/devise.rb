@@ -1,3 +1,8 @@
+begin 
+  SOCIAL_ACCOUNTS = YAML.load_file("#{Rails.root.to_s}/config/social_accounts.yml")
+rescue
+  SOCIAL_ACCOUNTS = {}
+end
 #require 'devise'
 # Use this hook to configure devise mailer, warden hooks and so forth.
 # Many of these configuration options can be set straight in your model.
@@ -205,6 +210,10 @@ Devise.setup do |config|
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', :scope => 'user,public_repo'
+  SOCIAL_ACCOUNTS.keys.each do |provider_name|
+    config.omniauth provider_name.to_sym, SOCIAL_ACCOUNTS[provider_name]['token'], SOCIAL_ACCOUNTS[provider_name]['secret']
+  end
+     
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or

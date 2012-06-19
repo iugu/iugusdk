@@ -13,6 +13,7 @@ Rails.application.routes.draw do
     devise_for :users,
       :path => 'account',
       :module => 'iugu',
+      :controllers => { :omniauth => 'iugu/omniauth_callbacks' },
       :skip => :all
 
     as :user do
@@ -36,6 +37,10 @@ Rails.application.routes.draw do
       get 'forgot_password' => 'iugu/passwords#new', :as => 'new_user_password'
       get 'forgot_password/edit' => 'iugu/passwords#edit', :as => 'edit_user_password'
       put 'forgot_password' => 'iugu/passwords#update', :as => 'update_user_pasword'
+
+      # Omniauth Stuff
+      #get '/account/auth/:provider' => 'iugu/omniauth_callbacks#passthru'
+
       
     end
 
