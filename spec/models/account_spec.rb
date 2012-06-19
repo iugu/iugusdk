@@ -38,11 +38,30 @@ describe Account do
       @account.destroying?.should be_true
     end
 
-    it 'should return false if account dont has a destruction job' do
+    it 'should return false if account doesnt have a destruction job' do
       @account.destroying?.should be_false
     end
-  
+  end
+
+  context "cancel_destruction" do
+    before(:each) do
+      @account = Fabricate(:account)
+    end
+
+    it 'should cancel account destruction' do
+      @account.destroy
+      @account.cancel_destruction
+      @account.destroying?.should be_false
+    end
     
+    it 'should return a job' do
+      @account.destroy
+      @account.cancel_destruction.class.should == Delayed::Backend::ActiveRecord::Job
+    end
+
+    it 'should return nil if doesnt have a destruction job' do
+      @account.cancel_destruction.should be_nil
+    end
   
   end
 

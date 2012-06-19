@@ -15,6 +15,10 @@ class Account < ActiveRecord::Base
     !!destruction_job
   end
 
+  def cancel_destruction
+    destruction_job.try(:destroy)
+  end
+
   def valid_user_for_account?( user )
     user = user.try(:id) if user.is_a? Object
     users.exists? user
