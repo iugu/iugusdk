@@ -13,8 +13,8 @@ Rails.application.routes.draw do
     devise_for :users,
       :path => 'account',
       :module => 'iugu',
-      :controllers => { :omniauth => 'iugu/omniauth_callbacks' },
-      :skip => :all
+      :only => :omniauth_callbacks
+      # :skip => :all
 
     as :user do
       # Session Stuff

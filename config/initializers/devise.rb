@@ -6,6 +6,7 @@ end
 #require 'devise'
 # Use this hook to configure devise mailer, warden hooks and so forth.
 # Many of these configuration options can be set straight in your model.
+
 Devise.setup do |config|
   # ==> Mailer Configuration
   # Configure the e-mail address which will be shown in Devise::Mailer,
@@ -210,6 +211,7 @@ Devise.setup do |config|
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', :scope => 'user,public_repo'
+
   SOCIAL_ACCOUNTS.keys.each do |provider_name|
     config.omniauth provider_name.to_sym, SOCIAL_ACCOUNTS[provider_name]['token'], SOCIAL_ACCOUNTS[provider_name]['secret']
   end
