@@ -4,13 +4,13 @@ class Iugu::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     if !User.omniauth_providers.index(provider).nil?
       if current_user 
         current_user.find_or_create_social(env["omniauth.auth"])
-        redirect_to :action => 'index', :controller => '/profile'
+        redirect_to after_sign_in_path_for( current_user )
       else
         if user = User.find_or_create_by_social(env["omniauth.auth"])
           sign_in user
           redirect_to after_sign_in_path_for( user )
         else
-          redirect_to new_user_registration_path, :notice => I18n.t('errors.messages.email_already_in_use')
+          redirect_to (env["omniauth.origin"] || root_path), :notice => I18n.t('errors.messages.email_already_in_use')
         end 
       end
     end

@@ -27,6 +27,7 @@ describe 'omniauth requests' do
         fill_in 'user_password', :with => "testing"
         click_on 'Sign in'
         visit '/account/auth/facebook'
+        visit '/settings/profile'
       end
 
       it { page.should have_content "UID" }
@@ -47,16 +48,27 @@ describe 'omniauth requests' do
   end
 
   context "twitter" do
-    before(:each) do
-      visit '/account/auth/twitter'
-    end
 
-    it { page.should have_content "signed in" }
+    context "not signed in" do
+
+      before(:each) do
+        visit '/account/auth/twitter'
+      end
+  
+      it { page.should have_content "signed in" }
+      
+    end
   
     context "already signed in" do
+
       before(:each) do
         visit new_user_session_path 
+        Fabricate(:user, :email => 'test@test.test', :password => 'testing', :password_confirmation => 'testing')
+        fill_in 'user_email', :with => "test@test.test"
+        fill_in 'user_password', :with => "testing"
+        click_on 'Sign in'
         visit '/account/auth/twitter'
+        visit '/settings/profile'
       end
 
       it { page.should have_content "UID" }
