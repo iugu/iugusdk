@@ -13,29 +13,54 @@ describe AccountController do
 
   context "destroy" do
     login_as_user
-    before do
-      get :destroy, :id => @user.accounts.first.id
+    context "when using right id" do
+      before do
+        get :destroy, :id => @user.accounts.first.id
+      end
+
+      it { response.should redirect_to account_settings_path }
+
+      it 'should start destruction job' do
+        @user.accounts.first.destroying?.should be_true
+      end
     end
 
-    it { response.should redirect_to account_settings_path }
+    context "when using right id" do
+      before do
+        get :destroy, :id => 31241
+      end
 
-    it 'should start destruction job' do
-      @user.accounts.first.destroying?.should be_true
+      it { response.should redirect_to account_settings_path }
+
     end
   
   end
 
-  context "destroy" do
+  context "cancel_destruction" do
     login_as_user
     before do
       @user.accounts.first.destroy
-      get :cancel_destruction, :id => @user.accounts.first.id
     end
 
-    it { response.should redirect_to account_settings_path }
+    context "when using right id" do
+      before do
+        get :cancel_destruction, :id => @user.accounts.first.id
+      end
 
-    it 'should start destruction job' do
-      @user.accounts.first.destroying?.should be_false
+      it { response.should redirect_to account_settings_path }
+
+      it 'should start destruction job' do
+        @user.accounts.first.destroying?.should be_false
+      end
+    end
+
+    context "when using wrong id" do
+      before do
+        get :cancel_destruction, :id => 987213
+      end
+
+      it { response.should redirect_to account_settings_path }
+
     end
   end
   

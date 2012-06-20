@@ -5,6 +5,8 @@ en:
       only_social_and_no_email: "You need an email to unlink this Social Account"
       email_already_in_use: "This email is already in use"
   iugu:
+    account_destruction_in: "Account will be remove at "
+    account_destruction_undone: "Account destruction canceled"
     are_you_sure?: "Are you sure?"
     remove: "Remove"
     removing: "Removing..."
