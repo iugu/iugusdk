@@ -5,6 +5,10 @@ pt-BR:
       only_social_and_no_email: "Você precisa de um email para poder apagar essa rede social"
       email_already_in_use: "Esse email já foi utilizado"
   iugu:
+    are_you_sure?: "Tem certeza disso?"
+    remove: "Excluir"
+    removing: "Excluindo..."
+    undo: "Desfazer"
     signed_in: "Você está logado como"
     settings: "Preferencias"
     sign_out: "Deslogar"

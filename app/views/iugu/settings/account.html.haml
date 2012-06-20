@@ -16,3 +16,17 @@ Current User Account
 - if current_user
   %div
     = current_user.id
+
+%h3 
+  Accounts
+- current_user.accounts.each do |account|
+  = account.id
+  = account.name
+  = account.subscription_id
+  - if account.destroying?
+    - if IuguSDK::delay_account_exclusion > 0
+      = link_to I18n.t("iugu.undo"), account_cancel_destruction_path(:id => account.id), :confirm => I18n.t("iugu.are_you_sure?")
+    - else
+      = I18n.t("iugu.removing")
+  - else
+    = link_to I18n.t("iugu.remove"), account_destroy_path(:id => account.id), :confirm => I18n.t("iugu.are_you_sure?")

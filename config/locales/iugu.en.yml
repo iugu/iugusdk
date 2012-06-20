@@ -5,6 +5,10 @@ en:
       only_social_and_no_email: "You need an email to unlink this Social Account"
       email_already_in_use: "This email is already in use"
   iugu:
+    are_you_sure?: "Are you sure?"
+    remove: "Remove"
+    removing: "Removing..."
+    undo: "Undo"
     signed_in: "You are signed in as"
     settings: "Settings"
     sign_out: "Sign out"
