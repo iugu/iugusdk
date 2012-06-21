@@ -2,9 +2,10 @@ en:
   errors:
     messages:
       invalid_role: "Not a valid role"
-      only_social_and_no_email: "You need an email to unlink this Social Account"
+      only_social_and_no_email: "You need email and password to unlink this Social Account"
       email_already_in_use: "This email is already in use"
   iugu:
+    social_unlinked: "Social Account successfully unlink"
     account_destruction_in: "Account will be remove at "
     account_destruction_undone: "Account destruction canceled"
     are_you_sure?: "Are you sure?"

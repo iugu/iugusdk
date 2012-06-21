@@ -5,6 +5,7 @@ pt-BR:
       only_social_and_no_email: "Você precisa de um email para poder apagar essa rede social"
       email_already_in_use: "Esse email já foi utilizado"
   iugu:
+    social_unlinked: "Rede social desvinculada com sucesso"
     account_destruction_in: "A conta será removida em "
     account_destruction_undone: "Remoção da conta cancelada"
     are_you_sure?: "Tem certeza disso?"

@@ -18,8 +18,16 @@ class ProfileController < SettingsController
   end
 
   def destroy_social
-    current_user.social_accounts.where(:id => params[:id]).first.destroy
-    redirect_to :action => 'index'
+    begin
+      if social_account = current_user.social_accounts.where(:id => params[:id]).first.unlink
+        notice = I18n.t("iugu.social_unlinked")
+      else
+        notice = I18n.t("errors.messages.only_social_and_no_email")
+      end
+    rescue
+      notice = I18n.t("errors.messages.not_found")
+    end
+    redirect_to profile_settings_path, :notice => notice
   end
 
 end
