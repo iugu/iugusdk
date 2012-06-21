@@ -6,7 +6,6 @@ describe 'account settings view' do
     visit account_settings_path
   end
 
-  it { page.should have_content "Current User Account" }
   it { page.should have_content "Accounts" }
   it { page.should have_link I18n.t("iugu.remove") }
 

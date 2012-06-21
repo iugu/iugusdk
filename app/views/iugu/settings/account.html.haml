@@ -27,6 +27,8 @@
         = link_to I18n.t("iugu.undo"), account_cancel_destruction_path(:id => account.id), :confirm => I18n.t("iugu.are_you_sure?")
       - else
         = I18n.t("iugu.removing")
+    - else
+      = link_to I18n.t("iugu.remove"), account_destroy_path(:id => account.id), :confirm => I18n.t("iugu.are_you_sure?")
 
 - else
   %h2
