@@ -7,6 +7,9 @@ class User < ActiveRecord::Base
   has_many :accounts, :through => :account_users
   has_many :social_accounts, :dependent => :destroy
 
+  handle_asynchronously :destroy, :queue => Proc.new { |p| "user_#{p.id}_destroy" },
+                        :run_at => Proc.new { DateTime.now + IuguSDK::delay_user_exclusion }
+
   devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :validatable, :omniauthable
 
