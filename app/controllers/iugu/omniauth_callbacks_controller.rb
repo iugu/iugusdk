@@ -7,6 +7,7 @@ class Iugu::OmniauthCallbacksController < Devise::OmniauthCallbacksController
         redirect_to after_sign_in_path_for( current_user )
       else
         if user = User.find_or_create_by_social(env["omniauth.auth"])
+          select_account user
           sign_in user
           redirect_to after_sign_in_path_for( user )
         else

@@ -3,8 +3,9 @@
 %h3
   = I18n.t "iugu.account_settings"
 
-Current User Account
 - if current_user_account
+  %h2
+    Current Account
   %div
     = I18n.t "iugu.account_number"
     = "#"
@@ -13,20 +14,20 @@ Current User Account
     = I18n.t "iugu.account_roles"
     = current_user_account.roles.map(&:name).to_s
 
-- if current_user
-  %div
-    = current_user.id
+  %h3 
+    Accounts
 
-%h3 
-  Accounts
-- current_user.accounts.each do |account|
-  = account.id
-  = account.name
-  = account.subscription_id
-  - if account.destroying?
-    - if IuguSDK::delay_account_exclusion > 0
-      = link_to I18n.t("iugu.undo"), account_cancel_destruction_path(:id => account.id), :confirm => I18n.t("iugu.are_you_sure?")
-    - else
-      = I18n.t("iugu.removing")
-  - else
-    = link_to I18n.t("iugu.remove"), account_destroy_path(:id => account.id), :confirm => I18n.t("iugu.are_you_sure?")
+  %br
+  - current_user.accounts.each do |account|
+    = account.id
+    = account.name
+    = account.subscription_id
+    - if account.destroying?
+      - if IuguSDK::delay_account_exclusion > 0
+        = link_to I18n.t("iugu.undo"), account_cancel_destruction_path(:id => account.id), :confirm => I18n.t("iugu.are_you_sure?")
+      - else
+        = I18n.t("iugu.removing")
+
+- else
+  %h2
+    I dont have any Accounts
