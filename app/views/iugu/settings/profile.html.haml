@@ -24,7 +24,7 @@
     = f.email_field :email
 
   %div
-    = f.input :birthdate, :as => :date, :start_year => Date.today.year - 100, :end_year => Date.today.year - 5, :order => [:day, :month, :year]
+    = f.input :birthdate, :as => :date, :start_year => Date.today.year - 5, :end_year => Date.today.year - 100, :order => [:day, :month, :year]
 
   %div
     = f.input :locale, :collection => AvailableLanguage.all
