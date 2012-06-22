@@ -18,6 +18,10 @@ class User < ActiveRecord::Base
 
   after_create :create_account_for_user
 
+  def destruction_job
+    Delayed::Job.find_by_queue("user_#{id}_destroy")
+  end
+
   def has_social?
     !social_accounts.empty?
   end

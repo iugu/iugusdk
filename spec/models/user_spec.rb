@@ -97,4 +97,20 @@ describe User do
   
   end
 
+  context "destruction_job method" do
+    before(:each) do
+      @user = Fabricate(:user)
+    end 
+
+    it 'should return a job' do
+      @user.destroy
+      @user.destruction_job.class.should == Delayed::Backend::ActiveRecord::Job 
+    end 
+    
+    it 'should return null if account has no destruction job' do
+      @user.destruction_job.should be_nil
+    end 
+  
+  end 
+
 end
