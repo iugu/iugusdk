@@ -128,5 +128,27 @@ describe User do
     end 
   end 
 
+  context "cancel_destruction" do
+    before(:each) do
+      @user = Fabricate(:user)
+    end 
+
+    it 'should cancel account destruction' do
+      @user.destroy
+      @user.cancel_destruction
+      @user.destroying?.should be_false
+    end 
+    
+    it 'should return a job' do
+      @user.destroy
+      @user.cancel_destruction.class.should == Delayed::Backend::ActiveRecord::Job
+    end 
+
+    it 'should return nil if doesnt have a destruction job' do
+      @user.cancel_destruction.should be_nil
+    end 
+  
+  end 
+
 
 end

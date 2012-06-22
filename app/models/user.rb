@@ -26,6 +26,11 @@ class User < ActiveRecord::Base
     !!destruction_job
   end
 
+  def cancel_destruction
+    destruction_job.try(:destroy)
+  end
+
+
   def has_social?
     !social_accounts.empty?
   end
