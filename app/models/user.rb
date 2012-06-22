@@ -22,6 +22,10 @@ class User < ActiveRecord::Base
     Delayed::Job.find_by_queue("user_#{id}_destroy")
   end
 
+  def destroying?
+    !!destruction_job
+  end
+
   def has_social?
     !social_accounts.empty?
   end

@@ -113,4 +113,20 @@ describe User do
   
   end 
 
+  context "destrying? method" do
+    before(:each) do
+      @user = Fabricate(:user)
+    end 
+
+    it 'should return true if account has a destruction job' do
+      @user.destroy
+      @user.destroying?.should be_true
+    end 
+
+    it 'should return false if account doesnt have a destruction job' do
+      @user.destroying?.should be_false
+    end 
+  end 
+
+
 end
