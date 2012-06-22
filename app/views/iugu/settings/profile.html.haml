@@ -49,6 +49,14 @@
   %div
     = f.submit "OK", :id => "new_password_submit"
 
+  %div
+    - if @user.destroying?
+      = I18n.t("iugu.user_destruction_in")
+      = @user.destruction_job.run_at
+      = link_to I18n.t("iugu.undo"), profile_cancel_destruction_path, :confirm => I18n.t("iugu.are_you_sure?") 
+    - else
+      = link_to I18n.t("iugu.remove_user"), profile_destroy_path, :confirm => I18n.t("iugu.are_you_sure?") 
+
     %div
       %h3
         = I18n.t "iugu.social_account"
@@ -66,6 +74,7 @@
       - unless @social_accounts.where(:provider => provider).first 
         %div
           = link_to "Sign in with #{provider.capitalize}", "/login/using/#{provider}"
+
 
 
 

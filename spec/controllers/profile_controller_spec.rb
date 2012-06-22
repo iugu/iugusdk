@@ -37,6 +37,33 @@ describe ProfileController do
   
   end
 
+  context "destroy" do
+    login_as_user
+
+    before(:each) do
+      get :destroy
+    end
+
+    it 'user should be destroyed' do
+      @user.destroying?.should be_true
+    end
+  
+  end
+
+  context "cancel_destruction" do
+    login_as_user
+
+    before(:each) do
+      @user.destroy
+      get :cancel_destruction
+    end
+
+    it 'user destruction should be canceled' do
+      @user.destroying?.should be_false
+    end
+  
+  end
+
   context "destroy_social" do
     
     login_as_user
@@ -94,8 +121,5 @@ describe ProfileController do
     
     end
     
-  
-    
-  
   end
 end

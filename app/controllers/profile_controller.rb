@@ -17,6 +17,16 @@ class ProfileController < SettingsController
     render 'iugu/settings/profile'
   end
 
+  def destroy
+    (user = current_user).destroy
+    redirect_to(profile_settings_path, :notice => I18n.t("iugu.user_destruction_in") + user.destruction_job.run_at.to_s)
+  end
+
+  def cancel_destruction
+    current_user.cancel_destruction
+    redirect_to(profile_settings_path, :notice => I18n.t("iugu.user_destruction_undone"))
+  end
+
   def destroy_social
     begin
       if social_account = current_user.social_accounts.where(:id => params[:id]).first.unlink

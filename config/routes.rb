@@ -10,6 +10,8 @@ Rails.application.routes.draw do
     get "settings/account/destroy" => "account#destroy", :as => "account_destroy"
     get "settings/account/cancel_destruction" => "account#cancel_destruction", :as => "account_cancel_destruction"
     get "settings/profile" => "profile#index", :as => "profile_settings"
+    get "settings/profile/destroy" => "profile#destroy", :as => "profile_destroy"
+    get "settings/profile/cancel_destruction" => "profile#cancel_destruction", :as => "profile_cancel_destruction"
     post "settings/profile" => "profile#update", :as => "profile_update"
     get "settings/profile/social/destroy" => "profile#destroy_social", :as => "social_destroy"
 
