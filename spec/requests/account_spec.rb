@@ -45,4 +45,30 @@ describe 'account settings view' do
     end
   end
 
+
+  context "when the accounts destruction job is locked" do
+  
+    before(:each) do
+      IuguSDK::delay_account_exclusion = 1
+      click_on "Sign out"
+      user = User.last
+      user.password = "123456"
+      user.password_confirmation = "123456"
+      account = user.accounts.first
+      account.destroy
+      job = account.destruction_job
+      job.locked_at = Time.now
+      job.save
+      user.save
+      visit new_user_session_path
+      fill_in "user_email", :with => user.email
+      fill_in "user_password", :with => "123456"
+      click_on "Sign in"
+      visit account_settings_path
+    end
+
+    it { page.should_not have_link I18n.t("iugu.undo") }
+  
+  end
+
 end

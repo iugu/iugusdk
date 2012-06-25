@@ -25,7 +25,8 @@
     - if account.account_users.find_by_user_id(current_user.id).is?(:owner)
       - if account.destroying?
         - if IuguSDK::delay_account_exclusion > 0
-          = link_to I18n.t("iugu.undo"), account_cancel_destruction_path(:id => account.id), :confirm => I18n.t("iugu.are_you_sure?")
+          - unless account.destruction_job.locked_at
+            = link_to I18n.t("iugu.undo"), account_cancel_destruction_path(:id => account.id), :confirm => I18n.t("iugu.are_you_sure?")
         - else
           = I18n.t("iugu.removing")
       - else

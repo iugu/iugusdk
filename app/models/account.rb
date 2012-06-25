@@ -16,7 +16,7 @@ class Account < ActiveRecord::Base
   end
 
   def cancel_destruction
-    destruction_job.try(:destroy)
+    destruction_job.try(:destroy) unless destruction_job.try(:locked_at)
   end
 
   def valid_user_for_account?( user )

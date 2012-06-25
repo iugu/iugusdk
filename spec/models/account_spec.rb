@@ -62,6 +62,14 @@ describe Account do
     it 'should return nil if doesnt have a destruction job' do
       @account.cancel_destruction.should be_nil
     end
+
+    it 'should return nil if destruction job is already locked' do
+      @account.destroy
+      @job = @account.destruction_job
+      @job.locked_at = Time.now
+      @job.save
+      @account.cancel_destruction.should be_nil
+    end
   
   end
 
