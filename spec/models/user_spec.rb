@@ -147,6 +147,14 @@ describe User do
     it 'should return nil if doesnt have a destruction job' do
       @user.cancel_destruction.should be_nil
     end 
+
+    it 'should return nil if destruction job is locked' do
+      @user.destroy
+      job = @user.destruction_job
+      job.locked_at = Time.now
+      job.save
+      @user.cancel_destruction.should be_nil
+    end 
   
   end 
 

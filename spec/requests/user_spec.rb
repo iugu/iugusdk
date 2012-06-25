@@ -18,4 +18,17 @@ describe 'account settings view' do
   
   end
 
+  context "when user destruction job is locked" do
+    before(:each) do
+      User.last.destroy
+      @job = User.last.destruction_job
+      @job.locked_at = Time.now
+      @job.save
+      visit profile_settings_path
+    end
+
+    it { page.should_not have_link I18n.t("iugu.undo") }
+  
+  end
+
 end

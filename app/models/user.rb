@@ -27,7 +27,7 @@ class User < ActiveRecord::Base
   end
 
   def cancel_destruction
-    destruction_job.try(:destroy)
+    destruction_job.try(:destroy) unless destruction_job.try(:locked_at)
   end
 
 
