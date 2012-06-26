@@ -63,6 +63,16 @@ describe AccountController do
 
     end
   end
+
+  context "select" do
+    login_as_user
+    before do
+      get :select, :id => @user.accounts.first.id
+    end
+
+    it { response.should redirect_to account_settings_path }
+
+  end
   
   
 end

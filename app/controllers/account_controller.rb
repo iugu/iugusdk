@@ -24,4 +24,9 @@ class AccountController < SettingsController
       redirect_to(account_settings_path, :notice => notice)
   end
 
+  def select
+    select_account(current_user, params[:id])
+    redirect_to(account_settings_path, :notice => "Account selected")
+  end
+
 end

@@ -13,7 +13,7 @@ module IuguSDK
       end
 
       def select_account( resource, account_id=nil )
-        if account_nil == nil
+        if account_id == nil
           account_id = cookies[:last_used_account_id] if cookies[:last_used_account_id]
         end
         selected_account = resource.default_account( account_id )
