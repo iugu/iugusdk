@@ -42,7 +42,8 @@ class User < ActiveRecord::Base
   end
 
   def self.find_or_create_by_social(auth)
-    unless user = SocialAccount.where("provider = ? AND social_id = ?", auth["provider"], auth["uid"]).first.try(:user)
+    social_account = SocialAccount.where("provider = ? AND social_id = ?", auth["provider"], auth["uid"]).first
+    unless user = social_account.try(:user)
       user = User.new
       if auth["extra"]["raw_info"]["email"]
         return false if !User.where(:email => auth["extra"]["raw_info"]["email"]).empty?
@@ -50,8 +51,9 @@ class User < ActiveRecord::Base
       end
       user.skip_confirmation!
       user.save(:validate => false)
-      user.create_social(auth)
+      social_account = user.create_social(auth)
     end
+    social_account.update_attribute( 'token' , auth['credentials']['token'] )
     user
   end
 

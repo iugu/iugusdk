@@ -60,6 +60,16 @@ describe User do
       @user.create_social(@env)
       User.find_or_create_by_social(@env).should == @user
     end
+
+    it 'should update socials token' do
+      @user = Fabricate(:user)
+      @social = @user.create_social(@env)
+      @env['credentials']['token'] = "newtoken"
+      @user = User.find_or_create_by_social(@env)
+      @social.reload
+      @social.token.should == "newtoken"
+    end
+      
   end
 
   context "create" do
