@@ -15,7 +15,13 @@
     = current_user_account.roles.map(&:name).to_s
 
   %h3 
-    Accounts
+    - if IuguSDK::allow_create_account
+      = I18n.t("iugu.account").pluralize
+    - else
+      - if current_user.accounts.count > 1
+        = I18n.t("iugu.account").pluralize
+      - else
+        = I18n.t("iugu.account")
 
   %br
   - current_user.accounts.each do |account|

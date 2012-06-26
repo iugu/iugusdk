@@ -30,6 +30,9 @@ module IuguSDK
   mattr_accessor :custom_domain_for_accounts
   mattr_accessor :default_layout
 
+  mattr_accessor :allow_create_account
+  self.allow_create_account = false
+
   mattr_accessor :application_main_host
   self.application_main_host = "iugusdk.dev"
   

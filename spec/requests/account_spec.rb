@@ -6,7 +6,6 @@ describe 'account settings view' do
     visit account_settings_path
   end
 
-  it { page.should have_content "Accounts" }
   it { page.should have_link I18n.t("iugu.remove") }
 
   context "when user dont own a account" do
@@ -68,6 +67,40 @@ describe 'account settings view' do
     end
 
     it { page.should_not have_link I18n.t("iugu.undo") }
+  
+  end
+
+  context "when allow_create_account == false" do
+    before(:each) do
+      IuguSDK::allow_create_account = false
+    end
+
+    context "and user has only one account" do
+      before(:each) do
+        @user = User.last
+        @user.accounts.destroy_all
+        @user.accounts << Fabricate(:account)
+        visit account_settings_path
+      end
+
+      it { page.should have_content I18n.t("iugu.account") }
+    
+    end
+
+    context "and user has more than one account" do
+      before(:each) do
+        @user = User.last
+        @user.accounts.destroy_all
+        2.times { @user.accounts << Fabricate(:account) }
+        visit account_settings_path
+      end
+
+      it { page.should have_content I18n.t("iugu.accounts") }
+    
+    end
+
+  
+    
   
   end
 
