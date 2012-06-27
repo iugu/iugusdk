@@ -1,6 +1,15 @@
 class AccountController < SettingsController
   
   def index
+    render 'iugu/settings/accounts'
+  end
+
+  def view
+    if params[:id]
+      @account = Account.find(params[:id])
+    else
+      @account = current_user_account
+    end
     render 'iugu/settings/account'
   end
 

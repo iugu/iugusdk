@@ -1,0 +1,43 @@
+- content_for :title do "Account Settings" end
+
+%h3
+  = I18n.t "iugu.account_settings"
+
+- if current_user_account
+  %h2
+    Current Account
+  %div
+    = I18n.t "iugu.account_number"
+    = "#"
+    = current_user_account.id
+  %div
+    = I18n.t "iugu.account_roles"
+    = current_user_account.roles.map(&:name).to_s
+
+  %h3 
+    - if IuguSDK::allow_create_account
+      = I18n.t("iugu.accounts")
+    - else
+      - if current_user.accounts.count > 1
+        = I18n.t("iugu.accounts")
+      - else
+        = I18n.t("iugu.account")
+
+  %br
+  - current_user.accounts.each do |account|
+    = account.id
+    = account.name
+    = account.subscription_id
+    - if account.account_users.find_by_user_id(current_user.id).is?(:owner)
+      - if account.destroying?
+        - if IuguSDK::delay_account_exclusion > 0
+          - unless account.destruction_job.locked_at
+            = link_to I18n.t("iugu.undo"), account_cancel_destruction_path(:id => account.id), :confirm => I18n.t("iugu.are_you_sure?"), :method => 'delete'
+        - else
+          = I18n.t("iugu.removing")
+      - else
+        = link_to I18n.t("iugu.remove"), account_destroy_path(:id => account.id), :confirm => I18n.t("iugu.are_you_sure?"), :method => 'delete'
+
+- else
+  %h2
+    I dont have any Accounts

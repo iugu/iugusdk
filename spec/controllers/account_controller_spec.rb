@@ -7,7 +7,29 @@ describe AccountController do
       get :index
     end
 
-    it { response.should render_template 'iugu/settings/account' }
+    it { response.should render_template 'iugu/settings/accounts' }
+  
+  end
+
+  context "show" do
+
+    context "with id param" do
+      login_as_user
+      before do
+        get :view, :id => @user.accounts.first.id
+      end
+
+      it { response.should render_template 'iugu/settings/account' } 
+    end
+
+    context "without id param" do
+      login_as_user
+      before do
+        get :view
+      end
+
+      it { response.should render_template 'iugu/settings/account' } 
+    end
   
   end
 

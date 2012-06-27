@@ -7,8 +7,9 @@ Rails.application.routes.draw do
 
     get "settings" => "settings#index", :as => "settings"
     get "settings/account" => "account#index", :as => "account_settings"
-    get "settings/account/destroy" => "account#destroy", :as => "account_destroy"
-    get "settings/account/cancel_destruction" => "account#cancel_destruction", :as => "account_cancel_destruction"
+    get "settings/account/(:id)" => "account#view", :as => "account_view"
+    delete "settings/account/(:id)" => "account#destroy", :as => "account_destroy"
+    delete "settings/account/(:id)/cancel" => "account#cancel_destruction", :as => "account_cancel_destruction"
     get "select_account/:id" => "account#select", :as => "account_select"
     get "settings/profile" => "profile#index", :as => "profile_settings"
     get "settings/profile/destroy" => "profile#destroy", :as => "profile_destroy"
