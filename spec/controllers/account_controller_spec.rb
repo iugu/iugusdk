@@ -33,6 +33,22 @@ describe AccountController do
       it { response.should redirect_to account_settings_path }
 
     end
+
+    context "when user is not the owner" do
+      before(:each) do
+        @account_user = @user.accounts.first.account_users.find_by_user_id(@user.id)
+        @account_user.roles.destroy_all
+        @account_user.roles << AccountRole.create(:name => "user")
+        get :destroy, :id => @user.accounts.first.id
+      end
+
+      it { response.should redirect_to account_settings_path }
+
+      it 'should not destroy the account' do
+        @user.accounts.first.destroying?.should be_false
+      end
+    
+    end
   
   end
 

@@ -1,6 +1,7 @@
 pt-BR:
   errors:
     messages:
+      only_owners_can_destroy_accounts: "Apenas donos podem remover contas"
       invalid_role: "Cargo invalido"
       only_social_and_no_email: "Você precisa de um email para poder apagar essa rede social"
       email_already_in_use: "Esse email já foi utilizado"

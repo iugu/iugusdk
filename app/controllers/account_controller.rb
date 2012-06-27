@@ -6,8 +6,14 @@ class AccountController < SettingsController
 
   def destroy
     begin
-      (account = current_user.accounts.find(params[:id])).destroy if params[:id]
-      notice = I18n.t("iugu.account_destruction_in") + account.destruction_job.run_at.to_s
+      if account = current_user.accounts.find(params[:id])
+        if account.account_users.find_by_user_id(current_user.id).is?(:owner)
+          account.destroy
+          notice = I18n.t("iugu.account_destruction_in") + account.destruction_job.run_at.to_s
+        else
+          notice = I18n.t("errors.messages.only_owners_can_destroy_accounts")
+        end
+      end
     rescue
       notice = "Account not found"
     end

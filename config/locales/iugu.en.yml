@@ -1,6 +1,7 @@
 en:
   errors:
     messages:
+      only_owners_can_destroy_accounts: "Only owners can destroy Accounts"
       invalid_role: "Not a valid role"
       only_social_and_no_email: "You need email and password to unlink this Social Account"
       email_already_in_use: "This email is already in use"
