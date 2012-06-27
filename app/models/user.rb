@@ -32,6 +32,9 @@ class User < ActiveRecord::Base
     destruction_job.try(:destroy) unless destruction_job.try(:locked_at)
   end
 
+  def is?(role, account)
+    account.account_users.find_by_user_id(self.id).is?(role.to_s)
+  end
 
   def has_social?
     !social_accounts.empty?

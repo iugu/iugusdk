@@ -70,6 +70,25 @@ describe Account do
       @job.save
       @account.cancel_destruction.should be_nil
     end
+
+  context "is? method" do
+    before(:each) do
+      @user = Fabricate(:user)
+      @account = @user.accounts.first
+      @account_user = @account.account_users.find_by_user_id(@user.id)
+      @account_user.roles.destroy_all
+      @account_user.roles << AccountRole.create(:name => "user")
+    end 
+
+    it 'should return true if user has the role for the account' do
+      @account.is?(:user, @user).should be_true
+    end 
+  
+    it 'should return if user hasnt the role for the account' do
+      @account.is?(:admin, @user).should be_false
+    end 
+  
+  end 
   
   end
 

@@ -24,4 +24,8 @@ class Account < ActiveRecord::Base
     users.exists? user
   end
 
+  def is?(role, user)
+    account_users.find_by_user_id(user.id).is?(role.to_s)
+  end
+
 end
