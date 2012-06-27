@@ -6,6 +6,8 @@ pt-BR:
       only_social_and_no_email: "Você precisa de um email para poder apagar essa rede social"
       email_already_in_use: "Esse email já foi utilizado"
   iugu:
+    error: "Erro"
+    errors: "Erros"
     account: "Conta"
     accounts: "Contas"
     social_unlinked: "Rede social desvinculada com sucesso"

@@ -16,10 +16,10 @@
 
   %h3 
     - if IuguSDK::allow_create_account
-      = I18n.t("iugu.account").pluralize
+      = I18n.t("iugu.accounts")
     - else
       - if current_user.accounts.count > 1
-        = I18n.t("iugu.account").pluralize
+        = I18n.t("iugu.accounts")
       - else
         = I18n.t("iugu.account")
 

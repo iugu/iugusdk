@@ -6,6 +6,8 @@ en:
       only_social_and_no_email: "You need email and password to unlink this Social Account"
       email_already_in_use: "This email is already in use"
   iugu:
+    error: "Error"
+    errors: "Errors"
     account: "Account"
     accounts: "Accounts"
     social_unlinked: "Social Account successfully unlink"
