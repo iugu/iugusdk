@@ -7,6 +7,8 @@ describe 'account settings view' do
   end
 
   it { page.should have_link I18n.t("iugu.remove") }
+  it { page.should have_link I18n.t("iugu.configs") }
+  it { page.should have_link I18n.t("iugu.select_account") }
 
   context "when user dont own a account" do
     before(:each) do

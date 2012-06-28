@@ -25,9 +25,9 @@
 
   %br
   - current_user.accounts.each do |account|
-    = account.id
     = account.name
-    = account.subscription_id
+    = link_to I18n.t("iugu.configs"), account_view_path(:id => account.id)
+    = link_to I18n.t("iugu.select_account"), account_select_path(:id => account.id)
     - if account.account_users.find_by_user_id(current_user.id).is?(:owner)
       - if account.destroying?
         - if IuguSDK::delay_account_exclusion > 0
