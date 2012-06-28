@@ -8,7 +8,6 @@ require "iugusdk/engine"
 require "iugusdk/locale_filter"
 require "http_accept_language"
 require 'devise'
-require 'devise_invitable'
 require 'omniauth'
 require 'omniauth-twitter'
 require 'omniauth-facebook'
