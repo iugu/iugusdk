@@ -11,7 +11,7 @@ class User < ActiveRecord::Base
                         :run_at => Proc.new { DateTime.now + IuguSDK::delay_user_exclusion }
 
   devise :database_authenticatable, :registerable, :confirmable,
-         :recoverable, :rememberable, :validatable, :omniauthable
+         :recoverable, :rememberable, :validatable, :omniauthable, :invitable
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me, :locale, :name, :birthdate
