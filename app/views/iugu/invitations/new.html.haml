@@ -1,0 +1,9 @@
+= simple_form_for @user_invitation, :url => create_invite_path, :method => :post do |f|
+
+  %div
+    = f.label :email
+    = f.email_field :email
+
+  %div
+    = f.submit I18n.t("iugu.invite")
+
