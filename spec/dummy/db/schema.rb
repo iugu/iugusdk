@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120615180728) do
+ActiveRecord::Schema.define(:version => 20120629154429) do
 
   create_table "account_roles", :force => true do |t|
     t.string  "name"
@@ -52,6 +52,13 @@ ActiveRecord::Schema.define(:version => 20120615180728) do
     t.string  "provider"
     t.string  "token"
     t.string  "secret"
+  end
+
+  create_table "user_invitations", :force => true do |t|
+    t.integer  "invited_by"
+    t.string   "email"
+    t.datetime "sent_at"
+    t.integer  "account_id"
   end
 
   create_table "users", :force => true do |t|
