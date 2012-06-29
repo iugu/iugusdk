@@ -1,0 +1,6 @@
+- content_for :title do "Account Users" end
+
+- @account_users.each do |account_user|
+  = account_user.user.name
+  = link_to I18n.t("iugu.permissions")
+  = link_to I18n.t("iugu.remove")
