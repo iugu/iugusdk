@@ -24,4 +24,30 @@ describe Iugu::InvitationsController do
     end
   
   end
+
+  context "edit" do
+    login_as_user
+    before(:each) do
+      @user_invitation = Fabricate(:user_invitation)
+    end
+
+    context "when token is valid" do
+      before(:each) do
+        get :edit, :invitation_token => "9821aaaaabbbbbaaaaaccccc"
+      end
+
+      it { response.should_not render_template "iugu/invitations/edit" }
+    
+    end
+
+    context "when token is not valid" do
+      before(:each) do
+        get :edit, :invitation_token => @user_invitation.id.to_s + @user_invitation.token
+      end
+    
+      it { response.should render_template "iugu/invitations/edit" }
+    
+    end
+  
+  end
 end

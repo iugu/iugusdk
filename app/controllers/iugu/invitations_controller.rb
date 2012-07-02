@@ -10,7 +10,7 @@ class Iugu::InvitationsController < ApplicationController
   end
 
   def edit
-    
+    render :file => "#{Rails.root}/public/404.html", :status => :not_found unless @user_invitation = UserInvitation.find_by_invitation_token(params[:invitation_token])
   end
 
 end

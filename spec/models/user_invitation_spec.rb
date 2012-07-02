@@ -28,5 +28,22 @@ describe UserInvitation do
     end
   end
 
+  context "find by invitation_token" do
+    before(:each) do
+      @user_invitation = Fabricate(:user_invitation)
+    end
+
+    it 'should return an user invitation' do
+      invitation_token = @user_invitation.id.to_s + @user_invitation.token
+      UserInvitation.find_by_invitation_token(invitation_token).class.should == UserInvitation
+    end
+
+    it 'should return nil if token is invalid' do
+      invitation_token = '12389as9sudasdjasd9uaaiushdas9d'
+      UserInvitation.find_by_invitation_token(invitation_token).should be_nil
+    end
+  
+  end
+
   
 end
