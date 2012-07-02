@@ -2,11 +2,11 @@ class Iugu::InvitationsController < ApplicationController
 
   def new
     @user_invitation = UserInvitation.new
-    render 'iugu/invitations/new'
   end
 
   def create
-    
+    UserInvitation.create(params[:user_invitation])
+    redirect_to 'new'
   end
 
   def edit
