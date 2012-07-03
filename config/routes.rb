@@ -25,6 +25,8 @@ Rails.application.routes.draw do
     post '/settings/account/:account_id/invite' => 'iugu/invitations#create', :as => 'create_invite'
     get '/accept_invite/:invitation_token' => 'iugu/invitations#edit', :as => 'edit_invite'
     put '/accept_invite' => 'iugu/invitations#update', :as => 'update_invite'
+    get "/settings/account/(:id)/user/:user_id" => "account_roles#edit", :as => "account_roles_edit"
+    post "/settings/account/(:id)/user/:user_id" => "account_roles#update", :as => "account_roles_update"
 
     devise_for :users,
       :path => 'account',
