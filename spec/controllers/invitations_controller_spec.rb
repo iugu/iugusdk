@@ -33,16 +33,15 @@ describe Iugu::InvitationsController do
       @user_invitation = Fabricate(:user_invitation)
     end
 
-    context "when token is valid" do
+    context "when token is not valid" do
       before(:each) do
         get :edit, :invitation_token => "9821aaaaabbbbbaaaaaccccc"
       end
 
       it { response.should_not render_template "iugu/invitations/edit" }
-    
     end
 
-    context "when token is not valid" do
+    context "when token is valid" do
       before(:each) do
         get :edit, :invitation_token => @user_invitation.id.to_s + @user_invitation.token
       end
@@ -50,6 +49,31 @@ describe Iugu::InvitationsController do
       it { response.should render_template "iugu/invitations/edit" }
     
     end
-  
+  end
+
+  context "update" do
+    login_as_user
+    before(:each) do
+      @account = Fabricate(:account)
+      @user_invitation = Fabricate(:user_invitation)
+      @user_invitation.update_attribute(:account_id, @account.id)
+    end
+
+    context "when token is valid" do
+      before(:each) do
+        put :update, :invitation_token => "9821aaaaabbbbbaaaaaccccc"
+      end
+
+      it { response.should_not redirect_to root_path }
+    end
+
+    context "when token is valid" do
+      before(:each) do
+        get :update, :invitation_token => @user_invitation.id.to_s + @user_invitation.token
+      end
+
+      it { response.should redirect_to root_path }
+
+    end
   end
 end

@@ -17,7 +17,12 @@ class Iugu::InvitationsController < SettingsController
   end
 
   def update
-    
+    if @user_invitation = UserInvitation.find_by_invitation_token(params[:invitation_token])
+      @user_invitation.accept(current_user)
+      redirect_to root_path
+    else
+      render :file => "#{Rails.root}/public/404.html", :status => :not_found
+    end
   end
 
 end
