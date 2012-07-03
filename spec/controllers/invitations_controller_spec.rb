@@ -31,6 +31,7 @@ describe Iugu::InvitationsController do
     login_as_user
     before(:each) do
       @user_invitation = Fabricate(:user_invitation)
+      @user_invitation.update_attribute(:invited_by, @user.id)
     end
 
     context "when token is not valid" do

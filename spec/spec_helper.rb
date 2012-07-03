@@ -61,7 +61,7 @@ OmniAuth.config.add_mock(
     },
     :extra => {
       :raw_info => {
-        :email => "0987654321@09876543421.test"
+        :email => "facebook@test.test"
       }
     }
   }

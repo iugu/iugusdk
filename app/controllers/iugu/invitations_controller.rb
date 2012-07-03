@@ -13,7 +13,11 @@ class Iugu::InvitationsController < SettingsController
   end
 
   def edit
-    render :file => "#{Rails.root}/public/404.html", :status => :not_found unless @user_invitation = UserInvitation.find_by_invitation_token(params[:invitation_token])
+    if @user_invitation = UserInvitation.find_by_invitation_token(params[:invitation_token])
+      @inviter = User.find(@user_invitation.invited_by)
+    else
+      render :file => "#{Rails.root}/public/404.html", :status => :not_found 
+    end
   end
 
   def update
