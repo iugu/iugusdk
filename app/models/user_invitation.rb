@@ -15,6 +15,10 @@ class UserInvitation < ActiveRecord::Base
     end
   end
 
+  def accept(user)
+    Account.find(account_id).account_users << AccountUser.create(:user_id => user.id)
+  end
+
   private
 
   def set_token

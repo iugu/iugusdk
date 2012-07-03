@@ -21,8 +21,8 @@ Rails.application.routes.draw do
     post "settings/profile" => "profile#update", :as => "profile_update"
     get "settings/profile/social/destroy" => "profile#destroy_social", :as => "social_destroy"
 
-    get '/settings/invite' => 'iugu/invitations#new', :as => 'new_invite'
-    post '/settings/invite' => 'iugu/invitations#create', :as => 'create_invite'
+    get '/settings/account/:account_id/invite' => 'iugu/invitations#new', :as => 'new_invite'
+    post '/settings/account/:account_id/invite' => 'iugu/invitations#create', :as => 'create_invite'
     get '/accept_invite/:invitation_token' => 'iugu/invitations#edit', :as => 'edit_invite'
 
     devise_for :users,

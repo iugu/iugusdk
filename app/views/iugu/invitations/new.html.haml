@@ -1,4 +1,4 @@
-= simple_form_for @user_invitation, :url => create_invite_path, :method => :post do |f|
+= simple_form_for @user_invitation, :url => create_invite_path(:account_id => @account_id), :method => :post do |f|
 
   %div
     = f.label :email

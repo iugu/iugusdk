@@ -2,10 +2,13 @@ class Iugu::InvitationsController < SettingsController
 
   def new
     @user_invitation = UserInvitation.new
+    @account_id = params[:account_id]
   end
 
   def create
-    UserInvitation.create(params[:user_invitation])
+    @user_invitation = UserInvitation.new(params[:user_invitation])
+    @user_invitation.account_id = params[:account_id]
+    @user_invitation.save
     redirect_to 'new'
   end
 

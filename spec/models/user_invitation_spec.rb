@@ -45,5 +45,26 @@ describe UserInvitation do
   
   end
 
+  context "accept" do
+    before(:each) do
+      @user_invitation = Fabricate(:user_invitation)
+      @account = Fabricate(:account)
+      @user = Fabricate(:user)
+    end
+
+    it 'should add user to account' do
+      @user_invitation.account_id = @account.id
+      @user_invitation.save
+      @user_invitation.accept(@user)
+      @account.account_users.find_by_user_id(@user.id).should_not be_nil
+    end
+
+    it 'should raise error when account_id is invalid' do
+      @user_invitation.account_id = 2039812
+      @user_invitation.save
+      lambda { @user_invitation.accept(@user) }.should raise_error
+    end
+  end
+
   
 end

@@ -4,7 +4,8 @@ describe Iugu::InvitationsController do
   context "new" do
     login_as_user
     before(:each) do
-      get :new
+      @account = Fabricate(:account)
+      get :new, :account_id => @account.id
     end
 
     it { response.should render_template 'iugu/invitations/new' }
@@ -14,7 +15,8 @@ describe Iugu::InvitationsController do
   context "create" do
     login_as_user
     before(:each) do
-      post :create, :user_invitation => {:email => "create@controller.teste"}
+      @account = Fabricate(:account)
+      post :create, :account_id => @account.id, :user_invitation => {:email => "create@controller.teste"}
     end
 
     it { response.should redirect_to "new" }
