@@ -1,4 +1,4 @@
-class AccountUsersController < SettingsController
+class AccountUsersController < AccountSettingsController
 
   def index
     @account_users = Account.find(params[:account_id]).account_users
