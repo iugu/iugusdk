@@ -54,4 +54,32 @@ describe AccountUser do
 
   end
 
+  context "set_roles method" do
+    before(:all) do
+      silence_warnings{ APP_ROLES = {"roles"=>["my_owner", "my_user", "my_guest"], "owner_role"=>"my_owner", "admin_role" => "my_user" } }
+    end
+
+    before(:each) do
+      @account_user.roles.destroy_all
+    end
+
+    it 'should update roles' do
+      @account_user.set_roles ["my_guest"]
+      @account_user.is?("my_guest").should be_true
+    end
+
+    it 'should return true' do
+      @account_user.set_roles(["my_user"]).should be_true
+    end
+
+    it 'should return false if receive an invalid role' do
+      @account_user.set_roles(["invalid_role"]).should be_false
+    end
+
+    after(:all) do
+      silence_warnings{ APP_ROLES = OLD_ROLES }
+    end
+  
+  end
+
 end
