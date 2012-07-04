@@ -1,4 +1,4 @@
-class AccountController < SettingsController
+class AccountController < AccountSettingsController
   
   def index
     render 'iugu/settings/accounts'
