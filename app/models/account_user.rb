@@ -15,14 +15,18 @@ class AccountUser < ActiveRecord::Base
   end
 
   def set_roles(new_roles)
-    valid = true
-    new_roles.each do |new_role|
-      valid = false unless APP_ROLES['roles'].include? new_role
-    end
-    return false unless valid 
-    roles.destroy_all
-    new_roles.each do |new_role|
-      roles.create( :name => new_role )
+    if new_roles.nil?
+      roles.destroy_all
+    else
+      valid = true
+      new_roles.each do |new_role|
+        valid = false unless APP_ROLES['roles'].include? new_role
+      end
+      return false unless valid 
+      roles.destroy_all
+      new_roles.each do |new_role|
+        roles.create( :name => new_role )
+      end
     end
     true
   end

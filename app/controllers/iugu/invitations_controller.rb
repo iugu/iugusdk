@@ -9,7 +9,7 @@ class Iugu::InvitationsController < SettingsController
     @user_invitation = UserInvitation.new(params[:user_invitation])
     @user_invitation.account_id = params[:account_id]
     @user_invitation.save
-    redirect_to 'new'
+    redirect_to :action => :new
   end
 
   def edit

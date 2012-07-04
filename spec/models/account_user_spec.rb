@@ -76,6 +76,15 @@ describe AccountUser do
       @account_user.set_roles(["invalid_role"]).should be_false
     end
 
+    it 'should return true if receive nil' do
+      @account_user.set_roles(nil).should be_true
+    end
+
+    it 'should destroy all roles if receive nil' do
+      @account_user.set_roles(nil)
+      @account_user.roles.empty?.should be_true
+    end
+
     after(:all) do
       silence_warnings{ APP_ROLES = OLD_ROLES }
     end

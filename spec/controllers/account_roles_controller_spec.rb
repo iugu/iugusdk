@@ -20,7 +20,7 @@ describe AccountRolesController do
       post :update, :id => @account_id, :user_id => @user.id, :roles => []
     end
   
-    it { response.should render_template "iugu/account_roles/update" }
+    it { response.should render_template "iugu/account_roles/edit" }
   
   end
   
