@@ -44,6 +44,17 @@ describe 'account settings view' do
       click_on I18n.t("iugu.remove") 
       page.should have_content I18n.t("iugu.removing")
     end
+
+    it 'should not have config button' do
+      click_on I18n.t("iugu.remove") 
+      page.should_not have_link I18n.t("iugu.configs") 
+    end
+
+    it 'should not have select account button' do
+      click_on I18n.t("iugu.remove") 
+      page.should_not have_link I18n.t("iugu.select_account") 
+    end
+
   end
 
 
