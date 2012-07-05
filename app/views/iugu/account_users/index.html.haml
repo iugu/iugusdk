@@ -2,5 +2,7 @@
 
 - @account_users.each do |account_user|
   = account_user.user.name
-  = link_to I18n.t("iugu.permissions")
+  = link_to I18n.t("iugu.permissions"), account_roles_edit_path(:id => @account.id, :user_id => account_user.user_id)
   = link_to I18n.t("iugu.remove")
+%div
+  = link_to I18n.t("iugu.invite"), new_invite_path(:account_id => @account.id)

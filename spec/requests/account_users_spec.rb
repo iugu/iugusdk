@@ -13,6 +13,7 @@ describe "Account Users Requests" do
     it { page.should have_content User.last.name }
     it { page.should have_link I18n.t("iugu.permissions") }
     it { page.should have_link I18n.t("iugu.remove") }
+    it { page.should have_link I18n.t("iugu.invite") }
   
   end
 end

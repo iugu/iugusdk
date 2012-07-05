@@ -1,7 +1,8 @@
 class AccountUsersController < AccountSettingsController
 
   def index
-    @account_users = Account.find(params[:account_id]).account_users
+    @account = Account.find(params[:account_id])
+    @account_users = @account.account_users
     render 'iugu/account_users/index'
   end
 
