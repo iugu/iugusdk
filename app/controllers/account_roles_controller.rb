@@ -3,7 +3,11 @@ class AccountRolesController < SettingsController
   def edit
     @account = Account.find(params[:id])
     @account_user = @account.account_users.find_by_user_id(params[:user_id])
-    render 'iugu/account_roles/edit'
+    if current_user.is?(:owner, @account) || current_user.is?(:admin, @account)
+      render 'iugu/account_roles/edit'
+    else
+      render :file => "#{Rails.root}/public/422.html", :status => 550
+    end
   end
 
   def update
