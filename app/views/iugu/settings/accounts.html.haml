@@ -13,6 +13,9 @@
   %div
     = I18n.t "iugu.account_roles"
     = current_user_account.roles.map(&:name).to_s
+%br
+
+- if current_user.accounts.count > 0
 
   %h3 
     - if IuguSDK::allow_create_account
@@ -23,7 +26,6 @@
       - else
         = I18n.t("iugu.account")
 
-  %br
   - current_user.accounts.each do |account|
     = account.name
     - unless account.destroying?
