@@ -6,7 +6,7 @@ class AccountUsersController < AccountSettingsController
   end
 
   def view
-    @account_user = Account.find(params[:account_id]).account_users.find_by_user_id(params[:user_id])
+    @account_user = AccountUser.find_by_account_id_and_user_id(params[:account_id], params[:user_id])
     render 'iugu/account_users/view'
   end
   
