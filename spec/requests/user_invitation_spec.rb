@@ -18,5 +18,23 @@ describe 'UserInvitations requests' do
     it { page.should have_link I18n.t("iugu.accept") }
   
   end
+
+  context "new view" do
+    before(:each) do
+      visit'/account/auth/facebook'
+      @user = User.last
+      @account = @user.accounts.first
+      visit new_invite_path(@account.id)
+    end
+
+    APP_ROLES['roles'].each do |role|
+      it { page.should have_content role }
+    end
+
+    it { page.should have_content 'Email' }
+
+    it { page.should have_button I18n.t("iugu.invite") }
+  
+  end
   
 end
