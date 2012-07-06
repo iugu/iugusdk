@@ -1,6 +1,6 @@
 class UserInvitation < ActiveRecord::Base
   validates :email, :email => true, :presence => true
-  before_save :set_token
+  before_save :set_token, :set_sent_at
 
   def self.find_by_invitation_token(invitation_token)
     begin
@@ -24,6 +24,10 @@ class UserInvitation < ActiveRecord::Base
 
   def set_token
     self.token = SecureRandom.urlsafe_base64(20) unless token
+  end
+
+  def set_sent_at
+    self.sent_at = Time.now
   end
 end
 

@@ -10,6 +10,18 @@ describe UserInvitation do
       @user_invitation.save
     end
 
+    it 'should call set_sent_at' do
+      @user_invitation = UserInvitation.new(:email => "test@test.test")
+      @user_invitation.should_receive :set_sent_at
+      @user_invitation.save
+    end
+
+    it 'should set sent_at' do
+      @user_invitation = UserInvitation.new(:email => "test@test.test")
+      @user_invitation.save
+      @user_invitation.sent_at.should_not be_nil
+    end
+
     context "if has no token" do
       it 'should generate one' do
         @user_invitation = UserInvitation.new(:email => "test@test.test")
