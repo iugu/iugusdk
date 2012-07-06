@@ -6,6 +6,7 @@ class Iugu::InvitationsController < SettingsController
   end
 
   def create
+    params[:user_invitation][:roles] = params[:user_invitation][:roles].try(:join, ',')
     @user_invitation = UserInvitation.new(params[:user_invitation])
     @user_invitation.account_id = params[:account_id]
     @user_invitation.save

@@ -64,6 +64,14 @@ describe UserInvitation do
       @user_invitation.save
       lambda { @user_invitation.accept(@user) }.should raise_error
     end
+
+    it 'should save invite roles on account_user' do
+      @user_invitation.account_id = @account.id
+      @user_invitation.roles =(["user", "guest"].join(','))
+      @user_invitation.save
+      @user_invitation.accept(@user)
+      AccountUser.last.is?('user').should be_true
+    end
   end
 
   
