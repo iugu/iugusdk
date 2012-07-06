@@ -27,19 +27,20 @@
         = I18n.t("iugu.account")
 
   - current_user.accounts.each do |account|
-    = account.name
-    - unless account.destroying?
-      = link_to I18n.t("iugu.configs"), account_view_path(:id => account.id)
-      = link_to I18n.t("iugu.select_account"), account_select_path(:id => account.id)
-    - if account.account_users.find_by_user_id(current_user.id).is?(:owner)
-      - if account.destroying?
-        - if IuguSDK::delay_account_exclusion > 0
-          - unless account.destruction_job.locked_at
-            = link_to I18n.t("iugu.undo"), account_cancel_destruction_path(:id => account.id), :confirm => I18n.t("iugu.are_you_sure?"), :method => 'delete'
+    %div
+      = account.name || "-"
+      - unless account.destroying?
+        = link_to I18n.t("iugu.configs"), account_view_path(:id => account.id)
+        = link_to I18n.t("iugu.select_account"), account_select_path(:id => account.id)
+      - if account.account_users.find_by_user_id(current_user.id).is?(:owner)
+        - if account.destroying?
+          - if IuguSDK::delay_account_exclusion > 0
+            - unless account.destruction_job.locked_at
+              = link_to I18n.t("iugu.undo"), account_cancel_destruction_path(:id => account.id), :confirm => I18n.t("iugu.are_you_sure?"), :method => 'delete'
+          - else
+            = I18n.t("iugu.removing")
         - else
-          = I18n.t("iugu.removing")
-      - else
-        = link_to I18n.t("iugu.remove"), account_destroy_path(:id => account.id), :confirm => I18n.t("iugu.are_you_sure?"), :method => 'delete'
+          = link_to I18n.t("iugu.remove"), account_destroy_path(:id => account.id), :confirm => I18n.t("iugu.are_you_sure?"), :method => 'delete'
 
 - else
   %h2
