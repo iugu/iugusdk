@@ -33,7 +33,10 @@
 
         = link_to "Profile", profile_settings_path
         = ' | '
-        = link_to "Account", account_settings_path
+        - if IuguSDK::allow_create_account == false && current_user.accounts.count <= 1
+          = link_to I18n.t("iugu.account"), account_settings_path
+        - else
+          = link_to I18n.t("iugu.accounts"), account_settings_path
 
         = yield()
 
