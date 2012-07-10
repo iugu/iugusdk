@@ -42,8 +42,7 @@ describe UserInvitation do
 
     it 'should send email' do
       @user_invitation = UserInvitation.new(:email => "test@test.test", :roles => "user")
-      IuguMailer.should_receive :invitation
-      @user_invitation.save
+      lambda{@user_invitation.save}.should change(ActionMailer::Base.deliveries, :size).by(1)
     end
   
   end

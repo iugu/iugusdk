@@ -33,7 +33,7 @@ class UserInvitation < ActiveRecord::Base
   end
 
   def send_email
-    IuguMailer.invitation(self)
+    IuguMailer.invitation(self).deliver
   end
 end
 

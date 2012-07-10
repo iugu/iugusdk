@@ -5,4 +5,4 @@
   = I18n.t("iugu.account")
   = @user_invitation.account_id
 %div
-  = link_to I18n.t("iugu.accept"), update_invite_path(:invitation_token => @user_invitation.id.to_s + @user_invitation.token)
+  = link_to I18n.t("iugu.accept"), update_invite_path(:invitation_token => @user_invitation.id.to_s + @user_invitation.token), :method => :post
