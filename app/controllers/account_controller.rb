@@ -6,7 +6,7 @@ class AccountController < AccountSettingsController
 
   def view
     if params[:id]
-      @account = Account.find(params[:id])
+      @account = current_user.accounts.find(params[:id])
     else
       @account = current_user_account
     end

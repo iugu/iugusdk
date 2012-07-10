@@ -1,7 +1,7 @@
 class AccountRolesController < SettingsController
 
   def edit
-    @account = Account.find(params[:id])
+    @account = current_user.accounts.find(params[:id])
     @account_user = @account.account_users.find_by_user_id(params[:user_id])
     if current_user.is?(:owner, @account) || current_user.is?(:admin, @account)
       render 'iugu/account_roles/edit'
@@ -11,7 +11,7 @@ class AccountRolesController < SettingsController
   end
 
   def update
-    @account = Account.find(params[:id])
+    @account = current_user.accounts.find(params[:id])
     @account_user = @account.account_users.find_by_user_id(params[:user_id])
     @account_user.set_roles(params[:roles])
     render 'iugu/account_roles/edit'
