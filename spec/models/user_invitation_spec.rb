@@ -4,27 +4,9 @@ describe UserInvitation do
 
   context "before save" do
 
-    it 'should call set_token' do
-      @user_invitation = UserInvitation.new(:email => "test@test.test")
-      @user_invitation.should_receive :set_token
-      @user_invitation.save
-    end
-
-    it 'should call set_sent_at' do
-      @user_invitation = UserInvitation.new(:email => "test@test.test")
-      @user_invitation.should_receive :set_sent_at
-      @user_invitation.save
-    end
-
-    it 'should set sent_at' do
-      @user_invitation = UserInvitation.new(:email => "test@test.test")
-      @user_invitation.save
-      @user_invitation.sent_at.should_not be_nil
-    end
-
     context "if has no token" do
       it 'should generate one' do
-        @user_invitation = UserInvitation.new(:email => "test@test.test")
+        @user_invitation = UserInvitation.new(:email => "test@test.test", :roles => "user")
         @user_invitation.save
         @user_invitation.token.should_not be_nil
       end
@@ -38,6 +20,32 @@ describe UserInvitation do
         @user_invitation.token.should == "oiaa09s1jiUHAS8danja9sja0"
       end
     end
+  end
+
+  context "before create" do
+
+    it 'should call set_sent_at' do
+      @user_invitation = UserInvitation.new(:email => "test@test.test", :roles => "user")
+      @user_invitation.should_receive :set_sent_at
+      @user_invitation.save
+    end
+
+    it 'should set sent_at' do
+      @user_invitation = UserInvitation.new(:email => "test@test.test", :roles => "user")
+      @user_invitation.save
+      @user_invitation.sent_at.should_not be_nil
+    end
+  
+  end
+
+  context "after create" do
+
+    it 'should send email' do
+      @user_invitation = UserInvitation.new(:email => "test@test.test", :roles => "user")
+      IuguMailer.should_receive :invitation
+      @user_invitation.save
+    end
+  
   end
 
   context "find by invitation_token" do
@@ -85,6 +93,7 @@ describe UserInvitation do
       AccountUser.last.is?('user').should be_true
     end
   end
+end
+  
 
   
-end

@@ -1,6 +1,8 @@
 class UserInvitation < ActiveRecord::Base
   validates :email, :email => true, :presence => true
-  before_save :set_token, :set_sent_at
+  before_save :set_token
+  before_create :set_sent_at
+  after_create :send_email
 
   def self.find_by_invitation_token(invitation_token)
     begin
@@ -28,6 +30,10 @@ class UserInvitation < ActiveRecord::Base
 
   def set_sent_at
     self.sent_at = Time.now
+  end
+
+  def send_email
+    IuguMailer.invitation(self)
   end
 end
 
