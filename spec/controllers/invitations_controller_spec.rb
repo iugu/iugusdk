@@ -1,10 +1,28 @@
 require 'spec_helper'
 
 describe Iugu::InvitationsController do
+  context "before filter" do
+
+    context "when user dont have permissions on account" do
+      login_as_user
+      before(:each) do
+        @account = Fabricate(:account)
+      end
+
+      it 'should raise routing error' do
+        lambda {
+          get :new, :account_id => @account
+        }.should raise_error
+      end
+
+    end
+  
+  end
+
   context "new" do
     login_as_user
     before(:each) do
-      @account = Fabricate(:account)
+      @account = @user.accounts.first
       get :new, :account_id => @account.id
     end
 
@@ -15,7 +33,7 @@ describe Iugu::InvitationsController do
   context "create" do
     login_as_user
     before(:each) do
-      @account = Fabricate(:account)
+      @account = @user.accounts.first
       post :create, :account_id => @account.id, :user_invitation => {:email => "create@controller.teste"}
     end
 

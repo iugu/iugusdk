@@ -1,4 +1,5 @@
 class Iugu::InvitationsController < SettingsController
+  before_filter :check_permissions
 
   def new
     @user_invitation = UserInvitation.new
@@ -27,6 +28,20 @@ class Iugu::InvitationsController < SettingsController
       redirect_to root_path
     else
       render :file => "#{Rails.root}/public/404.html", :status => :not_found
+    end
+  end
+
+
+  private
+
+  def check_permissions
+    if params[:account_id]
+      begin
+        account = current_user.accounts.find(params[:account_id])
+      rescue
+        raise ActionController::RoutingError.new('Access denied')
+      end
+      raise ActionController::RoutingError.new('Access denied') unless current_user.is?(:owner, account) || current_user.is?(:admin, account)
     end
   end
 
