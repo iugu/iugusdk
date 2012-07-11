@@ -6,7 +6,7 @@
 %html{:lang => "en"}
   %head
     %meta{:charset => "utf-8"}/
-    %title= content_for?(:title) ? (yield(:title) + " - " + IuguSDK::application_title) : "Settings"
+    %title= content_for?(:title) ? (yield(:title) + " - " + IuguSDK::application_title) : I18n.t("iugu.settings")
     = csrf_meta_tags
     
     = stylesheet_link_tag    "settings"
@@ -18,20 +18,20 @@
     .header
       = link_to image_tag('application_logo.png'), IuguSDK::app_main_url
 
-      = link_to 'Back to ' + IuguSDK::application_title, IuguSDK::app_main_url, :class => "button", :id => "btn-settings-back"
+      = link_to I18n.t("iugu.back_to") + IuguSDK::application_title, IuguSDK::app_main_url, :class => "button", :id => "btn-settings-back"
 
 
     .container
       .wrapper
 
         %h1
-          Settings
+          = I18n.t("iugu.settings")
 
         - flash.each do |name, msg|
           = content_tag :div, msg, :id => "flash_#{name}" if msg.is_a?(String)
 
 
-        = link_to "Profile", profile_settings_path
+        = link_to I18n.t("iugu.profile"), profile_settings_path
         = ' | '
         - if IuguSDK::allow_create_account == false && current_user.accounts.count <= 1
           = link_to I18n.t("iugu.account"), account_settings_path
@@ -43,9 +43,9 @@
 
 
         %div
-          You are signed in as 
+          = I18n.t("iugu.signed_in")
           = current_user.email
-          = link_to 'Sign out', destroy_user_session_path, :method => :delete, :class => "button"
+          = link_to I18n.t("iugu.sign_out"), destroy_user_session_path, :method => :delete, :class => "button"
 
         %div
           = link_to 'Ough Bough!', IuguSDK::app_main_url, :class => "button button-large"
