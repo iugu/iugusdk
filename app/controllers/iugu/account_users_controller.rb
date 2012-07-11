@@ -1,4 +1,4 @@
-class AccountUsersController < AccountSettingsController
+class Iugu::AccountUsersController < Iugu::AccountSettingsController
 
   def index
     @account = Account.find(params[:account_id])

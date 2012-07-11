@@ -5,28 +5,28 @@ Rails.application.routes.draw do
 
   constraints(IuguSDK::RootTenancyUrl) do
 
-    get "settings" => "settings#index", :as => "settings"
-    get "settings/account" => "account#index", :as => "account_settings"
-    get "settings/account/(:id)" => "account#view", :as => "account_view"
-    delete "settings/account/(:id)" => "account#destroy", :as => "account_destroy"
-    delete "settings/account/(:id)/cancel" => "account#cancel_destruction", :as => "account_cancel_destruction"
+    get "settings" => "iugu/settings#index", :as => "settings"
+    get "settings/account" => "iugu/account#index", :as => "account_settings"
+    get "settings/account/(:id)" => "iugu/account#view", :as => "account_view"
+    delete "settings/account/(:id)" => "iugu/account#destroy", :as => "account_destroy"
+    delete "settings/account/(:id)/cancel" => "iugu/account#cancel_destruction", :as => "account_cancel_destruction"
 
-    get "settings/account/:account_id/users" => "account_users#index", :as => "account_users_index"
-    get "settings/account/:account_id/user/:user_id" => "account_users#view", :as => "account_users_view"
+    get "settings/account/:account_id/users" => "iugu/account_users#index", :as => "account_users_index"
+    get "settings/account/:account_id/user/:user_id" => "iugu/account_users#view", :as => "account_users_view"
 
-    get "select_account/:id" => "account#select", :as => "account_select"
-    get "settings/profile" => "profile#index", :as => "profile_settings"
-    get "settings/profile/destroy" => "profile#destroy", :as => "profile_destroy"
-    get "settings/profile/cancel_destruction" => "profile#cancel_destruction", :as => "profile_cancel_destruction"
-    post "settings/profile" => "profile#update", :as => "profile_update"
-    get "settings/profile/social/destroy" => "profile#destroy_social", :as => "social_destroy"
+    get "select_account/:id" => "iugu/account#select", :as => "account_select"
+    get "settings/profile" => "iugu/profile#index", :as => "profile_settings"
+    get "settings/profile/destroy" => "iugu/profile#destroy", :as => "profile_destroy"
+    get "settings/profile/cancel_destruction" => "iugu/profile#cancel_destruction", :as => "profile_cancel_destruction"
+    post "settings/profile" => "iugu/profile#update", :as => "profile_update"
+    get "settings/profile/social/destroy" => "iugu/profile#destroy_social", :as => "social_destroy"
 
     get '/settings/account/:account_id/invite' => 'iugu/invitations#new', :as => 'new_invite'
     post '/settings/account/:account_id/invite' => 'iugu/invitations#create', :as => 'create_invite'
     get '/accept_invite/:invitation_token' => 'iugu/invitations#edit', :as => 'edit_invite'
     post '/accept_invite' => 'iugu/invitations#update', :as => 'update_invite'
-    get "/settings/account/(:id)/user/:user_id/roles" => "account_roles#edit", :as => "account_roles_edit"
-    post "/settings/account/(:id)/user/:user_id/roles" => "account_roles#update", :as => "account_roles_update"
+    get "/settings/account/(:id)/user/:user_id/roles" => "iugu/account_roles#edit", :as => "account_roles_edit"
+    post "/settings/account/(:id)/user/:user_id/roles" => "iugu/account_roles#update", :as => "account_roles_update"
 
     devise_for :users,
       :path => 'account',

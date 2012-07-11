@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe AccountController do
+describe Iugu::AccountController do
   context "index" do
     login_as_user
     before do

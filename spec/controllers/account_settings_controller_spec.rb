@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-class StubAccountSettingsController < AccountSettingsController
+class StubAccountSettingsController < Iugu::AccountSettingsController
 
   def index
     render :text => "true", :status => 200

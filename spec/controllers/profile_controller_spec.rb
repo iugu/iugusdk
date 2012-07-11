@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe ProfileController do
+describe Iugu::ProfileController do
 
   context "index" do
 

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe SettingsController do
+describe Iugu::SettingsController do
   context "index" do
     login_as_user
     before do

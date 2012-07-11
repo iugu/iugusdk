@@ -1,4 +1,4 @@
-class Iugu::InvitationsController < SettingsController
+class Iugu::InvitationsController < Iugu::SettingsController
   before_filter :check_permissions
 
   def new

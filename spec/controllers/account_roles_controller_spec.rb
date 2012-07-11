@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe AccountRolesController do
+describe Iugu::AccountRolesController do
 
   context "edit" do
     login_as_user

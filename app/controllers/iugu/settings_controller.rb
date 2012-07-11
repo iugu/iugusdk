@@ -1,4 +1,4 @@
-class SettingsController < ApplicationController
+class Iugu::SettingsController < ApplicationController
 
   before_filter :authenticate_user!, :except => :add_social
 

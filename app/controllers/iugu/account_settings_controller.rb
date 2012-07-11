@@ -1,4 +1,4 @@
-class AccountSettingsController < SettingsController
+class Iugu::AccountSettingsController < Iugu::SettingsController
   before_filter :block_removing
   
   private

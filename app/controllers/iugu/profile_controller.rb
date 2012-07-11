@@ -1,4 +1,4 @@
-class ProfileController < SettingsController
+class Iugu::ProfileController < Iugu::SettingsController
   
   def index
     @user = current_user

@@ -1,4 +1,4 @@
-class AccountRolesController < SettingsController
+class Iugu::AccountRolesController < Iugu::SettingsController
 
   def edit
     @account = current_user.accounts.find(params[:id])
