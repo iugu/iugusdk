@@ -24,6 +24,7 @@ en:
     account_destruction_undone: "Account destruction canceled"
     user_destruction_in: "User will be remove at "
     user_destruction_undone: "User destruction canceled"
+    users: "Users"
     are_you_sure?: "Are you sure?"
     remove: "Remove"
     remove_user: "Remove User"

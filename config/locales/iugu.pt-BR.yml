@@ -24,6 +24,7 @@ pt-BR:
     account_destruction_undone: "Remoção da conta cancelada"
     user_destruction_in: "O usuário será removido em "
     user_destruction_undone: "Remoção do usuário cancelada"
+    users: "Usuários"
     are_you_sure?: "Tem certeza disso?"
     remove: "Excluir"
     remove_user: "Remover Usuário"

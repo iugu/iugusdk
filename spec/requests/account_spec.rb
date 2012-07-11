@@ -7,6 +7,7 @@ describe 'account settings view' do
   end
 
   it { page.should have_link I18n.t("iugu.remove") }
+  it { page.should have_link I18n.t("iugu.users") }
   it { page.should have_link I18n.t("iugu.configs") }
   it { page.should have_link I18n.t("iugu.select") }
 
@@ -43,6 +44,11 @@ describe 'account settings view' do
       IuguSDK::delay_account_exclusion = 0
       click_on I18n.t("iugu.remove") 
       page.should have_content I18n.t("iugu.removing")
+    end
+
+    it 'should not have users button' do
+      click_on I18n.t("iugu.remove") 
+      page.should_not have_link I18n.t("iugu.users") 
     end
 
     it 'should not have config button' do
