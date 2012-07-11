@@ -37,7 +37,7 @@ describe Iugu::InvitationsController do
       post :create, :account_id => @account.id, :user_invitation => {:email => "create@controller.teste"}
     end
 
-    it { response.should redirect_to :action => :new }
+    it { response.should redirect_to account_users_index_path(@account.id) }
 
     it 'should create an invite' do
       UserInvitation.last.email.should == "create@controller.teste"

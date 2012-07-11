@@ -44,6 +44,8 @@ pt-BR:
     change_password: "Mudar senha"
     social_account: "Redes sociais"
     notices:
+      user_invited: "Usuário convidado"
       sign_up: "Obrigado por se cadastrar."
       user_update: "Seus dados foram atualizados."
+      roles_changed: "Papeis alterados com sucesso"
               

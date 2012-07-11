@@ -12,7 +12,7 @@ class Iugu::InvitationsController < Iugu::SettingsController
     @user_invitation.invited_by = current_user.id
     @user_invitation.account_id = params[:account_id]
     @user_invitation.save
-    redirect_to :action => :new
+    redirect_to account_users_index_path(params[:account_id]), :notice => I18n.t("iugu.notices.user_invited")
   end
 
   def edit

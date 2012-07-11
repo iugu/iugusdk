@@ -44,6 +44,8 @@ en:
     change_password: "Change password"
     social_account: "Social network accounts"
     notices:
+      user_invited: "User invited"
       sign_up: "Thank you for signing up"
       user_update: "User was successfully updated."
+      roles_changed: "Roles successfully changed"
       
