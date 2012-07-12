@@ -28,4 +28,8 @@ class Account < ActiveRecord::Base
     account_users.find_by_user_id(user.id).is?(role.to_s)
   end
 
+  def name
+    super || "#{I18n.t('iugu.account')} ##{id}" 
+  end
+
 end

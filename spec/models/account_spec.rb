@@ -91,6 +91,25 @@ describe Account do
     end 
   
   end 
+
+  context "name" do
+    before(:each) do
+      @account = Fabricate(:account)
+    end
+
+    it 'should return account name' do
+      @account.name = "Named"
+      @account.save
+      @account.name.should == "Named"
+    end
+
+    it 'should return Account #ID if account name == nil' do
+      @account.name = nil
+      @account.save
+      @account.name.should == "#{I18n.t("iugu.account")} ##{@account.id}"
+    end
+  
+  end
   
 
 end

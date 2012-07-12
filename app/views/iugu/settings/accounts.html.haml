@@ -28,7 +28,7 @@
 
   - current_user.accounts.each do |account|
     %div
-      = account.name || I18n.t("iugu.unnamed")
+      = account.name
       - unless account.destroying?
         |
         = link_to I18n.t("iugu.users"), account_users_index_path(:account_id => account.id)
