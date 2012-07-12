@@ -8,6 +8,22 @@ class AccountUser < ActiveRecord::Base
   validates_presence_of :user
   validates_presence_of :account
 
+  handle_asynchronously :destroy, :queue => Proc.new { |p| "account_user_#{p.id}_destroy" },
+                        :run_at => Proc.new { DateTime.now + IuguSDK::delay_account_user_exclusion }
+
+
+  def destruction_job
+    Delayed::Job.find_by_queue("account_user_#{id}_destroy")
+  end 
+
+  def destroying?
+    !!destruction_job
+  end 
+
+  def cancel_destruction
+    destruction_job.try(:destroy) unless destruction_job.try(:locked_at)
+  end 
+
   # Write tests for this
   def add_default_roles
     roles.create( { :name => APP_ROLES[ "owner_role" ] } )

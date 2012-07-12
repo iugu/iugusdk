@@ -22,6 +22,8 @@ pt-BR:
     social_unlinked: "Rede social desvinculada com sucesso"
     account_destruction_in: "A conta será removida em "
     account_destruction_undone: "Remoção da conta cancelada"
+    account_user_destruction_undone: "Remoção do usuário da conta cancelada"
+    account_user_destruction_in: "O usuário da conta será removido em "
     user_destruction_in: "O usuário será removido em "
     user_destruction_undone: "Remoção do usuário cancelada"
     users: "Usuários"

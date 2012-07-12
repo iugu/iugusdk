@@ -44,6 +44,9 @@ module IuguSDK
 
   mattr_accessor :delay_account_exclusion
   self.delay_account_exclusion = 0
+
+  mattr_accessor :delay_account_user_exclusion
+  self.delay_account_user_exclusion = 0
   
   mattr_accessor :delay_user_exclusion
   self.delay_user_exclusion = 0

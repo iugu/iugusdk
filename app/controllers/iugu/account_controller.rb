@@ -36,7 +36,7 @@ class Iugu::AccountController < Iugu::AccountSettingsController
     rescue
       notice = "Account not found"
     end
-      redirect_to(account_settings_path, :notice => notice)
+    redirect_to(account_settings_path, :notice => notice)
   end
 
   def select

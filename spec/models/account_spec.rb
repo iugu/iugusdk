@@ -71,6 +71,8 @@ describe Account do
       @account.cancel_destruction.should be_nil
     end
 
+  end
+
   context "is? method" do
     before(:each) do
       @user = Fabricate(:user)
@@ -90,6 +92,5 @@ describe Account do
   
   end 
   
-  end
 
 end

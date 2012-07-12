@@ -12,7 +12,7 @@ describe Iugu::InvitationsController do
       it 'should raise routing error' do
         lambda {
           get :new, :account_id => @account
-        }.should raise_error
+        }.should raise_error ActionController::RoutingError
       end
 
     end

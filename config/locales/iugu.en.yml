@@ -22,6 +22,8 @@ en:
     social_unlinked: "Social Account successfully unlink"
     account_destruction_in: "Account will be remove at "
     account_destruction_undone: "Account destruction canceled"
+    account_user_destruction_undone: "Account user destruction canceled"
+    account_user_destruction_in: "Account user will be remove at "
     user_destruction_in: "User will be remove at "
     user_destruction_undone: "User destruction canceled"
     users: "Users"

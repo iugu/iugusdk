@@ -91,4 +91,65 @@ describe AccountUser do
   
   end
 
+  context "destruction_job method" do
+
+    it 'should return a job' do
+      @account_user.destroy
+      @account_user.destruction_job.class.should == Delayed::Backend::ActiveRecord::Job 
+    end 
+    
+    it 'should return null if account has no destruction job' do
+      @account_user.destruction_job.should be_nil
+    end 
+  
+  end 
+
+  context "destrying? method" do
+    before(:each) do
+      @account = Fabricate(:account)
+    end
+
+    it 'should return true if account has a destruction job' do
+      @account_user.destroy
+      @account_user.destroying?.should be_true
+    end
+
+    it 'should return false if account doesnt have a destruction job' do
+      @account_user.destroying?.should be_false
+    end
+  end
+
+  context "cancel_destruction" do
+    before(:each) do
+      @account = Fabricate(:account)
+    end
+
+    it 'should cancel account destruction' do
+      @account_user.destroy
+      @account_user.cancel_destruction
+      @account_user.destroying?.should be_false
+    end
+
+    it 'should return a job' do
+      @account_user.destroy
+      @account_user.cancel_destruction.class.should == Delayed::Backend::ActiveRecord::Job
+    end
+
+    it 'should return nil if doesnt have a destruction job' do
+      @account_user.cancel_destruction.should be_nil
+    end
+
+    it 'should return nil if destruction job is already locked' do
+      @account_user.destroy
+      @job = @account_user.destruction_job
+      @job.locked_at = Time.now
+      @job.save
+      @account_user.cancel_destruction.should be_nil
+    end
+
+  end
+
+
+
+
 end
