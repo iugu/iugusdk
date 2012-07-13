@@ -26,9 +26,9 @@
 
         %h1
           = I18n.t("iugu.settings")
-
-        - flash.each do |name, msg|
-          = content_tag :div, msg, :id => "flash_#{name}" if msg.is_a?(String)
+        - unless flash[:social]
+          - flash.each do |name, msg|
+            = content_tag :div, msg, :id => "flash_#{name}" if msg.is_a?(String)
 
 
         = link_to I18n.t("iugu.profile"), profile_settings_path

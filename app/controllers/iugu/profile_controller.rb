@@ -37,7 +37,8 @@ class Iugu::ProfileController < Iugu::SettingsController
     rescue
       notice = I18n.t("errors.messages.not_found")
     end
-    redirect_to profile_settings_path, :notice => notice
+    flash[:social] = notice
+    redirect_to profile_settings_path
   end
 
 end
