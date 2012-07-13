@@ -1,11 +1,41 @@
 - content_for :title do "Account #{@account.id}" end
 
 %br
-ID -  
-= @account.id
+%h2
+  = I18n.t("iugu.account_settings") + " (##{@account.id})"
+
+= simple_form_for @account, :url => account_update_path(:id => @account.id), :method => :put do |f|
+  = f.text_field :name
+  = f.submit I18n.t("iugu.save")
+
 %br
-Name - 
-= @account.name
+Plan Name
+= link_to I18n.t("iugu.change")
+
 %br
-Subscription ID - 
-= @account.subscription_id
+%br
+Custom Domains
+= link_to I18n.t("iugu.manage")
+%br
+Primary: okok.com.br
+
+%br
+%br
+= link_to I18n.t("iugu.users_and_roles"), account_users_index_path(@account.id)
+
+%br
+%br
+= link_to I18n.t("iugu.payment_history")
+
+- if current_user.is?(:owner, @account) || current_user.is?(:admin, @account)
+  %br
+  %br
+  - unless @account.destroying?
+    = link_to I18n.t("iugu.cancel_account"), account_destroy_path(@account.id), :method => :delete
+  - else
+    - if IuguSDK::delay_account_exclusion > 0
+      = link_to I18n.t("iugu.undo"), account_cancel_destruction_path(@account.id), :method => :delete
+    - else
+      = I18n.t("iugu.account_destruction_in") + @account.destruction_job.run_at.to_s
+
+
