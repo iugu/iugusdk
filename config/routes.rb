@@ -10,6 +10,7 @@ Rails.application.routes.draw do
     get "settings/account/(:id)" => "iugu/account#view", :as => "account_view"
     delete "settings/account/(:id)" => "iugu/account#destroy", :as => "account_destroy"
     delete "settings/account/(:id)/cancel" => "iugu/account#cancel_destruction", :as => "account_cancel_destruction"
+    put "settings/account/(:id)" => "iugu/account#update", :as => "account_update"
 
     get "settings/account/:account_id/users" => "iugu/account_users#index", :as => "account_users_index"
     get "settings/account/:account_id/user/:user_id" => "iugu/account_users#view", :as => "account_users_view"

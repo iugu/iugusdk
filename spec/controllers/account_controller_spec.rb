@@ -111,6 +111,26 @@ describe Iugu::AccountController do
     it { response.should redirect_to account_settings_path }
 
   end
+
+  context "update" do
+    login_as_user
+    before(:each) do
+      put :update, :id => @user.accounts.first.id, :account => { :name => "fudum" }
+    end
+  
+    it { response.should redirect_to account_view_path(@user.accounts.first.id) }
+
+    it 'should update account name' do
+      @user.accounts.first.name.should == "fudum"
+    end
+
+    it 'should raise error if receive an invalid id' do
+      lambda {
+        put :update, :id => 892738912731893719237, :account => { :name => "fudum" }
+      }.should raise_error ActionController::RoutingError
+    end
+  
+  end
   
   
 end
