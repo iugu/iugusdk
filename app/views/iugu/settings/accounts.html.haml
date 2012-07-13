@@ -3,18 +3,6 @@
 %h3
   = I18n.t "iugu.account_settings"
 
-- if current_user_account
-  %h2
-    Current Account
-  %div
-    = I18n.t "iugu.account_number"
-    = "#"
-    = current_user_account.id
-  %div
-    = I18n.t "iugu.account_roles"
-    = current_user_account.roles.map(&:name).to_s
-%br
-
 - if current_user.accounts.count > 0
 
   %h3 
@@ -29,25 +17,14 @@
   - current_user.accounts.each do |account|
     %div
       = account.name
-      - unless account.destroying?
+      - if current_user_account.id == account.id
         |
-        = link_to I18n.t("iugu.users"), account_users_index_path(:account_id => account.id)
-        |
-        = link_to I18n.t("iugu.configs"), account_view_path(:id => account.id)
+        = I18n.t("iugu.active")
+      - else
         |
         = link_to I18n.t("iugu.select"), account_select_path(:id => account.id)
-      - if account.account_users.find_by_user_id(current_user.id).is?(:owner)
-        - if account.destroying?
-          - if IuguSDK::delay_account_exclusion > 0
-            - unless account.destruction_job.locked_at
-              |
-              = link_to I18n.t("iugu.undo"), account_cancel_destruction_path(:id => account.id), :confirm => I18n.t("iugu.are_you_sure?"), :method => 'delete'
-          - else
-            |
-            = I18n.t("iugu.removing")
-        - else
-          |
-          = link_to I18n.t("iugu.remove"), account_destroy_path(:id => account.id), :confirm => I18n.t("iugu.are_you_sure?"), :method => 'delete'
+      |
+      = link_to I18n.t("iugu.settings"), account_view_path(:id => account.id)
 
 - else
   %h2
