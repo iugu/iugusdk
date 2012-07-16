@@ -2,6 +2,7 @@ class Account < ActiveRecord::Base
   # Validators
 
   has_many :account_users, :dependent => :destroy, :include => [:roles,:account]
+  has_many :account_domains, :dependent => :destroy
   has_many :users, :through => :account_users
   handle_asynchronously :destroy, :queue => Proc.new { |p| "account_#{p.id}_destroy" },
                         :run_at => Proc.new { DateTime.now + IuguSDK::delay_account_exclusion }

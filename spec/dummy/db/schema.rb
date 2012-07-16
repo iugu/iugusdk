@@ -11,7 +11,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120705202827) do
+ActiveRecord::Schema.define(:version => 20120716145846) do
+
+  create_table "account_domains", :force => true do |t|
+    t.integer "account_id"
+    t.string  "url"
+    t.boolean "verified"
+    t.boolean "primary"
+  end
 
   create_table "account_roles", :force => true do |t|
     t.string  "name"

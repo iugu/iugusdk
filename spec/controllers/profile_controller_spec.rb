@@ -82,7 +82,7 @@ describe Iugu::ProfileController do
       it { response.should redirect_to profile_settings_path }
 
       it 'should notice OK message' do
-        flash.now[:notice].should match I18n.t("iugu.social_unlinked")
+        flash.now[:social].should match I18n.t("iugu.social_unlinked")
       end
     
     end
@@ -102,7 +102,7 @@ describe Iugu::ProfileController do
       it { response.should redirect_to profile_settings_path }
 
       it 'should notice no email/password error' do
-        flash.now[:notice].should match I18n.t("errors.messages.only_social_and_no_email")
+        flash.now[:social].should match I18n.t("errors.messages.only_social_and_no_email")
       end
     
     end
@@ -116,7 +116,7 @@ describe Iugu::ProfileController do
       it { response.should redirect_to profile_settings_path }
 
       it 'should notice record not found' do
-        flash.now[:notice].should match I18n.t("errors.messages.not_found")
+        flash.now[:social].should match I18n.t("errors.messages.not_found")
       end
     
     end
