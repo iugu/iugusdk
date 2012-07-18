@@ -16,6 +16,13 @@ Rails.application.routes.draw do
     get "settings/account/:account_id/user/:user_id" => "iugu/account_users#view", :as => "account_users_view"
     delete "settings/account/:account_id/user/:user_id" => "iugu/account_users#destroy", :as => "account_users_destroy"
     delete "settings/account/:account_id/user/:user_id/cancel" => "iugu/account_users#cancel_destruction", :as => "account_users_cancel_destruction"
+    post '/settings/account/:account_id/domain/:domain_id/primary' => 'iugu/account_domains#primary', :as => 'primary_domain'
+
+    get "settings/account/:account_id/domains" => "iugu/account_domains#index", :as => "account_domains_index"
+    post '/settings/account/:account_id/domain' => 'iugu/account_domains#create', :as => 'create_domain'
+    delete "settings/account/:account_id/domain/:domain_id" => "iugu/account_domains#destroy", :as => "account_domains_destroy"
+    get "settings/account/:account_id/domain/:domain_id" => "iugu/account_domains#instructions", :as => "account_domains_instructions"
+    post '/settings/account/:account_id/domain/:domain_id' => 'iugu/account_domains#verify', :as => 'verify_domain'
 
     get "select_account/:id" => "iugu/account#select", :as => "account_select"
     get "settings/profile" => "iugu/profile#index", :as => "profile_settings"

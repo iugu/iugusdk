@@ -24,12 +24,6 @@ describe UserInvitation do
 
   context "before create" do
 
-    it 'should call set_sent_at' do
-      @user_invitation = UserInvitation.new(:email => "test@test.test", :roles => "user")
-      @user_invitation.should_receive :set_sent_at
-      @user_invitation.save
-    end
-
     it 'should set sent_at' do
       @user_invitation = UserInvitation.new(:email => "test@test.test", :roles => "user")
       @user_invitation.save

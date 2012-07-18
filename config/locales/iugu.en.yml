@@ -56,4 +56,10 @@ en:
       sign_up: "Thank you for signing up"
       user_update: "User was successfully updated."
       roles_changed: "Roles successfully changed"
+      domain_created: "Account Domain successfully created"
+      domain_not_found: "Domain not found"
+      domain_destroyed: "Domain successfully removed"
+      domain_verified: "Domain successfully verified"
+      domain_not_verified: "Domain could not be verified"
+      domain_set_primary: "Domain successfully set as primary"
       

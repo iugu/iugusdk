@@ -26,11 +26,6 @@ describe User do
       @user = Fabricate(:user)
     end
 
-    it 'should call create_social if social not find' do
-      @user.should_receive(:create_social)
-      @user.find_or_create_social(@env)
-    end
-
     it 'should return the social if find' do
       @user.create_social(@env)
       @sa = @user.find_or_create_social(@env)

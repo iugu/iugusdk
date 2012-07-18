@@ -56,4 +56,10 @@ pt-BR:
       sign_up: "Obrigado por se cadastrar."
       user_update: "Seus dados foram atualizados."
       roles_changed: "Papeis alterados com sucesso"
+      domain_created: "Dominio de conta criado com sucesso"
+      domain_not_found: "Dominio não encontrado"
+      domain_destroyed: "Dominio apagado"
+      domain_verified: "Dominio verificado"
+      domain_not_verified: "Não foi possivel verificar o dominio"
+      domain_set_primary: "O dominio foi configurado como primario"
               
