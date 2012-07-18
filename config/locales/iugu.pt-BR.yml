@@ -6,6 +6,7 @@ pt-BR:
       only_social_and_no_email: "Você precisa de um email para poder apagar essa rede social"
       email_already_in_use: "Esse email já foi utilizado"
   iugu:
+    add: "Adicionar"
     active: "Ativa"
     unnamed: "Sem nome"
     back_to: "Voltar para"
@@ -20,6 +21,7 @@ pt-BR:
     errors: "Erros"
     account: "Conta"
     accounts: "Contas"
+    account_domains: "Domínios"
     social_unlinked: "Rede social desvinculada com sucesso"
     account_destruction_in: "A conta será removida em "
     account_destruction_undone: "Remoção da conta cancelada"
@@ -51,6 +53,11 @@ pt-BR:
     manage: "Manejar"
     social_account: "Redes sociais"
     payment_history: "Histórico de pagamentos"
+    primary: "Primario"
+    set_primary: "Setar primario"
+    verified: "Verificado"
+    not_verified: "Não Verificado"
+    instructions: "Instruções"
     notices:
       user_invited: "Usuário convidado"
       sign_up: "Obrigado por se cadastrar."

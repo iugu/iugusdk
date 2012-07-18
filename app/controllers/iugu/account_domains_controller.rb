@@ -2,7 +2,7 @@ class Iugu::AccountDomainsController < Iugu::AccountSettingsController
 
   def index
     @account = current_user.accounts.find(params[:account_id])
-    @account_domains = @account.account_domains.find_by_account_id(params[:account_id])
+    @account_domains = @account.account_domains.where(:account_id => params[:account_id])
     @account_domain = AccountDomain.new
   end
 

@@ -6,6 +6,7 @@ en:
       only_social_and_no_email: "You need email and password to unlink this Social Account"
       email_already_in_use: "This email is already in use"
   iugu:
+    add: "Add"
     active: "Active"
     unnamed: "Unnamed"
     back_to: "Back to"
@@ -20,6 +21,7 @@ en:
     errors: "Errors"
     account: "Account"
     accounts: "Accounts"
+    account_domains: "Account Domains"
     social_unlinked: "Social Account successfully unlink"
     account_destruction_in: "Account will be remove at "
     account_destruction_undone: "Account destruction canceled"
@@ -51,6 +53,11 @@ en:
     manage: "Manage"
     social_account: "Social network accounts"
     payment_history: "Payment History"
+    primary: "Primary"
+    set_primary: "Set Primary"
+    verified: "Verified"
+    not_verified: "Not Verified"
+    instructions: "Instructions"
     notices:
       user_invited: "User invited"
       sign_up: "Thank you for signing up"
