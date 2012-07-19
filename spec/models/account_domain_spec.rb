@@ -22,7 +22,14 @@ describe AccountDomain do
     end.should_not be_valid
   end
 
-  context "normilize_host" do
+  it 'should not accept url in the blacklist' do
+    IuguSDK::custom_domain_invalid_hosts = ['invalid.domain.test']
+    Fabricate.build(:account_domain) do
+      url 'invalid.domain.test'
+    end.should_not be_valid
+  end
+
+  context "normalize_host" do
     it 'should return normalized host' do
       @account_domain = Fabricate(:account_domain) do
         url "www.normal.host"

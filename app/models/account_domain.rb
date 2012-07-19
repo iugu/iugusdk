@@ -4,7 +4,7 @@ class AccountDomain < ActiveRecord::Base
   belongs_to :account
   validates :url, :uniqueness => true
   validates :url, :account_id, :presence => true
-  validate :validate_pattern
+  validate :validate_pattern, :validate_blacklist
 
   scope :verified, where(:verified => true)
 
@@ -54,6 +54,14 @@ class AccountDomain < ActiveRecord::Base
   def validate_pattern
     if url
       errors.add(:url, "Invalid Pattern") unless url.match /^([a-z0-9]*\.)*[a-z0-9]*$/
+    end
+  end
+
+  def validate_blacklist
+    if url
+      IuguSDK::custom_domain_invalid_hosts.each do |invalid_host|
+        errors.add(:url, "Domain on Blacklist") if url == invalid_host
+      end
     end
   end
   
