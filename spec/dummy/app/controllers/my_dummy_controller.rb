@@ -1,5 +1,5 @@
 #encoding: utf-8
-class MyDummyController < ApplicationController
+class MyDummyController < Iugu::ApplicationDomainController
 
   layout 'dummy'
 
