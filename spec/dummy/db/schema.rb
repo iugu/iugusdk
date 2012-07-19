@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120716145846) do
+ActiveRecord::Schema.define(:version => 20120719162426) do
 
   create_table "account_domains", :force => true do |t|
     t.integer "account_id"
@@ -35,6 +35,7 @@ ActiveRecord::Schema.define(:version => 20120716145846) do
     t.datetime "updated_at"
     t.string   "name"
     t.integer  "subscription_id"
+    t.string   "subdomain"
   end
 
   create_table "delayed_jobs", :force => true do |t|
