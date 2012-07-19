@@ -1,10 +1,14 @@
 require 'spec_helper'
 
 describe Account do
+  before(:each) do
+    Fabricate(:account){ subdomain "unico" }
+  end
 
   it { should have_many(:account_domains) }
   it { should have_many(:account_users) }
   it { should have_many(:users).through(:account_users) }
+  it { should validate_uniqueness_of(:subdomain) }
 
   it "should return true for a valid user of account" do
     @user = Fabricate(:user, :email => "me@me.com")

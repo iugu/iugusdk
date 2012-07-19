@@ -6,6 +6,8 @@ class Account < ActiveRecord::Base
   has_many :users, :through => :account_users
   handle_asynchronously :destroy, :queue => Proc.new { |p| "account_#{p.id}_destroy" },
                         :run_at => Proc.new { DateTime.now + IuguSDK::delay_account_exclusion }
+
+  validates :subdomain, :uniqueness => true
   
 
   def destruction_job
