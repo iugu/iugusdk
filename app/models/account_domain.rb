@@ -6,6 +6,8 @@ class AccountDomain < ActiveRecord::Base
   validates :url, :account_id, :presence => true
   validate :validate_pattern
 
+  scope :verified, where(:verified => true)
+
   def normalize_host
     begin
       normalized_url = url
