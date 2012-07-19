@@ -8,6 +8,10 @@ class Account < ActiveRecord::Base
                         :run_at => Proc.new { DateTime.now + IuguSDK::delay_account_exclusion }
 
   validates :subdomain, :uniqueness => true
+
+  def self.get_from_domain(domain)
+    AccountDomain.verified.find_by_url(domain).try(:account) || Account.find_by_subdomain(domain.gsub(".#{IuguSDK::application_main_host}",""))
+  end
   
 
   def destruction_job

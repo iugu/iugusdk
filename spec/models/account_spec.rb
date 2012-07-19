@@ -115,6 +115,30 @@ describe Account do
     end
   
   end
+
+  context "get_from_domain" do
+    before(:each) do
+      @account = Fabricate(:account) do
+        subdomain "subdomainfind"
+      end
+      @account.account_domains << Fabricate(:account_domain) do 
+        url "getfromdomain.account.test"
+        verified true
+      end
+    end
+
+    it 'should return the account which owns the domain' do
+      Account.get_from_domain("getfromdomain.account.test").should == @account
+    end
+
+    it 'should return the account which owns the subdomain' do
+      Account.get_from_domain("subdomainfind.iugusdk.dev").should == @account
+    end
+
+    it 'should return nil ' do
+      Account.get_from_domain("notused.domain.test").should be_nil
+    end
+  end
   
 
 end
