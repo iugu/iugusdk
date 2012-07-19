@@ -10,6 +10,7 @@ class Iugu::AccountController < Iugu::AccountSettingsController
     else
       @account = current_user_account
     end
+    @primary_domain = @account.account_domains.where(:primary => true).first if @account
     render 'iugu/settings/account'
   end
 

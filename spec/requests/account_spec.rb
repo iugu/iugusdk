@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'account settings view' do
+describe 'accounts settings view' do
   before(:each) do
     visit '/account/auth/facebook'
     visit account_settings_path

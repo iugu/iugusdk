@@ -15,9 +15,11 @@ Plan Name
 %br
 %br
 Custom Domains
-= link_to I18n.t("iugu.manage")
+= link_to I18n.t("iugu.manage"), account_domains_index_path(@account.id)
 %br
-Primary: okok.com.br
+- if @primary_domain
+  Primary: 
+  = @primary_domain.url
 
 %br
 %br
