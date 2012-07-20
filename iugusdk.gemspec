@@ -16,7 +16,7 @@ Gem::Specification.new do |s|
   s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.rdoc"]
   s.test_files = Dir["spec/**/*"]
 
-  s.add_dependency "rails", "~> 3.1.4"
+  s.add_dependency "rails", "~> 3.1.5"
   s.add_dependency 'coffee-script'
   s.add_dependency 'haml'
   s.add_dependency 'haml-rails'
@@ -50,4 +50,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency "populator"
   s.add_development_dependency "simplecov"
   s.add_development_dependency "rr"
+  s.add_development_dependency "brakeman"
 end
