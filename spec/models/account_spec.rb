@@ -17,6 +17,11 @@ describe Account do
     @account.valid_user_for_account?( @user ).should be_true
   end
 
+  it 'should no accept subdomains in blacklist' do
+    IuguSDK::custom_domain_invalid_prefixes = [ 'subdominio' ]
+    @account = Fabricate.build(:account) { subdomain "subdominio" }.should_not be_valid
+  end
+
   context "destruction_job method" do
     before(:each) do
       @account = Fabricate(:account)

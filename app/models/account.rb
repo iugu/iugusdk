@@ -8,6 +8,7 @@ class Account < ActiveRecord::Base
                         :run_at => Proc.new { DateTime.now + IuguSDK::delay_account_exclusion }
 
   validates :subdomain, :uniqueness => true
+  validate :subdomain_blacklist
 
   def self.get_from_domain(domain)
     AccountDomain.verified.find_by_url(domain).try(:account) || Account.find_by_subdomain(domain.gsub(".#{IuguSDK::application_main_host}",""))
@@ -37,6 +38,16 @@ class Account < ActiveRecord::Base
 
   def name
     super || "#{I18n.t('iugu.account')} ##{id}" 
+  end
+
+  private
+
+  def subdomain_blacklist
+    if subdomain
+      IuguSDK::custom_domain_invalid_prefixes.each do |invalid_prefix|
+        errors.add(:subdomain, "Subdomain blacklisted") if subdomain == invalid_prefix
+      end
+    end
   end
 
 end
