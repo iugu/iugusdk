@@ -8,24 +8,26 @@
 %br
 %div
   - @account_domains.each do |domain|
-    = domain.url
+    %div
 
-    |
-    - if domain.primary
-      = I18n.t("iugu.primary")
-    - else
-      = link_to I18n.t("iugu.set_primary"), primary_domain_path(:account_id => @account.id, :domain_id => domain.id), :method => :post
+      = domain.url
 
-    |
-    - if domain.verified
-      = I18n.t("iugu.verified")
-    - else
-      = I18n.t("iugu.not_verified")
-      = link_to I18n.t("iugu.instructions"), account_domains_instructions_path(:account_id => @account.id, :domain_id => domain.id)
-
-    - if current_user.is?(:owner, @account)
       |
-      = link_to I18n.t("iugu.remove"), account_domains_destroy_path(:account_id => @account.id, :domain_id => domain.id), :method => :delete
+      - if domain.primary
+        = I18n.t("iugu.primary")
+      - else
+        = link_to I18n.t("iugu.set_primary"), primary_domain_path(:account_id => @account.id, :domain_id => domain.id), :method => :post
+
+      |
+      - if domain.verified
+        = I18n.t("iugu.verified")
+      - else
+        = I18n.t("iugu.not_verified")
+        = link_to I18n.t("iugu.instructions"), account_domains_instructions_path(:account_id => @account.id, :domain_id => domain.id)
+
+      - if current_user.is?(:owner, @account)
+        |
+        = link_to I18n.t("iugu.remove"), account_domains_destroy_path(:account_id => @account.id, :domain_id => domain.id), :method => :delete
 
 
 
