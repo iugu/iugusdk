@@ -22,6 +22,8 @@ describe Iugu::AccountRolesController do
 
       before(:each) do
         @current_account_user = @user.account_users.first
+        @account = @current_account_user.account
+        @account.account_users << Fabricate(:account_user) { user Fabricate(:user) { email "notowner@account.test" } }
         @current_account_user.set_roles(["user"])
         get :edit, :id => @current_account_user.account_id, :user_id => @current_account_user.user_id
       end

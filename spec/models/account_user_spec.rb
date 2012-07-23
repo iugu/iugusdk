@@ -27,7 +27,10 @@ describe AccountUser do
   context "is? method with different roles" do
 
     before(:each) do
+      @account = @account_user.account
+      @account.account_users << Fabricate(:account_user) { user Fabricate(:user) { email "notowner@account.test" } }
       @account_user.roles.destroy_all()
+      puts @account_user.roles
     end
 
     context "when we have configured alias for roles" do
@@ -38,12 +41,12 @@ describe AccountUser do
       end
 
       it "should find by the role when trying to check owner" do
-        @account_user.roles << Fabricate(:account_role, :name => "my_owner", :account_user => @account_user)
+        @account_user.set_roles ["my_owner"]
         @account_user.is?("owner").should be_true
       end
 
       it "should find by the role when trying to check admin" do
-        @account_user.roles << Fabricate(:account_role, :name =>"my_user", :account_user => @account_user )
+        @account_user.set_roles ["my_user"]
         @account_user.is?( "admin" ).should be_true
       end
 

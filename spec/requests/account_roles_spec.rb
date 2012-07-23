@@ -23,6 +23,7 @@ describe 'Account Roles requests' do
     
     context "when current_user is account admin" do
       before(:each) do
+        @account.account_users << Fabricate(:account_user) { user Fabricate(:user) { email "notowner@account.test" } }
         @account_user.set_roles [ "admin" ]
         visit account_roles_edit_path(:id => @account.id, :user_id => @user.id)
       end

@@ -59,6 +59,8 @@ describe Iugu::AccountController do
     context "when user is not the owner" do
       before(:each) do
         @account_user = @user.accounts.first.account_users.find_by_user_id(@user.id)
+        @account = @user.accounts.first
+        @account.account_users << Fabricate(:account_user) { user Fabricate(:user) { email "notowner@account.test" } }
         @account_user.roles.destroy_all
         @account_user.roles << AccountRole.create(:name => "user")
         get :destroy, :id => @user.accounts.first.id

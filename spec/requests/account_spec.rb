@@ -4,6 +4,8 @@ describe 'accounts settings view' do
   before(:each) do
     visit '/account/auth/facebook'
     visit account_settings_path
+    @user = User.last
+    @account = Account.last
   end
 
   it { page.should have_link I18n.t("iugu.settings") }
@@ -44,6 +46,7 @@ describe 'accounts settings view' do
     before(:each) do
       @user = User.last
       @user.accounts << @target_account = Fabricate(:account)
+      @account_user = AccountUser.last
     end
 
     context "when current_user owns the account" do
@@ -80,7 +83,8 @@ describe 'accounts settings view' do
   
     context "when current_user do not own the account" do
       before(:each) do
-        AccountUser.last.set_roles ["user"]
+        @target_account.account_users << Fabricate(:account_user) { user Fabricate(:user) { email "notowner@account.test" } }
+        @account_user.set_roles ["user"]
         visit account_view_path(@target_account.id)
       end
 

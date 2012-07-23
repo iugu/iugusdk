@@ -129,6 +129,7 @@ describe Iugu::AccountUsersController do
     
     context "when current user is not owner/admin" do
       before(:each) do
+        @account.account_users << Fabricate(:account_user) { user Fabricate(:user) { email "notowner@account.test" } }
         AccountUser.find_by_user_id_and_account_id(@user.id, @account.id).set_roles ["user"]
       end
 
