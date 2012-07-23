@@ -17,7 +17,7 @@
   - current_user.accounts.each do |account|
     %div
       = account.name
-      - if current_user_account.id == account.id
+      - if current_user_account.account_id == account.id
         |
         = I18n.t("iugu.active")
       - else
