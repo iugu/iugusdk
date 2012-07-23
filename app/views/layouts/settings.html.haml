@@ -42,10 +42,5 @@
 
 
 
-        %div
-          = I18n.t("iugu.signed_in")
-          = current_user.email
-          = link_to I18n.t("iugu.sign_out"), destroy_user_session_path, :method => :delete, :class => "button"
-
 :plain
   </html>
