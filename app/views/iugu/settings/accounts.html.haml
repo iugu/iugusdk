@@ -13,6 +13,8 @@
         = I18n.t("iugu.accounts")
       - else
         = I18n.t("iugu.account")
+  %div
+    = link_to I18n.t("iugu.create_account"), account_create_path, :method => :post
 
   - current_user.accounts.each do |account|
     %div
