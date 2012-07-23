@@ -119,6 +119,12 @@ describe Account do
       @account.name.should == "#{I18n.t("iugu.account")} ##{@account.id}"
     end
   
+    it 'should return Account #ID if account name is blank' do
+      @account.name = ""
+      @account.save
+      @account.name.should == "#{I18n.t("iugu.account")} ##{@account.id}"
+    end
+
   end
 
   context "get_from_domain" do

@@ -37,7 +37,7 @@ class Account < ActiveRecord::Base
   end
 
   def name
-    super || "#{I18n.t('iugu.account')} ##{id}" 
+    (super.blank? ? "#{I18n.t('iugu.account')} ##{id}" : super)
   end
 
   private
