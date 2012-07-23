@@ -55,4 +55,9 @@ class Iugu::AccountController < Iugu::AccountSettingsController
     end
   end
 
+  def create
+    current_user.accounts << Account.create
+    redirect_to account_settings_path
+  end
+
 end

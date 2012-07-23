@@ -133,6 +133,23 @@ describe Iugu::AccountController do
     end
   
   end
+
+  context "create" do
+    login_as_user
+    before(:each) do
+      post :create
+    end
+
+    it { response.should redirect_to account_settings_path }
+
+    it 'should create an account to current_user' do
+      lambda do
+        post :create
+      end.should change(@user.accounts, :count).by(1)
+    end
+
+  
+  end
   
   
 end
