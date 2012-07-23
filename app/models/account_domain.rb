@@ -2,7 +2,6 @@ require 'resolv'
 require 'uri'
 class AccountDomain < ActiveRecord::Base
   belongs_to :account
-  validates :url, :uniqueness => true
   validates :url, :account_id, :presence => true
   validate :validate_pattern, :validate_blacklist
 
@@ -40,6 +39,7 @@ class AccountDomain < ActiveRecord::Base
       checked = true if response.code == "200"
     rescue
     end
+    AccountDomain.where(:url => self.url).update_all(:verified => false) if checked == true
     update_attribute(:verified, checked)
     checked
   end

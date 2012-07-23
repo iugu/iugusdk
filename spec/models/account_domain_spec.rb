@@ -6,7 +6,6 @@ describe AccountDomain do
   end
 
   it { should belong_to :account }
-  it { should validate_uniqueness_of :url }
   it { should validate_presence_of(:url) }
   it { should validate_presence_of(:account_id) }
 
@@ -62,6 +61,21 @@ describe AccountDomain do
       end
       @account_domain.verify
       @account_domain.verified.should be_false
+    end
+
+    it 'should unverify other domains with equal url' do
+      @account_domain1 = Fabricate(:account_domain) do
+        url "www.test.net"
+      end
+      @account_domain1.update_attribute(:verified, true)
+      @account_domain2 = Fabricate(:account_domain) do
+        url "www.test.net"
+      end
+
+      @account_domain2.verify
+
+      @account_domain1.reload
+      @account_domain1.verified.should be_false
     end
   
   end
