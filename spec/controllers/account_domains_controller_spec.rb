@@ -21,8 +21,6 @@ describe Iugu::AccountDomainsController do
   
     it { response.should redirect_to account_domains_instructions_path(@account.id, AccountDomain.last.id) } 
 
-    it { flash.now[:notice].should == I18n.t("iugu.notices.domain_created") }
-
     context "without required fields" do
       before(:each) do
         post :create, :account_id => @account.id, :account_domain => {}
