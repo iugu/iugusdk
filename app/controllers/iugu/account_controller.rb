@@ -49,7 +49,7 @@ class Iugu::AccountController < Iugu::AccountSettingsController
     begin
       @account = Account.find(params[:id])
       @account.update_attributes(params[:account])
-      redirect_to(account_view_path(params[:id]))
+      redirect_to account_view_path(params[:id]), :notice => I18n.t("iugu.notices.account_updated")
     rescue
       raise ActionController::RoutingError.new('Not Found')
     end

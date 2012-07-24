@@ -126,6 +126,9 @@ describe Iugu::AccountController do
   
     it { response.should redirect_to account_view_path(@user.accounts.first.id) }
 
+    it { flash.now[:notice].should == I18n.t("iugu.notices.account_updated") }
+
+
     it 'should update account name' do
       @user.accounts.first.name.should == "fudum"
     end

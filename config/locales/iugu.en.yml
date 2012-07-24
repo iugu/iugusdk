@@ -62,6 +62,7 @@ en:
     verify_later: "Verify later"
     instructions: "Instructions"
     notices:
+      account_updated: "Account was successfully updated"
       account_not_found: "Account not found"
       user_invited: "User invited"
       sign_up: "Thank you for signing up"
