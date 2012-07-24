@@ -47,12 +47,14 @@ describe Iugu::AccountController do
       end
     end
 
-    context "when using right id" do
+    context "when using wrong id" do
       before do
         get :destroy, :id => 31241
       end
 
       it { response.should redirect_to account_settings_path }
+
+      it { flash.now[:notice].should == I18n.t("iugu.notices.account_not_found") }
 
     end
 
@@ -100,6 +102,8 @@ describe Iugu::AccountController do
       end
 
       it { response.should redirect_to account_settings_path }
+
+      it { flash.now[:notice].should == I18n.t("iugu.notices.account_not_found") }
 
     end
   end

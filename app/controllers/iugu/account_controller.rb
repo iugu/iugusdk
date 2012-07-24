@@ -25,7 +25,7 @@ class Iugu::AccountController < Iugu::AccountSettingsController
         end
       end
     rescue
-      notice = "Account not found"
+      notice = I18n.t("iugu.notices.account_not_found")
     end
     redirect_to(account_settings_path, :notice => notice)
   end
@@ -35,7 +35,7 @@ class Iugu::AccountController < Iugu::AccountSettingsController
       current_user.accounts.find(params[:id]).cancel_destruction if params[:id]
       notice = I18n.t("iugu.account_destruction_undone")
     rescue
-      notice = "Account not found"
+      notice = I18n.t("iugu.notices.account_not_found")
     end
     redirect_to(account_settings_path, :notice => notice)
   end

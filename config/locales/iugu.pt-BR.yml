@@ -62,6 +62,7 @@ pt-BR:
     verify_later: "Verificar depois"
     instructions: "Instruções"
     notices:
+      account_not_found: "Conta não encontrada"
       user_invited: "Usuário convidado"
       sign_up: "Obrigado por se cadastrar."
       user_update: "Seus dados foram atualizados."
