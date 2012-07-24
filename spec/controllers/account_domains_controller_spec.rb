@@ -118,7 +118,7 @@ describe Iugu::AccountDomainsController do
           get :verify, :account_id => @account.id, :domain_id => @domain.id
         end
 
-        it { response.should redirect_to account_domains_index_path(@account.id) } 
+        it { response.should redirect_to account_domains_instructions_path(@account.id, @domain.id) } 
 
         it { flash.now[:notice].should == I18n.t("iugu.notices.domain_not_verified") }
 
