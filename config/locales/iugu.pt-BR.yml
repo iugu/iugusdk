@@ -59,6 +59,7 @@ pt-BR:
     verified: "Verificado"
     not_verified: "Não Verificado"
     verify_domain: "Verificar Dominio"
+    verify_later: "Verificar depois"
     instructions: "Instruções"
     notices:
       user_invited: "Usuário convidado"

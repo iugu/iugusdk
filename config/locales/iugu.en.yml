@@ -59,6 +59,7 @@ en:
     verified: "Verified"
     not_verified: "Not Verified"
     verify_domain: "Verify Domain"
+    verify_later: "Verify later"
     instructions: "Instructions"
     notices:
       user_invited: "User invited"
