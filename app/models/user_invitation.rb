@@ -4,6 +4,8 @@ class UserInvitation < ActiveRecord::Base
   before_create :set_sent_at
   after_create :send_email
 
+  belongs_to :account
+
   def self.find_by_invitation_token(invitation_token)
     begin
       user_invitation = UserInvitation.find(id = invitation_token.gsub(/.{27}$/, ''))

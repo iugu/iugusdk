@@ -9,7 +9,9 @@ describe 'UserInvitations requests' do
       end
       @account = Fabricate(:account)
       @user_invitation = Fabricate(:user_invitation)
-      @user_invitation.update_attributes(:invited_by => @inviter.id, :account_id => @account.id)
+      @user_invitation.account = @account
+      @user_invitation.invited_by = @inviter.id
+      @user_invitation.save
       visit edit_invite_path(@user_invitation.id.to_s + @user_invitation.token)
     end
 

@@ -7,7 +7,7 @@ class Account < ActiveRecord::Base
   handle_asynchronously :destroy, :queue => Proc.new { |p| "account_#{p.id}_destroy" },
                         :run_at => Proc.new { DateTime.now + IuguSDK::delay_account_exclusion }
 
-  validates :subdomain, :uniqueness => true
+  validates :subdomain, :uniqueness => true, :unless => Proc.new { |a| a.subdomain.blank? }
   validate :subdomain_blacklist
 
   def self.get_from_domain(domain)

@@ -2,6 +2,8 @@ require 'spec_helper'
 
 describe UserInvitation do
 
+  it { should belong_to :account }
+
   context "before save" do
 
     context "if has no token" do
@@ -66,16 +68,10 @@ describe UserInvitation do
     end
 
     it 'should add user to account' do
-      @user_invitation.account_id = @account.id
+      @user_invitation.account = @account
       @user_invitation.save
       @user_invitation.accept(@user)
       @account.account_users.find_by_user_id(@user.id).should_not be_nil
-    end
-
-    it 'should raise error when account_id is invalid' do
-      @user_invitation.account_id = 2039812
-      @user_invitation.save
-      lambda { @user_invitation.accept(@user) }.should raise_error
     end
 
     it 'should save invite roles on account_user' do
