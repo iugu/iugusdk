@@ -7,11 +7,11 @@ require "iugusdk/version"
 Gem::Specification.new do |s|
   s.name        = "iugusdk"
   s.version     = IuguSDK::VERSION
-  s.authors     = ["TODO: Your name"]
-  s.email       = ["TODO: Your email"]
-  s.homepage    = "TODO"
-  s.summary     = "TODO: Summary of Iugusdk."
-  s.description = "TODO: Description of Iugusdk."
+  s.authors     = ['Patrick Negri', 'Marcelo Paez', 'Alexandre Paez']
+  s.email       = ["contato@iugu.com.br"]
+  s.homepage    = "http://github.com/iugu/iugusdk"
+  s.summary     = "SDK for Iugu Platform Applications"
+  s.description = "SDK for Iugu Platform Applications"
 
   s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.rdoc"]
   s.test_files = Dir["spec/**/*"]
