@@ -57,7 +57,7 @@ describe "Account Users Requests" do
 
       it { page.should have_content User.last.name }
       it { page.should_not have_link I18n.t("iugu.remove") }
-      it { page.should have_link I18n.t("iugu.invite") }
+      it { page.should_not have_link I18n.t("iugu.invite") }
       it { page.should_not have_link I18n.t("iugu.permissions") }
     
     end
