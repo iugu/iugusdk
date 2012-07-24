@@ -9,7 +9,7 @@ GIT
 PATH
   remote: .
   specs:
-    iugusdk (0.0.5)
+    iugusdk (1.0.0.alpha.0)
       coffee-script
       default_value_for
       delayed_job_active_record

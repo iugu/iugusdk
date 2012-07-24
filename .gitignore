@@ -31,3 +31,6 @@ spec/dummy/tmp/*/*
 spec/dummy/tmp/**
 *.sqlite3
 lixo
+pkg/**
+pkg/*/*
+
