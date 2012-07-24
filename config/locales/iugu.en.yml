@@ -58,6 +58,7 @@ en:
     set_primary: "Set Primary"
     verified: "Verified"
     not_verified: "Not Verified"
+    verify_domain: "Verify Domain"
     instructions: "Instructions"
     notices:
       user_invited: "User invited"

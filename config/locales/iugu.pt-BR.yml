@@ -58,6 +58,7 @@ pt-BR:
     set_primary: "Setar primario"
     verified: "Verificado"
     not_verified: "Não Verificado"
+    verify_domain: "Verificar Dominio"
     instructions: "Instruções"
     notices:
       user_invited: "Usuário convidado"

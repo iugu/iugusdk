@@ -22,8 +22,7 @@
       - if domain.verified
         = I18n.t("iugu.verified")
       - else
-        = I18n.t("iugu.not_verified")
-        = link_to I18n.t("iugu.instructions"), account_domains_instructions_path(:account_id => @account.id, :domain_id => domain.id)
+        = link_to I18n.t("iugu.not_verified"), account_domains_instructions_path(:account_id => @account.id, :domain_id => domain.id)
 
       - if current_user.is?(:owner, @account)
         |

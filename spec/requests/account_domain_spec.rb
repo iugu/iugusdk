@@ -45,7 +45,7 @@ describe "Account Domains requests" do
         visit account_domains_index_path(@account.id)
       end
 
-      it { page.should have_link I18n.t("iugu.instructions") }
+      it { page.should have_link I18n.t("iugu.not_verified") }
 
     end
 
