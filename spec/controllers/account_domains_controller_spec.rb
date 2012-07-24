@@ -19,7 +19,7 @@ describe Iugu::AccountDomainsController do
       post :create, :account_id => @account.id, :account_domain => { :url => "new.test.net" }
     end
   
-    it { response.should redirect_to account_domains_index_path(@account.id) } 
+    it { response.should redirect_to account_domains_instructions_path(@account.id, AccountDomain.last.id) } 
 
     it { flash.now[:notice].should == I18n.t("iugu.notices.domain_created") }
 
