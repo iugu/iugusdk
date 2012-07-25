@@ -4,7 +4,15 @@ describe UserInvitation do
 
   it { should belong_to :account }
 
-  context "before save" do
+  it 'should not accept an email already used by an account user' do
+    @account = Fabricate(:account)
+    @user = Fabricate(:user, :email => "invited@test.test")
+    @account.users << @user
+    @user_invitation = UserInvitation.new(:email => "invited@test.test", :account_id => @account.id)
+    @user_invitation.should_not be_valid
+  end
+
+  context "before save" do 
 
     context "if has no token" do
       it 'should generate one' do

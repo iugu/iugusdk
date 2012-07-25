@@ -1,5 +1,6 @@
 class UserInvitation < ActiveRecord::Base
   validates :email, :email => true, :presence => true
+  validate :email_already_used?
   before_save :set_token
   before_create :set_sent_at
   after_create :send_email
@@ -36,6 +37,12 @@ class UserInvitation < ActiveRecord::Base
 
   def send_email
     IuguMailer.invitation(self).deliver
+  end
+
+  def email_already_used?
+    if !AccountUser.joins(:user).where(:account_id => account_id, 'users.email' => email).empty?
+      errors.add(:email, "already used in this account")
+    end
   end
 end
 

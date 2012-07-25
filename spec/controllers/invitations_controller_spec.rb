@@ -42,6 +42,13 @@ describe Iugu::InvitationsController do
     it 'should create an invite' do
       UserInvitation.last.email.should == "create@controller.teste"
     end
+
+    it 'should render new if create isnt successfull' do
+      stub(UserInvitation).create {UserInvitation.new}
+      post :create, :account_id => @account.id, :user_invitation => {:email => "create@controller.teste"}
+      response.should render_template :new
+    end
+
   
   end
 
