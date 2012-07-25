@@ -5,7 +5,7 @@ describe Iugu::AccountDomainsController do
     login_as_user
     before(:each) do
       @account = @user.accounts.first
-      @account.account_domains << Fabricate(:account_domain)
+      @account.account_domains << @domain = AccountDomain.create(:url => "controller.test.test")
       get :index, :account_id => @account.id
     end
 
@@ -35,7 +35,7 @@ describe Iugu::AccountDomainsController do
     login_as_user
     before(:each) do
       @account = @user.accounts.first
-      @account.account_domains << Fabricate(:account_domain){ url "destroy.test.net" }
+      @account.account_domains << AccountDomain.create(:url => "destroy.test.net" )
       @domain = @account.account_domains.last
     end
 
@@ -66,7 +66,7 @@ describe Iugu::AccountDomainsController do
     login_as_user
     before(:each) do
       @account = @user.accounts.first
-      @account.account_domains << Fabricate(:account_domain){ url "instructions.test.net" }
+      @account.account_domains << AccountDomain.create(:url => "instructions.test.net" )
       @domain = @account.account_domains.last
     end
 
@@ -94,7 +94,7 @@ describe Iugu::AccountDomainsController do
     login_as_user
     before(:each) do
       @account = @user.accounts.first
-      @account.account_domains << Fabricate(:account_domain){ url "verify.test.net" }
+      @account.account_domains << AccountDomain.create(:url => "verify.test.net" )
       @domain = @account.account_domains.last
     end
 
@@ -141,7 +141,7 @@ describe Iugu::AccountDomainsController do
     login_as_user
     before(:each) do
       @account = @user.accounts.first
-      @account.account_domains << Fabricate(:account_domain){ url "primary.test.net" }
+      @account.account_domains << AccountDomain.create(:url => "primary.test.net" )
       @domain = @account.account_domains.last
     end
 

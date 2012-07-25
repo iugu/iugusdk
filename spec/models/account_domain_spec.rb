@@ -9,16 +9,26 @@ describe AccountDomain do
   it { should validate_presence_of(:url) }
   it { should validate_presence_of(:account_id) }
 
+  it 'should set primary as true if its the first domain of the account' do
+    @account = Fabricate(:account)
+    @account.account_domains << @domain = Fabricate(:account_domain) { url 'primary.test.test' }
+    @domain.primary.should be_true
+  end
+
   it 'should accept url with correct pattern' do
-    @account_domain = Fabricate.build(:account_domain) do
-      url 'www.t3st.net'
-    end.should be_valid
+    @account = Fabricate(:account)
+    @account.account_domains << @domain = Fabricate.build(:account_domain) do
+      url 'valid.url.test'
+    end
+    @domain.valid?.should be_true
   end
 
   it 'should not accept url with incorrect pattern' do
-    Fabricate.build(:account_domain) do
+    @account = Fabricate(:account)
+    @account.account_domains << @domain = Fabricate.build(:account_domain) do
       url 'http://www.t3st.net'
-    end.should_not be_valid
+    end
+    @domain.valid?.should be_false
   end
 
   it 'should not accept url in the blacklist' do
@@ -86,24 +96,28 @@ describe AccountDomain do
       @account.account_domains <<  @domain1 = Fabricate(:account_domain) do
         url "www.url1.net"
         verified true
-        primary false
+        primary true
       end
       @account.account_domains << @domain2 = Fabricate(:account_domain) do
         url "www.url2.net"
         verified true
-        primary true
+        primary false
       end
+      @domain1.account = @account
+      @domain2.account = @account
+      @domain1.save
+      @domain2.save
     end
 
     it 'should make domain primary' do
-      @domain1.set_primary
-      @domain1.primary.should be_true
+      @domain2.set_primary
+      @domain2.primary.should be_true
     end
 
     it 'should make other account domains not primary' do
-      @domain1.set_primary
-      @domain2.reload
-      @domain2.primary.should be_false
+      @domain2.set_primary
+      @domain1.reload
+      @domain1.primary.should be_false
     end
   
   end

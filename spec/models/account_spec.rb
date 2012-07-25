@@ -132,10 +132,7 @@ describe Account do
       @account = Fabricate(:account) do
         subdomain "subdomainfind"
       end
-      @account.account_domains << Fabricate(:account_domain) do 
-        url "getfromdomain.account.test"
-        verified true
-      end
+      @account.account_domains << AccountDomain.create(:url => "getfromdomain.account.test", :verified => true)
     end
 
     it 'should return the account which owns the domain' do

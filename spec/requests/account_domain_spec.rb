@@ -6,7 +6,7 @@ describe "Account Domains requests" do
       visit "/account/auth/facebook"
       @user = User.last
       @account = Account.last
-      @account.account_domains << @domain = Fabricate(:account_domain) { url "index.test.net" }
+      @account.account_domains << @domain = AccountDomain.create( url: "index.test.net" )
     end
 
     context "when domain is primary" do

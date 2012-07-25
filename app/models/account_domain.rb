@@ -7,6 +7,8 @@ class AccountDomain < ActiveRecord::Base
 
   scope :verified, where(:verified => true)
 
+  before_create :set_first_domain
+
   def normalize_host
     begin
       normalized_url = url
@@ -63,6 +65,10 @@ class AccountDomain < ActiveRecord::Base
         errors.add(:url, "Domain on Blacklist") if url == invalid_host
       end
     end
+  end
+
+  def set_first_domain
+    self.primary = true if self.account.account_domains.empty?
   end
   
   
