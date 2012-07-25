@@ -6,6 +6,7 @@ en:
       only_social_and_no_email: "You need email and password to unlink this Social Account"
       email_already_in_use: "This email is already in use"
   iugu:
+    generate_new_token: "Generate new token"
     create_account: "Create Account"
     add: "Add"
     active: "Active"
@@ -62,6 +63,7 @@ en:
     verify_later: "Verify later"
     instructions: "Instructions"
     notices:
+      new_token_generated: "New token generated"
       account_updated: "Account was successfully updated"
       account_not_found: "Account not found"
       user_invited: "User invited"

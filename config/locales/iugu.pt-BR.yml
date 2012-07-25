@@ -6,6 +6,7 @@ pt-BR:
       only_social_and_no_email: "Você precisa de um email para poder apagar essa rede social"
       email_already_in_use: "Esse email já foi utilizado"
   iugu:
+    generate_new_token: "Gerar novo token"
     create_account: "Criar Conta"
     add: "Adicionar"
     active: "Ativa"
@@ -62,6 +63,7 @@ pt-BR:
     verify_later: "Verificar depois"
     instructions: "Instruções"
     notices:
+      new_token_generated: "Novo token gerado"
       account_updated: "Conta atualizada com sucesso."
       account_not_found: "Conta não encontrada"
       user_invited: "Usuário convidado"

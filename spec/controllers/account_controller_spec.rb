@@ -154,7 +154,19 @@ describe Iugu::AccountController do
         post :create
       end.should change(@user.accounts, :count).by(1)
     end
+  
+  end
 
+  context "generate_new_token" do
+    login_as_user
+    before(:each) do
+      @account = @user.accounts.last
+      post :generate_new_token, :account_id => @account.id
+    end
+
+    it { response.should redirect_to account_view_path(@account.id) }
+
+    it { flash.now[:notice].should == I18n.t("iugu.notices.new_token_generated") }
   
   end
   

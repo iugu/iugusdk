@@ -10,6 +10,7 @@ Rails.application.routes.draw do
     get "settings/account/(:id)" => "iugu/account#view", :as => "account_view"
     delete "settings/account/(:id)" => "iugu/account#destroy", :as => "account_destroy"
     delete "settings/account/(:id)/cancel" => "iugu/account#cancel_destruction", :as => "account_cancel_destruction"
+    post "settings/account/(:account_id)/generate_new_token" => "iugu/account#generate_new_token", :as => "account_generate_new_token"
     put "settings/account/(:id)" => "iugu/account#update", :as => "account_update"
     post "settings/account" => "iugu/account#create", :as => "account_create"
 

@@ -51,12 +51,16 @@ describe 'accounts settings view' do
 
     context "when current_user owns the account" do
       before(:each) do
-        AccountUser.last.set_roles ["owner"]
+        @account_user.set_roles ["owner"]
         visit account_view_path(@target_account.id)
       end
 
       it { page.should have_link I18n.t("iugu.cancel_account") }
+
+      it { page.should have_content @target_account.api_token }
       
+      it { page.should have_link I18n.t("iugu.generate_new_token") }
+
       context "when account is being canceled" do
         context "if delay_account_exclusion == 0" do
           before(:each) do
@@ -89,6 +93,10 @@ describe 'accounts settings view' do
       end
 
       it { page.should_not have_link I18n.t("iugu.cancel_account") }
+
+      it { page.should_not have_content @target_account.api_token }
+
+      it { page.should_not have_link I18n.t("iugu.generate_new_token") }
 
     end
     

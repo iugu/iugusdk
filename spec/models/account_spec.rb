@@ -9,6 +9,7 @@ describe Account do
   it { should have_many(:account_users) }
   it { should have_many(:users).through(:account_users) }
   it { should validate_uniqueness_of(:subdomain) }
+  it { should validate_uniqueness_of(:api_token) }
 
   it "should return true for a valid user of account" do
     @user = Fabricate(:user, :email => "me@me.com")
@@ -20,6 +21,11 @@ describe Account do
   it 'should no accept subdomains in blacklist' do
     IuguSDK::custom_domain_invalid_prefixes = [ 'subdominio' ]
     @account = Fabricate.build(:account) { subdomain "subdominio" }.should_not be_valid
+  end
+
+  it 'should set api_token before create' do
+    @account = Fabricate(:account)
+    @account.api_token.should_not be_nil
   end
 
   context "destruction_job method" do
@@ -146,6 +152,31 @@ describe Account do
     it 'should return nil ' do
       Account.get_from_domain("notused.domain.test").should be_nil
     end
+  end
+
+  context "generate_api_token" do
+    before(:each) do
+      @account = Fabricate(:account)
+    end
+    
+    it 'should return a new token' do
+      old_token = @account.api_token
+      @account.send(:generate_api_token).should_not == old_token
+    end
+
+  end
+
+  context "update_api_token" do
+    before(:each) do
+      @account = Fabricate(:account)
+    end
+
+    it 'should replace api_token' do
+      old_token = @account.api_token
+      @account.update_api_token
+      @account.api_token.should_not == old_token
+    end
+  
   end
   
 

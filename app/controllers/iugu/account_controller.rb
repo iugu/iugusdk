@@ -60,4 +60,10 @@ class Iugu::AccountController < Iugu::AccountSettingsController
     redirect_to account_settings_path
   end
 
+  def generate_new_token
+    @account = current_user.accounts.find(params[:account_id])
+    @account.update_api_token
+    redirect_to account_view_path(params[:account_id]), :notice => I18n.t("iugu.notices.new_token_generated")
+  end
+
 end

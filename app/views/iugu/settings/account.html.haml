@@ -27,15 +27,22 @@ Custom Domains
   = @primary_domain.url
 
 %br
-%br
 = link_to I18n.t("iugu.users_and_roles"), account_users_index_path(@account.id)
 
 %br
 %br
-= link_to I18n.t("iugu.payment_history")
+%div
+  = link_to I18n.t("iugu.payment_history")
+%br
+
+- if current_user.is?(:owner, @account)
+  %div
+    Api Token
+    = link_to I18n.t("iugu.generate_new_token"), account_generate_new_token_path(@account.id), :method => :post
+    %br
+    = @account.api_token
 
 - if current_user.is?(:owner, @account) || current_user.is?(:admin, @account)
-  %br
   %br
   - unless @account.destroying?
     = link_to I18n.t("iugu.cancel_account"), account_destroy_path(@account.id), :method => :delete
@@ -44,5 +51,3 @@ Custom Domains
       = link_to I18n.t("iugu.undo"), account_cancel_destruction_path(@account.id), :method => :delete
     - else
       = I18n.t("iugu.account_destruction_in") + @account.destruction_job.run_at.to_s
-
-
