@@ -5,9 +5,10 @@ class AccountDomain < ActiveRecord::Base
   validates :url, :account_id, :presence => true
   validate :validate_pattern, :validate_blacklist
 
-  scope :verified, where(:verified => true)
+  before_destroy { |record| record.update_attributes(:verified => false, :primary => false) }
+  before_destroy :set_first_domain
 
-  before_create :set_first_domain
+  scope :verified, where(:verified => true)
 
   def normalize_host
     begin
@@ -43,12 +44,15 @@ class AccountDomain < ActiveRecord::Base
     end
     AccountDomain.where(:url => self.url).update_all(:verified => false) if checked == true
     update_attribute(:verified, checked)
+    set_first_domain
     checked
   end
 
   def set_primary
-    AccountDomain.where(:account_id => account_id).update_all(:primary => false)
-    update_attribute(:primary, true)
+    if verified == true
+      AccountDomain.where(:account_id => account_id).update_all(:primary => false)
+      update_attribute(:primary, true)
+    end
   end
 
   private
@@ -68,7 +72,9 @@ class AccountDomain < ActiveRecord::Base
   end
 
   def set_first_domain
-    self.primary = true if self.account.account_domains.empty?
+    if AccountDomain.where(:account_id => account_id, :primary => true).empty?
+      AccountDomain.where(:account_id => account_id, :verified => true).first.try(:update_attribute, :primary, true)
+    end
   end
   
   

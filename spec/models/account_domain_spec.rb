@@ -9,12 +9,6 @@ describe AccountDomain do
   it { should validate_presence_of(:url) }
   it { should validate_presence_of(:account_id) }
 
-  it 'should set primary as true if its the first domain of the account' do
-    @account = Fabricate(:account)
-    @account.account_domains << @domain = Fabricate(:account_domain) { url 'primary.test.test' }
-    @domain.primary.should be_true
-  end
-
   it 'should accept url with correct pattern' do
     @account = Fabricate(:account)
     @account.account_domains << @domain = Fabricate.build(:account_domain) do
@@ -45,6 +39,16 @@ describe AccountDomain do
       end
       @account_domain.normalize_host.should == "normal.host"
     end
+  end
+
+  it 'should set the first verified domain as primary if the primary domain is destroyed' do
+    @account = Fabricate(:account)
+    @account.account_domains << @domain1 = AccountDomain.create(:url => "url2.test.test", :verified => true)
+    @account.account_domains << @domain2 = AccountDomain.create(:url => "url2.test.test", :verified => true)
+    @domain1.set_primary
+    @domain1.destroy
+    @domain2.reload
+    @domain2.primary.should be_true
   end
 
   context "calculate_token" do
@@ -87,7 +91,15 @@ describe AccountDomain do
       @account_domain1.reload
       @account_domain1.verified.should be_false
     end
-  
+    
+    it 'should set primary as true if its the first domain of the account' do
+      @account = Fabricate(:account)
+      @account.account_domains << @domain = Fabricate(:account_domain) { url 'www.test.net' }
+      @domain.verify
+      @domain.reload
+      @domain.primary.should be_true
+    end
+
   end
 
   context "set_primary" do
@@ -118,6 +130,12 @@ describe AccountDomain do
       @domain2.set_primary
       @domain1.reload
       @domain1.primary.should be_false
+    end
+
+    it 'should not make domain primary if its not verified' do
+      @domain2.update_attribute(:verified, false)
+      @domain2.set_primary
+      @domain2.primary.should be_false
     end
   
   end
