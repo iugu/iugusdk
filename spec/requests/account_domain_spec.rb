@@ -22,10 +22,27 @@ describe "Account Domains requests" do
     context "when domain is not primary" do
       before(:each) do
         @domain.update_attribute(:primary, false)
-        visit account_domains_index_path(@account.id)
       end
 
-      it { page.should have_link I18n.t("iugu.set_primary") }
+      context "and domain is verified" do
+        before(:each) do
+          @domain.update_attribute(:verified, true)
+          visit account_domains_index_path(@account.id)
+        end
+
+        it { page.should have_link I18n.t("iugu.set_primary") }
+      
+      end
+
+      context "and domain is not verified" do
+        before(:each) do
+          @domain.update_attribute(:verified, false)
+          visit account_domains_index_path(@account.id)
+        end
+
+        it { page.should_not have_link I18n.t("iugu.set_primary") }
+      
+      end
 
     end
     
