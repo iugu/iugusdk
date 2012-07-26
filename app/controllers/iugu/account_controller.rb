@@ -8,7 +8,7 @@ class Iugu::AccountController < Iugu::AccountSettingsController
     if params[:id]
       @account = current_user.accounts.find(params[:id])
     else
-      @account = current_user_account
+      @account = current_user_account.account
     end
     @primary_domain = @account.account_domains.where(:primary => true).first if @account
     render 'iugu/settings/account'

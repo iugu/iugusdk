@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   constraints(IuguSDK::RootTenancyUrl) do
 
     get "settings" => "iugu/settings#index", :as => "settings"
-    get "settings/account" => "iugu/account#index", :as => "account_settings"
+    get "settings/accounts" => "iugu/account#index", :as => "account_settings"
     get "settings/account/(:id)" => "iugu/account#view", :as => "account_view"
     delete "settings/account/(:id)" => "iugu/account#destroy", :as => "account_destroy"
     delete "settings/account/(:id)/cancel" => "iugu/account#cancel_destruction", :as => "account_cancel_destruction"
