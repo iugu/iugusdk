@@ -16,6 +16,13 @@
 
 %div
   = simple_form_for @account_domain, :url => create_domain_path(@account.id) do |f|
+    - if @account_domain.errors.any?
+      #error_explanation{ :style => "margin-bottom: 15px" }
+        %ul
+          - @account_domain.errors.full_messages.each do |msg|
+            %li
+              = msg
+
     = f.text_field :url
     = f.submit I18n.t("iugu.add")
 %br

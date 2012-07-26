@@ -5,6 +5,8 @@ class AccountDomain < ActiveRecord::Base
   validates :url, :account_id, :presence => true
   validate :validate_pattern, :validate_blacklist
 
+  before_create :validate_not_repeated
+
   before_destroy { |record| record.update_attributes(:verified => false, :primary => false) }
   before_destroy :set_first_domain
 
@@ -67,6 +69,15 @@ class AccountDomain < ActiveRecord::Base
     if url
       IuguSDK::custom_domain_invalid_hosts.each do |invalid_host|
         errors.add(:url, "Domain on Blacklist") if url == invalid_host
+      end
+    end
+  end
+
+  def validate_not_repeated
+    if url
+      if !AccountDomain.where(:account_id => account_id, :url => url).empty?
+        errors.add(:url, "already used for this account") 
+        false
       end
     end
   end

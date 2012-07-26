@@ -11,9 +11,7 @@ describe AccountDomain do
 
   it 'should accept url with correct pattern' do
     @account = Fabricate(:account)
-    @account.account_domains << @domain = Fabricate.build(:account_domain) do
-      url 'valid.url.test'
-    end
+    @domain = AccountDomain.create(:url => 'valid.url.test', :account => @account)
     @domain.valid?.should be_true
   end
 
@@ -23,6 +21,13 @@ describe AccountDomain do
       url 'http://www.t3st.net'
     end
     @domain.valid?.should be_false
+  end
+
+  it 'should not accept repeated domain' do
+    @account = Fabricate(:account)
+    @account.account_domains << @domain1 = AccountDomain.create(:url => 'valid.url.test')
+    @account.account_domains << @domain2 = AccountDomain.create(:url => 'valid.url.test')
+    @domain2.new_record?.should be_true
   end
 
   it 'should not accept url in the blacklist' do
@@ -43,7 +48,7 @@ describe AccountDomain do
 
   it 'should set the first verified domain as primary if the primary domain is destroyed' do
     @account = Fabricate(:account)
-    @account.account_domains << @domain1 = AccountDomain.create(:url => "url2.test.test", :verified => true)
+    @account.account_domains << @domain1 = AccountDomain.create(:url => "url1.test.test", :verified => true)
     @account.account_domains << @domain2 = AccountDomain.create(:url => "url2.test.test", :verified => true)
     @domain1.set_primary
     @domain1.destroy

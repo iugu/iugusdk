@@ -8,9 +8,10 @@ class Iugu::AccountDomainsController < Iugu::AccountSettingsController
 
   def create
     @account = current_user.accounts.find(params[:account_id])
-    if @account.account_domains << @domain = AccountDomain.create(params[:account_domain])
-      redirect_to account_domains_instructions_path(:account_id => params[:account_id], :domain_id => @domain.id)#, :notice => notice = I18n.t("iugu.notices.domain_created")
+    if @account.account_domains << @account_domain = AccountDomain.create(params[:account_domain])
+      redirect_to account_domains_instructions_path(:account_id => params[:account_id], :domain_id => @account_domain.id)#, :notice => notice = I18n.t("iugu.notices.domain_created")
     else
+      @account_domains = @account.account_domains.where(:account_id => params[:account_id])
       render :index
     end
   end
