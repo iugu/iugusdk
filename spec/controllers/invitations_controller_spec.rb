@@ -84,7 +84,8 @@ describe Iugu::InvitationsController do
     before(:each) do
       @account = Fabricate(:account)
       @user_invitation = Fabricate(:user_invitation)
-      @user_invitation.update_attribute(:account_id, @account.id)
+      @user_invitation.account = @account
+      @user_invitation.save
     end
 
     context "when token is not valid" do
@@ -104,6 +105,18 @@ describe Iugu::InvitationsController do
 
       it { response.should redirect_to root_path }
 
+    end
+
+    context "when user is already member of the account" do
+      before(:each) do
+        @account.users << @user
+        get :update, :invitation_token => @user_invitation.id.to_s + @user_invitation.token
+      end
+    
+      it { response.should redirect_to root_path }
+
+      it { flash.now[:notice].should == I18n.t("iugu.notices.you_are_already_member_of_this_account") }
+    
     end
   end
 end

@@ -89,6 +89,20 @@ describe UserInvitation do
       @user_invitation.accept(@user)
       AccountUser.last.is?('user').should be_true
     end
+
+    it 'should return true if successfull' do
+      @user_invitation.account = @account
+      @user_invitation.save
+      @user_invitation.accept(@user).should be_true
+    end
+
+    it 'should return false if user is already member of the account' do
+      @user_invitation.account = @account
+      @user_invitation.save
+      @account.users << @user
+      @user_invitation.accept(@user).should be_false
+    end
+
   end
 end
   

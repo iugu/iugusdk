@@ -29,8 +29,11 @@ class Iugu::InvitationsController < Iugu::SettingsController
 
   def update
     if @user_invitation = UserInvitation.find_by_invitation_token(params[:invitation_token])
-      @user_invitation.accept(current_user)
-      redirect_to root_path
+      if @user_invitation.accept(current_user)
+        redirect_to root_path
+      else
+        redirect_to root_path, :notice => I18n.t("iugu.notices.you_are_already_member_of_this_account")
+      end
     else
       raise ActionController::RoutingError.new('Not Found')
     end

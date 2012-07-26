@@ -63,6 +63,7 @@ en:
     verify_later: "Verify later"
     instructions: "Instructions"
     notices:
+      you_are_already_member_of_this_account: "You already member of this account"
       new_token_generated: "New token generated"
       account_updated: "Account was successfully updated"
       account_not_found: "Account not found"

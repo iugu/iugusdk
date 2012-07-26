@@ -21,8 +21,14 @@ class UserInvitation < ActiveRecord::Base
   end
 
   def accept(user)
-    Account.find(account_id).account_users << account_user = AccountUser.create(:user_id => user.id)
-    account_user.set_roles(roles.split(',')) if roles
+    account = Account.find(account_id)
+    if account.account_users.where(:user_id => user.id).empty?
+      account.account_users << account_user = AccountUser.create(:user_id => user.id)
+      account_user.set_roles(roles.split(',')) if roles
+      true
+    else
+      false
+    end
   end
 
   private
