@@ -60,5 +60,16 @@ class Iugu::AccountDomainsController < Iugu::AccountSettingsController
       redirect_to account_domains_index_path(params[:account_id]), :notice => I18n.t("iugu.notices.domain_not_found")
     end
   end
+
+  def update_subdomain
+    @account = current_user.accounts.find(params[:account_id])
+    if @account.update_attributes(params[:account])
+      redirect_to account_domains_index_path(@account.id), :notice => I18n.t("iugu.notices.subdomain_updated")
+    else
+      @account_domains = @account.account_domains.where(:account_id => params[:account_id])
+      @account_domain = AccountDomain.new
+      render :index
+    end
+  end
   
 end

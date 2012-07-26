@@ -25,6 +25,7 @@ Rails.application.routes.draw do
     get "settings/account/:account_id/domain/:domain_id" => "iugu/account_domains#instructions", :as => "account_domains_instructions"
     post '/settings/account/:account_id/domain/:domain_id' => 'iugu/account_domains#verify', :as => 'verify_domain'
     post '/settings/account/:account_id/domain/:domain_id/primary' => 'iugu/account_domains#primary', :as => 'primary_domain'
+    put '/settings/account/:account_id/subdomain' => 'iugu/account_domains#update_subdomain', :as => 'update_subdomain'
 
     get "select_account/:id" => "iugu/account#select", :as => "account_select"
     get "settings/profile" => "iugu/profile#index", :as => "profile_settings"

@@ -168,4 +168,28 @@ describe Iugu::AccountDomainsController do
     end
   
   end
+
+  context "update_subdomain" do
+    login_as_user
+    before(:each) do
+      @account = @user.accounts.first
+      put :update_subdomain, :account_id => @account.id, :account => {:subdomain => "subdomain"}
+    end
+
+    it { response.should redirect_to account_domains_index_path(@account.id) } 
+
+    it { flash.now[:notice].should == I18n.t("iugu.notices.subdomain_updated") }
+
+    context "when update isnt successfull" do
+      before(:each) do
+        stub.any_instance_of(Account).update_attributes { false }
+        put :update_subdomain, :account_id => @account.id, :account => {:subdomain => "subdomain"}
+      end
+
+      it { response.should render_template :index }
+    
+    end
+
+  end
+
 end
