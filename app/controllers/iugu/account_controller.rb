@@ -1,4 +1,7 @@
 class Iugu::AccountController < Iugu::AccountSettingsController
+
+  before_filter(:only => [:destroy, :cancel_destruction, :update]) { |c| c.must_be :owner, :id }
+  before_filter(:only => [:generate_new_token]) { |c| c.must_be :owner, :account_id }
   
   def index
     render 'iugu/settings/accounts'
@@ -15,28 +18,14 @@ class Iugu::AccountController < Iugu::AccountSettingsController
   end
 
   def destroy
-    begin
-      if account = current_user.accounts.find(params[:id])
-        if account.account_users.find_by_user_id(current_user.id).is?(:owner)
-          account.destroy
-          notice = I18n.t("iugu.account_destruction_in") + account.destruction_job.run_at.to_s
-        else
-          notice = I18n.t("errors.messages.only_owners_can_destroy_accounts")
-        end
-      end
-    rescue
-      notice = I18n.t("iugu.notices.account_not_found")
-    end
-    redirect_to(account_settings_path, :notice => notice)
+    account = current_user.accounts.find(params[:id])
+    account.destroy
+    redirect_to(account_settings_path, :notice => I18n.t("iugu.account_destruction_in") + account.destruction_job.run_at.to_s)
   end
 
   def cancel_destruction
-    begin
-      current_user.accounts.find(params[:id]).cancel_destruction if params[:id]
-      notice = I18n.t("iugu.account_destruction_undone")
-    rescue
-      notice = I18n.t("iugu.notices.account_not_found")
-    end
+    current_user.accounts.find(params[:id]).cancel_destruction
+    notice = I18n.t("iugu.account_destruction_undone")
     redirect_to(account_settings_path, :notice => notice)
   end
 
