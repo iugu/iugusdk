@@ -94,12 +94,6 @@ describe Iugu::AccountController do
       @user.accounts.first.name.should == "fudum"
     end
 
-    it 'should raise error if receive an invalid id' do
-      lambda {
-        put :update, :id => 892738912731893719237, :account => { :name => "fudum" }
-      }.should raise_error ActionController::RoutingError
-    end
-  
   end
 
   context "create" do

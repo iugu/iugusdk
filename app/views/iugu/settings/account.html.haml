@@ -39,7 +39,7 @@ Custom Domains
     %br
     = @account.api_token
 
-- if current_user.is?(:owner, @account) || current_user.is?(:admin, @account)
+- if current_user.is?(:owner, @account)
   %br
   - unless @account.destroying?
     = link_to I18n.t("iugu.cancel_account"), account_destroy_path(@account.id), :method => :delete
