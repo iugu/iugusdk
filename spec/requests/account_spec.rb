@@ -62,11 +62,22 @@ describe 'accounts settings view' do
       @account_user = AccountUser.last
     end
 
+    context "when current_user admin the account" do
+      before(:each) do
+        @account_user.set_roles ["admin"]
+        visit account_view_path(@target_account.id)
+      end
+
+      it { page.should have_link I18n.t("iugu.manage") }
+
+    end
+
     context "when current_user owns the account" do
       before(:each) do
         @account_user.set_roles ["owner"]
         visit account_view_path(@target_account.id)
       end
+      it { page.should have_link I18n.t("iugu.manage") }
 
       it { page.should have_link I18n.t("iugu.cancel_account") }
 
@@ -104,6 +115,8 @@ describe 'accounts settings view' do
         @account_user.set_roles ["user"]
         visit account_view_path(@target_account.id)
       end
+
+      it { page.should_not have_link I18n.t("iugu.manage") }
 
       it { page.should_not have_link I18n.t("iugu.cancel_account") }
 

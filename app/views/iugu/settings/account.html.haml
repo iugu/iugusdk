@@ -17,7 +17,8 @@ Plan Name
 %br
 %br
 Custom Domains
-= link_to I18n.t("iugu.manage"), account_domains_index_path(@account.id)
+- if current_user.is?(:owner, @account) || current_user.is?(:admin, @account)
+  = link_to I18n.t("iugu.manage"), account_domains_index_path(@account.id)
 %br
 - if @primary_domain
   Primary: 
