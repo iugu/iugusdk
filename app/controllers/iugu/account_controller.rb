@@ -41,7 +41,7 @@ class Iugu::AccountController < Iugu::AccountSettingsController
   end
 
   def select
-    select_account(current_user, params[:id])
+    set_account(current_user, params[:id])
     redirect_to(account_settings_path, :notice => "Account selected")
   end
 

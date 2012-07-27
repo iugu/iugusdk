@@ -33,7 +33,7 @@ module ControllerMacros
         account = Fabricate(:account)
         account.account_users << Fabricate(:account_user, :user => user)
         sign_in user
-        select_account user
+        set_account user
       end
     end
   end

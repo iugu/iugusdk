@@ -1,11 +1,3 @@
-GIT
-  remote: git://github.com/plataformatec/simple_form.git
-  revision: 82c0a52f2ea04a7c24ece0def56bc32545aee695
-  specs:
-    simple_form (2.1.0.dev)
-      actionpack (~> 3.0)
-      activemodel (~> 3.0)
-
 PATH
   remote: .
   specs:
@@ -265,6 +257,9 @@ GEM
     sexp_processor (3.2.0)
     shoulda-matchers (1.2.0)
       activesupport (>= 3.0.0)
+    simple_form (2.0.2)
+      actionpack (~> 3.0)
+      activemodel (~> 3.0)
     simplecov (0.6.4)
       multi_json (~> 1.0)
       simplecov-html (~> 0.5.3)
@@ -320,5 +315,5 @@ DEPENDENCIES
   rspec-rails
   sass-rails
   shoulda-matchers
-  simple_form!
+  simple_form
   simplecov

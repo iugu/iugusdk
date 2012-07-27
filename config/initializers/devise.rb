@@ -227,16 +227,3 @@ Devise.setup do |config|
   # end
 
 end
-
-Warden::Manager.after_authentication do |record,auth,opts|
-  if record && record.respond_to?(:accounts)
-    include IuguSDK::Controllers::Helpers
-    cookie_name = 'account'
-    account = record.default_account( auth.cookies['last_' + cookie_name + '_id']  )
-    if account
-      auth.cookies['last_' + cookie_name.downcase + '_id'] = { :value => account.id, :expires => 365.days.from_now }
-      auth.env['rack.session'][ 'current_' + cookie_name.downcase + '_id'  ] = account.id
-    end
-  end
-end
-

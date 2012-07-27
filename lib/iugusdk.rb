@@ -5,7 +5,7 @@ require 'iugusdk/controllers/helpers'
 require 'iugusdk/valid_tenancy_urls'
 require 'iugusdk/root_tenancy_url'
 require "iugusdk/engine"
-require "iugusdk/locale_filter"
+require "iugusdk/iugusdk_base_controller"
 require "http_accept_language"
 require 'devise'
 require 'omniauth'
@@ -31,7 +31,7 @@ module IuguSDK
   mattr_accessor :default_layout
 
   mattr_accessor :allow_create_account
-  self.allow_create_account = false
+  self.allow_create_account = true
 
   mattr_accessor :application_main_host
   self.application_main_host = "iugusdk.dev"
