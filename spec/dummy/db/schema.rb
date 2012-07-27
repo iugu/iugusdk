@@ -31,8 +31,8 @@ ActiveRecord::Schema.define(:version => 20120725170859) do
   end
 
   create_table "accounts", :force => true do |t|
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "name"
     t.integer  "subscription_id"
     t.string   "subdomain"
@@ -49,8 +49,8 @@ ActiveRecord::Schema.define(:version => 20120725170859) do
     t.datetime "failed_at"
     t.string   "locked_by"
     t.string   "queue"
-    t.datetime "created_at",                :null => false
-    t.datetime "updated_at",                :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
@@ -82,8 +82,8 @@ ActiveRecord::Schema.define(:version => 20120725170859) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string   "unconfirmed_email"
-    t.datetime "created_at",                             :null => false
-    t.datetime "updated_at",                             :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.date     "birthdate"
     t.string   "name"
     t.string   "locale"
