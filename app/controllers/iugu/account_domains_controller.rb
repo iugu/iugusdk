@@ -1,4 +1,5 @@
 class Iugu::AccountDomainsController < Iugu::AccountSettingsController
+  before_filter(:only => [:index, :create, :destroy, :instruction, :verify, :primary, :update_subdomain]) { |c| c.must_be [:owner, :admin], :account_id }
 
   def index
     @account = current_user.accounts.find(params[:account_id])

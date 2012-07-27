@@ -77,18 +77,6 @@ describe "Account Domains requests" do
 
     end
 
-    context "when current_user is not the owner of the account" do
-      before(:each) do
-        @account.account_users << Fabricate(:account_user) { user Fabricate(:user) { email "notowner@account.test" } }
-        @account_user = AccountUser.find_by_user_id_and_account_id(@user.id, @account.id)
-        @account_user.set_roles ["user"]
-        visit account_domains_index_path(@account.id)
-      end
-
-      it { page.should_not have_link I18n.t("iugu.remove") }
-
-    end
-
   end
   
 end
