@@ -18,20 +18,6 @@ describe Iugu::AccountRolesController do
 
     end
 
-    context "when current_user do not owns the account" do
-
-      before(:each) do
-        @current_account_user = @user.account_users.first
-        @account = @current_account_user.account
-        @account.account_users << Fabricate(:account_user) { user Fabricate(:user) { email "notowner@account.test" } }
-        @current_account_user.set_roles(["user"])
-        get :edit, :id => @current_account_user.account_id, :user_id => @current_account_user.user_id
-      end
-
-      it { response.should_not render_template "iugu/account_roles/edit" }
-      it { response.should_not be_success }
-    end
-  
   end
 
   context "update" do
