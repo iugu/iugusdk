@@ -1,4 +1,4 @@
-= simple_form_for @user_invitation, :url => create_invite_path(:account_id => @account_id), :method => :post do |f|
+= simple_form_for @user_invitation, :url => create_invite_path(@account.id), :method => :post do |f|
   - if @user_invitation.errors.any?
     #error_explanation{ :style => "margin-bottom: 15px" }
       %ul
@@ -9,10 +9,18 @@
   %div
     = f.label :email
     = f.email_field :email
-  - APP_ROLES['roles'].each do |role|
-    %div
-      = check_box_tag "user_invitation[roles][]", role, false, :id => "#{role}_checkbox"
-      = label_tag "#{role}_checkbox", role
+  - if current_user.is?(:owner, @account)
+    - APP_ROLES['roles'].each do |role|
+      %div
+        = check_box_tag "user_invitation[roles][]", role, false, :id => "#{role}_checkbox"
+        = label_tag "#{role}_checkbox", role
+
+  - if current_user.is?(:admin, @account)
+    - APP_ROLES['roles'].each do |role|
+      - unless role == APP_ROLES['owner_role'] || role == APP_ROLES['admin_role'] 
+        %div
+          = check_box_tag "user_invitation[roles][]", role, false, :id => "#{role}_checkbox"
+          = label_tag "#{role}_checkbox", role
 
   %div
     = f.submit I18n.t("iugu.invite")

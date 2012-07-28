@@ -4,7 +4,7 @@ class Iugu::InvitationsController < Iugu::SettingsController
 
   def new
     @user_invitation = UserInvitation.new
-    @account_id = params[:account_id]
+    @account = Account.find(params[:account_id])
   end
 
   def create
@@ -15,7 +15,7 @@ class Iugu::InvitationsController < Iugu::SettingsController
     unless @user_invitation.new_record?
       redirect_to account_users_index_path(params[:account_id]), :notice => I18n.t("iugu.notices.user_invited")
     else
-      @account_id = params[:account_id]
+      @account = Account.find(params[:account_id])
       render :new
     end
   end
