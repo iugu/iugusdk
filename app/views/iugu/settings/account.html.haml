@@ -4,11 +4,13 @@
 %h2
   = I18n.t("iugu.account_settings") + " (##{@account.id})"
 
-= simple_form_for @account, :url => account_update_path(:id => @account.id), :method => :put do |f|
-  = f.label :name
-  = f.text_field :name
-  %br
-  = f.submit I18n.t("iugu.save")
+- if current_user.is?(:owner, @account)
+
+  = simple_form_for @account, :url => account_update_path(:id => @account.id), :method => :put do |f|
+    = f.label :name
+    = f.text_field :name
+    %br
+    = f.submit I18n.t("iugu.save")
 
 %br
 Plan Name

@@ -85,6 +85,8 @@ describe 'accounts settings view' do
       
       it { page.should have_link I18n.t("iugu.generate_new_token") }
 
+      it { page.should have_field 'account[name]' }
+
       context "when account is being canceled" do
         context "if delay_account_exclusion == 0" do
           before(:each) do
@@ -115,6 +117,8 @@ describe 'accounts settings view' do
         @account_user.set_roles ["user"]
         visit account_view_path(@target_account.id)
       end
+
+      it { page.should_not have_field 'account[name]' }
 
       it { page.should_not have_link I18n.t("iugu.manage") }
 
