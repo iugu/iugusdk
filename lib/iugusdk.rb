@@ -27,7 +27,6 @@ module IuguSDK
   mattr_accessor :default_subscription_name
   mattr_accessor :guest_user_prefix
   mattr_accessor :multiple_accounts_per_user
-  mattr_accessor :custom_domain_for_accounts
   mattr_accessor :default_layout
 
   mattr_accessor :allow_create_account
@@ -57,6 +56,9 @@ module IuguSDK
   mattr_accessor :enable_custom_domain
   self.enable_custom_domain = false
 
+  mattr_accessor :enable_account_api_token
+  self.enable_custom_domain = false
+
   self.application_title = 'Application Name'
 
   self.no_signup_form = false
@@ -65,7 +67,6 @@ module IuguSDK
   self.default_subscription_name = 'free'
   self.guest_user_prefix = 'appuser'
   self.multiple_accounts_per_user = false
-  self.custom_domain_for_accounts = false
 
   self.default_layout = "settings"
 

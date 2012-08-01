@@ -36,12 +36,13 @@ Plan Name
   = link_to I18n.t("iugu.payment_history")
 %br
 
-- if current_user.is?(:owner, @account)
-  %div
-    Api Token
-    = link_to I18n.t("iugu.generate_new_token"), account_generate_new_token_path(@account.id), :method => :post
-    %br
-    = @account.api_token
+- unless IuguSDK::enable_account_api_token == false
+  - if current_user.is?(:owner, @account)
+    %div
+      Api Token
+      = link_to I18n.t("iugu.generate_new_token"), account_generate_new_token_path(@account.id), :method => :post
+      %br
+      = @account.api_token
 
 - if current_user.is?(:owner, @account)
   %br

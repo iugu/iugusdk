@@ -115,6 +115,7 @@ describe Iugu::AccountController do
   context "generate_new_token" do
     login_as_user
     before(:each) do
+      IuguSDK::enable_account_api_token = true
       @account = @user.accounts.last
       post :generate_new_token, :account_id => @account.id
     end
@@ -122,6 +123,19 @@ describe Iugu::AccountController do
     it { response.should redirect_to account_view_path(@account.id) }
 
     it { flash.now[:notice].should == I18n.t("iugu.notices.new_token_generated") }
+
+    context "when enable_account_api_token == false" do
+      before(:each) do
+        IuguSDK::enable_account_api_token = false
+      end
+
+      it 'should raise RoutingError' do
+        lambda {
+          post :generate_new_token, :account_id => @account.id
+        }.should raise_error ActionController::RoutingError
+      end
+
+    end
   
   end
   

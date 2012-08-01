@@ -142,6 +142,16 @@ describe 'accounts settings view' do
       it { page.should_not have_link I18n.t("iugu.manage") }
       
     end
+
+    context "when enable_account_api_token == false" do
+      before(:each) do
+        IuguSDK::enable_account_api_token = false
+        visit account_view_path(@target_account.id)
+      end
+      
+      it { page.should_not have_link I18n.t("iugu.generate_new_token") }
+    
+    end
     
   
   end
