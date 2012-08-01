@@ -59,6 +59,9 @@ module IuguSDK
   mattr_accessor :enable_account_api_token
   self.enable_custom_domain = false
 
+  mattr_accessor :enable_social_login
+  self.enable_social_login = false
+
   self.application_title = 'Application Name'
 
   self.no_signup_form = false
