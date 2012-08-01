@@ -16,15 +16,16 @@
 Plan Name
 = link_to I18n.t("iugu.change")
 
-%br
-%br
-Custom Domains
-- if current_user.is?(:owner, @account) || current_user.is?(:admin, @account)
-  = link_to I18n.t("iugu.manage"), account_domains_index_path(@account.id)
-%br
-- if @primary_domain
-  Primary: 
-  = @primary_domain.url
+- unless IuguSDK::enable_custom_domain == false && IuguSDK::enable_subdomain == false
+  %br
+  %br
+  Custom Domains
+  - if current_user.is?(:owner, @account) || current_user.is?(:admin, @account)
+    = link_to I18n.t("iugu.manage"), account_domains_index_path(@account.id)
+  %br
+  - if @primary_domain
+    Primary: 
+    = @primary_domain.url
 
 %br
 = link_to I18n.t("iugu.users_and_roles"), account_users_index_path(@account.id)

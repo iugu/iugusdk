@@ -54,6 +54,8 @@ module IuguSDK
   mattr_accessor :enable_subdomain
   self.enable_subdomain = false
 
+  mattr_accessor :enable_custom_domain
+  self.enable_custom_domain = false
 
   self.application_title = 'Application Name'
 

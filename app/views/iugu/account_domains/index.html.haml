@@ -15,41 +15,43 @@
       = f.text_field :subdomain
       = f.submit I18n.t("iugu.save")
 
-%div
-  = simple_form_for @account_domain, :url => create_domain_path(@account.id) do |f|
-    - if @account_domain.errors.any?
-      #error_explanation{ :style => "margin-bottom: 15px" }
-        %ul
-          - @account_domain.errors.full_messages.each do |msg|
-            %li
-              = msg
+- if IuguSDK::enable_custom_domain == true
 
-    = f.text_field :url
-    = f.submit I18n.t("iugu.add")
-%br
-%div
-  - @account_domains.each do |domain|
-    %div
+  %div
+    = simple_form_for @account_domain, :url => create_domain_path(@account.id) do |f|
+      - if @account_domain.errors.any?
+        #error_explanation{ :style => "margin-bottom: 15px" }
+          %ul
+            - @account_domain.errors.full_messages.each do |msg|
+              %li
+                = msg
 
-      = domain.url
+      = f.text_field :url
+      = f.submit I18n.t("iugu.add")
+  %br
+  %div
+    - @account_domains.each do |domain|
+      %div
 
-      - if domain.primary
-        |
-        = I18n.t("iugu.primary")
-      - else
-        - if domain.verified
+        = domain.url
+
+        - if domain.primary
           |
-          = link_to I18n.t("iugu.set_primary"), primary_domain_path(:account_id => @account.id, :domain_id => domain.id), :method => :post
+          = I18n.t("iugu.primary")
+        - else
+          - if domain.verified
+            |
+            = link_to I18n.t("iugu.set_primary"), primary_domain_path(:account_id => @account.id, :domain_id => domain.id), :method => :post
 
-      |
-      - if domain.verified
-        = I18n.t("iugu.verified")
-      - else
-        = link_to I18n.t("iugu.not_verified"), account_domains_instructions_path(:account_id => @account.id, :domain_id => domain.id)
-
-      - if current_user.is?(:owner, @account)
         |
-        = link_to I18n.t("iugu.remove"), account_domains_destroy_path(:account_id => @account.id, :domain_id => domain.id), :method => :delete
+        - if domain.verified
+          = I18n.t("iugu.verified")
+        - else
+          = link_to I18n.t("iugu.not_verified"), account_domains_instructions_path(:account_id => @account.id, :domain_id => domain.id)
+
+        - if current_user.is?(:owner, @account)
+          |
+          = link_to I18n.t("iugu.remove"), account_domains_destroy_path(:account_id => @account.id, :domain_id => domain.id), :method => :delete
 
 
 

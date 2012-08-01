@@ -1,6 +1,10 @@
 require 'spec_helper'
 
 describe Iugu::AccountDomainsController do
+  before(:each) do
+    IuguSDK::enable_custom_domain = true
+  end
+
   context "index" do
     login_as_user
     before(:each) do
@@ -207,8 +211,43 @@ describe Iugu::AccountDomainsController do
         }.should raise_error ActionController::RoutingError
       end
     end  
-  
+  end
 
+  context "when enable_custom_domain == false" do
+    login_as_user
+    before(:each) do
+      @account = @user.accounts.first
+      IuguSDK::enable_custom_domain = false
+    end
+
+    it 'create method should raise RoutingError' do
+      lambda { 
+        post :create, :account_id => @account.id, :account_domain => { :url => "new.test.net" }
+      }.should raise_error ActionController::RoutingError
+    end
+    
+    it 'destroy method should raise RoutingError' do
+      lambda { 
+        delete :destroy, :account_id => @account.id, :domain_id => 1
+      }.should raise_error ActionController::RoutingError
+    end
+  
+  end
+
+  context "when enable_custom_domain == false && enable_subdomain == false" do
+    login_as_user
+    before(:each) do
+      @account = @user.accounts.first
+      IuguSDK::enable_custom_domain = false
+      IuguSDK::enable_subdomain = false
+    end
+
+    it 'index method should raise RoutingError' do
+      lambda { 
+        get :index, :account_id => @account.id
+      }.should raise_error ActionController::RoutingError
+    end
+  
   end
 
 end

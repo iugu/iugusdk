@@ -1,10 +1,17 @@
 class Iugu::AccountDomainsController < Iugu::AccountSettingsController
+
+  before_filter :custom_domain_enabled?, :except => [:update_subdomain, :index]
+
   before_filter(:only => [:index, :create, :destroy, :instruction, :verify, :primary, :update_subdomain]) { |c| c.must_be [:owner, :admin], :account_id }
 
   def index
-    @account = current_user.accounts.find(params[:account_id])
-    @account_domains = @account.account_domains.where(:account_id => params[:account_id])
-    @account_domain = AccountDomain.new
+    unless IuguSDK::enable_custom_domain == false && IuguSDK::enable_subdomain == false
+      @account = current_user.accounts.find(params[:account_id])
+      @account_domains = @account.account_domains.where(:account_id => params[:account_id])
+      @account_domain = AccountDomain.new
+    else
+      raise ActionController::RoutingError.new("Not found")
+    end
   end
 
   def create
@@ -76,6 +83,12 @@ class Iugu::AccountDomainsController < Iugu::AccountSettingsController
     else
       raise ActionController::RoutingError.new('Not found')
     end
+  end
+
+  private
+
+  def custom_domain_enabled?
+    raise ActionController::RoutingError.new('Not found') if IuguSDK::enable_custom_domain == false
   end
   
 end
