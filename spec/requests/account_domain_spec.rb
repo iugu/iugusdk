@@ -9,6 +9,26 @@ describe "Account Domains requests" do
       @account.account_domains << @domain = AccountDomain.create( url: "index.test.net" )
     end
 
+    context "when enable_subdomain == true" do
+      before(:each) do
+        IuguSDK::enable_subdomain = true
+        visit account_domains_index_path(@account.id)
+      end
+
+      it { page.should have_field 'account[subdomain]' }
+    
+    end
+
+    context "when enable_subdomain == false" do
+      before(:each) do
+        IuguSDK::enable_subdomain = false
+        visit account_domains_index_path(@account.id)
+      end
+
+      it { page.should_not have_field 'account[subdomain]' }
+    
+    end
+
     context "when domain is primary" do
       before(:each) do
         @domain.update_attribute(:primary, true)

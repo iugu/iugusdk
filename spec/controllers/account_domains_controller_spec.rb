@@ -173,22 +173,41 @@ describe Iugu::AccountDomainsController do
     login_as_user
     before(:each) do
       @account = @user.accounts.first
-      put :update_subdomain, :account_id => @account.id, :account => {:subdomain => "subdomain"}
     end
 
-    it { response.should redirect_to account_domains_index_path(@account.id) } 
-
-    it { flash.now[:notice].should == I18n.t("iugu.notices.subdomain_updated") }
-
-    context "when update isnt successfull" do
+    context "when enable_subdomain == true" do
       before(:each) do
-        stub.any_instance_of(Account).update_attributes { false }
+        IuguSDK::enable_subdomain = true
         put :update_subdomain, :account_id => @account.id, :account => {:subdomain => "subdomain"}
       end
 
-      it { response.should render_template :index }
+      it { response.should redirect_to account_domains_index_path(@account.id) } 
+
+      it { flash.now[:notice].should == I18n.t("iugu.notices.subdomain_updated") }
+
+      context "and update isnt successfull" do
+        before(:each) do
+          stub.any_instance_of(Account).update_attributes { false }
+          put :update_subdomain, :account_id => @account.id, :account => {:subdomain => "subdomain"}
+        end
+
+        it { response.should render_template :index }
     
+      end
     end
+
+    context "when enable_subdomain == false" do
+      before(:each) do
+        IuguSDK::enable_subdomain = false
+      end
+
+      it 'should raise RoutingError' do
+        lambda { 
+          put :update_subdomain, :account_id => @account.id, :account => {:subdomain => "subdomain"}
+        }.should raise_error ActionController::RoutingError
+      end
+    end  
+  
 
   end
 

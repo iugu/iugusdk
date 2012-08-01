@@ -1,18 +1,19 @@
 %h2
   = I18n.t("iugu.account_domains") + " (##{@account.id})"
 
-%div
-  = simple_form_for @account, :url => update_subdomain_path(:id => @account.id), :method => :put do |f|
-    - if @account.errors.any?
-      #error_explanation{ :style => "margin-bottom: 15px" }
-        %ul
-          - @account.errors.full_messages.each do |msg|
-            %li
-              = msg
-
-    = f.label :subdomain
-    = f.text_field :subdomain
-    = f.submit I18n.t("iugu.save")
+- if IuguSDK::enable_subdomain == true
+  %div
+    = simple_form_for @account, :url => update_subdomain_path(:id => @account.id), :method => :put do |f|
+      - if @account.errors.any?
+        #error_explanation{ :style => "margin-bottom: 15px" }
+          %ul
+            - @account.errors.full_messages.each do |msg|
+              %li
+                = msg
+  
+      = f.label :subdomain
+      = f.text_field :subdomain
+      = f.submit I18n.t("iugu.save")
 
 %div
   = simple_form_for @account_domain, :url => create_domain_path(@account.id) do |f|

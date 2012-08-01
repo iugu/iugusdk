@@ -51,6 +51,10 @@ module IuguSDK
   mattr_accessor :delay_user_exclusion
   self.delay_user_exclusion = 0
 
+  mattr_accessor :enable_subdomain
+  self.enable_subdomain = false
+
+
   self.application_title = 'Application Name'
 
   self.no_signup_form = false
