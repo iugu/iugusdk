@@ -3,6 +3,7 @@ require 'spec_helper'
 describe 'Account Roles requests' do
   context "edit view" do
     before(:each) do
+      IuguSDK::enable_social_login = true
       visit '/account/auth/facebook'
       @user = User.last
       @account = @user.accounts.first

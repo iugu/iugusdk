@@ -6,6 +6,7 @@ class Iugu::OmniauthCallbacksController < Devise::OmniauthCallbacksController
         current_user.find_or_create_social(env["omniauth.auth"])
         redirect_to after_sign_in_path_for( current_user )
       else
+        raise ActionController::RoutingError.new("Not found") unless IuguSDK::enable_social_login
         if user = User.find_or_create_by_social(env["omniauth.auth"])
           sign_in user
           select_account

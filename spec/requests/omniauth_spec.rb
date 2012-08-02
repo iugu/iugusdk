@@ -1,6 +1,9 @@
 require 'spec_helper'
 
 describe 'omniauth requests' do
+  before(:each) do
+    IuguSDK::enable_social_login = true
+  end
   context "provider not found" do
     before(:each) do
       visit '/account/auth/orkut'
@@ -10,6 +13,21 @@ describe 'omniauth requests' do
   
   end
 
+  context "when not signed in" do
+    context "and enable_social_login == false" do
+      before(:each) do
+        IuguSDK::enable_social_login = false
+      end
+
+      it 'should raise RoutingError' do
+        lambda {
+          visit '/account/auth/facebook'
+        }.should raise_error ActionController::RoutingError
+      end
+    end
+
+  end
+
   context "facebook" do
     context 'not signed in' do
       before(:each) do
@@ -17,6 +35,7 @@ describe 'omniauth requests' do
       end
 
       it { page.should have_content "signed in" }
+
     end
     
     context "already signed in" do

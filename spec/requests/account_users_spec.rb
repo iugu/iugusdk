@@ -2,6 +2,7 @@ require 'spec_helper'
 
 describe "Account Users Requests" do
   before(:each) do
+    IuguSDK::enable_social_login = true
     @user = Fabricate(:user)
     visit '/account/auth/facebook'
     @current_user = User.last

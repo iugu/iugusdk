@@ -2,6 +2,7 @@ require 'spec_helper'
 
 describe 'accounts settings view' do
   before(:each) do
+    IuguSDK::enable_social_login = true
     visit '/account/auth/facebook'
     visit account_settings_path
     @user = User.last
