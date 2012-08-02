@@ -8,6 +8,29 @@ describe User do
   it { should have_many(:accounts).through(:account_users) }
   it { should have_many(:social_accounts) }
 
+  context "when enable_user_confirmation == false" do
+    before(:each) do
+      IuguSDK::enable_user_confirmation = false
+    end
+
+    it 'should skip confirmation' do
+      @user = User.create(:email => "confirmation@skip.test", :password => "testtest", :password_confirmation => "testtest")
+      @user.confirmed?.should be_true
+    end
+  end
+
+  context "when enable_user_confirmation == true" do
+    before(:each) do
+      IuguSDK::enable_user_confirmation = true
+    end
+
+    it 'should skip confirmation' do
+      @user = User.create(:email => "confirmation@needed.test", :password => "testtest", :password_confirmation => "testtest")
+      @user.confirmed?.should be_false
+    end
+
+  end
+
   context "create_social" do
     before do
       @env = OmniAuth.config.mock_auth[:twitter]

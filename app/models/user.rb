@@ -16,6 +16,8 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me, :locale, :name, :birthdate
 
+  before_create :skip_confirmation!, :unless => Proc.new { IuguSDK::enable_user_confirmation }
+
   after_create :create_account_for_user
 
   validates :email, :email => true
@@ -91,6 +93,7 @@ class User < ActiveRecord::Base
   def email_required?
     !has_social?
   end
+
 
   #def self.reconfirmable
   #  true

@@ -65,6 +65,9 @@ module IuguSDK
   mattr_accessor :enable_social_linking
   self.enable_social_linking = false
 
+  mattr_accessor :enable_user_confirmation
+  self.enable_user_confirmation = false
+
   self.application_title = 'Application Name'
 
   self.no_signup_form = false
