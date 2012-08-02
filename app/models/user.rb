@@ -20,6 +20,8 @@ class User < ActiveRecord::Base
 
   after_create :create_account_for_user
 
+  before_save :skip_reconfirmation!, :unless => Proc.new { IuguSDK::enable_email_reconfirmation }
+
   validates :email, :email => true
 
   def destruction_job

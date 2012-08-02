@@ -68,6 +68,9 @@ module IuguSDK
   mattr_accessor :enable_user_confirmation
   self.enable_user_confirmation = false
 
+  mattr_accessor :enable_email_reconfirmation
+  self.enable_email_reconfirmation = false
+
   self.application_title = 'Application Name'
 
   self.no_signup_form = false

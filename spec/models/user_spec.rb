@@ -24,11 +24,37 @@ describe User do
       IuguSDK::enable_user_confirmation = true
     end
 
-    it 'should skip confirmation' do
+    it 'should not skip confirmation' do
       @user = User.create(:email => "confirmation@needed.test", :password => "testtest", :password_confirmation => "testtest")
       @user.confirmed?.should be_false
     end
 
+  end
+
+  context "when enable_email_reconfirmation == true" do
+    before(:each) do
+      IuguSDK::enable_email_reconfirmation = true
+    end
+
+    it 'should not skip email reconfirmation' do
+      @user = User.create(:email => "reconfirmation@needed.test", :password => "testtest", :password_confirmation => "testtest")
+      @user.email = "new@email.test"
+      @user.save
+      @user.email.should == "reconfirmation@needed.test"
+    end
+  end
+
+  context "when enable_email_reconfirmation == false" do
+    before(:each) do
+      IuguSDK::enable_email_reconfirmation = false
+    end
+
+    it 'should skip email reconfirmation' do
+      @user = User.create(:email => "reconfirmation@needed.test", :password => "testtest", :password_confirmation => "testtest")
+      @user.email = "new@email.test"
+      @user.save
+      @user.email.should == "new@email.test"
+    end
   end
 
   context "create_social" do
