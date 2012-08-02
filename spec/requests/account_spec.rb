@@ -11,9 +11,9 @@ describe 'accounts settings view' do
 
   it { page.should have_link I18n.t("iugu.settings") }
 
-  context "when allow_create_account == true" do
+  context "when enable_multiple_accounts == true" do
     before(:each) do
-      IuguSDK::allow_create_account = true
+      IuguSDK::enable_multiple_accounts = true
       visit account_settings_path
     end
 
@@ -21,9 +21,9 @@ describe 'accounts settings view' do
   
   end
 
-  context "when allow_create_account == false" do
+  context "when enable_multiple_accounts == false" do
     before(:each) do
-      IuguSDK::allow_create_account = false
+      IuguSDK::enable_multiple_accounts = false
       visit account_settings_path
     end
 

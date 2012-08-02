@@ -29,8 +29,8 @@ module IuguSDK
   mattr_accessor :multiple_accounts_per_user
   mattr_accessor :default_layout
 
-  mattr_accessor :allow_create_account
-  self.allow_create_account = true
+  mattr_accessor :enable_multiple_accounts
+  self.enable_multiple_accounts = true
 
   mattr_accessor :application_main_host
   self.application_main_host = "iugusdk.dev"

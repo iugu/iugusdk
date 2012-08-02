@@ -6,9 +6,9 @@ describe "Settings requests" do
       visit '/account/auth/facebook'
     end
 
-    context "when allow_create_accounts == false" do
+    context "when enable_multiple_accounts == false" do
       before(:each) do
-        IuguSDK::allow_create_account = false
+        IuguSDK::enable_multiple_accounts = false
       end
 
       context "when user has only 1 account" do
@@ -37,9 +37,9 @@ describe "Settings requests" do
     end
 
 
-    context "when allow_create_accounts == true" do
+    context "when enable_multiple_accounts == true" do
       before(:each) do
-        IuguSDK::allow_create_account = true
+        IuguSDK::enable_multiple_accounts = true
         visit settings_path
       end
 

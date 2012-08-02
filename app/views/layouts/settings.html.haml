@@ -33,7 +33,7 @@
 
         = link_to I18n.t("iugu.profile"), profile_settings_path
         = ' | '
-        - if IuguSDK::allow_create_account == false && current_user.accounts.count <= 1
+        - if IuguSDK::enable_multiple_accounts == false && current_user.accounts.count <= 1
           = link_to I18n.t("iugu.account"), account_view_path
         - else
           = link_to I18n.t("iugu.accounts"), account_settings_path

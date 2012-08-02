@@ -6,7 +6,7 @@
 - if current_user.accounts.count > 0
 
   %h3 
-    - if IuguSDK::allow_create_account
+    - if IuguSDK::enable_multiple_accounts
       = I18n.t("iugu.accounts")
     - else
       - if current_user.accounts.count > 1
@@ -30,6 +30,6 @@
   %h2
     I dont have any Accounts
 
-- if IuguSDK::allow_create_account == true
+- if IuguSDK::enable_multiple_accounts == true
   %div
     = link_to I18n.t("iugu.create_account"), account_create_path, :method => :post
