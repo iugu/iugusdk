@@ -3,6 +3,7 @@ class Iugu::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def method_missing(provider)
     if !User.omniauth_providers.index(provider).nil?
       if current_user 
+        raise ActionController::RoutingError.new("Not found") unless IuguSDK::enable_social_linking
         current_user.find_or_create_social(env["omniauth.auth"])
         redirect_to after_sign_in_path_for( current_user )
       else

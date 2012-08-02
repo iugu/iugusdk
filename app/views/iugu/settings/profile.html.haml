@@ -62,29 +62,31 @@
       = link_to I18n.t("iugu.remove_user"), profile_destroy_path, :confirm => I18n.t("iugu.are_you_sure?") 
 %br
 
-%div
-  %h3
-    = I18n.t "iugu.social_account"
+- if IuguSDK::enable_social_linking
 
-  - if flash[:social]
-    #error_explanation{ :style => "margin-bottom: 15px" }
-      %ul
-        %li
-          = flash[:social]
+  %div
+    %h3
+      = I18n.t "iugu.social_account"
 
-  - @social_accounts.each do |social_account|
+    - if flash[:social]
+      #error_explanation{ :style => "margin-bottom: 15px" }
+        %ul
+          %li
+            = flash[:social]
 
-    %div
-      = social_account.provider.capitalize
-      UID:
-      = social_account.social_id
-      = link_to "Remove", social_destroy_path(:id => social_account.id)
+    - @social_accounts.each do |social_account|
 
-  - SOCIAL_ACCOUNTS.keys.each do |provider|
-    
-    - unless @social_accounts.where(:provider => provider).first 
       %div
-        = link_to "Sign in with #{provider.capitalize}", "/account/auth/#{provider}"
+        = social_account.provider.capitalize
+        UID:
+        = social_account.social_id
+        = link_to "Remove", social_destroy_path(:id => social_account.id)
+
+    - SOCIAL_ACCOUNTS.keys.each do |provider|
+    
+      - unless @social_accounts.where(:provider => provider).first 
+        %div
+          = link_to "Sign in with #{provider.capitalize}", "/account/auth/#{provider}"
 
 
 

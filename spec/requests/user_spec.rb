@@ -2,11 +2,14 @@ require 'spec_helper'
 
 describe 'account settings view' do
   before(:each) do
+    IuguSDK::enable_social_login = true
+    IuguSDK::enable_social_linking = true
     visit '/account/auth/facebook'
     visit profile_settings_path
   end 
 
   it { page.should have_link I18n.t("iugu.remove_user") }
+  it { page.should have_content I18n.t("iugu.social_account") }
 
   context "when user is being destroyed" do
     before(:each) do
@@ -28,6 +31,16 @@ describe 'account settings view' do
     end
 
     it { page.should_not have_link I18n.t("iugu.undo") }
+  
+  end
+
+  context "when enable_social_linking == false" do
+    before(:each) do
+      IuguSDK::enable_social_linking = false
+      visit profile_settings_path
+    end
+
+    it { page.should_not have_content I18n.t("iugu.social_account") }
   
   end
 

@@ -62,6 +62,9 @@ module IuguSDK
   mattr_accessor :enable_social_login
   self.enable_social_login = false
 
+  mattr_accessor :enable_social_linking
+  self.enable_social_linking = false
+
   self.application_title = 'Application Name'
 
   self.no_signup_form = false
