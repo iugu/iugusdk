@@ -14,7 +14,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :validatable, :omniauthable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :locale, :name, :birthdate
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :locale, :name, :birthdate, :guest
 
   before_create :skip_confirmation!, :unless => Proc.new { IuguSDK::enable_user_confirmation }
 
@@ -46,6 +46,17 @@ class User < ActiveRecord::Base
 
   def find_or_create_social(auth)
     social_accounts.where("provider = ? AND social_id = ?", auth["provider"], auth["uid"]).first || create_social(auth)
+  end
+
+  def self.create_guest
+    user = User.new({
+      :guest => true,
+      :email => nil,
+      :name => "Guest"
+    })
+    user.skip_confirmation!
+    user.save
+    user
   end
 
   def self.find_or_create_by_social(auth)

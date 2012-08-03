@@ -240,5 +240,22 @@ describe User do
   
   end
 
+  context "create_guest method" do
+    before(:each) do
+      @user = User.create_guest
+    end
+
+    it { @user.class.should == User }
+
+    it { @user.email.should be_nil }
+  
+    it { @user.guest.should be_true }
+
+    it { @user.name.should == "Guest" }
+  
+    it { @user.confirmed?.should be_true }
+    
+  end
+
 
 end
