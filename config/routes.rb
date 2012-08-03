@@ -59,6 +59,7 @@ Rails.application.routes.draw do
         post 'signup' => 'iugu/registrations#create', :as => 'user_registration'
         get 'cancel_signup' => 'iugu/registrations#cancel', :as => 'cancel_user_registration'
       end
+      post 'try_first' => 'iugu/registrations#try_first', :as => 'try_first'
 
       # Confirmation Stuff
       post 'confirmation' => 'iugu/confirmations#create', :as => 'user_confirmation'

@@ -63,6 +63,7 @@ en:
     verify_later: "Verify later"
     instructions: "Instructions"
     notices:
+      guest_login: "Guest successfully login"
       subdomain_updated: "Subdomain successfully updated"
       you_are_already_member_of_this_account: "You already member of this account"
       new_token_generated: "New token generated"

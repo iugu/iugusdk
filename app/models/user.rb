@@ -51,7 +51,6 @@ class User < ActiveRecord::Base
   def self.create_guest(locale = "en")
     user = User.new({
       :guest => true,
-      :email => nil,
       :name => "Guest",
       :locale => locale
     })

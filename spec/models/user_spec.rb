@@ -247,7 +247,7 @@ describe User do
 
     it { @user.class.should == User }
 
-    it { @user.email.should be_nil }
+    it { @user.email.should be_blank }
   
     it { @user.guest.should be_true }
 
