@@ -71,6 +71,9 @@ module IuguSDK
   mattr_accessor :enable_email_reconfirmation
   self.enable_email_reconfirmation = false
 
+  mattr_accessor :enable_subscription_features
+  self.enable_subscription_features = false
+
   self.application_title = 'Application Name'
 
   self.no_signup_form = false

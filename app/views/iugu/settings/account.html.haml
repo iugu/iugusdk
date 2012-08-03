@@ -30,10 +30,11 @@ Plan Name
 %br
 = link_to I18n.t("iugu.users_and_roles"), account_users_index_path(@account.id)
 
-%br
-%br
-%div
-  = link_to I18n.t("iugu.payment_history")
+- if IuguSDK::enable_subscription_features
+  %br
+  %br
+  %div
+    = link_to I18n.t("iugu.payment_history")
 %br
 
 - unless IuguSDK::enable_account_api_token == false
