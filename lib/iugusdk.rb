@@ -74,6 +74,9 @@ module IuguSDK
   mattr_accessor :enable_subscription_features
   self.enable_subscription_features = false
 
+  mattr_accessor :enable_social_only
+  self.enable_social_only = false
+
   self.application_title = 'Application Name'
 
   self.no_signup_form = false

@@ -30,36 +30,37 @@
     = f.submit "OK"
 %br
 
+- unless IuguSDK::enable_social_only
+  %div
+    %h3
+      = I18n.t "iugu.change_password"
+
+  = simple_form_for @user, :url => profile_update_path, :method => :post do |f|
+    - if @user.errors.include?(:password)
+      #error_explanation{ :style => "margin-bottom: 15px" }
+        %ul
+          %li
+            = "Password " + @user.errors[:password].first
+
+    %div
+      = f.label :password
+      = f.password_field :password
+  
+    %div
+      = f.label :password_confirmation
+      = f.password_field :password_confirmation
+
+    %div
+      = f.submit "OK", :id => "new_password_submit"
+
 %div
-  %h3
-    = I18n.t "iugu.change_password"
-
-= simple_form_for @user, :url => profile_update_path, :method => :post do |f|
-  - if @user.errors.include?(:password)
-    #error_explanation{ :style => "margin-bottom: 15px" }
-      %ul
-        %li
-          = "Password " + @user.errors[:password].first
-
-  %div
-    = f.label :password
-    = f.password_field :password
-
-  %div
-    = f.label :password_confirmation
-    = f.password_field :password_confirmation
-
-  %div
-    = f.submit "OK", :id => "new_password_submit"
-
-  %div
-    - if @user.destroying?
-      = I18n.t("iugu.user_destruction_in")
-      = @user.destruction_job.run_at
-      - unless @user.destruction_job.locked_at
-        = link_to I18n.t("iugu.undo"), profile_cancel_destruction_path, :confirm => I18n.t("iugu.are_you_sure?") 
-    - else
-      = link_to I18n.t("iugu.remove_user"), profile_destroy_path, :confirm => I18n.t("iugu.are_you_sure?") 
+  - if @user.destroying?
+    = I18n.t("iugu.user_destruction_in")
+    = @user.destruction_job.run_at
+    - unless @user.destruction_job.locked_at
+      = link_to I18n.t("iugu.undo"), profile_cancel_destruction_path, :confirm => I18n.t("iugu.are_you_sure?") 
+  - else
+    = link_to I18n.t("iugu.remove_user"), profile_destroy_path, :confirm => I18n.t("iugu.are_you_sure?") 
 %br
 
 - if IuguSDK::enable_social_linking

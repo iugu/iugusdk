@@ -54,9 +54,11 @@ Rails.application.routes.draw do
       delete 'logout' => 'iugu/sessions#destroy', :as => 'destroy_user_session' 
 
       # Registration Stuff
-      get 'signup' => 'iugu/registrations#new', :as => 'new_user_registration'
-      post 'signup' => 'iugu/registrations#create', :as => 'user_registration'
-      get 'cancel_signup' => 'iugu/registrations#cancel', :as => 'cancel_user_registration'
+      unless IuguSDK::enable_social_only
+        get 'signup' => 'iugu/registrations#new', :as => 'new_user_registration'
+        post 'signup' => 'iugu/registrations#create', :as => 'user_registration'
+        get 'cancel_signup' => 'iugu/registrations#cancel', :as => 'cancel_user_registration'
+      end
 
       # Confirmation Stuff
       post 'confirmation' => 'iugu/confirmations#create', :as => 'user_confirmation'
