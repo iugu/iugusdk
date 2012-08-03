@@ -6,6 +6,7 @@ en:
       only_social_and_no_email: "You need email and password to unlink this Social Account"
       email_already_in_use: "This email is already in use"
   iugu:
+    try_first: "Try first"
     generate_new_token: "Generate new token"
     create_account: "Create Account"
     add: "Add"

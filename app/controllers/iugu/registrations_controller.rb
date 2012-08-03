@@ -7,7 +7,8 @@ class Iugu::RegistrationsController < Devise::RegistrationsController
     sign_in @user
     select_account
     flash[:notice] = I18n.t("iugu.notices.guest_login")
-    respond_with @user, :location => after_sign_up_path_for(@user)
+    redirect_to root_path
+    #respond_with @user, :location => sign_up_path_for(@user)
   end
 end
 

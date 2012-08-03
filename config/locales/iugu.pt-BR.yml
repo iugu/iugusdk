@@ -6,6 +6,7 @@ pt-BR:
       only_social_and_no_email: "Você precisa de um email para poder apagar essa rede social"
       email_already_in_use: "Esse email já foi utilizado"
   iugu:
+    try_first: "Testar Primeiro"
     generate_new_token: "Gerar novo token"
     create_account: "Criar Conta"
     add: "Adicionar"
