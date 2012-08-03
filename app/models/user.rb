@@ -48,11 +48,12 @@ class User < ActiveRecord::Base
     social_accounts.where("provider = ? AND social_id = ?", auth["provider"], auth["uid"]).first || create_social(auth)
   end
 
-  def self.create_guest
+  def self.create_guest(locale = "en")
     user = User.new({
       :guest => true,
       :email => nil,
-      :name => "Guest"
+      :name => "Guest",
+      :locale => locale
     })
     user.skip_confirmation!
     user.save

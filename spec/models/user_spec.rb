@@ -242,7 +242,7 @@ describe User do
 
   context "create_guest method" do
     before(:each) do
-      @user = User.create_guest
+      @user = User.create_guest("pt-BR")
     end
 
     it { @user.class.should == User }
@@ -253,6 +253,8 @@ describe User do
 
     it { @user.name.should == "Guest" }
   
+    it { @user.locale.should == "pt-BR" }
+
     it { @user.confirmed?.should be_true }
     
   end
