@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120725170859) do
+ActiveRecord::Schema.define(:version => 20120803172545) do
 
   create_table "account_domains", :force => true do |t|
     t.integer "account_id"
@@ -87,6 +87,7 @@ ActiveRecord::Schema.define(:version => 20120725170859) do
     t.date     "birthdate"
     t.string   "name"
     t.string   "locale"
+    t.boolean  "guest"
   end
 
   add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true

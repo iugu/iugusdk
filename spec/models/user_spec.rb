@@ -7,6 +7,14 @@ describe User do
   it { should have_many(:account_users) }
   it { should have_many(:accounts).through(:account_users) }
   it { should have_many(:social_accounts) }
+  it { should validate_presence_of(:email) }
+
+  it 'should not require email if guest == true' do
+    user = Fabricate.build(:user) do
+      email nil
+      guest true
+    end.should be_valid
+  end
 
   context "when enable_user_confirmation == false" do
     before(:each) do

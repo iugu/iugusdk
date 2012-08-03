@@ -22,7 +22,7 @@ class User < ActiveRecord::Base
 
   before_save :skip_reconfirmation!, :unless => Proc.new { IuguSDK::enable_email_reconfirmation }
 
-  validates :email, :email => true
+  validates :email, :email => true, :unless => :guest?
 
   def destruction_job
     Delayed::Job.find_by_queue("user_#{id}_destroy")
@@ -93,7 +93,7 @@ class User < ActiveRecord::Base
   private
 
   def email_required?
-    !has_social?
+    !(has_social? || guest?)
   end
 
 
