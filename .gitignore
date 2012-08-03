@@ -33,4 +33,7 @@ spec/dummy/tmp/**
 lixo
 pkg/**
 pkg/*/*
+vendor/cache
+vendor/cache/**
+vendor/cache/*/*
 
