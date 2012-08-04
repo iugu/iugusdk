@@ -5,7 +5,6 @@ module IuguSDKBaseController
   end
 
   def select_account
-    Rails.logger.info "SELECT ACCOUNT"
     set_account(current_user) if current_user
   end
 

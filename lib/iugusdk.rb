@@ -28,6 +28,7 @@ module IuguSDK
   mattr_accessor :guest_user_prefix
   mattr_accessor :multiple_accounts_per_user
   mattr_accessor :default_layout
+  mattr_accessor :alternative_layout
 
   mattr_accessor :enable_multiple_accounts
   self.enable_multiple_accounts = true
@@ -87,6 +88,7 @@ module IuguSDK
   self.multiple_accounts_per_user = false
 
   self.default_layout = "settings"
+  self.alternative_layout = "application"
 
   def initialize
   end
