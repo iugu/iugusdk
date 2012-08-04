@@ -37,7 +37,7 @@ Plan Name
     = link_to I18n.t("iugu.payment_history")
 %br
 
-- unless IuguSDK::enable_account_api_token == false
+- if IuguSDK::enable_account_api_token
   - if current_user.is?(:owner, @account)
     %div
       Api Token

@@ -63,6 +63,7 @@ describe 'accounts settings view' do
       @account_user = AccountUser.last
       IuguSDK::enable_custom_domain = true
       IuguSDK::enable_subdomain = true
+      IuguSDK::enable_account_api_token = true
     end
 
     context "when current_user admin the account" do
