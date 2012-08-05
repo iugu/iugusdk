@@ -12,6 +12,10 @@ module IuguSDK
         @current_user_account ||= search_user_account( session[:current_account_id] )
       end
 
+      def current_account
+        current_user_account.try(:account)
+      end
+
       def set_account( resource, account_id=nil )
         if account_id == nil
           account_id = cookies[:last_used_account_id] if cookies[:last_used_account_id]
