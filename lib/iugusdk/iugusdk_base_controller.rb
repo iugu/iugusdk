@@ -10,7 +10,13 @@ module IuguSDKBaseController
 
   def configure_locale
     @matched_locale_from_browser = request.preferred_language_from(AvailableLanguage.all)
-    I18n.locale = current_user.locale || "en" if signed_in?
+    if signed_in?
+      if current_user.locale.blank?
+        locale = "en" 
+      else
+        locale = current_user.locale
+      end
+    end
   end
 
 end
