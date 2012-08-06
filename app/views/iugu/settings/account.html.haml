@@ -12,9 +12,10 @@
     %br
     = f.submit I18n.t("iugu.save")
 
-%br
-Plan Name
-= link_to I18n.t("iugu.change")
+- if IuguSDK::enable_subscription_features
+  %br
+  Plan Name
+  = link_to I18n.t("iugu.change")
 
 - unless IuguSDK::enable_custom_domain == false && IuguSDK::enable_subdomain == false
   %br
@@ -51,7 +52,6 @@ Plan Name
       = @account.api_token
 
 - if current_user.is?(:owner, @account)
-  %br
   - unless @account.destroying?
     = link_to I18n.t("iugu.cancel_account"), account_destroy_path(@account.id), :method => :delete
   - else
