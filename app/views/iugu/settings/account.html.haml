@@ -26,7 +26,7 @@ Plan Name
   - if @primary_domain
     Primary: 
     = @primary_domain.url
-
+%br
 %br
 = link_to I18n.t("iugu.users_and_roles"), account_users_index_path(@account.id)
 
@@ -36,9 +36,14 @@ Plan Name
   %div
     = link_to I18n.t("iugu.payment_history")
 %br
+%br
+
 
 - if IuguSDK::enable_account_api_token
   - if current_user.is?(:owner, @account)
+    - if flash[:group] == :api_token
+      %div
+        = flash[:notice]
     %div
       Api Token
       = link_to I18n.t("iugu.generate_new_token"), account_generate_new_token_path(@account.id), :method => :post
