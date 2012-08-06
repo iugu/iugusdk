@@ -26,7 +26,6 @@ module IuguSDK
   mattr_accessor :app_root_url
   mattr_accessor :default_subscription_name
   mattr_accessor :guest_user_prefix
-  mattr_accessor :multiple_accounts_per_user
   mattr_accessor :default_layout
   mattr_accessor :alternative_layout
 
@@ -75,8 +74,8 @@ module IuguSDK
   mattr_accessor :enable_subscription_features
   self.enable_subscription_features = false
 
-  mattr_accessor :enable_social_only
-  self.enable_social_only = false
+  mattr_accessor :enable_signup_form
+  self.enable_signup_form = false
 
   self.application_title = 'Application Name'
 
@@ -85,7 +84,6 @@ module IuguSDK
   self.app_root_url = '/'
   self.default_subscription_name = 'free'
   self.guest_user_prefix = 'appuser'
-  self.multiple_accounts_per_user = false
 
   self.default_layout = "settings"
   self.alternative_layout = "application"
