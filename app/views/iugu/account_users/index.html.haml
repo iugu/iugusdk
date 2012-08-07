@@ -2,7 +2,10 @@
 
 - @account_users.each do |account_user|
   %div
-    = account_user.user.name || account_user.user.email
+    - if account_user.user.name.blank?
+      = account_user.user.email
+    - else
+      = account_user.user.name
     - if current_user.is?(:owner, @account) || current_user.is?(:admin, @account)
       |
       = link_to I18n.t("iugu.permissions"), account_roles_edit_path(:id => @account.id, :user_id => account_user.user_id)
