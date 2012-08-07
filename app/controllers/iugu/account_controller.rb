@@ -37,6 +37,7 @@ class Iugu::AccountController < Iugu::AccountSettingsController
   def update
     @account = Account.find(params[:id])
     @account.update_attributes(params[:account])
+    flash[:group] = :account_update
     redirect_to account_view_path(params[:id]), :notice => I18n.t("iugu.notices.account_updated")
   end
 

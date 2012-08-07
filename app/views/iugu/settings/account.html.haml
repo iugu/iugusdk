@@ -5,6 +5,8 @@
   = I18n.t("iugu.account_settings") + " (##{@account.id})"
 
 - if current_user.is?(:owner, @account)
+  - if flash[:group] == :account_update
+    = flash[:notice]
 
   = simple_form_for @account, :url => account_update_path(:id => @account.id), :method => :put do |f|
     = f.label :name
