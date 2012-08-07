@@ -16,7 +16,10 @@ module IuguSDKBaseController
       else
         locale = current_user.locale
       end
+    else
+      locale = @matched_locale_from_browser
     end
+    I18n.locale = locale
   end
 
 end
