@@ -1,4 +1,5 @@
-%h2 Sign up
+%h2 
+  = I18n.t("iugu.sign_up")
 = simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f|
   = f.error_notification
   .inputs
@@ -7,7 +8,7 @@
     = f.input :password_confirmation, :required => true
     = f.hidden_field :locale, :value => @matched_locale_from_browser
   .actions
-    = f.button :submit, "Sign up"
+    = f.button :submit, I18n.t("iugu.sign_up")
 
 = link_to I18n.t("iugu.try_first"), try_first_path, :method => :post
 %br

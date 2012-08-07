@@ -1,4 +1,6 @@
 %p
-  Welcome #{@resource.email}!
-%p You can confirm your account email through the link below:
+  = I18n.t("iugu.welcome")
+  = @resource.email + "!"
+%p 
+  = I18n.t("iugu.confirm_email_through_link_below")
 %p= link_to 'Confirm my account', confirmation_url(@resource, :confirmation_token => @resource.confirmation_token)

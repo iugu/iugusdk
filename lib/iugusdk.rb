@@ -29,7 +29,7 @@ module IuguSDK
   mattr_accessor :alternative_layout
 
   mattr_accessor :enable_multiple_accounts
-  self.enable_multiple_accounts = true
+  self.enable_multiple_accounts = false
 
   mattr_accessor :application_main_host
   self.application_main_host = "iugusdk.dev"

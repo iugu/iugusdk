@@ -1,15 +1,18 @@
 %h2
-  Edit #{resource_name.to_s.humanize}
+  = I18n.t("iugu.edit")
+  #{resource_name.to_s.humanize}
 = simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f|
   = f.error_notification
   .inputs
     = f.input :email, :required => true, :autofocus => true
-    = f.input :password, :autocomplete => "off", :hint => "leave it blank if you don't want to change it", :required => false
+    = f.input :password, :autocomplete => "off", :hint => I18n.t("iugu.leave_it_blank_if_dont_wanna_change_it"), :required => false
     = f.input :password_confirmation, :required => false
-    = f.input :current_password, :hint => "we need your current password to confirm your changes", :required => true
+    = f.input :current_password, :hint => I18n.t("iugu.we_need_your_current_password_to_confirm_changes"), :required => true
   .actions
-    = f.button :submit, "Update"
-%h3 Cancel my account
+    = f.button :submit, I18n.t("iugu.update")
+%h3
+  = I18n.t("iugu.cancel_my_account")
 %p
-  Unhappy? #{link_to "Cancel my account", registration_path(resource_name), :confirm => "Are you sure?", :method => :delete}.
-= link_to "Back", :back
+  = I18n.t("iugu.unhappy?")
+  #{link_to I18n.t("iugu.cancel_my_account"), registration_path(resource_name), :confirm => I18n.t("iugu.are_you_sure?"), :method => :delete}.
+= link_to I18n.t("iugu.back"), :back

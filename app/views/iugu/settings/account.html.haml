@@ -1,4 +1,4 @@
-- content_for :title do "Account #{@account.id}" end
+- content_for :title do I18n.t("iugu.account") + " #{@account.id}" end
 
 %br
 %h2
@@ -14,18 +14,18 @@
 
 - if IuguSDK::enable_subscription_features
   %br
-  Plan Name
+  = I18n.t("iugu.plan_name")
   = link_to I18n.t("iugu.change")
 
 - unless IuguSDK::enable_custom_domain == false && IuguSDK::enable_subdomain == false
   %br
   %br
-  Custom Domains
+  = I18n.t("iugu.custom_domains")
   - if current_user.is?(:owner, @account) || current_user.is?(:admin, @account)
     = link_to I18n.t("iugu.manage"), account_domains_index_path(@account.id)
   %br
   - if @primary_domain
-    Primary: 
+    = I18n.t("iugu.primary") + ":"
     = @primary_domain.url
 %br
 %br
@@ -36,20 +36,21 @@
   %br
   %div
     = link_to I18n.t("iugu.payment_history")
-%br
-%br
 
 
 - if IuguSDK::enable_account_api_token
   - if current_user.is?(:owner, @account)
+    %br
     - if flash[:group] == :api_token
       %div
         = flash[:notice]
     %div
-      Api Token
+      = I18n.t("iugu.api_token")
       = link_to I18n.t("iugu.generate_new_token"), account_generate_new_token_path(@account.id), :method => :post
       %br
       = @account.api_token
+      %br
+      %br
 
 - if current_user.is?(:owner, @account)
   - unless @account.destroying?

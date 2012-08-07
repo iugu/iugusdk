@@ -1,4 +1,5 @@
-%h2 Sign in
+%h2 
+  = I18n.t("iugu.sign_in")
 - if IuguSDK::enable_signup_form
   = simple_form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
     .inputs
@@ -6,5 +7,5 @@
       = f.input :password, :required => false
       = f.input :remember_me, :as => :boolean if devise_mapping.rememberable?
     .actions
-      = f.button :submit, "Sign in"
+      = f.button :submit, I18n.t("iugu.sign_in")
 = render :partial => "iugu/shared/links"

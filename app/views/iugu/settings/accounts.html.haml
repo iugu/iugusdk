@@ -1,4 +1,4 @@
-- content_for :title do "Account Settings" end
+- content_for :title do I18n.t("iugu.account_settings") end
 
 %h3
   = I18n.t "iugu.account_settings"
@@ -28,7 +28,7 @@
 
 - else
   %h2
-    I dont have any Accounts
+    = I18n.t("iugu.i_dont_have_any_accounts")
 
 - if IuguSDK::enable_multiple_accounts == true
   %div
