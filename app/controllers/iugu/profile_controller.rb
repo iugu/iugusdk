@@ -11,9 +11,9 @@ class Iugu::ProfileController < Iugu::SettingsController
     @social_accounts = @user.social_accounts
     if @user.update_attributes(params[:user])
       sign_in @user, :bypass => true if !params[:user][:password].blank?
-      flash[:notice] = I18n.t('iugu.notices.user_update')
+      flash.now[:notice] = I18n.t('iugu.notices.user_update')
     else
-      flash[:error] = @user.errors.full_messages
+      flash.now[:error] = @user.errors.full_messages
     end
     render 'iugu/settings/profile'
   end
