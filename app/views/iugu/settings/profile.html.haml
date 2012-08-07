@@ -2,6 +2,8 @@
 %div
   %h3
     = I18n.t "iugu.profile_settings"
+- if flash[:group] == :profile_update
+  = flash[:notice]
 
 = simple_form_for @user, :url => profile_update_path, :method => :post do |f|
   - if @user.errors.any?
@@ -34,6 +36,9 @@
   %div
     %h3
       = I18n.t "iugu.change_password"
+
+  - if flash[:group] == :password_update
+    = flash[:notice]
 
   = simple_form_for @user, :url => profile_update_path, :method => :post do |f|
     - if @user.errors.include?(:password)

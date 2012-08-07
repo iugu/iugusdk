@@ -9,6 +9,11 @@ class Iugu::ProfileController < Iugu::SettingsController
   def update
     @user = current_user
     @social_accounts = @user.social_accounts
+    if !params[:user][:password].blank?
+      flash.now[:group] = :password_update
+    else
+      flash.now[:group] = :profile_update
+    end
     if @user.update_attributes(params[:user])
       sign_in @user, :bypass => true if !params[:user][:password].blank?
       flash.now[:notice] = I18n.t('iugu.notices.user_update')
