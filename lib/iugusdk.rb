@@ -21,7 +21,6 @@ module IuguSDK
   mattr_accessor :app_root
 
   mattr_accessor :application_title
-  mattr_accessor :no_signup_form
   mattr_accessor :app_main_url
   mattr_accessor :app_root_url
   mattr_accessor :default_subscription_name
@@ -75,11 +74,10 @@ module IuguSDK
   self.enable_subscription_features = false
 
   mattr_accessor :enable_signup_form
-  self.enable_signup_form = false
+  self.enable_signup_form = true
 
   self.application_title = 'Application Name'
 
-  self.no_signup_form = false
   self.app_main_url = '/'
   self.app_root_url = '/'
   self.default_subscription_name = 'free'

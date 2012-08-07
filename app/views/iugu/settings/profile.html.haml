@@ -30,7 +30,7 @@
     = f.submit "OK"
 %br
 
-- unless IuguSDK::enable_signup_form
+- if IuguSDK::enable_signup_form
   %div
     %h3
       = I18n.t "iugu.change_password"
