@@ -85,6 +85,10 @@ en:
     custom_domains: "Custom domains"
     api_token: "Api token"
     i_dont_have_any_accounts: "I don't have any accounts"
+    owner: "owner"
+    admin: "admin"
+    user: "user"
+    guest: "guest"
     notices:
       guest_login: "Guest successfully login"
       subdomain_updated: "Subdomain successfully updated"

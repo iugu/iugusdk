@@ -85,6 +85,10 @@ pt-BR:
     custom_domains: "Dominios customizados"
     api_token: "Token da api"
     i_dont_have_any_accounts: "Eu não tenho nenhuma conta"
+    owner: "dono"
+    admin: "administrador"
+    user: "usuário"
+    guest: "convidado"
     notices:
       guest_login: "Convidado logado com sucesso"
       subdomain_updated: "Subdominio atualizado com sucesso"
