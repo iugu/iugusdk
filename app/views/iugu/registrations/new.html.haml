@@ -10,6 +10,8 @@
   .actions
     = f.button :submit, I18n.t("iugu.sign_up")
 
-= link_to I18n.t("iugu.try_first"), try_first_path, :method => :post
+- if IuguSDK::enable_guest_user
+  = link_to I18n.t("iugu.try_first"), try_first_path, :method => :post
+
 %br
 = render :partial => "iugu/shared/links"

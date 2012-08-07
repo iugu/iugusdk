@@ -76,6 +76,9 @@ module IuguSDK
   mattr_accessor :enable_signup_form
   self.enable_signup_form = true
 
+  mattr_accessor :enable_guest_user
+  self.enable_guest_user = false
+
   self.application_title = 'Application Name'
 
   self.app_main_url = '/'
