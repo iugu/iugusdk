@@ -49,8 +49,8 @@ module IuguSDK
   mattr_accessor :delay_user_exclusion
   self.delay_user_exclusion = 0
 
-  mattr_accessor :enable_subdomain
-  self.enable_subdomain = false
+  mattr_accessor :enable_account_alias
+  self.enable_account_alias = false
 
   mattr_accessor :enable_custom_domain
   self.enable_custom_domain = false

@@ -179,9 +179,9 @@ describe Iugu::AccountDomainsController do
       @account = @user.accounts.first
     end
 
-    context "when enable_subdomain == true" do
+    context "when enable_account_alias == true" do
       before(:each) do
-        IuguSDK::enable_subdomain = true
+        IuguSDK::enable_account_alias = true
         put :update_subdomain, :account_id => @account.id, :account => {:subdomain => "subdomain"}
       end
 
@@ -200,9 +200,9 @@ describe Iugu::AccountDomainsController do
       end
     end
 
-    context "when enable_subdomain == false" do
+    context "when enable_account_alias == false" do
       before(:each) do
-        IuguSDK::enable_subdomain = false
+        IuguSDK::enable_account_alias = false
       end
 
       it 'should raise RoutingError' do
@@ -234,12 +234,12 @@ describe Iugu::AccountDomainsController do
   
   end
 
-  context "when enable_custom_domain == false && enable_subdomain == false" do
+  context "when enable_custom_domain == false && enable_account_alias == false" do
     login_as_user
     before(:each) do
       @account = @user.accounts.first
       IuguSDK::enable_custom_domain = false
-      IuguSDK::enable_subdomain = false
+      IuguSDK::enable_account_alias = false
     end
 
     it 'index method should raise RoutingError' do

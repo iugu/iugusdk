@@ -10,9 +10,9 @@ describe "Account Domains requests" do
       @account.account_domains << @domain = AccountDomain.create( url: "index.test.net" )
     end
 
-    context "when enable_subdomain == true" do
+    context "when enable_account_alias == true" do
       before(:each) do
-        IuguSDK::enable_subdomain = true
+        IuguSDK::enable_account_alias = true
         visit account_domains_index_path(@account.id)
       end
 
@@ -20,10 +20,10 @@ describe "Account Domains requests" do
     
     end
 
-    context "when enable_subdomain == false" do
+    context "when enable_account_alias == false" do
       before(:each) do
         IuguSDK::enable_custom_domain = true
-        IuguSDK::enable_subdomain = false
+        IuguSDK::enable_account_alias = false
         visit account_domains_index_path(@account.id)
       end
 

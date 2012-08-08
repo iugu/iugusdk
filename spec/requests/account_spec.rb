@@ -62,7 +62,7 @@ describe 'accounts settings view' do
       @user.accounts << @target_account = Fabricate(:account)
       @account_user = AccountUser.last
       IuguSDK::enable_custom_domain = true
-      IuguSDK::enable_subdomain = true
+      IuguSDK::enable_account_alias = true
       IuguSDK::enable_account_api_token = true
     end
 
@@ -134,10 +134,10 @@ describe 'accounts settings view' do
 
     end
 
-    context "when enable_custom_domain == false && enable_subdomain == false" do
+    context "when enable_custom_domain == false && enable_account_alias == false" do
       before(:each) do
         IuguSDK::enable_custom_domain = false
-        IuguSDK::enable_subdomain = false
+        IuguSDK::enable_account_alias = false
         visit account_view_path(@target_account.id)
       end
     

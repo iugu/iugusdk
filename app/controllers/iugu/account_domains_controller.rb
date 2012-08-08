@@ -5,7 +5,7 @@ class Iugu::AccountDomainsController < Iugu::AccountSettingsController
   before_filter(:only => [:index, :create, :destroy, :instruction, :verify, :primary, :update_subdomain]) { |c| c.must_be [:owner, :admin], :account_id }
 
   def index
-    unless IuguSDK::enable_custom_domain == false && IuguSDK::enable_subdomain == false
+    unless IuguSDK::enable_custom_domain == false && IuguSDK::enable_account_alias == false
       @account = current_user.accounts.find(params[:account_id])
       @account_domains = @account.account_domains.where(:account_id => params[:account_id])
       @account_domain = AccountDomain.new
@@ -71,7 +71,7 @@ class Iugu::AccountDomainsController < Iugu::AccountSettingsController
   end
 
   def update_subdomain
-    if IuguSDK::enable_subdomain == true
+    if IuguSDK::enable_account_alias == true
       @account = current_user.accounts.find(params[:account_id])
       if @account.update_attributes(params[:account])
         redirect_to account_domains_index_path(@account.id), :notice => I18n.t("iugu.notices.subdomain_updated")

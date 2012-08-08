@@ -1,7 +1,7 @@
 %h2
   = I18n.t("iugu.account_domains") + " (##{@account.id})"
 
-- if IuguSDK::enable_subdomain == true
+- if IuguSDK::enable_account_alias == true
   %div
     = simple_form_for @account, :url => update_subdomain_path(:id => @account.id), :method => :put do |f|
       - if @account.errors.any?
