@@ -79,6 +79,9 @@ module IuguSDK
   mattr_accessor :enable_guest_user
   self.enable_guest_user = false
 
+  mattr_accessor :account_alias_prefix
+  self.account_alias_prefix = 'account'
+
   self.application_title = 'Application Name'
 
   self.app_main_url = '/'
