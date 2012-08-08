@@ -28,6 +28,18 @@ describe Account do
     @account.api_token.should_not be_nil
   end
 
+  it 'should set subdomain before create' do
+    @account = Fabricate(:account)
+    @account.reload
+    @account.subdomain.should_not be_nil
+  end
+
+  it 'should set subdomain as account_alias_prefix + id before create' do
+    @account = Fabricate(:account)
+    @account.reload
+    @account.subdomain.should == "#{IuguSDK::account_alias_prefix}#{@account.id}"
+  end
+
   context "destruction_job method" do
     before(:each) do
       @account = Fabricate(:account)

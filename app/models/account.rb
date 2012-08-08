@@ -12,6 +12,7 @@ class Account < ActiveRecord::Base
   validate :subdomain_blacklist
 
   before_create :set_first_token
+  after_create :set_first_subdomain, :unless => :subdomain?
 
   def self.get_from_domain(domain)
     AccountDomain.verified.find_by_url(domain).try(:account) || Account.find_by_subdomain(domain.gsub(".#{IuguSDK::application_main_host}",""))
@@ -51,6 +52,10 @@ class Account < ActiveRecord::Base
 
   def set_first_token
     self.api_token = generate_api_token
+  end
+
+  def set_first_subdomain
+    self.update_attribute(:subdomain, "#{IuguSDK::account_alias_prefix}#{id}")
   end
 
   def generate_api_token
