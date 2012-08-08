@@ -3,9 +3,13 @@ class Iugu::AccountUsersController < Iugu::AccountSettingsController
   before_filter(:only => [:destroy, :cancel_destruction]) { |c| c.must_be [:owner, :admin], :account_id }
 
   def index
-    @account = Account.find(params[:account_id])
-    @account_users = @account.account_users
-    render 'iugu/account_users/index'
+    if IuguSDK::enable_multiple_users_per_account
+      @account = Account.find(params[:account_id])
+      @account_users = @account.account_users
+      render 'iugu/account_users/index'
+    else
+      raise ActionController::RoutingError.new("Not found")
+    end
   end
 
   def view

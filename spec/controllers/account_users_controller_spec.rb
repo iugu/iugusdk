@@ -4,10 +4,22 @@ describe Iugu::AccountUsersController do
   context "index" do
     login_as_user
     before(:each) do
+      IuguSDK::enable_multiple_users_per_account = true
       get :index, :account_id => @user.accounts.first.id
     end
 
     it { response.should render_template 'iugu/account_users/index' }
+
+    context "when enable_multiple_users_per_account == false" do
+      before(:each) do
+        IuguSDK::enable_multiple_users_per_account = false
+      end
+      it 'should raise routing error' do
+        lambda{
+          get :index, :account_id => @user.accounts.first.id
+        }.should raise_error ActionController::RoutingError
+      end
+    end
   
   end
 

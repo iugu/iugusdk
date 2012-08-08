@@ -66,6 +66,26 @@ describe 'accounts settings view' do
       IuguSDK::enable_account_api_token = true
     end
 
+    context "when enable_multiple_users_per_account == true" do
+      before(:each) do
+        IuguSDK::enable_multiple_users_per_account = true
+        visit account_view_path(@target_account.id)
+      end
+
+      it { page.should have_link I18n.t("iugu.users_and_roles") }
+
+    end
+
+    context "when enable_multiple_users_per_account == true" do
+      before(:each) do
+        IuguSDK::enable_multiple_users_per_account = false
+        visit account_view_path(@target_account.id)
+      end
+
+      it { page.should_not have_link I18n.t("iugu.users_and_roles") }
+
+    end
+
     context "when current_user admin the account" do
       before(:each) do
         @account_user.set_roles ["admin"]

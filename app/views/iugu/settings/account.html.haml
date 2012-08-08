@@ -29,9 +29,11 @@
   - if @primary_domain
     = I18n.t("iugu.primary") + ":"
     = @primary_domain.url
-%br
-%br
-= link_to I18n.t("iugu.users_and_roles"), account_users_index_path(@account.id)
+
+- if IuguSDK::enable_multiple_users_per_account
+  %br
+  %br
+  = link_to I18n.t("iugu.users_and_roles"), account_users_index_path(@account.id)
 
 - if IuguSDK::enable_subscription_features
   %br
@@ -55,6 +57,8 @@
       %br
 
 - if current_user.is?(:owner, @account)
+  %br
+  %br
   - unless @account.destroying?
     = link_to I18n.t("iugu.cancel_account"), account_destroy_path(@account.id), :method => :delete
   - else

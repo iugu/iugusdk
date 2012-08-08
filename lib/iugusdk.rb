@@ -85,6 +85,9 @@ module IuguSDK
   mattr_accessor :enable_alias_on_signup
   self.enable_alias_on_signup = false
 
+  mattr_accessor :enable_multiple_users_per_account
+  self.enable_multiple_users_per_account = false
+
   self.application_title = 'Application Name'
 
   self.app_main_url = '/'
