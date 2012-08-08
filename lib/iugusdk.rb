@@ -82,6 +82,9 @@ module IuguSDK
   mattr_accessor :account_alias_prefix
   self.account_alias_prefix = 'account'
 
+  mattr_accessor :enable_alias_on_signup
+  self.enable_alias_on_signup = false
+
   self.application_title = 'Application Name'
 
   self.app_main_url = '/'

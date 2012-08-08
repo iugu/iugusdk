@@ -9,8 +9,17 @@ describe User do
   it { should have_many(:social_accounts) }
   it { should validate_presence_of(:email) }
 
+  context "on create" do
+    #it 'should create an account with subdomain' do
+      #@user = Fabricate(:user) do
+        #account_alias "alias"
+      #end
+      #@user.accounts.first.subdomain.should == "alias"
+    #end
+  end
+
   it 'should not require email if guest == true' do
-    user = Fabricate.build(:user) do
+    Fabricate.build(:user) do
       email nil
       guest true
     end.should be_valid

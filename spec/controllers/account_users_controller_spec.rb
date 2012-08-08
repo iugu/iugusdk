@@ -31,7 +31,7 @@ describe Iugu::AccountUsersController do
 
       before(:each) do
         @target_user = Fabricate(:user) do
-          email 'target@teste.teste'
+          email 'targetdestroy@teste.teste'
         end
         @account.account_users << @account_user = AccountUser.create(:user_id => @target_user.id)
       end
