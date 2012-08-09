@@ -15,6 +15,7 @@ class Iugu::ProfileController < Iugu::SettingsController
       flash.now[:group] = :profile_update
     end
     if @user.update_attributes(params[:user])
+      I18n.locale = @user.locale 
       sign_in @user, :bypass => true if !params[:user][:password].blank?
       flash.now[:notice] = I18n.t('iugu.notices.user_update')
     else
