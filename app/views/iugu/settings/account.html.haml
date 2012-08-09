@@ -53,8 +53,6 @@
       = link_to I18n.t("iugu.generate_new_token"), account_generate_new_token_path(@account.id), :method => :post
       %br
       = @account.api_token
-      %br
-      %br
 
 - if current_user.is?(:owner, @account)
   %br

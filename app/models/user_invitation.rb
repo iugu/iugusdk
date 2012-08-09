@@ -23,7 +23,7 @@ class UserInvitation < ActiveRecord::Base
   def accept(user)
     account = Account.find(account_id)
     if account.account_users.where(:user_id => user.id).empty?
-      account.account_users << account_user = AccountUser.create(:user_id => user.id)
+      account.account_users << account_user = AccountUser.create(:user => user)
       account_user.set_roles(roles.split(',')) if roles
       true
     else

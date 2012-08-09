@@ -5,9 +5,15 @@ class AccountDomain < ActiveRecord::Base
   validates :url, :account_id, :presence => true
   validate :validate_pattern, :validate_blacklist
 
+  attr_accessible :url
+
   before_create :validate_not_repeated
 
-  before_destroy { |record| record.update_attributes(:verified => false, :primary => false) }
+  before_destroy do |record|
+    record.verified = false
+    record.primary = false
+    record.save
+  end
   before_destroy :set_first_domain
 
   scope :verified, where(:verified => true)

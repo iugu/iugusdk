@@ -11,7 +11,7 @@ describe AccountDomain do
 
   it 'should accept url with correct pattern' do
     @account = Fabricate(:account)
-    @domain = AccountDomain.create(:url => 'valid.url.test', :account => @account)
+    @account.account_domains << @domain = AccountDomain.create(:url => 'valid.url.test')
     @domain.valid?.should be_true
   end
 
@@ -48,8 +48,10 @@ describe AccountDomain do
 
   it 'should set the first verified domain as primary if the primary domain is destroyed' do
     @account = Fabricate(:account)
-    @account.account_domains << @domain1 = AccountDomain.create(:url => "url1.test.test", :verified => true)
-    @account.account_domains << @domain2 = AccountDomain.create(:url => "url2.test.test", :verified => true)
+    @account.account_domains << @domain1 = AccountDomain.create(:url => "url1.test.test")
+    @account.account_domains << @domain2 = AccountDomain.create(:url => "url2.test.test")
+    @domain1.update_attribute(:verified, true)
+    @domain2.update_attribute(:verified, true)
     @domain1.set_primary
     @domain1.destroy
     @domain2.reload

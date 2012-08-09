@@ -8,6 +8,8 @@ class AccountUser < ActiveRecord::Base
   validates_presence_of :user
   validates_presence_of :account
 
+  attr_accessible :user
+
   handle_asynchronously :destroy, :queue => Proc.new { |p| "account_user_#{p.id}_destroy" },
                         :run_at => Proc.new { DateTime.now + IuguSDK::delay_account_user_exclusion }
 

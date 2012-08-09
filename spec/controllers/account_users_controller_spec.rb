@@ -45,7 +45,7 @@ describe Iugu::AccountUsersController do
         @target_user = Fabricate(:user) do
           email 'targetdestroy@teste.teste'
         end
-        @account.account_users << @account_user = AccountUser.create(:user_id => @target_user.id)
+        @account.account_users << @account_user = AccountUser.create(:user => @target_user)
       end
 
       it 'should raise routing error if account_id is invalid' do
@@ -108,7 +108,7 @@ describe Iugu::AccountUsersController do
       @target_user = Fabricate(:user) do
         email 'target@test.test'
       end
-      @account.account_users << @account_user = AccountUser.create(:user_id => @target_user.id)
+      @account.account_users << @account_user = AccountUser.create(:user => @target_user)
       @account_user.set_roles ["user"]
       @account_user.destroy
     end

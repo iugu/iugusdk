@@ -5,6 +5,8 @@ class AccountRole < ActiveRecord::Base
   validates_uniqueness_of :name, :scope => :account_user_id, :allow_nil => false
   validates_presence_of :account_user
 
+  attr_accessible :name
+
   before_destroy do
     false if only_owner?
   end

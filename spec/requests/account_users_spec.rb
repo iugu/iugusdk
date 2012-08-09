@@ -15,7 +15,7 @@ describe "Account Users Requests" do
     context "when current_user is account owner" do
 
       before(:each) do
-        @account.account_users << AccountUser.create(:user_id => @user.id)
+        @account.account_users << AccountUser.create(:user => @user)
         @account.account_users.last.set_roles(["user"])
         @account_user = AccountUser.find_by_account_id_and_user_id(Account.last.id, User.last.id)
         @account_user.set_roles(["owner"])
@@ -32,7 +32,7 @@ describe "Account Users Requests" do
     context "when current_user is account admin" do
 
       before(:each) do
-        @account.account_users << AccountUser.create(:user_id => @user.id)
+        @account.account_users << AccountUser.create(:user => @user)
         @account.account_users.last.set_roles(["user"])
         @account_user = AccountUser.find_by_account_id_and_user_id(Account.last.id, User.last.id)
         @account_user.set_roles(["admin"])
@@ -50,7 +50,7 @@ describe "Account Users Requests" do
 
       before(:each) do
         @account.account_users << Fabricate(:account_user) { user Fabricate(:user) { email "notowner@account.test" } }
-        @account.account_users << AccountUser.create(:user_id => @user.id)
+        @account.account_users << AccountUser.create(:user => @user)
         @account.account_users.last.set_roles(["user"])
         @account_user = AccountUser.find_by_account_id_and_user_id(@account.id, @current_user.id)
         @account_user.set_roles(["user"])
@@ -66,7 +66,7 @@ describe "Account Users Requests" do
     
     context "when current_user and account_user are owners" do
       before(:each) do
-        @account.account_users << AccountUser.create(:user_id => @user.id)
+        @account.account_users << AccountUser.create(:user => @user)
         @account.account_users.last.set_roles(["owner"])
         @account_user = AccountUser.find_by_account_id_and_user_id(Account.last.id, @current_user.id)
         @account_user.set_roles(["owner"])
@@ -98,7 +98,7 @@ describe "Account Users Requests" do
 
   context "destroy" do
     before(:each) do
-      @account.account_users << AccountUser.create(:user_id => @user.id)
+      @account.account_users << AccountUser.create(:user => @user)
       @account.account_users.last.set_roles(["user"])
       @account_user = AccountUser.find_by_account_id_and_user_id(Account.last.id, User.last.id)
       @account_user.set_roles(["owner"])

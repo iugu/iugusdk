@@ -9,7 +9,9 @@ class Account < ActiveRecord::Base
 
   validates :subdomain, :uniqueness => true, :unless => Proc.new { |a| a.subdomain.blank? }
   validates :api_token, :uniqueness => true, :if => :api_token?
-  validate :subdomain_blacklist
+  validate :subdomain_blacklist, :name
+
+  attr_accessible :subdomain, :name 
 
   before_create :set_first_token
   after_create :set_first_subdomain, :unless => :subdomain?

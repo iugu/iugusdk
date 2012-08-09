@@ -25,6 +25,7 @@ class Iugu::AccountDomainsController < Iugu::AccountSettingsController
   end
 
   def destroy
+    flash[:group] = :account_domain
     begin
       @account = current_user.accounts.find(params[:account_id])
       @domain = @account.account_domains.find(params[:domain_id])

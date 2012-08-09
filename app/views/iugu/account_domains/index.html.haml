@@ -1,5 +1,7 @@
 %h2
   = I18n.t("iugu.account_domains") + " (##{@account.id})"
+- if flash[:group] == :account_domain
+  = flash[:notice]
 
 - if IuguSDK::enable_account_alias == true
   %div
