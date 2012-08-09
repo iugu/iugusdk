@@ -9,7 +9,7 @@ module IuguSDKBaseController
   end
 
   def configure_locale
-    @matched_locale_from_browser = request.preferred_language_from(AvailableLanguage.all)
+    @matched_locale_from_browser = request.preferred_language_from(AvailableLanguage.all.values)
     if signed_in?
       if current_user.locale.blank?
         locale = "en" 

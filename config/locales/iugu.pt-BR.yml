@@ -106,4 +106,15 @@ pt-BR:
       domain_verified: "Dominio verificado"
       domain_not_verified: "Não foi possivel verificar o dominio"
       domain_set_primary: "O dominio foi configurado como primario"
+
+  activerecord:
+    models:
+      user: "Usuário"
+    attributes:
+      password: "Senha"
+      password_confirmation: "Confirmação de senha"
+      name: "Nome"
+      birthdate: "Data de nascimento"
+      locale: "Localidade"
+      remember_me: "Lembre-me"
               

@@ -9,7 +9,7 @@
     = flash[:notice]
 
   = simple_form_for @account, :url => account_update_path(:id => @account.id), :method => :put do |f|
-    = f.label :name
+    = f.label :name, I18n.t("activerecord.attributes.name")
     = f.text_field :name
     %br
     = f.submit I18n.t("iugu.save")

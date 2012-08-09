@@ -4,8 +4,8 @@
   = simple_form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
     .inputs
       = f.input :email, :required => false, :autofocus => true
-      = f.input :password, :required => false
-      = f.input :remember_me, :as => :boolean if devise_mapping.rememberable?
+      = f.input :password, :required => false, :label => I18n.t("activerecord.attributes.name")
+      = f.input :remember_me, :as => :boolean, :label => I18n.t("activerecord.attributes.remember_me") if devise_mapping.rememberable?
     .actions
       = f.button :submit, I18n.t("iugu.sign_in")
 = render :partial => "iugu/shared/links"

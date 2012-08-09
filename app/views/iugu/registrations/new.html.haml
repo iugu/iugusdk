@@ -4,9 +4,9 @@
   = f.error_notification
   .inputs
     = f.input :email, :required => true, :autofocus => true
-    = f.input :password, :required => true
-    = f.input :password_confirmation, :required => true
-    - unless IuguSDK::enable_alias_on_signup
+    = f.input :password, :required => true, :label => I18n.t("activerecord.attributes.password")
+    = f.input :password_confirmation, :required => true, :label => I18n.t("activerecord.attributes.password_confirmation")
+    - if IuguSDK::enable_alias_on_signup
       = f.input :account_alias, :label => 'Alias'
     = f.hidden_field :locale, :value => @matched_locale_from_browser
   .actions

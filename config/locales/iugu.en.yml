@@ -106,4 +106,15 @@ en:
       domain_verified: "Domain successfully verified"
       domain_not_verified: "Domain could not be verified"
       domain_set_primary: "Domain successfully set as primary"
+
+  activerecord:
+    models:
+      user: "User"
+    attributes:
+      password: "Password"
+      password_confirmation: "Password confirmation"
+      name: "Name"
+      birthdate: "Birthdate"
+      locale: "Locale"
+      remember_me: "Remember me"
       
