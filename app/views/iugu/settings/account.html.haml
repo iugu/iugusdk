@@ -42,7 +42,7 @@
     = link_to I18n.t("iugu.payment_history")
 
 
-- if IuguSDK::enable_account_api_token
+- if IuguSDK::enable_account_api
   - if current_user.is?(:owner, @account)
     %br
     - if flash[:group] == :api_token

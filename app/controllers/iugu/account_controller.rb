@@ -47,7 +47,7 @@ class Iugu::AccountController < Iugu::AccountSettingsController
   end
 
   def generate_new_token
-    if IuguSDK::enable_account_api_token == true
+    if IuguSDK::enable_account_api
       @account = current_user.accounts.find(params[:account_id])
       @account.update_api_token
       flash[:group] = :api_token

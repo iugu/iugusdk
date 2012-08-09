@@ -55,8 +55,8 @@ module IuguSDK
   mattr_accessor :enable_custom_domain
   self.enable_custom_domain = false
 
-  mattr_accessor :enable_account_api_token
-  self.enable_account_api_token = false
+  mattr_accessor :enable_account_api
+  self.enable_account_api = false
 
   mattr_accessor :enable_social_login
   self.enable_social_login = false

@@ -63,7 +63,7 @@ describe 'accounts settings view' do
       @account_user = AccountUser.last
       IuguSDK::enable_custom_domain = true
       IuguSDK::enable_account_alias = true
-      IuguSDK::enable_account_api_token = true
+      IuguSDK::enable_account_api = true
     end
 
     context "when enable_multiple_users_per_account == true" do
@@ -165,9 +165,9 @@ describe 'accounts settings view' do
       
     end
 
-    context "when enable_account_api_token == false" do
+    context "when enable_account_api == false" do
       before(:each) do
-        IuguSDK::enable_account_api_token = false
+        IuguSDK::enable_account_api = false
         visit account_view_path(@target_account.id)
       end
       
