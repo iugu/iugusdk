@@ -13,4 +13,11 @@ class IuguMailer < Devise::Mailer
       format.html { render "iugu/mailer/invitation" }
     end
   end
+
+  def welcome(user)
+    @user = user
+    mail(to: @user.email, :subject => "Bem vindo!") do |format|
+      format.html { render "iugu/mailer/welcome" }
+    end
+  end
 end

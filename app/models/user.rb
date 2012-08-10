@@ -22,6 +22,8 @@ class User < ActiveRecord::Base
 
   after_create :create_account_for_user
 
+  after_create :send_welcome_mail, :if => Proc.new { |r| IuguSDK::enable_welcome_mail && !r.email.blank? }
+
   before_save :skip_reconfirmation!, :unless => Proc.new { IuguSDK::enable_email_reconfirmation }
 
   validates :email, :email => true, :unless => :guest?
@@ -107,6 +109,10 @@ class User < ActiveRecord::Base
 
   def email_required?
     !(has_social? || guest?)
+  end
+
+  def send_welcome_mail
+    IuguMailer.welcome(self).deliver
   end
 
 

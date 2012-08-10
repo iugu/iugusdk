@@ -88,6 +88,9 @@ module IuguSDK
   mattr_accessor :enable_multiple_users_per_account
   self.enable_multiple_users_per_account = false
 
+  mattr_accessor :enable_welcome_mail
+  self.enable_welcome_mail = false
+
   self.application_title = 'Application Name'
 
   self.app_main_url = '/'

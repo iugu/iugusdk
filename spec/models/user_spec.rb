@@ -9,13 +9,20 @@ describe User do
   it { should have_many(:social_accounts) }
   it { should validate_presence_of(:email) }
 
-  context "on create" do
+  context "after create" do
     #it 'should create an account with subdomain' do
       #@user = Fabricate(:user) do
         #account_alias "alias"
       #end
       #@user.accounts.first.subdomain.should == "alias"
     #end
+
+    it 'should send an email if enable_welcome_mail == true' do
+      IuguSDK::enable_welcome_mail = true
+      lambda{
+        Fabricate(:user)
+      }.should change(ActionMailer::Base.deliveries, :size).by(1)
+    end
   end
 
   it 'should not require email if guest == true' do
