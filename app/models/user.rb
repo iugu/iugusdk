@@ -59,7 +59,8 @@ class User < ActiveRecord::Base
       :locale => locale
     })
     user.skip_confirmation!
-    user.save
+    user.save(:validate => false)
+    user.delay(:run_at => DateTime.now + IuguSDK::destroy_guest_in, :queue => "guest_#{user.id}").destroy
     user
   end
 

@@ -49,6 +49,9 @@ module IuguSDK
   mattr_accessor :delay_user_exclusion
   self.delay_user_exclusion = 0
 
+  mattr_accessor :destroy_guest_in
+  self.destroy_guest_in = 7
+
   mattr_accessor :enable_account_alias
   self.enable_account_alias = false
 

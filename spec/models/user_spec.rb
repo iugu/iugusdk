@@ -272,6 +272,12 @@ describe User do
     it { @user.locale.should == "pt-BR" }
 
     it { @user.confirmed?.should be_true }
+
+    it 'should create a destruction job' do
+      lambda{
+        User.create_guest
+      }.should change(Delayed::Job, :count).by(1)
+    end
     
   end
 
