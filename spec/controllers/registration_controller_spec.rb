@@ -28,5 +28,5 @@ describe Iugu::RegistrationsController do
     end
   
   end
-  
+
 end

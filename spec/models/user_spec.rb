@@ -32,6 +32,29 @@ describe User do
     end.should be_valid
   end
 
+  context "become_user" do
+    before(:each) do
+      @user = User.create_guest
+      @data = {:email => "regular@user.now", :password => "senhasecreta", :password_confirmation => "senhasecreta"}
+    end
+
+    it 'should return a regular user' do
+      @user.become_user(@data).class.should == User
+    end
+
+    it 'should return false if email is invalid' do
+      @data[:email] = "notvalid.email"
+      @user.become_user(@data).should be_false
+    end
+
+    it 'should return false if user is not a guest' do
+      @user.guest = false
+      @user.save
+      @user.become_user(@data).should be_false
+    end
+  
+  end
+
   context "when enable_user_confirmation == false" do
     before(:each) do
       IuguSDK::enable_user_confirmation = false

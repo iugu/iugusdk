@@ -106,6 +106,24 @@ class User < ActiveRecord::Base
     self.accounts.where( [ "accounts.id = ?", account_id] ).first || self.accounts.first
   end
 
+  def become_user(data)
+    if self.guest
+      self.guest = false
+      self.email = data[:email]
+      self.password = data[:password]
+      self.password_confirmation = data[:password_confirmation]
+      if self.save
+        Delayed::Job.find_by_queue("guest_#{id}").destroy
+        self
+      else
+        self.guest = true
+        false
+      end
+    else
+      false
+    end
+  end
+
   private
 
   def email_required?

@@ -44,4 +44,18 @@ describe 'account settings view' do
   
   end
 
+  context "when user is a guest" do
+    before(:each) do
+      IuguSDK::enable_guest_user = true
+      visit root_path
+      click_link I18n.t("iugu.sign_out")
+      visit new_user_registration_path
+      click_link I18n.t("iugu.try_first")
+      visit profile_settings_path
+    end
+
+    it { page.should have_button I18n.t("iugu.become_user") } 
+  
+  end
+
 end

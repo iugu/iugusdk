@@ -48,4 +48,19 @@ class Iugu::ProfileController < Iugu::SettingsController
     redirect_to profile_settings_path
   end
 
+  def become_user
+    if current_user.guest
+      @user = current_user
+      if current_user.become_user(params[:user])
+        sign_in @user
+        select_account
+        redirect_to root_path, :notice => I18n.t("iugu.notices.congrats_for_becoming_user")
+      else
+        render 'iugu/settings/profile'
+      end 
+    else
+      raise ActionController::RoutingError.new("Not found")
+    end 
+  end 
+
 end

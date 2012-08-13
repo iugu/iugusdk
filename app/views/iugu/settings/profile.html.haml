@@ -5,47 +5,18 @@
 - if flash[:group] == :profile_update
   = flash[:notice]
 
-= simple_form_for @user, :url => profile_update_path, :method => :post do |f|
-  - if @user.errors.any?
-    - unless @user.errors.include?(:password)
+- if current_user.guest
+
+  = simple_form_for @user, :url => become_user_path, :method => :post do |f|
+    - if @user.errors.any?
       #error_explanation{ :style => "margin-bottom: 15px" }
         %ul
           - @user.errors.full_messages.each do |msg|
             %li
               = msg
-
-  %div 
-    = f.label :name, I18n.t("activerecord.attributes.name")
-    = f.text_field :name
-
-  %div
-    = f.label :email
-    = f.email_field :email
-
-  %div
-    = f.input :birthdate, :as => :date, :start_year => Date.today.year - 5, :end_year => Date.today.year - 100, :order => [:day, :month, :year], :label => I18n.t("activerecord.attributes.birthdate")
-
-  %div
-    = f.input :locale, :collection => AvailableLanguage.all, :label => I18n.t("activerecord.attributes.locale")
-
-  %div
-    = f.submit "OK"
-%br
-
-- if IuguSDK::enable_signup_form
-  %div
-    %h3
-      = I18n.t "iugu.change_password"
-
-  - if flash[:group] == :password_update
-    = flash[:notice]
-
-  = simple_form_for @user, :url => profile_update_path, :method => :post do |f|
-    - if @user.errors.include?(:password)
-      #error_explanation{ :style => "margin-bottom: 15px" }
-        %ul
-          %li
-            = "Password " + @user.errors[:password].first
+    %div
+      = f.label :email
+      = f.email_field :email
 
     %div
       = f.label :password, I18n.t("activerecord.attributes.password")
@@ -56,43 +27,98 @@
       = f.password_field :password_confirmation
 
     %div
-      = f.submit "OK", :id => "new_password_submit"
+      = f.submit I18n.t("iugu.become_user")
 
-%div
-  - if @user.destroying?
-    = I18n.t("iugu.user_destruction_in")
-    = @user.destruction_job.run_at
-    - unless @user.destruction_job.locked_at
-      = link_to I18n.t("iugu.undo"), profile_cancel_destruction_path, :confirm => I18n.t("iugu.are_you_sure?") 
-  - else
-    = link_to I18n.t("iugu.remove_user"), profile_destroy_path, :confirm => I18n.t("iugu.are_you_sure?") 
-%br
+- else
 
-- if IuguSDK::enable_social_linking
+  = simple_form_for @user, :url => profile_update_path, :method => :post do |f|
+    - if @user.errors.any?
+      - unless @user.errors.include?(:password)
+        #error_explanation{ :style => "margin-bottom: 15px" }
+          %ul
+            - @user.errors.full_messages.each do |msg|
+              %li
+                = msg
 
-  %div
-    %h3
-      = I18n.t "iugu.social_account"
+    %div 
+      = f.label :name, I18n.t("activerecord.attributes.name")
+      = f.text_field :name
 
-    - if flash[:social]
-      #error_explanation{ :style => "margin-bottom: 15px" }
-        %ul
-          %li
-            = flash[:social]
+    %div
+      = f.label :email
+      = f.email_field :email
 
-    - @social_accounts.each do |social_account|
+    %div
+      = f.input :birthdate, :as => :date, :start_year => Date.today.year - 5, :end_year => Date.today.year - 100, :order => [:day, :month, :year], :label => I18n.t("activerecord.attributes.birthdate")
+
+    %div
+      = f.input :locale, :collection => AvailableLanguage.all, :label => I18n.t("activerecord.attributes.locale")
+
+    %div
+      = f.submit "OK"
+  %br
+
+  - if IuguSDK::enable_signup_form
+    %div
+      %h3
+        = I18n.t "iugu.change_password"
+
+    - if flash[:group] == :password_update
+      = flash[:notice]
+
+    = simple_form_for @user, :url => profile_update_path, :method => :post do |f|
+      - if @user.errors.include?(:password)
+        #error_explanation{ :style => "margin-bottom: 15px" }
+          %ul
+            %li
+              = "Password " + @user.errors[:password].first
 
       %div
-        = social_account.provider.capitalize
-        UID:
-        = social_account.social_id
-        = link_to "Remove", social_destroy_path(:id => social_account.id)
+        = f.label :password, I18n.t("activerecord.attributes.password")
+        = f.password_field :password
+  
+      %div
+        = f.label :password_confirmation, I18n.t("activerecord.attributes.password_confirmation")
+        = f.password_field :password_confirmation
 
-    - SOCIAL_ACCOUNTS.keys.each do |provider|
-    
-      - unless @social_accounts.where(:provider => provider).first 
+      %div
+        = f.submit "OK", :id => "new_password_submit"
+
+  %div
+    - if @user.destroying?
+      = I18n.t("iugu.user_destruction_in")
+      = @user.destruction_job.run_at
+      - unless @user.destruction_job.locked_at
+        = link_to I18n.t("iugu.undo"), profile_cancel_destruction_path, :confirm => I18n.t("iugu.are_you_sure?") 
+    - else
+      = link_to I18n.t("iugu.remove_user"), profile_destroy_path, :confirm => I18n.t("iugu.are_you_sure?") 
+  %br
+
+  - if IuguSDK::enable_social_linking
+
+    %div
+      %h3
+        = I18n.t "iugu.social_account"
+
+      - if flash[:social]
+        #error_explanation{ :style => "margin-bottom: 15px" }
+          %ul
+            %li
+              = flash[:social]
+
+      - @social_accounts.each do |social_account|
+
         %div
-          = link_to "#{I18n.t('iugu.sign_in_with')} #{provider.capitalize}", "/account/auth/#{provider}"
+          = social_account.provider.capitalize
+          UID:
+          = social_account.social_id
+          = link_to "Remove", social_destroy_path(:id => social_account.id)
+
+      - SOCIAL_ACCOUNTS.keys.each do |provider|
+    
+        - unless @social_accounts.where(:provider => provider).first 
+          %div
+            = link_to "#{I18n.t('iugu.sign_in_with')} #{provider.capitalize}", "/account/auth/#{provider}"
 
 
 
