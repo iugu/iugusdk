@@ -129,7 +129,9 @@ class User < ActiveRecord::Base
   private
 
   def destroy_private_accounts
-    self.accounts.joins(:account_users).having('count(*) = 1').destroy_all
+    self.accounts.each do |acc|
+      acc.destroy if acc.account_users.count <= 1
+    end
   end
 
   def email_required?

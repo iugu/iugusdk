@@ -37,6 +37,14 @@ describe User do
       @account.destroying?.should be_true
     end
 
+    it 'should destroy private user accounts' do
+      @user.accounts << Fabricate(:account)
+      @account = @user.accounts.last
+      @user.destroy
+      @user.destruction_job.invoke_job
+      @account.destroying?.should be_true
+    end
+
     it 'should not destroy non-private accounts' do
       @account = @user.accounts.first
       @account.users << Fabricate(:user, :email => 'account2@before.destroy')
