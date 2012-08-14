@@ -17,6 +17,8 @@ class User < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation, :remember_me, :locale, :name, :birthdate, :guest, :account_alias
 
   mattr_accessor :account_alias
+  
+  before_destroy :destroy_private_accounts
 
   before_create :skip_confirmation!, :unless => Proc.new { IuguSDK::enable_user_confirmation }
 
@@ -125,6 +127,10 @@ class User < ActiveRecord::Base
   end
 
   private
+
+  def destroy_private_accounts
+    self.accounts.joins(:account_users).having('count(*) = 1').destroy_all
+  end
 
   def email_required?
     !(has_social? || guest?)

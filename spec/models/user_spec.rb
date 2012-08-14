@@ -25,6 +25,28 @@ describe User do
     end
   end
 
+  context "before_destroy" do
+    before(:each) do
+      @user = Fabricate(:user, :email => 'account1@before.destroy')
+    end
+
+    it 'should destroy private user accounts' do
+      @account = @user.accounts.first
+      @user.destroy
+      @user.destruction_job.invoke_job
+      @account.destroying?.should be_true
+    end
+
+    it 'should not destroy non-private accounts' do
+      @account = @user.accounts.first
+      @account.users << Fabricate(:user, :email => 'account2@before.destroy')
+      @user.destroy
+      @user.destruction_job.invoke_job
+      @account.destroying?.should be_false
+    end
+  
+  end
+
   it 'should not require email if guest == true' do
     Fabricate.build(:user) do
       email nil
@@ -105,7 +127,7 @@ describe User do
   end
 
   context "create_social" do
-    before do
+    before(:each) do
       @env = OmniAuth.config.mock_auth[:twitter]
       @user = Fabricate(:user)
     end
@@ -117,7 +139,7 @@ describe User do
   end
 
   context "find_or_create_social" do
-    before do
+    before(:each) do
       @env = OmniAuth.config.mock_auth[:twitter]
       @user = Fabricate(:user)
     end
@@ -130,7 +152,7 @@ describe User do
   end
 
   context "find_or_create_by_social" do
-    before do
+    before(:each) do
       @env = OmniAuth.config.mock_auth[:twitter]
       @facebook = OmniAuth.config.mock_auth[:facebook]
     end
@@ -180,7 +202,7 @@ describe User do
   end
 
   context "default_account" do
-    before do
+    before(:each) do
       @user = Fabricate(:user)
     end
 
