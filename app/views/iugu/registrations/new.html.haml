@@ -8,6 +8,7 @@
     = f.input :password_confirmation, :required => true, :label => I18n.t("activerecord.attributes.password_confirmation")
     - if IuguSDK::enable_alias_on_signup
       = f.input :account_alias, :label => 'Alias'
+    = render :partial => "iugu/shared/signup_fields", :locals => {:f => f}
     = f.hidden_field :locale, :value => @matched_locale_from_browser
   .actions
     = f.button :submit, I18n.t("iugu.sign_up")
