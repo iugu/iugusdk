@@ -74,6 +74,7 @@ class User < ActiveRecord::Base
         return false if !User.where(:email => auth["extra"]["raw_info"]["email"]).empty?
         user.email = auth["extra"]["raw_info"]["email"]
       end
+      user.birthdate = Date.strptime(auth["extra"]["raw_info"]["birthday"], '%m/%d/%Y') if auth["extra"]["raw_info"]["birthday"]
       user.skip_confirmation!
       user.save(:validate => false)
       social_account = user.create_social(auth)

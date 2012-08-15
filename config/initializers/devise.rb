@@ -213,7 +213,7 @@ Devise.setup do |config|
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', :scope => 'user,public_repo'
 
   SOCIAL_ACCOUNTS.keys.each do |provider_name|
-    config.omniauth provider_name.to_sym, SOCIAL_ACCOUNTS[provider_name]['token'], SOCIAL_ACCOUNTS[provider_name]['secret']
+    config.omniauth provider_name.to_sym, SOCIAL_ACCOUNTS[provider_name]['token'], SOCIAL_ACCOUNTS[provider_name]['secret'], :scope => SOCIAL_ACCOUNTS[provider_name]['scope']
   end
      
 
