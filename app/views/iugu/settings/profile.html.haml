@@ -118,7 +118,7 @@
     
         - unless @social_accounts.where(:provider => provider).first 
           %div
-            = link_to "#{I18n.t('iugu.sign_in_with')} #{provider.capitalize}", "/account/auth/#{provider}"
+            = link_to "#{I18n.t('iugu.sign_in_with')} #{provider.capitalize}", "/account/auth/#{provider}?origin=#{profile_settings_path}"
 
 
 

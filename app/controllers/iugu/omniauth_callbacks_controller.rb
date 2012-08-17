@@ -5,7 +5,7 @@ class Iugu::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       if current_user 
         raise ActionController::RoutingError.new("Not found") unless IuguSDK::enable_social_linking
         current_user.find_or_create_social(env["omniauth.auth"])
-        redirect_to profile_settings_path
+        redirect_to(env["omniauth.origin"] || root_path)
       else
         raise ActionController::RoutingError.new("Not found") unless IuguSDK::enable_social_login
         if user = User.find_or_create_by_social(env["omniauth.auth"])

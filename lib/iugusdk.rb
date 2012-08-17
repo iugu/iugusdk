@@ -66,7 +66,7 @@ module IuguSDK
   self.enable_social_login = false
 
   mattr_accessor :enable_social_linking
-  self.enable_social_linking = false
+  self.enable_social_linking = true
 
   mattr_accessor :enable_user_confirmation
   self.enable_user_confirmation = false
