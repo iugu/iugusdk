@@ -29,6 +29,9 @@ class User < ActiveRecord::Base
   before_save :skip_reconfirmation!, :unless => Proc.new { IuguSDK::enable_email_reconfirmation }
 
   validates :email, :email => true, :unless => :guest?
+  validates :locale, :presence => true
+
+  default_value_for :locale, 'en'
 
   def destruction_job
     Delayed::Job.find_by_queue("user_#{id}_destroy")
