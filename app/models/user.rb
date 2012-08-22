@@ -78,6 +78,8 @@ class User < ActiveRecord::Base
         user.email = auth["extra"]["raw_info"]["email"]
       end
       user.birthdate = Date.strptime(auth["extra"]["raw_info"]["birthday"], '%m/%d/%Y') if auth["extra"]["raw_info"]["birthday"]
+      user.locale = AvailableLanguage.best_locale_for(auth["extra"]["raw_info"]["locale"]) if auth["extra"]["raw_info"]["locale"]
+      user.locale = AvailableLanguage.best_locale_for(auth["extra"]["raw_info"]["lang"]) if auth["extra"]["raw_info"]["lang"]
       user.skip_confirmation!
       user.save(:validate => false)
       social_account = user.create_social(auth)

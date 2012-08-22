@@ -8,5 +8,18 @@ class AvailableLanguage
       {"English" => "en", 'Português (Brasil)' => "pt-BR"}
     end
   end
+
+  def self.best_locale_for(lang)
+    lang.gsub!('_', '-')
+    locale = "en"
+    if self.all.values.include? lang
+      locale = lang 
+    else
+      self.all.values.each do |l|
+        locale = l if l.gsub(/-.*/, '') == lang.gsub(/-.*/, '')
+      end
+    end
+    locale
+  end
   
 end
