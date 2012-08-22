@@ -2,10 +2,11 @@
 #
 class AvailableLanguage
   def self.all
+    default = {"English" => "en", 'Português (Brasil)' => "pt-BR"}
     begin
-      YAML.load_file("#{Rails.root.to_s}/config/available_language.yml")['locales']
+      YAML.load_file("#{Rails.root.to_s}/config/available_language.yml")['locales'] || default
     rescue
-      {"English" => "en", 'Português (Brasil)' => "pt-BR"}
+      default
     end
   end
 
@@ -20,6 +21,15 @@ class AvailableLanguage
       end
     end
     locale
+  end
+
+  def self.default_locale
+    default = "en"
+    begin
+      YAML.load_file("#{Rails.root.to_s}/config/available_language.yml")['default'] || default
+    rescue
+      default
+    end
   end
   
 end

@@ -31,7 +31,7 @@ class User < ActiveRecord::Base
   validates :email, :email => true, :unless => :guest?
   validates :locale, :presence => true
 
-  default_value_for :locale, 'en'
+  default_value_for :locale, AvailableLanguage.default_locale
 
   def destruction_job
     Delayed::Job.find_by_queue("user_#{id}_destroy")
