@@ -1,6 +1,12 @@
 module IuguSDK
   class Engine < Rails::Engine
 
+    initializer "iugusdk.load_app_root" do |app|
+
+       IuguSDK.app_root = app.root
+
+    end
+
     initializer 'iugusdk.action_controller' do |app|
       ActiveSupport.on_load(:action_controller) do
         include IuguSDK::Controllers::Helpers
