@@ -64,6 +64,7 @@ describe 'accounts settings view' do
       IuguSDK::enable_custom_domain = true
       IuguSDK::enable_account_alias = true
       IuguSDK::enable_account_api = true
+      IuguSDK::enable_account_cancel = true
     end
 
     context "when enable_multiple_users_per_account == true" do
@@ -103,13 +104,27 @@ describe 'accounts settings view' do
       end
       it { page.should have_link I18n.t("iugu.manage") }
 
-      it { page.should have_link I18n.t("iugu.cancel_account") }
-
       it { page.should have_content @target_account.api_token }
       
       it { page.should have_link I18n.t("iugu.generate_new_token") }
 
       it { page.should have_field 'account[name]' }
+
+      context "when enable_account_cancel == true" do
+        before(:each) do 
+          IuguSDK::enable_account_cancel = true 
+          visit account_view_path(@target_account.id)
+        end
+        it { page.should have_link I18n.t("iugu.cancel_account") }
+      end
+
+      context "when enable_account_cancel == false" do
+        before(:each) do 
+          IuguSDK::enable_account_cancel = false
+          visit account_view_path(@target_account.id)
+        end
+        it { page.should_not have_link I18n.t("iugu.cancel_account") }
+      end
 
       context "when account is being canceled" do
         context "if delay_account_exclusion == 0" do

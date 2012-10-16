@@ -58,7 +58,8 @@
   %br
   %br
   - unless @account.destroying?
-    = link_to I18n.t("iugu.cancel_account"), account_destroy_path(@account.id), :method => :delete
+    - if IuguSDK::enable_account_cancel
+      = link_to I18n.t("iugu.cancel_account"), account_destroy_path(@account.id), :method => :delete
   - else
     - if IuguSDK::delay_account_exclusion > 0
       = link_to I18n.t("iugu.undo"), account_cancel_destruction_path(@account.id), :method => :delete

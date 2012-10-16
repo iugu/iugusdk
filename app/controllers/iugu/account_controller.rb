@@ -18,9 +18,13 @@ class Iugu::AccountController < Iugu::AccountSettingsController
   end
 
   def destroy
-    account = current_user.accounts.find(params[:id])
-    account.destroy
-    redirect_to(account_settings_path, :notice => I18n.t("iugu.account_destruction_in") + account.destruction_job.run_at.to_s)
+    if IuguSDK::enable_account_cancel
+      account = current_user.accounts.find(params[:id])
+      account.destroy
+      redirect_to(account_settings_path, :notice => I18n.t("iugu.account_destruction_in") + account.destruction_job.run_at.to_s)
+    else
+      raise ActionController::RoutingError.new('Not found')
+    end
   end
 
   def cancel_destruction

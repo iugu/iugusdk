@@ -39,13 +39,22 @@ describe Iugu::ProfileController do
 
   context "destroy" do
     login_as_user
+    context "when enable_user_cancel == true" do
+      before(:each) do
+        IuguSDK::enable_user_cancel = true
+        get :destroy
+      end
 
-    before(:each) do
-      get :destroy
+      it 'user should be destroyed' do
+        @user.destroying?.should be_true
+      end
     end
 
-    it 'user should be destroyed' do
-      @user.destroying?.should be_true
+    context "when enable_user_cancel == false" do
+      it 'should raise RoutingError' do
+        IuguSDK::enable_user_cancel = false
+        lambda{get :destroy}.should raise_error ActionController::RoutingError
+      end
     end
   
   end

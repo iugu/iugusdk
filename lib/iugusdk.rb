@@ -95,6 +95,12 @@ module IuguSDK
   mattr_accessor :enable_welcome_mail
   self.enable_welcome_mail = false
 
+  mattr_accessor :enable_account_cancel
+  self.enable_account_cancel = true
+
+  mattr_accessor :enable_user_cancel
+  self.enable_user_cancel = true
+
   self.application_title = 'Application Name'
 
   self.app_main_url = '/'
