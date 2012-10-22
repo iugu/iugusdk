@@ -2,6 +2,7 @@ require 'spec_helper'
 
 describe Account do
   before(:each) do
+    IuguSDK::enable_account_api = true
     Fabricate(:account){ subdomain "unico" }
   end
 
@@ -26,6 +27,12 @@ describe Account do
   it 'should set api_token before create' do
     @account = Fabricate(:account)
     @account.api_token.should_not be_nil
+  end
+
+  it 'should_not set api_token before create if flag is false' do
+    IuguSDK::enable_account_api = false
+    @account = Fabricate(:account)
+    @account.api_token.should be_nil
   end
 
   it 'should set subdomain before create' do

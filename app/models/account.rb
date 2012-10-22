@@ -13,7 +13,7 @@ class Account < ActiveRecord::Base
 
   attr_accessible :subdomain, :name 
 
-  before_create :set_first_token
+  before_create :set_first_token, :if => Proc.new { IuguSDK::enable_account_api }
   after_create :set_first_subdomain, :unless => :subdomain?
 
   def self.get_from_domain(domain)
