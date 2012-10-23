@@ -126,8 +126,9 @@ describe Iugu::AccountController do
     login_as_user
     before(:each) do
       IuguSDK::enable_account_api = true
+      IuguSDK::account_api_tokens = [ 'test' ]
       @account = @user.accounts.last
-      post :generate_new_token, :account_id => @account.id
+      post :generate_new_token, :account_id => @account.id, :description => 'token x', :api_type => 'test'
     end
 
     it { response.should redirect_to account_view_path(@account.id) }

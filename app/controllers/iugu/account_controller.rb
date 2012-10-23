@@ -53,9 +53,14 @@ class Iugu::AccountController < Iugu::AccountSettingsController
   def generate_new_token
     if IuguSDK::enable_account_api
       @account = current_user.accounts.find(params[:account_id])
-      @account.update_api_token
+      token = @account.tokens.create(description: params[:description], api_type: params[:api_type])
+      if token.new_record?
+        notice = token.errors.full_messages
+      else
+        notice = I18n.t("iugu.notices.new_token_generated")
+      end
       flash[:group] = :api_token
-      redirect_to account_view_path(params[:account_id]), :notice => I18n.t("iugu.notices.new_token_generated")
+      redirect_to account_view_path(params[:account_id]), :notice => notice
     else
       raise ActionController::RoutingError.new('Not found')
     end

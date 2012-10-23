@@ -64,6 +64,7 @@ describe 'accounts settings view' do
       IuguSDK::enable_custom_domain = true
       IuguSDK::enable_account_alias = true
       IuguSDK::enable_account_api = true
+      IuguSDK::account_api_tokens = ['test', 'live']
       IuguSDK::enable_account_cancel = true
     end
 
@@ -106,7 +107,7 @@ describe 'accounts settings view' do
 
       it { page.should have_content @target_account.api_token }
       
-      it { page.should have_link I18n.t("iugu.generate_new_token") }
+      it { page.should have_content I18n.t("iugu.api_tokens") }
 
       it { page.should have_field 'account[name]' }
 
@@ -162,8 +163,6 @@ describe 'accounts settings view' do
       it { page.should_not have_link I18n.t("iugu.manage") }
 
       it { page.should_not have_link I18n.t("iugu.cancel_account") }
-
-      it { page.should_not have_content @target_account.api_token }
 
       it { page.should_not have_link I18n.t("iugu.generate_new_token") }
 
