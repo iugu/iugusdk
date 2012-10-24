@@ -16,8 +16,8 @@ module IuguSDK
       application_domain = IuguSDK::application_main_host
       valids = [ application_domain, ['www.',application_domain].join ]
       unless Rails.env.production?
-        first_part_uri = application_domain.gsub('.dev','')
-        return true if request.host.match("#{first_part_uri}\.[^\.]+\.[^\.]+\.[^\.]+\.[^\.]+\.xip.io")
+        # first_part_uri = application_domain.gsub('.dev','')
+        return true if request.host.match("#{application_domain}\.[^\.]+\.[^\.]+\.[^\.]+\.[^\.]+\.xip.io")
       end
       valids.include?( request.host )
     end
