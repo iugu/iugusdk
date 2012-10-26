@@ -161,4 +161,9 @@ class User < ActiveRecord::Base
       account_user = new_account.account_users.create( { :user => self } )
     end
   end
+
+  # def to_json
+  #   super(:only => [:email,:id])
+  # end
+
 end
