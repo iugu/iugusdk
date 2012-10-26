@@ -58,8 +58,11 @@ module Dummy
       password: "envioiugu",
       authentication: :plain,
       enable_starttls_auto: true
-    }   
+    }
 
+    # config.session_store :disabled
+    # config.middleware.delete(ActionDispatch::Cookies)
+    # config.middleware.delete(ActionDispatch::Session::CookieStore) 
 
   end
 end
