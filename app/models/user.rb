@@ -132,6 +132,22 @@ class User < ActiveRecord::Base
     end
   end
 
+  def access_token
+    "none"
+  end
+
+  # def to_json
+  #   super(:only => [:email,:id])
+  # end
+  def as_json(options = nil)
+    {
+      id: id,
+      email: email,
+      locale: locale,
+      access_token: access_token
+    }
+  end
+
   private
 
   def destroy_private_accounts
@@ -162,8 +178,5 @@ class User < ActiveRecord::Base
     end
   end
 
-  # def to_json
-  #   super(:only => [:email,:id])
-  # end
 
 end
