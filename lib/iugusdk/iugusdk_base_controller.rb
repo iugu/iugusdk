@@ -11,7 +11,8 @@ module IuguSDKBaseController
   def configure_locale
     if(params[:hl])
       locale = params[:hl] if AvailableLanguage.all.values.include? params[:hl]
-    else
+    end
+    unless locale
       @matched_locale_from_browser = request.preferred_language_from(AvailableLanguage.all.values)
       if signed_in?
         if current_user.locale.blank?
