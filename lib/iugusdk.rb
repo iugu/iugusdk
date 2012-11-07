@@ -4,6 +4,7 @@ require 'simple_form'
 require 'iugusdk/controllers/helpers'
 require 'iugusdk/valid_tenancy_urls'
 require 'iugusdk/root_tenancy_url'
+require 'iugusdk/session_parameter_middleware'
 require "iugusdk/engine"
 require "iugusdk/iugusdk_base_controller"
 require "http_accept_language"

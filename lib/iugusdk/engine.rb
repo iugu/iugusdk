@@ -5,6 +5,8 @@ module IuguSDK
 
        IuguSDK.app_root = app.root
 
+       app.config.middleware.insert_before( app.config.session_store, SessionParameterMiddleware, app.config.session_options[:key])
+
     end
 
     initializer 'iugusdk.action_controller' do |app|
