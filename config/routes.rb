@@ -42,6 +42,8 @@ Rails.application.routes.draw do
     get "/settings/account/(:id)/user/:user_id/roles" => "iugu/account_roles#edit", :as => "account_roles_edit"
     post "/settings/account/(:id)/user/:user_id/roles" => "iugu/account_roles#update", :as => "account_roles_update"
 
+    get '/pricing' => 'iugu/pricing#index', :as => 'pricing_index'
+
     devise_for :users,
       :path => 'account',
       :module => 'iugu',

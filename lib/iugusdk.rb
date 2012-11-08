@@ -117,13 +117,13 @@ module IuguSDK
   self.default_layout = "settings"
   self.alternative_layout = "application"
 
-  Iugu::Api.token = iws_api_key if iws_api_key
 
   def initialize
   end
 
   def self.setup
     yield self
+    Iugu::Api.token = iws_api_key if self.iws_api_key
   end
 
 end
