@@ -26,6 +26,12 @@ PATH
       sass-rails
       simple_form
 
+PATH
+  remote: ../iugu-api
+  specs:
+    iugu-api (0.0.1)
+      activeresource (= 3.2.8)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -303,6 +309,7 @@ DEPENDENCIES
   fuubar
   haml
   haml-rails
+  iugu-api!
   iugusdk!
   jquery-rails
   kaminari

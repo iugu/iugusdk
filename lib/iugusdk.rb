@@ -105,6 +105,8 @@ module IuguSDK
   mattr_accessor :enable_user_cancel
   self.enable_user_cancel = true
 
+  mattr_accessor :iws_api_key
+
   self.application_title = 'Application Name'
 
   self.app_main_url = '/'
@@ -114,6 +116,8 @@ module IuguSDK
 
   self.default_layout = "settings"
   self.alternative_layout = "application"
+
+  Iugu::Api.token = iws_api_key if iws_api_key
 
   def initialize
   end
