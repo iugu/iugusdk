@@ -33,6 +33,7 @@ Rails.application.routes.draw do
     get "settings/profile/cancel_destruction" => "iugu/profile#cancel_destruction", :as => "profile_cancel_destruction"
     post "settings/profile" => "iugu/profile#update", :as => "profile_update"
     get "settings/profile/social/destroy" => "iugu/profile#destroy_social", :as => "social_destroy"
+    get "settings/profile/renew_token" => "iugu/profile#renew_token", :as => "renew_user_token"
     post 'become_user' => 'iugu/profile#become_user', :as => 'become_user'
 
     get '/settings/account/:account_id/invite' => 'iugu/invitations#new', :as => 'new_invite'

@@ -67,4 +67,13 @@ class Iugu::ProfileController < Iugu::SettingsController
     end 
   end 
 
+  def renew_token
+    if IuguSDK::enable_user_api
+      current_user.token.refresh
+      redirect_to profile_settings_path
+    else
+      raise ActionController::RoutingError.new("Not found")
+    end
+  end
+
 end

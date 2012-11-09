@@ -58,6 +58,15 @@
       = f.submit "OK"
   %br
 
+  - if IuguSDK::enable_user_api
+    %h3
+      Api Token
+    = @user.token.token
+    %br
+    = link_to "Renew", renew_user_token_path
+    %br
+    %br
+
   - if IuguSDK::enable_signup_form
     %div
       %h3

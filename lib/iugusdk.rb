@@ -66,6 +66,9 @@ module IuguSDK
   mattr_accessor :account_api_tokens
   self.account_api_tokens = []
 
+  mattr_accessor :enable_user_api
+  self.enable_user_api = false
+
   mattr_accessor :enable_social_login
   self.enable_social_login = false
 

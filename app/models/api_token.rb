@@ -6,7 +6,12 @@ class ApiToken < ActiveRecord::Base
   validates :token, :uniqueness => true
   validates :description, :uniqueness => { :scope => [:tokenable_id, :tokenable_type] }
   validates :description, :tokenable, :api_type, :presence => true
-  validate :valid_api_type
+  validate :valid_account_api_type, :if => Proc.new { tokenable_type == "Account" }
+
+  def refresh
+    self.token = generate_api_token
+    save
+  end
 
 
   private
@@ -19,7 +24,7 @@ class ApiToken < ActiveRecord::Base
     Digest::MD5.hexdigest("#{SecureRandom.hex(10)}-#{DateTime.now.to_s}")
   end 
 
-  def valid_api_type
+  def valid_account_api_type
     errors.add(:api_type, I18n.t('errors.messages.not_supported_api_type')) unless IuguSDK::account_api_tokens.include? api_type
   end
 

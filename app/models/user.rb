@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
   has_many :account_users, :dependent => :destroy, :include => [:roles,:account]
   has_many :accounts, :through => :account_users
   has_many :social_accounts, :dependent => :destroy
+  has_one :token, :as => :tokenable, :class_name => "ApiToken"
 
   handle_asynchronously :destroy, :queue => Proc.new { |p| "user_#{p.id}_destroy" },
                         :run_at => Proc.new { DateTime.now + IuguSDK::delay_user_exclusion }
@@ -21,6 +22,8 @@ class User < ActiveRecord::Base
   before_destroy :destroy_private_accounts
 
   before_create :skip_confirmation!, :unless => Proc.new { IuguSDK::enable_user_confirmation }
+
+  after_create :init_token, :if => Proc.new { IuguSDK::enable_user_api }
 
   after_create :create_account_for_user
 
@@ -149,6 +152,10 @@ class User < ActiveRecord::Base
   end
 
   private
+
+  def init_token
+    self.token = ApiToken.create(tokenable: self, api_type: "USER", description: "User")
+  end
 
   def destroy_private_accounts
     self.accounts.each do |acc|

@@ -9,6 +9,15 @@ describe User do
   it { should have_many(:social_accounts) }
   it { should validate_presence_of(:email) }
 
+  context "when enable_user_api = true" do
+    before(:each) { IuguSDK::enable_user_api = true }
+
+    it 'should have a token' do
+      Fabricate(:user).token.should_not be_nil
+    end
+
+  end
+
   context "after create" do
     #it 'should create an account with subdomain' do
       #@user = Fabricate(:user) do
