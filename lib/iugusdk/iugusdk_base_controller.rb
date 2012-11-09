@@ -27,4 +27,8 @@ module IuguSDKBaseController
     I18n.locale = locale
   end
 
+  def verify_api_key
+    raise ActionController::RoutingError.new("iws_api_key missing") unless IuguSDK::iws_api_key
+  end
+
 end

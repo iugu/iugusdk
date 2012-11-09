@@ -1,11 +1,8 @@
 class Iugu::PricingController < ApplicationController
+  before_filter :verify_api_key, :only => [ :index ]
 
   def index
-    if IuguSDK::iws_api_key
-      @plans = Iugu::Api::Plan.all
-    else
-      raise ActionController::RoutingError.new("Not Found")
-    end
+    @plans = Iugu::Api::Plan.all
   end
   
 end

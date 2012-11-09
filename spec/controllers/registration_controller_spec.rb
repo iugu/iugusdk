@@ -26,7 +26,21 @@ describe Iugu::RegistrationsController do
         }.should raise_error ActionController::RoutingError
       end
     end
-  
+
+  end
+
+  context "new" do
+    context "when enable_subscription_features == true and default_subscription_name = nil " do
+      before(:each) do
+        IuguSDK::enable_subscription_features = true
+        IuguSDK::default_subscription_name = nil
+      end
+      it 'should redirect to pricing' do
+        get :new
+        response.should redirect_to pricing_index_path
+      end
+    end
+
   end
 
 end
