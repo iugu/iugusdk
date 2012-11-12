@@ -9,7 +9,6 @@ class Account < ActiveRecord::Base
                         :run_at => Proc.new { DateTime.now + IuguSDK::delay_account_exclusion }
 
   validates :subdomain, :uniqueness => true, :unless => Proc.new { |a| a.subdomain.blank? }
-  validates :api_token, :uniqueness => true, :if => :api_token?
   validate :subdomain_blacklist, :name
 
   attr_accessible :subdomain, :name 
