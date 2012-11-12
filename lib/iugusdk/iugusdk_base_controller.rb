@@ -9,17 +9,26 @@ module IuguSDKBaseController
   end
 
   def configure_locale
-    @matched_locale_from_browser = request.preferred_language_from(AvailableLanguage.all.values)
-    if signed_in?
-      if current_user.locale.blank?
-        locale = "en" 
+    if(params[:hl])
+      locale = params[:hl] if AvailableLanguage.all.values.include? params[:hl]
+    end
+    unless locale
+      @matched_locale_from_browser = request.preferred_language_from(AvailableLanguage.all.values)
+      if signed_in?
+        if current_user.locale.blank?
+          locale = "en" 
+        else
+          locale = current_user.locale
+        end
       else
-        locale = current_user.locale
+        locale = @matched_locale_from_browser
       end
-    else
-      locale = @matched_locale_from_browser
     end
     I18n.locale = locale
+  end
+
+  def verify_api_key
+    raise ActionController::RoutingError.new("iws_api_key missing") unless IuguSDK::iws_api_key
   end
 
 end

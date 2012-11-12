@@ -42,23 +42,38 @@
     = link_to I18n.t("iugu.payment_history")
 
 
+%br
 - if IuguSDK::enable_account_api
   - if current_user.is?(:owner, @account)
-    %br
+    %h2
+      = I18n.t("iugu.api_tokens")
     - if flash[:group] == :api_token
       %div
-        = flash[:notice]
+        - if flash[:notice].class == Array
+          %ul
+            - flash[:notice].each do |e|
+              %li
+                = e
+        - else
+          = flash[:notice]
     %div
-      = I18n.t("iugu.api_token")
-      = link_to I18n.t("iugu.generate_new_token"), account_generate_new_token_path(@account.id), :method => :post
+      - @account.tokens.each do |token|
+        = "#{token.description} - #{token.api_type} - #{token.token} - #{token.created_at}"
+        %br
       %br
-      = @account.api_token
+      = form_tag(account_generate_new_token_path(@account.id), :method => :post) do
+        = I18n.t('iugu.api_type')
+        = select_tag :api_type, options_for_select(IuguSDK::account_api_tokens)
+        = I18n.t('iugu.description')
+        = text_field_tag :description
+        = submit_tag I18n.t('iugu.create')
 
 - if current_user.is?(:owner, @account)
   %br
   %br
   - unless @account.destroying?
-    = link_to I18n.t("iugu.cancel_account"), account_destroy_path(@account.id), :method => :delete
+    - if IuguSDK::enable_account_cancel
+      = link_to I18n.t("iugu.cancel_account"), account_destroy_path(@account.id), :method => :delete
   - else
     - if IuguSDK::delay_account_exclusion > 0
       = link_to I18n.t("iugu.undo"), account_cancel_destruction_path(@account.id), :method => :delete

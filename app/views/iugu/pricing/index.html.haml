@@ -1,0 +1,14 @@
+Pricing
+%br
+- @plans.each do |plan|
+  = plan.name
+  - plan.prices.each do |price|
+    = "-"
+    = price.value_cents
+    = price.currency
+  - plan.features.each do |feature|
+    - if feature.important
+      = "-"
+      = feature.name
+  %br
+

@@ -4,6 +4,7 @@ class Account < ActiveRecord::Base
   has_many :account_users, :dependent => :destroy, :include => [:roles,:account]
   has_many :account_domains, :dependent => :destroy
   has_many :users, :through => :account_users
+  has_many :tokens, :as => :tokenable, :class_name => "ApiToken"
   handle_asynchronously :destroy, :queue => Proc.new { |p| "account_#{p.id}_destroy" },
                         :run_at => Proc.new { DateTime.now + IuguSDK::delay_account_exclusion }
 
@@ -13,7 +14,6 @@ class Account < ActiveRecord::Base
 
   attr_accessible :subdomain, :name 
 
-  before_create :set_first_token
   after_create :set_first_subdomain, :unless => :subdomain?
 
   def self.get_from_domain(domain)
@@ -46,22 +46,10 @@ class Account < ActiveRecord::Base
     (super.blank? ? "#{I18n.t('iugu.account')} ##{id}" : super)
   end
   
-  def update_api_token
-    self.update_attribute(:api_token, generate_api_token)
-  end
-
   private
-
-  def set_first_token
-    self.api_token = generate_api_token
-  end
 
   def set_first_subdomain
     self.update_attribute(:subdomain, "#{IuguSDK::account_alias_prefix}#{id}")
-  end
-
-  def generate_api_token
-    Digest::MD5.hexdigest("#{SecureRandom.hex(10)}-#{DateTime.now.to_s}")
   end
 
   def subdomain_blacklist

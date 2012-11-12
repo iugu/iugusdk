@@ -1,6 +1,14 @@
 module IuguSDK
   class Engine < Rails::Engine
 
+    initializer "iugusdk.load_app_root" do |app|
+
+       IuguSDK.app_root = app.root
+
+       app.config.middleware.insert_before( app.config.session_store, SessionParameterMiddleware, app.config.session_options[:key])
+
+    end
+
     initializer 'iugusdk.action_controller' do |app|
       ActiveSupport.on_load(:action_controller) do
         include IuguSDK::Controllers::Helpers

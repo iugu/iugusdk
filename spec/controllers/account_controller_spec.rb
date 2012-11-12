@@ -35,15 +35,25 @@ describe Iugu::AccountController do
 
   context "destroy" do
     login_as_user
-    context "when using right id" do
-      before do
-        get :destroy, :id => @user.accounts.first.id
+    context "when enable_account_cancel == true" do
+      context "and using right id" do
+        before do
+          IuguSDK::enable_account_cancel = true
+          get :destroy, :id => @user.accounts.first.id
+        end
+
+        it { response.should redirect_to account_settings_path }
+
+        it 'should start destruction job' do
+          @user.accounts.first.destroying?.should be_true
+        end
       end
+    end
 
-      it { response.should redirect_to account_settings_path }
-
-      it 'should start destruction job' do
-        @user.accounts.first.destroying?.should be_true
+    context "when enable_account_cancel == false" do
+      it 'should raise RoutingError' do
+        IuguSDK::enable_account_cancel = false
+        lambda{ get :destroy, :id => @user.accounts.first.id }.should raise_error ActionController::RoutingError
       end
     end
 
@@ -116,8 +126,9 @@ describe Iugu::AccountController do
     login_as_user
     before(:each) do
       IuguSDK::enable_account_api = true
+      IuguSDK::account_api_tokens = [ 'test' ]
       @account = @user.accounts.last
-      post :generate_new_token, :account_id => @account.id
+      post :generate_new_token, :account_id => @account.id, :description => 'token x', :api_type => 'test'
     end
 
     it { response.should redirect_to account_view_path(@account.id) }

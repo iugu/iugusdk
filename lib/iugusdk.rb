@@ -4,6 +4,7 @@ require 'simple_form'
 require 'iugusdk/controllers/helpers'
 require 'iugusdk/valid_tenancy_urls'
 require 'iugusdk/root_tenancy_url'
+require 'iugusdk/session_parameter_middleware'
 require "iugusdk/engine"
 require "iugusdk/iugusdk_base_controller"
 require "http_accept_language"
@@ -62,6 +63,12 @@ module IuguSDK
   mattr_accessor :enable_account_api
   self.enable_account_api = false
 
+  mattr_accessor :account_api_tokens
+  self.account_api_tokens = []
+
+  mattr_accessor :enable_user_api
+  self.enable_user_api = false
+
   mattr_accessor :enable_social_login
   self.enable_social_login = false
 
@@ -95,6 +102,14 @@ module IuguSDK
   mattr_accessor :enable_welcome_mail
   self.enable_welcome_mail = false
 
+  mattr_accessor :enable_account_cancel
+  self.enable_account_cancel = true
+
+  mattr_accessor :enable_user_cancel
+  self.enable_user_cancel = true
+
+  mattr_accessor :iws_api_key
+
   self.application_title = 'Application Name'
 
   self.app_main_url = '/'
@@ -105,11 +120,13 @@ module IuguSDK
   self.default_layout = "settings"
   self.alternative_layout = "application"
 
+
   def initialize
   end
 
   def self.setup
     yield self
+    Iugu::Api.token = iws_api_key if self.iws_api_key
   end
 
 end

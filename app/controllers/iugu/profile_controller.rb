@@ -25,8 +25,12 @@ class Iugu::ProfileController < Iugu::SettingsController
   end
 
   def destroy
-    (user = current_user).destroy
-    redirect_to(profile_settings_path, :notice => I18n.t("iugu.user_destruction_in") + user.destruction_job.run_at.to_s)
+    if IuguSDK::enable_user_cancel
+      (user = current_user).destroy
+      redirect_to(profile_settings_path, :notice => I18n.t("iugu.user_destruction_in") + user.destruction_job.run_at.to_s)
+    else
+      raise ActionController::RoutingError.new("Not found")
+    end
   end
 
   def cancel_destruction
@@ -62,5 +66,14 @@ class Iugu::ProfileController < Iugu::SettingsController
       raise ActionController::RoutingError.new("Not found")
     end 
   end 
+
+  def renew_token
+    if IuguSDK::enable_user_api
+      current_user.token.refresh
+      redirect_to profile_settings_path
+    else
+      raise ActionController::RoutingError.new("Not found")
+    end
+  end
 
 end

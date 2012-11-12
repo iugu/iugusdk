@@ -3,6 +3,14 @@ class Iugu::RegistrationsController < Devise::RegistrationsController
 
   layout IuguSDK.alternative_layout
 
+  def new
+    if !IuguSDK::default_subscription_name && IuguSDK::enable_subscription_features
+      redirect_to pricing_index_path
+    else
+      super
+    end
+  end
+
   def try_first
     if IuguSDK::enable_guest_user
       @user = User.create_guest

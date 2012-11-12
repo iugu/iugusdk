@@ -58,6 +58,15 @@
       = f.submit "OK"
   %br
 
+  - if IuguSDK::enable_user_api
+    %h3
+      Api Token
+    = @user.token.token
+    %br
+    = link_to "Renew", renew_user_token_path
+    %br
+    %br
+
   - if IuguSDK::enable_signup_form
     %div
       %h3
@@ -91,7 +100,8 @@
       - unless @user.destruction_job.locked_at
         = link_to I18n.t("iugu.undo"), profile_cancel_destruction_path, :confirm => I18n.t("iugu.are_you_sure?") 
     - else
-      = link_to I18n.t("iugu.remove_user"), profile_destroy_path, :confirm => I18n.t("iugu.are_you_sure?") 
+      - if IuguSDK::enable_user_cancel
+        = link_to I18n.t("iugu.remove_user"), profile_destroy_path, :confirm => I18n.t("iugu.are_you_sure?") 
   %br
 
   - if IuguSDK::enable_social_linking

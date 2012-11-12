@@ -33,6 +33,7 @@ Rails.application.routes.draw do
     get "settings/profile/cancel_destruction" => "iugu/profile#cancel_destruction", :as => "profile_cancel_destruction"
     post "settings/profile" => "iugu/profile#update", :as => "profile_update"
     get "settings/profile/social/destroy" => "iugu/profile#destroy_social", :as => "social_destroy"
+    get "settings/profile/renew_token" => "iugu/profile#renew_token", :as => "renew_user_token"
     post 'become_user' => 'iugu/profile#become_user', :as => 'become_user'
 
     get '/settings/account/:account_id/invite' => 'iugu/invitations#new', :as => 'new_invite'
@@ -41,6 +42,8 @@ Rails.application.routes.draw do
     post '/accept_invite' => 'iugu/invitations#update', :as => 'update_invite'
     get "/settings/account/(:id)/user/:user_id/roles" => "iugu/account_roles#edit", :as => "account_roles_edit"
     post "/settings/account/(:id)/user/:user_id/roles" => "iugu/account_roles#update", :as => "account_roles_update"
+
+    get '/pricing' => 'iugu/pricing#index', :as => 'pricing_index'
 
     devise_for :users,
       :path => 'account',
