@@ -15,7 +15,9 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :validatable, :omniauthable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :locale, :name, :birthdate, :guest, :account_alias
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :locale, :name, :birthdate, :guest, :account_alias, :plan_id, :price_id
+
+  attr_accessor :plan_id, :price_id
 
   mattr_accessor :account_alias
   
@@ -180,7 +182,7 @@ class User < ActiveRecord::Base
   
   def create_account_for_user
     if accountable?
-      new_account = Account.create( :subdomain => account_alias )
+      new_account = Account.create( :subdomain => account_alias, plan_id: plan_id, price_id: price_id, email: email)
       account_user = new_account.account_users.create( { :user => self } )
     end
   end

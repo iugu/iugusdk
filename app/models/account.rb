@@ -11,14 +11,16 @@ class Account < ActiveRecord::Base
   validates :subdomain, :uniqueness => true, :unless => Proc.new { |a| a.subdomain.blank? }
   validate :subdomain_blacklist, :name
 
-  attr_accessible :subdomain, :name 
+  attr_accessible :subdomain, :name, :plan_id, :price_id, :email
+  attr_accessor :plan_id, :price_id, :email
 
   after_create :set_first_subdomain, :unless => :subdomain?
+
+  before_create :subscribe, if: Proc.new { IuguSDK::enable_subscription_features }
 
   def self.get_from_domain(domain)
     AccountDomain.verified.find_by_url(domain).try(:account) || Account.find_by_subdomain(domain.gsub(".#{IuguSDK::application_main_host}",""))
   end
-  
 
   def destruction_job
     Delayed::Job.find_by_queue("account_#{id}_destroy")
@@ -46,6 +48,12 @@ class Account < ActiveRecord::Base
   end
   
   private
+
+  def subscribe
+    subscription = Iugu::Api::Subscription.create(plan_id: plan_id, price_id: price_id, email: email)
+    self.subscription_id = subscription.id
+    subscription.errors.empty?
+  end
 
   def set_first_subdomain
     self.update_attribute(:subdomain, "#{IuguSDK::account_alias_prefix}#{id}")

@@ -39,6 +39,11 @@ describe Iugu::RegistrationsController do
         get :new
         response.should redirect_to pricing_index_path
       end
+
+      it 'should not redirect if has param plan' do
+        get :new, plan: "test"
+        response.should be_success
+      end
     end
 
   end

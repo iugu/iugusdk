@@ -10,6 +10,9 @@
       = f.input :account_alias, :label => 'Alias'
     = render :partial => "iugu/shared/signup_fields", :locals => {:f => f}
     = f.hidden_field :locale, :value => @matched_locale_from_browser
+    - if IuguSDK::enable_subscription_features
+      = f.hidden_field :plan_id, value: @plan_id
+      = f.hidden_field :price_id, value: @price_id
   .actions
     = f.button :submit, I18n.t("iugu.sign_up")
 

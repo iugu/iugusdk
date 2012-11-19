@@ -31,4 +31,11 @@ module IuguSDKBaseController
     raise ActionController::RoutingError.new("iws_api_key missing") unless IuguSDK::iws_api_key
   end
 
+  def locale_to_currency(locale)
+    {
+      'pt-BR' => "BRL",
+      'en'    => "USD"
+    }[locale.to_s]
+  end
+
 end

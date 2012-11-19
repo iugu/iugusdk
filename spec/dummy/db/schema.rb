@@ -36,7 +36,6 @@ ActiveRecord::Schema.define(:version => 20121108115535) do
     t.string   "name"
     t.integer  "subscription_id"
     t.string   "subdomain"
-    t.string   "api_token"
   end
 
   create_table "api_tokens", :force => true do |t|
