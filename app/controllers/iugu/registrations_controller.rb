@@ -7,9 +7,9 @@ class Iugu::RegistrationsController < Devise::RegistrationsController
     if !IuguSDK::default_subscription_name && IuguSDK::enable_subscription_features && !params[:plan]
       redirect_to pricing_index_path
     else
-      if params[:plan]
+      if IuguSDK::enable_subscription_features
         ps = []
-        Iugu::Api::Plan.all.each { |p| ps << p if p.identifier == params[:plan] }
+        Iugu::Api::Plan.all.each { |p| ps << p if p.identifier == (params[:plan] || IuguSDK::default_subscription_name) }
         if plan = ps.first
           @plan_id = plan.id
           plan.prices.each { |p| @price_id = p.id if p.currency == locale_to_currency(I18n.locale) }

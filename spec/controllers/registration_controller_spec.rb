@@ -11,6 +11,10 @@ describe Iugu::RegistrationsController do
         IuguSDK::enable_guest_user = true
         post :try_first
       end
+      
+      after do
+        IuguSDK::enable_guest_user = false
+      end
 
       it { flash.now[:notice].should == I18n.t("iugu.notices.guest_login") }
     end
@@ -31,18 +35,25 @@ describe Iugu::RegistrationsController do
 
   context "new" do
     context "when enable_subscription_features == true and default_subscription_name = nil " do
-      before(:each) do
+      before do
         IuguSDK::enable_subscription_features = true
         IuguSDK::default_subscription_name = nil
       end
+
+      after do
+        IuguSDK::enable_subscription_features = false
+        IuguSDK::default_subscription_name = "free"
+      end
+
       it 'should redirect to pricing' do
         get :new
         response.should redirect_to pricing_index_path
       end
 
       it 'should not redirect if has param plan' do
-        get :new, plan: "test"
-        response.should be_success
+        lambda {
+          get :new, plan: "test"
+        }.should raise_error
       end
     end
 

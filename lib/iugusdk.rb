@@ -82,7 +82,7 @@ module IuguSDK
   self.enable_email_reconfirmation = false
 
   mattr_accessor :enable_subscription_features
-  self.enable_subscription_features = true
+  self.enable_subscription_features = false
 
   mattr_accessor :enable_signup_form
   self.enable_signup_form = true
@@ -114,7 +114,7 @@ module IuguSDK
 
   self.app_main_url = '/'
   self.app_root_url = '/'
-  #self.default_subscription_name = 'free'
+  self.default_subscription_name = 'free'
   self.guest_user_prefix = 'appuser'
 
   self.default_layout = "settings"
