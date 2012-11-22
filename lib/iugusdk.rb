@@ -15,6 +15,7 @@ require 'omniauth-facebook'
 require 'delayed_job'
 require 'delayed_job_active_record'
 require 'koala'
+require 'default_value_for'
 # TODO: ALE - Acho q vai precisar disto
 # require 'oauth2'
 
