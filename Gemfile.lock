@@ -10,6 +10,7 @@ PATH
       haml
       haml-rails
       http_accept_language
+      iugu-api
       kaminari
       koala
       less
@@ -25,12 +26,6 @@ PATH
       rails-i18n
       sass-rails
       simple_form
-
-PATH
-  remote: ../iugu-api
-  specs:
-    iugu-api (0.0.1)
-      activeresource (= 3.2.8)
 
 GEM
   remote: http://rubygems.org/
@@ -88,15 +83,15 @@ GEM
       xpath (~> 0.1.4)
     childprocess (0.3.5)
       ffi (~> 1.0, >= 1.0.6)
-    cocaine (0.4.0)
+    cocaine (0.4.2)
     coffee-script (2.2.0)
       coffee-script-source
       execjs
-    coffee-script-source (1.3.3)
+    coffee-script-source (1.4.0)
     commonjs (0.2.6)
     database_cleaner (0.9.1)
     default_value_for (2.0.1)
-    delayed_job (3.0.3)
+    delayed_job (3.0.4)
       activesupport (~> 3.0)
     delayed_job_active_record (0.3.3)
       activerecord (>= 2.1.0, < 4)
@@ -127,13 +122,15 @@ GEM
       activesupport (>= 3.1, < 4.1)
       haml (~> 3.1)
       railties (>= 3.1, < 4.1)
-    hashery (2.0.1)
+    hashery (2.1.0)
     hashie (1.2.0)
     highline (1.6.15)
     hike (1.2.1)
     http_accept_language (1.0.2)
     httpauth (0.2.0)
     i18n (0.6.1)
+    iugu-api (0.0.1)
+      activeresource (= 3.2.8)
     journey (1.0.4)
     jquery-rails (2.1.3)
       railties (>= 3.1.0, < 5.0)
@@ -148,10 +145,8 @@ GEM
     koala (1.5.0)
       faraday (~> 0.7)
       multi_json (~> 1.3)
-    less (2.0.12)
-      commonjs (~> 0.2.0)
-      therubyracer (~> 0.9.9)
-    libv8 (3.3.10.4)
+    less (2.2.2)
+      commonjs (~> 0.2.6)
     libwebsocket (0.1.5)
       addressable
     mail (2.4.4)
@@ -181,14 +176,15 @@ GEM
     omniauth-oauth2 (1.1.1)
       oauth2 (~> 0.8.0)
       omniauth (~> 1.0)
-    omniauth-twitter (0.0.13)
+    omniauth-twitter (0.0.14)
       multi_json (~> 1.3)
       omniauth-oauth (~> 1.0)
     orm_adapter (0.4.0)
-    paperclip (2.8.0)
-      activerecord (>= 2.3.0)
-      activesupport (>= 2.3.2)
-      cocaine (>= 0.0.2)
+    paperclip (3.3.1)
+      activemodel (>= 3.0.0)
+      activerecord (>= 3.0.0)
+      activesupport (>= 3.0.0)
+      cocaine (~> 0.4.0)
       mime-types
     pdf-reader (1.2.0)
       Ascii85 (~> 1.0.0)
@@ -202,7 +198,7 @@ GEM
     prawn_rails (0.0.11)
       prawn (>= 0.11.1)
       railties (>= 3.0.0)
-    rabl (0.7.3)
+    rabl (0.7.6)
       activesupport (>= 2.3.14)
       multi_json (~> 1.0)
     rack (1.4.1)
@@ -220,7 +216,7 @@ GEM
       activesupport (= 3.2.8)
       bundler (~> 1.0)
       railties (= 3.2.8)
-    rails-i18n (0.6.6)
+    rails-i18n (0.7.1)
       i18n (~> 0.5)
     railties (3.2.8)
       actionpack (= 3.2.8)
@@ -280,15 +276,13 @@ GEM
       rack (~> 1.0)
       tilt (~> 1.1, != 1.3.0)
     terminal-table (1.4.5)
-    therubyracer (0.9.10)
-      libv8 (~> 3.3.10)
     thor (0.16.0)
     tilt (1.3.3)
-    treetop (1.4.11)
+    treetop (1.4.12)
       polyglot
       polyglot (>= 0.3.1)
     ttfunk (1.0.3)
-    tzinfo (0.3.33)
+    tzinfo (0.3.35)
     warden (1.2.1)
       rack (>= 1.0)
     xpath (0.1.4)
@@ -303,7 +297,6 @@ DEPENDENCIES
   database_cleaner
   fabrication
   faker
-  iugu-api!
   iugusdk!
   jquery-rails
   mysql2
