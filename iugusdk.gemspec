@@ -39,6 +39,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'http_accept_language'
   s.add_dependency 'delayed_job_active_record'
   s.add_dependency 'koala'
+  # s.add_dependency 'iugu-api', :path => "../iugu-api"
   # s.add_dependency "jquery-rails"
 
   s.add_development_dependency "mysql2"

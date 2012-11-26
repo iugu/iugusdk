@@ -300,32 +300,15 @@ PLATFORMS
 DEPENDENCIES
   brakeman
   capybara
-  coffee-script
   database_cleaner
-  default_value_for
-  devise (~> 2.1)
   fabrication
   faker
-  fuubar
-  haml
-  haml-rails
   iugu-api!
   iugusdk!
   jquery-rails
-  kaminari
-  less (~> 2.0.6)
   mysql2
-  nokogiri
-  omniauth
-  paperclip (~> 2.0)
   populator
-  prawn
-  prawn_rails
-  rabl
-  rails-i18n
   rr
   rspec-rails
-  sass-rails
   shoulda-matchers
-  simple_form
   simplecov
