@@ -1,8 +1,20 @@
 #!/bin/bash
-set -ex
+set -o errtrace 
+# set -o nounset
+trap onexit 1 2 3 15 ERR
 
 r=( $(openssl rand 100000 | sha1sum) )
 database_name="${r:0:8}"
+
+function onexit() {
+    local exit_status=${1:-$?}
+    echo Exiting $0 with $exit_status
+    if [ ! -z "${xvfb_status}" ]; then
+      /etc/init.d/xvfb stop
+    fi
+    destroy_test_database ${database_name}
+    exit $exit_status
+}
 
 configure_test_database ${database_name}
 
@@ -28,8 +40,8 @@ fi
 bundle install --path vendor/gems --binstubs
 RAILS_ENV=test bundle exec rake db:setup
 /etc/init.d/xvfb start
+xvfb_status=1
 export DISPLAY=:99 firefox
 RAILS_ENV=test bundle exec rake test
-/etc/init.d/xvfb stop
 
-destroy_test_database ${database_name}
+onexit
