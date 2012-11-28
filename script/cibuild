@@ -1,3 +1,6 @@
+#!/bin/sh
+set -ex
+
 r=( $(openssl rand 100000 | sha1sum) )
 database_name="${r:0:8}"
 
