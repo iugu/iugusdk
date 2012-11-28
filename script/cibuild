@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 set -ex
 
 r=( $(openssl rand 100000 | sha1sum) )
