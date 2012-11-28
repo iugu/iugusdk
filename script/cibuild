@@ -1,0 +1,33 @@
+r=( $(openssl rand 100000 | sha1sum) )
+database_name="${r:0:8}"
+
+configure_test_database ${database_name}
+
+if [ -d "./spec/dummy/config" ]; then
+  echo " . preparing database.yml"
+
+  DATABASE_CONFIGURATION=$(cat <<EOF
+test:
+  adapter: mysql2
+  encoding: utf8
+  reconnect: false
+  database: ${database_name}_test
+  pool: 5
+  username: ${database_name}_test
+  password: ${database_name}_test
+  socket: /var/run/mysqld/mysqld.sock
+EOF
+  )
+
+  echo "${DATABASE_CONFIGURATION}" > "./spec/dummy/config/database.yml"
+fi
+
+RAILS_ENV=test bundle exec rake db:test:load
+bundle install --path vendor/gems --binstubs
+
+/etc/init.d/xvfb start
+export DISPLAY=:99 firefox
+RAILS_ENV=test bundle exec rake test
+/etc/init.d/xvfb stop
+
+destroy_test_database ${database_name}
