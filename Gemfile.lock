@@ -73,13 +73,13 @@ GEM
       sass (~> 3.0)
       terminal-table (~> 1.4)
     builder (3.0.4)
-    capybara (2.0.1)
+    capybara (1.1.2)
       mime-types (>= 1.16)
       nokogiri (>= 1.3.3)
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       selenium-webdriver (~> 2.0)
-      xpath (~> 1.0.0)
+      xpath (~> 0.1.4)
     childprocess (0.3.6)
       ffi (~> 1.0, >= 1.0.6)
     cocaine (0.4.2)
@@ -104,7 +104,7 @@ GEM
     erubis (2.7.0)
     execjs (1.4.0)
       multi_json (~> 1.0)
-    fabrication (2.5.0)
+    fabrication (2.4.0)
     faker (1.1.2)
       i18n (~> 0.5)
     faraday (0.8.4)
@@ -286,7 +286,7 @@ GEM
     warden (1.2.1)
       rack (>= 1.0)
     websocket (1.0.4)
-    xpath (1.0.0)
+    xpath (0.1.4)
       nokogiri (~> 1.3)
 
 PLATFORMS
@@ -294,15 +294,16 @@ PLATFORMS
 
 DEPENDENCIES
   brakeman
-  capybara
+  capybara (= 1.1.2)
   database_cleaner
-  fabrication
+  fabrication (= 2.4.0)
   faker
   iugusdk!
   jquery-rails
   mysql2
   populator
   rr
+  rspec
   rspec-rails
   shoulda-matchers
   simplecov

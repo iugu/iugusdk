@@ -3,7 +3,7 @@ require 'spec_helper'
 class StubAccountSettingsController < Iugu::AccountSettingsController
 
   def index
-    render :text => "true", :status => 200
+     render :text => "true", :layout => false, :formats => [:html], :status => 200
   end
   
 end

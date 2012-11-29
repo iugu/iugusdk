@@ -1,7 +1,7 @@
 class Iugu::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
-  def method_missing(provider)
-    if !User.omniauth_providers.index(provider).nil?
+  def action_missing(provider)
+    if !User.omniauth_providers.index(provider.to_sym).nil?
       if current_user 
         raise ActionController::RoutingError.new("Not found") unless IuguSDK::enable_social_linking
         current_user.find_or_create_social(env["omniauth.auth"])
@@ -20,6 +20,6 @@ class Iugu::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   end
   
   def passthru
-    render :status => 404, :text => "Not found. Authentication passthru."
+    render :status => 404, :text => "Not found. Authentication passthru.", :layout => false
   end
 end

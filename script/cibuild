@@ -42,6 +42,6 @@ RAILS_ENV=test bundle exec rake db:setup
 /etc/init.d/xvfb start
 xvfb_status=1
 export DISPLAY=:99 firefox
-RAILS_ENV=test bundle exec rake test
+RAILS_ENV=test bundle exec rspec spec
 
 onexit

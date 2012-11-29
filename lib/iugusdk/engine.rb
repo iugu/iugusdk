@@ -5,7 +5,9 @@ module IuguSDK
 
        IuguSDK.app_root = app.root
 
-       app.config.middleware.insert_before( app.config.session_store, SessionParameterMiddleware, app.config.session_options[:key])
+       #app.config.middleware.insert_before( app.config.session_store, SessionParameterMiddleware, app.config.session_options[:key])
+       # app.middleware.insert_before( app.config.session_store, IuguSDK::SessionParameterMiddleware, app.config.session_options[:key])
+       # config.middleware.insert_before( ActionDispatch::Session::CookieStore, SessionParameterMiddleware, app.config.session_options[:key] )
 
     end
 
