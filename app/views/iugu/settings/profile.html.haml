@@ -51,8 +51,9 @@
     %div
       = f.input :birthdate, :as => :date, :start_year => Date.today.year - 5, :end_year => Date.today.year - 100, :order => [:day, :month, :year], :label => I18n.t("activerecord.attributes.birthdate")
 
-    %div
-      = f.input :locale, :collection => AvailableLanguage.all, :label => I18n.t("activerecord.attributes.locale")
+    - if AvailableLanguage.all.count > 1
+      %div
+        = f.input :locale, :collection => AvailableLanguage.all, :label => I18n.t("activerecord.attributes.locale")
 
     %div
       = f.submit "OK"
