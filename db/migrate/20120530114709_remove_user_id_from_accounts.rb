@@ -4,6 +4,6 @@ class RemoveUserIdFromAccounts < ActiveRecord::Migration
   end
 
   def down
-    add_column :accounts, :user_id, :integer
+    add_column :accounts, :user_id, :binary, :limit => 16
   end
 end

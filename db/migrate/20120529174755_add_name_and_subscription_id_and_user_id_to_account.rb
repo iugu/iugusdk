@@ -2,7 +2,7 @@ class AddNameAndSubscriptionIdAndUserIdToAccount < ActiveRecord::Migration
   def up
     add_column :accounts, :name, :string
     add_column :accounts, :subscription_id, :integer
-    add_column :accounts, :user_id, :integer
+    add_column :accounts, :user_id, :binary, :limit => 16
   end
 
   def down
