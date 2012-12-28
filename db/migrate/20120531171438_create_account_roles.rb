@@ -1,9 +1,11 @@
 class CreateAccountRoles < ActiveRecord::Migration
   def up
-    create_table :account_roles do |t|
+    create_table :account_roles, id: false do |t|
+      t.uuid :id, primary_key: true
       t.column :name, :string
-      t.column :account_user_id, :integer
+      t.uuid :account_user_id
     end
+    add_index :account_roles, :id
   end
 
   def down

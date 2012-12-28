@@ -1,12 +1,19 @@
 class Account < ActiveRecord::Base
+  include ActiveUUID::UUID
   # Validators
 
-  has_many :account_users, :dependent => :destroy, :include => [:roles,:account]
+  #TODO: Tirei o include porque dava pau no UUID
+  #has_many :account_users, :dependent => :destroy, :include => [:roles,:account]
+  has_many :account_users, :dependent => :destroy
+
   has_many :account_domains, :dependent => :destroy
   has_many :users, :through => :account_users
   has_many :tokens, :as => :tokenable, :class_name => "ApiToken"
-  handle_asynchronously :destroy, :queue => Proc.new { |p| "account_#{p.id}_destroy" },
-                        :run_at => Proc.new { DateTime.now + IuguSDK::delay_account_exclusion }
+  
+  alias :_destroy :destroy
+  def destroy
+    Delayed::Job.enqueue DestroyAccountJob.new(id.to_s), :queue => "account_#{id}_destroy", :run_at => DateTime.now + IuguSDK::delay_account_exclusion
+  end
 
   validates :subdomain, :uniqueness => true, :unless => Proc.new { |a| a.subdomain.blank? }
   validate :subdomain_blacklist, :name

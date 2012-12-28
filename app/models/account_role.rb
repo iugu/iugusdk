@@ -1,4 +1,6 @@
 class AccountRole < ActiveRecord::Base
+  include ActiveUUID::UUID
+
   belongs_to :account_user
   validate :valid_role?
 

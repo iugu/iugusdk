@@ -15,6 +15,7 @@ require 'database_cleaner'
 require 'rr'
 
 require File.dirname(__FILE__) + "/controller_macros"
+require File.dirname(__FILE__) + "/request_macros"
 
 ENGINE_RAILS_ROOT=File.join(File.dirname(__FILE__), '../')
 

@@ -22,9 +22,9 @@
         = I18n.t("iugu.active")
       - else
         |
-        = link_to I18n.t("iugu.select"), account_select_path(:id => account.id)
+        = link_to I18n.t("iugu.select"), account_select_path(account)
       |
-      = link_to I18n.t("iugu.settings"), account_view_path(:id => account.id)
+      = link_to I18n.t("iugu.settings"), account_view_path(account)
 
 - else
   %h2

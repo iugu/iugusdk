@@ -1,4 +1,6 @@
 class AccountUser < ActiveRecord::Base
+  include ActiveUUID::UUID
+
   has_many :roles, :class_name => "AccountRole", :dependent => :destroy
   belongs_to :user
   belongs_to :account
@@ -10,9 +12,10 @@ class AccountUser < ActiveRecord::Base
 
   attr_accessible :user
 
-  handle_asynchronously :destroy, :queue => Proc.new { |p| "account_user_#{p.id}_destroy" },
-                        :run_at => Proc.new { DateTime.now + IuguSDK::delay_account_user_exclusion }
-
+  alias :_destroy :destroy
+  def destroy
+    Delayed::Job.enqueue DestroyAccountUserJob.new(id.to_s), :queue => "account_user_#{id}_destroy", :run_at => DateTime.now + IuguSDK::delay_account_user_exclusion
+  end
 
   def destruction_job
     Delayed::Job.find_by_queue("account_user_#{id}_destroy")

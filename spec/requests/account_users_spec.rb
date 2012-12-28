@@ -5,89 +5,83 @@ describe "Account Users Requests" do
     IuguSDK::enable_social_login = true
     IuguSDK::enable_multiple_users_per_account = true
     @user = Fabricate(:user)
-    visit '/account/auth/facebook'
-    @current_user = User.last
-    @account = Account.last
+    @account = @user.accounts.first
+    @account_user = @user.account_users.first
+    login_request @user
   end
 
   context "index" do
 
-    context "when current_user is account owner" do
-
+    context "when current_user role is" do
       before(:each) do
-        @account.account_users << AccountUser.create(:user => @user)
-        @account.account_users.last.set_roles(["user"])
-        @account_user = AccountUser.find_by_account_id_and_user_id(Account.last.id, User.last.id)
-        @account_user.set_roles(["owner"])
-        visit account_users_index_path(:account_id => User.last.accounts.first.id)
+        @new_user = Fabricate(:user) { email "xpto@account.test" }
+        @new_user_on_account = Fabricate(:account_user, user: @new_user)
+        @account.account_users << @new_user_on_account
+
+        @new_user_on_account.set_roles(["user"])
       end
 
-      it { page.should have_content User.last.name }
-      it { page.should have_link I18n.t("iugu.remove") }
-      it { page.should have_link I18n.t("iugu.invite") }
-      it { page.should have_link I18n.t("iugu.permissions") }
+      context do
+        before(:each) do
+          visit account_users_index_path(:account_id => @account)
+        end
 
-    end
+        context "owner" do
 
-    context "when current_user is account admin" do
+          it { page.should have_content @new_user.name }
+          it { page.should have_link I18n.t("iugu.remove") }
+          it { page.should have_link I18n.t("iugu.invite") }
+          it { page.should have_link I18n.t("iugu.permissions") }
 
-      before(:each) do
-        @account.account_users << AccountUser.create(:user => @user)
-        @account.account_users.last.set_roles(["user"])
-        @account_user = AccountUser.find_by_account_id_and_user_id(Account.last.id, User.last.id)
-        @account_user.set_roles(["admin"])
-        visit account_users_index_path(:account_id => User.last.accounts.first.id)
+        end
+
+        context "admin" do
+
+          it { page.should have_content @new_user.name }
+          it { page.should have_link I18n.t("iugu.remove") }
+          it { page.should have_link I18n.t("iugu.invite") }
+          it { page.should have_link I18n.t("iugu.permissions") }
+
+        end
+
       end
 
-      it { page.should have_content User.last.name }
-      it { page.should have_link I18n.t("iugu.remove") }
-      it { page.should have_link I18n.t("iugu.invite") }
-      it { page.should have_link I18n.t("iugu.permissions") }
+      context "not owner nor admin" do
 
-    end
+        before(:each) do
+          @new_user_on_account.set_roles(["owner"])
+          @account_user.set_roles(["user"])
+          visit account_users_index_path(:account_id => @account)
+        end
 
-    context "when current_user is not owner nor admin" do
+        it { page.should have_content @new_user.name }
+        it { page.should_not have_link I18n.t("iugu.remove") }
+        it { page.should_not have_link I18n.t("iugu.invite") }
+        it { page.should_not have_link I18n.t("iugu.permissions") }
 
-      before(:each) do
-        @account.account_users << Fabricate(:account_user) { user Fabricate(:user) { email "notowner@account.test" } }
-        @account.account_users << AccountUser.create(:user => @user)
-        @account.account_users.last.set_roles(["user"])
-        @account_user = AccountUser.find_by_account_id_and_user_id(@account.id, @current_user.id)
-        @account_user.set_roles(["user"])
-        visit account_users_index_path(:account_id => @current_user.accounts.first.id)
       end
 
-      it { page.should have_content User.last.name }
-      it { page.should_not have_link I18n.t("iugu.remove") }
-      it { page.should_not have_link I18n.t("iugu.invite") }
-      it { page.should_not have_link I18n.t("iugu.permissions") }
-    
-    end
-    
-    context "when current_user and account_user are owners" do
-      before(:each) do
-        @account.account_users << AccountUser.create(:user => @user)
-        @account.account_users.last.set_roles(["owner"])
-        @account_user = AccountUser.find_by_account_id_and_user_id(Account.last.id, @current_user.id)
-        @account_user.set_roles(["owner"])
-        visit account_users_index_path(:account_id => @current_user.accounts.first.id)
+      context "owner and account_user is also owner" do
+        before(:each) do
+          @new_user_on_account.set_roles(["owner"])
+          visit account_users_index_path(:account_id => @account)
+        end
+
+        it { page.should have_content @new_user.name }
+        it { page.should_not have_link I18n.t("iugu.remove") }
+        it { page.should have_link I18n.t("iugu.invite") }
+        it { page.should have_link I18n.t("iugu.permissions") }
+
       end
 
-      it { page.should have_content User.last.name }
-      it { page.should_not have_link I18n.t("iugu.remove") }
-      it { page.should have_link I18n.t("iugu.invite") }
-      it { page.should have_link I18n.t("iugu.permissions") }
-    
     end
 
     context "when current_user is the only user of the account" do
       before(:each) do
-        @account_user = AccountUser.find_by_account_id_and_user_id(Account.last.id, @current_user.id)
-        @account_user.set_roles(["owner"])
-        visit account_users_index_path(:account_id => @current_user.accounts.first.id)
+        visit account_users_index_path(:account_id => @account)
       end
 
-      it { page.should have_content User.last.name }
+      it { page.should have_content @user.name }
       it { page.should_not have_link I18n.t("iugu.remove") }
       it { page.should have_link I18n.t("iugu.invite") }
       it { page.should have_link I18n.t("iugu.permissions") }
@@ -98,11 +92,12 @@ describe "Account Users Requests" do
 
   context "destroy" do
     before(:each) do
-      @account.account_users << AccountUser.create(:user => @user)
-      @account.account_users.last.set_roles(["user"])
-      @account_user = AccountUser.find_by_account_id_and_user_id(Account.last.id, User.last.id)
-      @account_user.set_roles(["owner"])
-      visit account_users_index_path(:account_id => User.last.accounts.first.id)
+      @new_user = Fabricate(:user) { email "xpto@account.test" }
+      @new_user_on_account = Fabricate(:account_user, user: @new_user)
+      @account.account_users << @new_user_on_account
+
+      @new_user_on_account.set_roles(["user"])
+      visit account_users_index_path(:account_id => @account)
     end
     
     context "when delay_account_user_exclusion == 0" do

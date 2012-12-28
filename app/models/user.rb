@@ -1,15 +1,20 @@
 class User < ActiveRecord::Base
+  include ActiveUUID::UUID
   # Include default devise modules. Others available are:
   # :token_authenticatable, :trackable, :validatable,
   # :lockable and :timeoutable 
   
-  has_many :account_users, :dependent => :destroy, :include => [:roles,:account]
+  #TODO: Tirei o include porque dava pau com UUID
+  #has_many :account_users, :dependent => :destroy, :include => [:roles,:account]
+  has_many :account_users, :dependent => :destroy
   has_many :accounts, :through => :account_users
   has_many :social_accounts, :dependent => :destroy
   has_one :token, :as => :tokenable, :class_name => "ApiToken"
 
-  handle_asynchronously :destroy, :queue => Proc.new { |p| "user_#{p.id}_destroy" },
-                        :run_at => Proc.new { DateTime.now + IuguSDK::delay_user_exclusion }
+  alias :_destroy :destroy
+  def destroy
+    Delayed::Job.enqueue DestroyUserJob.new(id.to_s), :queue => "user_#{id}_destroy", :run_at => DateTime.now + IuguSDK::delay_user_exclusion
+  end
 
   devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :validatable, :omniauthable

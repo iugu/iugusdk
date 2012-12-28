@@ -11,7 +11,7 @@ class Iugu::AccountRolesController < Iugu::SettingsController
     @account = current_user.accounts.find(params[:id])
     @account_user = @account.account_users.find_by_user_id(params[:user_id])
     @account_user.set_roles(params[:roles])
-    redirect_to account_users_index_path(@account.id), :notice => I18n.t("iugu.notices.roles_changed")
+    redirect_to account_users_index_path(@account), :notice => I18n.t("iugu.notices.roles_changed")
   end
   
 end

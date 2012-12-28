@@ -1,6 +1,8 @@
 require 'resolv'
 require 'uri'
 class AccountDomain < ActiveRecord::Base
+  include ActiveUUID::UUID
+
   belongs_to :account
   validates :url, :account_id, :presence => true
   validate :validate_pattern, :validate_blacklist

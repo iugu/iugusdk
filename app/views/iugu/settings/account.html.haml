@@ -1,6 +1,7 @@
 - content_for :title do I18n.t("iugu.account") + " #{@account.id}" end
 
 %br
+%br
 %h2
   = I18n.t("iugu.account_settings") + " (##{@account.id})"
 
@@ -8,7 +9,7 @@
   - if flash[:group] == :account_update
     = flash[:notice]
 
-  = simple_form_for @account, :url => account_update_path(:id => @account.id), :method => :put do |f|
+  = simple_form_for @account, :url => account_update_path(@account), :method => :put do |f|
     = f.label :name, I18n.t("activerecord.attributes.name")
     = f.text_field :name
     %br
@@ -24,7 +25,7 @@
   %br
   = I18n.t("iugu.custom_domains")
   - if current_user.is?(:owner, @account) || current_user.is?(:admin, @account)
-    = link_to I18n.t("iugu.manage"), account_domains_index_path(@account.id)
+    = link_to I18n.t("iugu.manage"), account_domains_index_path(@account)
   %br
   - if @primary_domain
     = I18n.t("iugu.primary") + ":"
@@ -33,7 +34,7 @@
 - if IuguSDK::enable_multiple_users_per_account
   %br
   %br
-  = link_to I18n.t("iugu.users_and_roles"), account_users_index_path(@account.id)
+  = link_to I18n.t("iugu.users_and_roles"), account_users_index_path(@account)
 
 - if IuguSDK::enable_subscription_features
   %br
@@ -61,7 +62,7 @@
         = "#{token.description} - #{token.api_type} - #{token.token} - #{token.created_at}"
         %br
       %br
-      = form_tag(account_generate_new_token_path(@account.id), :method => :post) do
+      = form_tag(account_generate_new_token_path(@account), :method => :post) do
         = I18n.t('iugu.api_type')
         = select_tag :api_type, options_for_select(IuguSDK::account_api_tokens)
         = I18n.t('iugu.description')
@@ -73,9 +74,9 @@
   %br
   - unless @account.destroying?
     - if IuguSDK::enable_account_cancel
-      = link_to I18n.t("iugu.cancel_account"), account_destroy_path(@account.id), :method => :delete
+      = link_to I18n.t("iugu.cancel_account"), account_destroy_path(@account), :method => :delete
   - else
     - if IuguSDK::delay_account_exclusion > 0
-      = link_to I18n.t("iugu.undo"), account_cancel_destruction_path(@account.id), :method => :delete
+      = link_to I18n.t("iugu.undo"), account_cancel_destruction_path(@account), :method => :delete
     - else
       = I18n.t("iugu.account_destruction_in") + @account.destruction_job.run_at.to_s

@@ -86,12 +86,12 @@ describe Iugu::AccountUsersController do
 
       context "and try to delete itself from the account" do
         before(:each) do
-          @account.account_users.find_by_user_id(@user.id).set_roles ["admin"]
+          @account.account_users.find_by_user_id(@user).set_roles ["admin"]
         end
 
         it 'should raise routing error' do
           lambda {
-            get :destroy, :account_id => @account.id, :user_id => @user.id
+            get :destroy, :account_id => @account, :user_id => @user
           }.should raise_error ActionController::RoutingError
         end
       

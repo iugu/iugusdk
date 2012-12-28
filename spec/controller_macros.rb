@@ -25,15 +25,16 @@ module ControllerMacros
     def login_as_user
       before(:each) do
         @request.env["devise.mapping"] = Devise.mappings[:user]
-        user = @user if @user
-        if user.nil?
-          user = Fabricate(:user, :email => "teste@teste.com", :password => "123456", :password_confirmation => "123456" )
-          @user = user
-        end
+        #user = @user if @user
+        #if user.nil?
+          #user = Fabricate(:user, :email => "teste@teste2.com", :password => "123456", :password_confirmation => "123456" )
+          #@user = user
+        #end
+        @user ||= Fabricate(:user, email: "teste@teste.com", password: "123456", password_confirmation: "123456")
         account = Fabricate(:account)
-        account.account_users << Fabricate(:account_user, :user => user)
-        sign_in user
-        set_account user
+        account.account_users << Fabricate(:account_user, :user => @user, :account => account)
+        sign_in @user
+        set_account @user
       end
     end
   end

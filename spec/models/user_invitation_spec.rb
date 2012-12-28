@@ -70,8 +70,8 @@ describe UserInvitation do
 
   context "accept" do
     before(:each) do
-      @user_invitation = Fabricate(:user_invitation)
       @account = Fabricate(:account)
+      @user_invitation = Fabricate(:user_invitation, :account => @account)
       @user = Fabricate(:user)
     end
 
@@ -83,11 +83,12 @@ describe UserInvitation do
     end
 
     it 'should save invite roles on account_user' do
-      @user_invitation.account_id = @account.id
       @user_invitation.roles =(["user", "guest"].join(','))
       @user_invitation.save
       @user_invitation.accept(@user)
-      AccountUser.last.is?('user').should be_true
+      @account.reload
+      @account.is?(:user, @user).should be_true
+      @account.is?(:guest, @user).should be_true
     end
 
     it 'should return true if successfull' do

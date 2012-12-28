@@ -1,4 +1,6 @@
 class UserInvitation < ActiveRecord::Base
+  include ActiveUUID::UUID
+
   validates :email, :email => true, :presence => true
   validate :email_already_used?
   before_save :set_token
@@ -21,9 +23,8 @@ class UserInvitation < ActiveRecord::Base
   end
 
   def accept(user)
-    account = Account.find(account_id)
     if account.account_users.where(:user_id => user.id).empty?
-      account.account_users << account_user = AccountUser.create(:user => user)
+      account_user = account.account_users.create(:user => user)
       account_user.set_roles(roles.split(',')) if roles
       true
     else

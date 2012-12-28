@@ -14,21 +14,27 @@
 ActiveRecord::Schema.define(:version => 20121108115535) do
 
   create_table "account_domains", :force => true do |t|
-    t.integer "account_id"
+    t.binary  "account_id", :limit => 16
     t.string  "url"
     t.boolean "verified"
     t.boolean "primary"
   end
 
+  add_index "account_domains", ["id"], :name => "index_account_domains_on_id"
+
   create_table "account_roles", :force => true do |t|
-    t.string  "name"
-    t.integer "account_user_id"
+    t.string "name"
+    t.binary "account_user_id", :limit => 16
   end
 
+  add_index "account_roles", ["id"], :name => "index_account_roles_on_id"
+
   create_table "account_users", :force => true do |t|
-    t.integer "account_id"
-    t.integer "user_id"
+    t.binary "account_id", :limit => 16
+    t.binary "user_id",    :limit => 16
   end
+
+  add_index "account_users", ["id"], :name => "index_account_users_on_id"
 
   create_table "accounts", :force => true do |t|
     t.datetime "created_at",      :null => false
@@ -38,15 +44,19 @@ ActiveRecord::Schema.define(:version => 20121108115535) do
     t.string   "subdomain"
   end
 
+  add_index "accounts", ["id"], :name => "index_accounts_on_id"
+
   create_table "api_tokens", :force => true do |t|
     t.string   "token"
     t.string   "description"
     t.string   "api_type"
-    t.integer  "tokenable_id"
+    t.binary   "tokenable_id",   :limit => 16
     t.string   "tokenable_type"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
+    t.datetime "created_at",                   :null => false
+    t.datetime "updated_at",                   :null => false
   end
+
+  add_index "api_tokens", ["id"], :name => "index_api_tokens_on_id"
 
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
@@ -65,21 +75,25 @@ ActiveRecord::Schema.define(:version => 20121108115535) do
   add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
 
   create_table "social_accounts", :force => true do |t|
-    t.integer "social_id"
-    t.integer "user_id"
-    t.string  "provider"
-    t.string  "token"
-    t.string  "secret"
+    t.string "social_id"
+    t.binary "user_id",   :limit => 16
+    t.string "provider"
+    t.string "token"
+    t.string "secret"
   end
 
+  add_index "social_accounts", ["id"], :name => "index_social_accounts_on_id"
+
   create_table "user_invitations", :force => true do |t|
-    t.integer  "invited_by"
+    t.binary   "invited_by", :limit => 16
     t.string   "email"
     t.datetime "sent_at"
-    t.integer  "account_id"
+    t.binary   "account_id", :limit => 16
     t.string   "token"
     t.string   "roles"
   end
+
+  add_index "user_invitations", ["id"], :name => "index_user_invitations_on_id"
 
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
@@ -101,6 +115,7 @@ ActiveRecord::Schema.define(:version => 20121108115535) do
 
   add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true
   add_index "users", ["email"], :name => "index_users_on_email"
+  add_index "users", ["id"], :name => "index_users_on_id"
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
 
 end

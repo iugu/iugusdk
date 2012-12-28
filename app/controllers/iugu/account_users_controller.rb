@@ -23,7 +23,7 @@ class Iugu::AccountUsersController < Iugu::AccountSettingsController
     else
       raise ActionController::RoutingError.new('Not Found')
     end
-    raise ActionController::RoutingError.new('Access Denied') if @account_user.user_id == current_user.id || @account_user.is?(:owner)
+    raise ActionController::RoutingError.new('Access Denied') if @account_user.user.id == current_user.id || @account_user.is?(:owner)
     @account_user.destroy
     redirect_to account_users_index_path(params[:account_id]), :notice => I18n.t("iugu.account_user_destruction_in") + @account_user.destruction_job.run_at.to_s
   end

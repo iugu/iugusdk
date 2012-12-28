@@ -39,6 +39,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'http_accept_language'
   s.add_dependency 'delayed_job_active_record'
   s.add_dependency 'koala'
+  s.add_dependency 'activeuuid'
   s.add_dependency 'iugu-api'
   # s.add_dependency "jquery-rails"
 
@@ -54,4 +55,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency "simplecov"
   s.add_development_dependency "rr"
   s.add_development_dependency "brakeman"
+  s.add_development_dependency "launchy"
 end

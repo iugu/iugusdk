@@ -1,4 +1,6 @@
 class ApiToken < ActiveRecord::Base
+  include ActiveUUID::UUID
+
   belongs_to :tokenable, :polymorphic => true
 
   before_create :set_first_token
