@@ -1,9 +1,10 @@
 PATH
   remote: .
   specs:
-    iugusdk (1.0.0.alpha.5)
+    iugusdk (1.0.0.alpha.6)
       activeuuid
       coffee-script
+      database_cleaner
       default_value_for
       delayed_job_active_record
       devise (>= 2.1)
@@ -304,7 +305,6 @@ PLATFORMS
 DEPENDENCIES
   brakeman
   capybara (= 1.1.2)
-  database_cleaner
   fabrication (= 2.4.0)
   faker
   iugusdk!

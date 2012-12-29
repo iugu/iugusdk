@@ -41,6 +41,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'koala'
   s.add_dependency 'activeuuid'
   s.add_dependency 'iugu-api'
+  s.add_dependency 'database_cleaner'
   # s.add_dependency "jquery-rails"
 
   s.add_development_dependency "mysql2"
@@ -49,7 +50,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency "shoulda-matchers"
   s.add_development_dependency "fabrication", "= 2.4.0"
   s.add_development_dependency "capybara", "= 1.1.2"
-  s.add_development_dependency "database_cleaner"
   s.add_development_dependency "faker"
   s.add_development_dependency "populator"
   s.add_development_dependency "simplecov"

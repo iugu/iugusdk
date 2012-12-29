@@ -4,6 +4,9 @@ module IuguSDK
     initializer "iugusdk.load_app_root" do |app|
 
        IuguSDK.app_root = app.root
+       app.class.configure do
+         config.paths['db/migrate'] += IuguSDK::Engine.paths['db/migrate'].existent
+       end
 
        #app.config.middleware.insert_before( app.config.session_store, SessionParameterMiddleware, app.config.session_options[:key])
        # app.middleware.insert_before( app.config.session_store, IuguSDK::SessionParameterMiddleware, app.config.session_options[:key])
