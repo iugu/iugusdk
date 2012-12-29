@@ -1,4 +1,4 @@
-require 'database_cleaner'
+# require 'database_cleaner'
 
 namespace :db do
   desc 'truncate database data'
