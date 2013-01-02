@@ -48,8 +48,8 @@ describe AccountDomain do
 
   it 'should set the first verified domain as primary if the primary domain is destroyed' do
     @account = Fabricate(:account)
-    @account.account_domains << @domain1 = AccountDomain.create(:url => "url1.test.test")
-    @account.account_domains << @domain2 = AccountDomain.create(:url => "url2.test.test")
+    @account.account_domains << @domain1 = AccountDomain.create(:url => "url1.test.net")
+    @account.account_domains << @domain2 = AccountDomain.create(:url => "url2.test.net")
     @domain1.update_attribute(:verified, true)
     @domain2.update_attribute(:verified, true)
     @domain1.set_primary
@@ -61,7 +61,7 @@ describe AccountDomain do
   context "calculate_token" do
     it 'should return url token' do
       @account_domain = Fabricate(:account_domain) do
-        url "www.normal.host"
+        url "www.normal.net"
       end
       @account_domain.calculate_token.class.should == String
     end
@@ -70,7 +70,7 @@ describe AccountDomain do
   context "verify" do
     it 'should return true for valid url' do
       @account_domain = Fabricate(:account_domain) do
-        url "www.test.net"
+        url "test.com"
       end
       @account_domain.verify
       @account_domain.verified.should be_true
@@ -86,11 +86,11 @@ describe AccountDomain do
 
     it 'should unverify other domains with equal url' do
       @account_domain1 = Fabricate(:account_domain) do
-        url "www.test.net"
+        url "www.test.com"
       end
       @account_domain1.update_attribute(:verified, true)
       @account_domain2 = Fabricate(:account_domain) do
-        url "www.test.net"
+        url "www.test.com"
       end
 
       @account_domain2.verify
@@ -101,7 +101,7 @@ describe AccountDomain do
     
     it 'should set primary as true if its the first domain of the account' do
       @account = Fabricate(:account)
-      @account.account_domains << @domain = Fabricate(:account_domain) { url 'www.test.net' }
+      @account.account_domains << @domain = Fabricate(:account_domain) { url 'www.test.com' }
       @domain.verify
       @domain.reload
       @domain.primary.should be_true

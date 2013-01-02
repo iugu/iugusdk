@@ -26,7 +26,7 @@ class Iugu::RegistrationsController < Devise::RegistrationsController
       sign_in @user
       select_account
       flash[:notice] = I18n.t("iugu.notices.guest_login")
-      redirect_to root_path
+      redirect_to IuguSDK::app_main_url
       #respond_with @user, :location => sign_up_path_for(@user)
     else
       raise ActionController::RoutingError.new("Not found")

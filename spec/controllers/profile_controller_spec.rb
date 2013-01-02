@@ -153,12 +153,12 @@ describe Iugu::ProfileController do
       end
 
       context "when become_user returns false" do
-        before(:each) do
-          stub.any_instance_of(User).become_user { false }
-          post :become_user, :user => { :email => "regular@user.email", :password => "senhasecreta", :password_confirmation => "senhasecreta" }
-        end
-        
-        it { response.should render_template "iugu/settings/profile" }
+       before(:each) do
+         stub.any_instance_of(User).become_user { false }
+         post :become_user, :user => { :email => "regular@user.email", :password => "senhasecreta", :password_confirmation => "senhasecreta" }
+       end
+      
+       it { response.should render_template "iugu/settings/profile" }
       
       end
   
