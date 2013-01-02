@@ -138,7 +138,6 @@ describe Iugu::ProfileController do
 
       context "when become_user return true" do
         before(:each) do
-          puts "OK"
           post :become_user, :user => { :email => "regular@user.email", :password => "senhasecreta", :password_confirmation => "senhasecreta" }
         end
 

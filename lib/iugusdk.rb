@@ -121,7 +121,7 @@ module IuguSDK
   self.guest_user_prefix = 'appuser'
 
   self.default_layout = "settings"
-  self.alternative_layout = "application"
+  self.alternative_layout = "iugu-sdk"
 
 
   def initialize

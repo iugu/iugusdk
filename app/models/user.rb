@@ -75,7 +75,9 @@ class User < ActiveRecord::Base
     })
     user.skip_confirmation!
     user.save(:validate => false)
-    user.delay(:run_at => DateTime.now + IuguSDK::destroy_guest_in, :queue => "guest_#{user.id}").destroy
+
+    # Creating JOB for Destroy Guest Account
+    Delayed::Job.enqueue DestroyUserJob.new(user.id.to_s), :queue => "guest_#{user.id}_destroy", :run_at => DateTime.now + IuguSDK::destroy_guest_in
     user
   end
 
@@ -131,7 +133,7 @@ class User < ActiveRecord::Base
       self.password = data[:password]
       self.password_confirmation = data[:password_confirmation]
       if self.save
-        Delayed::Job.find_by_queue("guest_#{id}").destroy
+        Delayed::Job.find_by_queue("guest_#{id}_destroy").destroy
         self
       else
         self.guest = true

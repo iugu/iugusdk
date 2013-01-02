@@ -5,6 +5,11 @@ require 'rails/all'
 Bundler.require
 require "iugusdk"
 require "fabrication"
+require 'iugu-ux'
+require 'haml'
+require 'haml-rails'
+require 'sass-rails'
+require 'coffee-script' 
 
 module Dummy
   class Application < Rails::Application
@@ -51,11 +56,11 @@ module Dummy
     # Config Mailer
 
     config.action_mailer.smtp_settings = { 
-      address: "smtp.gmail.com",
+      address: ENV['DUMMY_TEST_SMTP_HOST'],
       port: 587,
-      domain: "iugu.com.br",
-      user_name: "envio@iugu.com.br",
-      password: "envioiugu",
+      domain: ENV['DUMMY_TEST_DOMAIN'],
+      user_name: ENV['DUMMY_TEST_USERNAME'],
+      password: ENV['DUMMY_TEST_PASSWORD'],
       authentication: :plain,
       enable_starttls_auto: true
     }
