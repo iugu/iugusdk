@@ -1,7 +1,12 @@
 @import "iugu-ux/core"
+@import "compass/utilities/general/clearfix"
 
 .iugu-ui
-  .responsive-dialog
+  .default-sdk-wrapper
+    padding: 0px
+  .default-optional
+    margin-bottom: 15px
+  .default-sdk-dialog
     width: 320px
     height: 480px
     margin-left: -160px
@@ -47,6 +52,26 @@
       .twitter,.twitter:visited
         background: #39B6DE
         color: #fff
+      .button:last-child
+        margin-bottom: 0px !important
+        
+          
+
+  &.settings .wrapper .container,.default-sdk-dialog
+
+    .social
+      table
+        tr td
+          width: 50%
+      table tr td:first-child span
+        display: block
+        font-size: 13px
+        text-transform: uppercase
+        color: #666
+        font-weight: bold
+        padding: 15px
+        padding-left: 10px
+        padding-bottom: 0px
 
     input[type="text"],input.string,input.password,.button
       width: 100%
@@ -72,3 +97,58 @@
 
     .full-width
       width: 100%
+
+@include for-small-screens()
+  .iugu-ui
+    .default-sdk-wrapper
+      padding: 10px
+    .default-optional
+      margin-bottom: 0px
+    .default-sdk-dialog
+      width: 100%
+      height: auto
+      position: relative
+      margin-left: auto
+      margin-right: auto
+      margin-top: auto
+      left: auto
+      top: auto
+
+
+.iugu-ui.settings
+  .wrapper
+    max-width: 600px
+    margin-left: auto
+    margin-right: auto
+    padding: 10px
+
+    .header
+      @include clearfix
+      .button
+        float: right
+
+    .tabbed .nav li
+      width: 50%
+
+    .tabbed .container
+      overflow: hidden
+
+@include for-small-screens(390px)
+  .iugu-ui,.iugu-ui.settings
+    .wrapper
+      .header
+        width: 100%
+        margin-top: 50px
+        position: relative
+        overflow: visible
+        @include box-mode
+        a
+          text-align: center
+          display: block
+          img
+            margin-bottom: $baseLineSpacing
+        .button
+          width: 100%
+          float: none
+          position: absolute
+          top: -50px

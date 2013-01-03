@@ -1,12 +1,31 @@
-%h2 
-  = I18n.t("iugu.change_your_password")
-= simple_form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :put }) do |f|
-  = f.error_notification
-  = f.input :reset_password_token, :as => :hidden
-  = f.full_error :reset_password_token
-  .inputs
-    = f.input :password, :label => I18n.t("iugu.new_password"), :required => true
-    = f.input :password_confirmation, :label => I18n.t("iugu.confirm_your_new_password"), :required => true
-  .actions
-    = f.button :submit, I18n.t("iugu.change_my_password")
-= render :partial => "devise/shared/links"
+- content_for :title do I18n.t("iugu.change_your_password") end
+
+.default-sdk-wrapper
+  .default-sdk-dialog
+    .container.no-padding
+
+      = render :partial => "iugu/shared/responsive-dialog.header"
+
+      .padding
+
+        = simple_form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :put, :class => "no-bottom-margin" }) do |f|
+
+
+          - if resource.errors.size > 0
+            .notice.notice-red
+              = f.error_notification
+
+          %h6.no-bottom-margin
+            = I18n.t("iugu.change_your_password")
+
+          .inputs
+            = f.input :password, :label => false, :placeholder => I18n.t("iugu.new_password"), :required => true
+            = f.input :password_confirmation, :label => false, :placeholder => I18n.t("iugu.confirm_your_new_password"), :required => true
+
+          = f.input :reset_password_token, :as => :hidden
+
+          .actions
+            = f.button :submit, I18n.t("iugu.change_my_password"), :class => "full-width default"
+            %a.button.no-bottom-margin{ :href => new_session_path(resource_name) }
+              = I18n.t("iugu.back")
+

@@ -14,4 +14,9 @@ IuguSDK.setup do |config|
   config.enable_multiple_users_per_account = true
   config.enable_welcome_mail = true
   config.iws_api_key = "e183c263d0108fe64fb372725bacab6d"
+
+  config.delay_account_exclusion = 7
+  config.delay_account_user_exclusion = 7
+  config.delay_user_exclusion = 7
+
 end

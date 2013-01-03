@@ -10,6 +10,7 @@ require 'haml'
 require 'haml-rails'
 require 'sass-rails'
 require 'coffee-script' 
+require 'rails-i18n'
 
 module Dummy
   class Application < Rails::Application

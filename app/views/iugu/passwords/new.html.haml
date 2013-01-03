@@ -1,9 +1,30 @@
-%h2 
-  = I18n.t("iugu.forgot_your_password?")
-= simple_form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post }) do |f|
-  = f.error_notification
-  .inputs
-    = f.input :email, :required => true
-  .actions
-    = f.button :submit, I18n.t("iugu.send_me_reset_password_instructions")
-= render :partial => "devise/shared/links"
+- content_for :title do I18n.t("iugu.forgot_your_password?") end
+
+.default-sdk-wrapper
+  .default-sdk-dialog
+    .container.no-padding
+
+      = render :partial => "iugu/shared/responsive-dialog.header"
+
+      .padding
+
+        = simple_form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post, :class => "no-bottom-margin" }) do |f|
+
+
+          - if resource.errors.size > 0
+            .notice.notice-red
+              = f.error_notification
+
+          %h6.no-bottom-margin
+            = I18n.t("iugu.forgot_your_password?")
+
+
+          .inputs
+            = f.input :email, :required => false, :label => false, :placeholder => "E-mail"
+          .actions
+            = f.button :submit, I18n.t("iugu.send_me_reset_password_instructions"), :class => "full-width default"
+
+          %a.button.no-bottom-margin{ :href => new_session_path(resource_name) }
+            = I18n.t("iugu.back")
+
+

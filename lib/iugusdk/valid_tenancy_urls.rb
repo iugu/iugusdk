@@ -17,10 +17,15 @@ module IuguSDK
     #   - Return true if request.host is not found in the invalid array
     def self.matches?(request)
       application_domain = IuguSDK::application_main_host
+      application_domain = application_domain.gsub('.dev','')
       invalids = [ application_domain, ['www.',application_domain].join ]
       invalids |= IuguSDK::custom_domain_invalid_prefixes.map { |prefix| [prefix,application_domain].join }
       invalids |= IuguSDK::custom_domain_invalid_hosts
-      !invalids.include?( request.host )
+      normalized_host = request.host.gsub('.dev','')
+      unless Rails.env.production?
+        return false if normalized_host.match("^#{application_domain}\.[^\.]+\.[^\.]+\.[^\.]+\.[^\.]+\.xip.io")
+      end
+      !invalids.include?( normalized_host )
     end
 
   end

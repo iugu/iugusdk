@@ -2,11 +2,11 @@
 %html{ :class => "no-js not-ready" }
   %head
     %title= content_for?(:title) ? yield(:title) : IuguSDK::application_title
+    = stylesheet_link_tag "iugu-ux"
+    = stylesheet_link_tag "iugu-sdk.css"
     = javascript_include_tag :vendor
     = javascript_include_tag 'jquery_ujs'
     = javascript_include_tag "iugu-ux"
-    = stylesheet_link_tag "iugu-ux"
-    = stylesheet_link_tag "iugu-sdk.css"
 
     %meta{ 'http-equiv' => "Content-Type", 'content' => "text/html; charset=UTF-8" }
     %meta{ 'http-equiv' => "cleartype", 'content' => "on" }

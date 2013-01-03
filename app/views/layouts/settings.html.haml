@@ -1,46 +1,60 @@
 !!! 5
-:plain
-  <!--[if IE 8 ]><html class="ie8 ie"> <![endif]-->
-  <!--[if (gte IE 9)]><html class="ie9 ie"> <![endif]-->
-  <!--[if !(IE)]><!--><html><!--<![endif]-->
-%html{:lang => "en"}
+%html{ :class => "no-js not-ready" }
   %head
-    %meta{:charset => "utf-8"}/
     %title= content_for?(:title) ? (yield(:title) + " - " + IuguSDK::application_title) : I18n.t("iugu.settings")
+    = stylesheet_link_tag "iugu-ux"
+    = stylesheet_link_tag "iugu-sdk.css"
+    = javascript_include_tag :vendor
+    = javascript_include_tag 'jquery_ujs'
+    = javascript_include_tag "iugu-ux"
+
+    %meta{ 'http-equiv' => "Content-Type", 'content' => "text/html; charset=UTF-8" }
+    %meta{ 'http-equiv' => "cleartype", 'content' => "on" }
+    %meta{ 'http-equiv' => "X-UA-Compatible", 'content' => "IE=edge,chrome=1" }
+
     = csrf_meta_tags
-    
-    = stylesheet_link_tag    "settings"
-    = javascript_include_tag "settings"
+    %link{:href => "/favicon.ico", :rel => "shortcut icon"}/
 
-  %body{ :class => body_classes.join(' ') + ' settings iugu-ui' }
+    -# HTML 5 support for Internet Explorer
+    :plain
+      <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 
-
-    .header
-      = link_to image_tag('application_logo.png'), IuguSDK::app_main_url
-
-      = link_to I18n.t("iugu.back_to") + ' ' + IuguSDK::application_title, IuguSDK::app_main_url, :class => "button", :id => "btn-settings-back"
-
-
-    .container
-      .wrapper
-
-        %h1
-          = I18n.t("iugu.settings")
-        - unless flash[:social] || flash[:group]
-          - flash.each do |name, msg|
-            = content_tag :div, msg, :id => "flash_#{name}" if msg.is_a?(String)
+    -# Mobile capabilities
+    %meta{ name:"HandheldFriendly", content:"True" }
+    %meta{ name:"MobileOptimized", content:320 }
+    %meta{ name:"format-detection", content:"telephone=no" }
+    %meta{ name:"viewport", content:"width=device-width, initial-scale=1, maximum-scale=1" }
+    %meta{ name:"apple-mobile-web-app-capable", :content => "yes" }
 
 
-        = link_to I18n.t("iugu.profile"), profile_settings_path
-        = ' | '
-        - if IuguSDK::enable_multiple_accounts == false && current_user.accounts.count <= 1
-          = link_to I18n.t("iugu.account"), account_view_path
-        - else
-          = link_to I18n.t("iugu.accounts"), account_settings_path
+  %body.iugu-ui.application-background.settings
 
-        = yield()
+    .wrapper
+      .header
+        = link_to image_tag('application_logo.png'), IuguSDK::app_main_url
 
+        = link_to I18n.t("iugu.back_to") + ' ' + IuguSDK::application_title, IuguSDK::app_main_url, :class => "button", :id => "btn-settings-back"
 
+      .tabbed
+        %ul.nav
+          %li{ :class => "#{controller_name=='profile'?'active':''}" }
+            %a{ :href => profile_settings_path }
+              = I18n.t "iugu.profile"
+          %li{ :class => "#{controller_name=='profile'?'':'active'}" }
+            - if IuguSDK::enable_multiple_accounts == false && current_user.accounts.count <= 1
+              = link_to I18n.t("iugu.account"), account_view_path
+            - else
+              = link_to I18n.t("iugu.accounts"), account_settings_path
+        .container.no-bottom-margin
 
-:plain
-  </html>
+          - unless flash[:social] || flash[:group]
+            - flash.each do |name, msg|
+              - if msg.is_a? String
+                .notice.notice-red{ :class => name }
+                  %button.close{ :'data-dismiss' => "notice" }
+                    &times;
+                  %h4.notice-heading
+                    = msg
+
+          = yield
+
