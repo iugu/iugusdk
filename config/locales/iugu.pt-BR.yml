@@ -40,6 +40,7 @@ pt-BR:
     accounts: "Contas"
     account_domains: "Domínios"
     social_unlinked: "Rede social desvinculada com sucesso"
+    social_linked: "Rede social vinculada com sucesso"
     account_destruction_in: "A conta será removida em "
     account_destruction_undone: "Remoção da conta cancelada"
     account_user_destruction_undone: "Remoção do usuário da conta cancelada"

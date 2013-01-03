@@ -6,15 +6,16 @@ class Iugu::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       if current_user 
         raise ActionController::RoutingError.new("Not found") unless IuguSDK::enable_social_linking
         current_user.find_or_create_social(env["omniauth.auth"])
-        redirect_to(env["omniauth.origin"] || root_path )
+        flash[:group] = :social
+        redirect_to((env["omniauth.origin"] || root_path ) + "#social", notice: I18n.t("iugu.social_linked"))
       else
         raise ActionController::RoutingError.new("Not found") unless IuguSDK::enable_social_login
         if user = User.find_or_create_by_social(env["omniauth.auth"])
           sign_in user
           select_account
-          redirect_to after_sign_in_path_for( user )
+          redirect_to after_sign_in_path_for( user ) + "#social"
         else
-          redirect_to (env["omniauth.origin"] || root_path ), :notice => I18n.t('errors.messages.email_already_in_use')
+          redirect_to (env["omniauth.origin"] || root_path ) + "#social", :notice => I18n.t('errors.messages.email_already_in_use')
         end 
       end
     else

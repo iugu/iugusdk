@@ -5,25 +5,8 @@
 
   = simple_form_for @user, :url => become_user_path, :method => :post do |f|
 
-    - if flash[:group] == :profile_update
-      - if flash[:notice]
-        .notice.notice-green
-          %button.close{ :'data-dismiss' => "notice" }
-            &times;
-          %h4.notice-heading
-            = flash[:notice]
+    = render partial: "iugu/shared/notices", locals: { group: :profile_update, resource: @user }
 
-      - if @user.errors.any?
-        .notice.notice-red
-          %h4.notice-heading
-            = I18n "simple_form.error_notification.default_message"
-
-      - if @user.errors.any?
-        #error_explanation{ :style => "margin-bottom: 15px" }
-          %ul
-            - @user.errors.full_messages.each do |msg|
-              %li
-                = msg
     %div
       = f.label :email
       = f.email_field :email
@@ -46,27 +29,7 @@
     // I18n.locale
 
     - @input_success = ''
-    - if flash[:group] == :profile_update
-      - if flash[:notice]
-        .notice.notice-green
-          %button.close{ :'data-dismiss' => "notice" }
-            &times;
-          %h4.notice-heading
-            = flash[:notice]
-
-      - if @user.errors.any?
-        - @input_success = 'success'
-        .notice.notice-red
-          %h4.notice-heading
-            = I18n.t "simple_form.error_notification.default_message"
-
-          - if @user.errors.any?
-            %ul
-              - @user.errors.full_messages.each do |msg|
-                %li
-                  = msg
-
-
+    = render partial: "iugu/shared/notices", locals: { group: :profile_update, resource: @user }
 
     = f.text_field :name, :placeholder => I18n.t("activerecord.attributes.name"), :class => "full-width string #{@user.errors.include?(:name) ? 'failure':@input_success }"
 
@@ -89,38 +52,23 @@
 
   - if IuguSDK::enable_signup_form
 
-    = simple_form_for @user, :url => profile_update_path, :method => :post do |f|
+    = simple_form_for @user, :url => profile_update_path + "#password", :method => :post do |f|
 
       .element-spacing
         %h3.no-bottom-margin
           = I18n.t "activerecord.attributes.password"
 
+
+
       - @input_success = ''
-      - if flash[:group] == :password_update
-        - if flash[:notice]
-          .notice.notice-green
-            %button.close{ :'data-dismiss' => "notice" }
-              &times;
-            %h4.notice-heading
-              = flash[:notice]
-
-        - if @user.errors.any?
-          - @input_success = 'success'
-          .notice.notice-red
-            %h4.notice-heading
-              = I18n.t "simple_form.error_notification.default_message"
-
-            - if @user.errors.any?
-              %ul
-                - @user.errors.full_messages.each do |msg|
-                  %li
-                    = msg
-
+      = render partial: "iugu/shared/notices", locals: { group: :password, resource: @user }
 
       = f.password_field :password, :placeholder => I18n.t("activerecord.attributes.password"), :class => "full-width string #{@user.errors.include?(:password) ? 'failure':@input_success }"
 
 
       = f.password_field :password_confirmation, :placeholder => I18n.t("activerecord.attributes.password_confirmation"), :class => "full-width string #{@user.errors.include?(:password) ? 'failure':@input_success }"
+
+      = hidden_field_tag "form_group", :password
   
       = f.submit I18n.t("iugu.save"), :id => "new_password_submit", :class => "button no-bottom-margin"
 
@@ -130,13 +78,7 @@
       %h3
         = I18n.t "iugu.social_account"
 
-      - if flash[:social]
-        .notice.notice-green
-          %button.close{ :'data-dismiss' => "notice" }
-            &times;
-          %h4.notice-heading
-            = flash[:social]
-
+      = render partial: "iugu/shared/notices", locals: { group: :social }
       .element-spacing
         .social
 
@@ -152,19 +94,21 @@
                     %a.button.default.no-bottom-margin{ :href => "/account/auth/#{provider}?origin=#{profile_settings_path}"}
                       = I18n.t "iugu.link_social"
                   - else
-                    = link_to I18n.t("iugu.unlink_social"), social_destroy_path(:id => social_account.id), :class => "button warning no-bottom-margin"
+                    = link_to I18n.t("iugu.unlink_social"), social_destroy_path(:id => social_account.id) + "#social", :class => "button warning no-bottom-margin"
 
 
   - if IuguSDK::enable_user_api
     %h3
       = I18n.t("iugu.api_access")
+    = render partial: "iugu/shared/notices", locals: { group: :api }
     .container
       %div{ :style => 'text-align:center' }
         = @user.token.token
-    = link_to I18n.t("iugu.api_renew"), renew_user_token_path, :class => "button no-bottom-margin"
+    = link_to I18n.t("iugu.api_renew"), renew_user_token_path + "#api", :class => "button no-bottom-margin"
 
   %hr
   .container.no-bottom-margin{ :style => "background-color:#FFF5F5" }
+    = render partial: "iugu/shared/notices", locals: { group: :remove_user }
     - if @user.destroying?
       .element-spacing
         = I18n.t("iugu.user_destruction_in")
@@ -173,7 +117,7 @@
             = I18n.l( @user.destruction_job.run_at, :format => :default )
 
       - unless @user.destruction_job.locked_at
-        = link_to I18n.t("iugu.undo"), profile_cancel_destruction_path, :confirm => I18n.t("iugu.are_you_sure?"), :class => "button warning no-bottom-margin"
+        = link_to I18n.t("iugu.undo"), profile_cancel_destruction_path + "#remove_user", :confirm => I18n.t("iugu.are_you_sure?"), :class => "button warning no-bottom-margin"
 
     - else
       %h3
@@ -181,4 +125,4 @@
       %p
         = I18n.t("iugu.remove_user_warning")
       - if IuguSDK::enable_user_cancel
-        = link_to I18n.t("iugu.remove_user"), profile_destroy_path, :confirm => I18n.t("iugu.are_you_sure?"), :class => "button warning no-bottom-margin"
+        = link_to I18n.t("iugu.remove_user"), profile_destroy_path + "#remove_user", :confirm => I18n.t("iugu.are_you_sure?"), :class => "button warning no-bottom-margin"

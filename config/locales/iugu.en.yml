@@ -40,6 +40,7 @@ en:
     accounts: "Accounts"
     account_domains: "Account Domains"
     social_unlinked: "Social Account successfully unlink"
+    social_linked: "Social Account successfully linked"
     account_destruction_in: "Account will be remove at "
     account_destruction_undone: "Account destruction canceled"
     account_user_destruction_undone: "Account user destruction canceled"

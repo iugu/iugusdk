@@ -9,8 +9,8 @@ class Iugu::ProfileController < Iugu::SettingsController
   def update
     @user = current_user
     @social_accounts = @user.social_accounts
-    if !params[:user][:password].blank?
-      flash.now[:group] = :password_update
+    if params[:form_group] == "password"
+      flash.now[:group] = :password
     else
       flash.now[:group] = :profile_update
     end
@@ -18,8 +18,6 @@ class Iugu::ProfileController < Iugu::SettingsController
       I18n.locale = @user.locale 
       sign_in @user, :bypass => true if !params[:user][:password].blank?
       flash.now[:notice] = I18n.t('iugu.notices.user_update')
-    else
-      flash.now[:error] = @user.errors.full_messages
     end
     render 'iugu/settings/profile'
   end
@@ -27,15 +25,19 @@ class Iugu::ProfileController < Iugu::SettingsController
   def destroy
     if IuguSDK::enable_user_cancel
       (user = current_user).destroy
-      redirect_to(profile_settings_path, :notice => I18n.t("iugu.user_destruction_in") + user.destruction_job.run_at.to_s)
+      flash[:group] = :remove_user
+      flash[:error] = I18n.t("iugu.user_destruction_in") + user.destruction_job.run_at.to_s
+      redirect_to(profile_settings_path)
     else
       raise ActionController::RoutingError.new("Not found")
     end
   end
 
   def cancel_destruction
+    flash[:group] = :remove_user
+    flash[:error] = I18n.t("iugu.user_destruction_undone")
     current_user.cancel_destruction
-    redirect_to(profile_settings_path, :notice => I18n.t("iugu.user_destruction_undone"))
+    redirect_to(profile_settings_path)
   end
 
   def destroy_social
@@ -48,7 +50,8 @@ class Iugu::ProfileController < Iugu::SettingsController
     rescue
       notice = I18n.t("errors.messages.not_found")
     end
-    flash[:social] = notice
+    flash[:notice] = notice
+    flash[:group] = :social
     redirect_to profile_settings_path
   end
 
@@ -70,6 +73,8 @@ class Iugu::ProfileController < Iugu::SettingsController
   def renew_token
     if IuguSDK::enable_user_api
       current_user.token.refresh
+      flash[:group] = :api
+      flash[:notice] = I18n.t("iugu.notices.new_token_generated")
       redirect_to profile_settings_path
     else
       raise ActionController::RoutingError.new("Not found")

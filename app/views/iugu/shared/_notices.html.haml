@@ -1,0 +1,29 @@
+%div{ :style => "position:relative;height:1px;width:1px;display:inline"}
+  %a{ name: group, :style => "display: block; position: absolute; top: -80px; width: 2px; height: 2px" }
+- if flash[:group] == group
+
+  - [:notice, :warning, :error, :info].each do |flash_type|
+    - color = nil
+    - color = "green" if flash_type == :notice
+    - color = "red"   if flash_type == :error
+    - color = "blue"  if flash_type == :info
+
+    - if flash[flash_type]
+      %div{ class: (color ? "notice notice-#{color}" : "notice") }
+        %button.close{ :'data-dismiss' => "notice" }
+          &times;
+        %h4.notice-heading
+          = flash[flash_type]
+
+  - resource = nil unless resource
+  - if resource && resource.errors.any?
+    .notice.notice-red
+      %h4.notice-heading
+        = I18n.t "simple_form.error_notification.default_message"
+
+      - if resource.errors.any?
+        %ul 
+          - resource.errors.full_messages.each do |msg|
+            %li 
+              = msg 
+
