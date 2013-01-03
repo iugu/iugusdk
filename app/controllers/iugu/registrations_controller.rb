@@ -1,5 +1,6 @@
 class Iugu::RegistrationsController < Devise::RegistrationsController
   after_filter :select_account, :only => [:create,:update]
+  before_filter :verify_private_api_secret, :only => [:create]
 
   layout IuguSDK.alternative_layout
 
@@ -36,5 +37,12 @@ class Iugu::RegistrationsController < Devise::RegistrationsController
   def after_sign_up_path_for(resource)
     IuguSDK::app_main_url
   end
-end
 
+  private
+
+  def verify_private_api_secret
+    if request.format.json?
+      render :json=>{:errors=>"Unauthorized"}, :status=>401 unless params[:private_api_secret] == IuguSDK::private_api_secret 
+    end
+  end
+end

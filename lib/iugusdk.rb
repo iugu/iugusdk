@@ -33,6 +33,9 @@ module IuguSDK
   mattr_accessor :default_layout
   mattr_accessor :alternative_layout
 
+  mattr_accessor :private_api_secret
+  self.private_api_secret = "PRIVATE_API_SECRET"
+
   mattr_accessor :enable_multiple_accounts
   self.enable_multiple_accounts = false
 

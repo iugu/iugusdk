@@ -9,7 +9,7 @@ class User < ActiveRecord::Base
   has_many :account_users, :dependent => :destroy
   has_many :accounts, :through => :account_users
   has_many :social_accounts, :dependent => :destroy
-  has_one :token, :as => :tokenable, :class_name => "ApiToken"
+  has_one :token, :as => :tokenable, :class_name => "ApiToken", :dependent => :destroy
 
   alias :_destroy :destroy
   def destroy
@@ -144,19 +144,12 @@ class User < ActiveRecord::Base
     end
   end
 
-  def access_token
-    "none"
-  end
-
-  # def to_json
-  #   super(:only => [:email,:id])
-  # end
   def as_json(options = nil)
     {
       id: id,
       email: email,
       locale: locale,
-      access_token: access_token
+      access_token: token.token
     }
   end
 
