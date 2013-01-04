@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    iugusdk (1.0.0.alpha.7)
+    iugusdk (1.0.0.alpha.8)
       activeuuid
       coffee-script
       compass
@@ -16,6 +16,7 @@ PATH
       haml-rails
       http_accept_language
       iugu-api
+      iugu-ux
       kaminari
       koala
       less
@@ -32,16 +33,6 @@ PATH
       sass (>= 3.3.0.alpha.3)
       sass-rails
       simple_form
-
-PATH
-  remote: ../iugu-ux
-  specs:
-    iugu-ux (0.7.1)
-      coffee-script
-      compass
-      eco
-      haml
-      sass (>= 3.2.0.alpha.0)
 
 GEM
   remote: http://rubygems.org/
@@ -165,6 +156,12 @@ GEM
     httpauth (0.2.0)
     i18n (0.6.1)
     iugu-api (0.0.3)
+    iugu-ux (0.6.5)
+      coffee-script
+      compass
+      eco
+      haml
+      sass (>= 3.2.0.alpha.0)
     journey (1.0.4)
     jquery-rails (2.1.4)
       railties (>= 3.0, < 5.0)
@@ -344,7 +341,6 @@ DEPENDENCIES
   capybara (= 1.1.2)
   fabrication (= 2.4.0)
   faker
-  iugu-ux!
   iugusdk!
   jquery-rails
   launchy
