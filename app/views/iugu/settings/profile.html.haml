@@ -91,7 +91,7 @@
                 %td
                   - social_account = @social_accounts.where(:provider => provider).first
                   - unless social_account
-                    %a.button.default.no-bottom-margin{ :href => "/account/auth/#{provider}?origin=#{profile_settings_path}"}
+                    %a.button.default.no-bottom-margin{ :href => user_omniauth_authorize_path(provider) + "?origin=#{profile_settings_path}"}
                       = I18n.t "iugu.link_social"
                   - else
                     = link_to I18n.t("iugu.unlink_social"), social_destroy_path(:id => social_account.id) + "#social", :class => "button warning no-bottom-margin"

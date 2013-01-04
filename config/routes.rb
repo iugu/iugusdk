@@ -27,26 +27,27 @@ Rails.application.routes.draw do
     post '/settings/account/:account_id/domain/:domain_id/primary' => 'iugu/account_domains#primary', :as => 'primary_domain'
     put '/settings/account/:account_id/subdomain' => 'iugu/account_domains#update_subdomain', :as => 'update_subdomain'
 
-    get "select_account/:id" => "iugu/account#select", :as => "account_select"
+    get "settings/select_account/:id" => "iugu/account#select", :as => "account_select"
     get "settings/profile" => "iugu/profile#index", :as => "profile_settings"
     get "settings/profile/destroy" => "iugu/profile#destroy", :as => "profile_destroy"
     get "settings/profile/cancel_destruction" => "iugu/profile#cancel_destruction", :as => "profile_cancel_destruction"
     post "settings/profile" => "iugu/profile#update", :as => "profile_update"
     get "settings/profile/social/destroy" => "iugu/profile#destroy_social", :as => "social_destroy"
     get "settings/profile/renew_token" => "iugu/profile#renew_token", :as => "renew_user_token"
-    post 'become_user' => 'iugu/profile#become_user', :as => 'become_user'
+
+    post 'signup/become_user' => 'iugu/profile#become_user', :as => 'become_user'
 
     get '/settings/account/:account_id/invite' => 'iugu/invitations#new', :as => 'new_invite'
     post '/settings/account/:account_id/invite' => 'iugu/invitations#create', :as => 'create_invite'
-    get '/accept_invite/:invitation_token' => 'iugu/invitations#edit', :as => 'edit_invite'
-    post '/accept_invite' => 'iugu/invitations#update', :as => 'update_invite'
+    get 'signup/accept_invite/:invitation_token' => 'iugu/invitations#edit', :as => 'edit_invite'
+    post 'signup/accept_invite' => 'iugu/invitations#update', :as => 'update_invite'
     get "/settings/account/(:id)/user/:user_id/roles" => "iugu/account_roles#edit", :as => "account_roles_edit"
     post "/settings/account/(:id)/user/:user_id/roles" => "iugu/account_roles#update", :as => "account_roles_update"
 
     get '/pricing' => 'iugu/pricing#index', :as => 'pricing_index'
 
     devise_for :users,
-      :path => 'account',
+      :path => 'settings/account',
       :module => 'iugu',
       :only => :omniauth_callbacks
       # :skip => :all
@@ -61,14 +62,14 @@ Rails.application.routes.draw do
       if IuguSDK::enable_signup_form
         get 'signup' => 'iugu/registrations#new', :as => 'new_user_registration'
         post 'signup' => 'iugu/registrations#create', :as => 'user_registration'
-        get 'cancel_signup' => 'iugu/registrations#cancel', :as => 'cancel_user_registration'
+        get 'signup/cancel' => 'iugu/registrations#cancel', :as => 'cancel_user_registration'
       end
-      post 'try_first' => 'iugu/registrations#try_first', :as => 'try_first'
+      post 'signup/try_first' => 'iugu/registrations#try_first', :as => 'try_first'
 
       # Confirmation Stuff
-      post 'confirmation' => 'iugu/confirmations#create', :as => 'user_confirmation'
-      get 'confirmation/new' => 'iugu/confirmations#new', :as => 'new_user_confirmation'
-      get 'confirmation' => 'iugu/confirmations#show', :as => 'show_user_confirmation'
+      post 'signup/confirmation' => 'iugu/confirmations#create', :as => 'user_confirmation'
+      get 'signup/confirmation/new' => 'iugu/confirmations#new', :as => 'new_user_confirmation'
+      get 'signup/confirmation' => 'iugu/confirmations#show', :as => 'show_user_confirmation'
 
       # Forgot Stuff
       post 'forgot_password' => 'iugu/passwords#create', :as => 'user_password'
@@ -77,7 +78,7 @@ Rails.application.routes.draw do
       put 'forgot_password' => 'iugu/passwords#update', :as => 'update_user_pasword'
 
       # Omniauth Stuff
-      get '/account/auth/:provider' => 'iugu/omniauth_callbacks#passthru'
+      get 'settings/account/auth/:provider' => 'iugu/omniauth_callbacks#passthru'
 
     end
 
