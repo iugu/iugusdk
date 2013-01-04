@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    iugusdk (1.0.0.alpha.9)
+    iugusdk (1.0.0.alpha.10)
       activeuuid
       coffee-script
       compass
