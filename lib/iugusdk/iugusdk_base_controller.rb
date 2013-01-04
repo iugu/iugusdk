@@ -14,7 +14,7 @@ module IuguSDKBaseController
     end
     unless locale
       @matched_locale_from_browser = request.preferred_language_from(AvailableLanguage.all.values)
-      if signed_in?
+      if user_signed_in?
         if current_user.locale.blank?
           locale = "en" 
         else
