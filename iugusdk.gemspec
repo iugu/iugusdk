@@ -44,6 +44,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'koala'
   s.add_dependency 'activeuuid'
   s.add_dependency 'iugu-api'
+  s.add_dependency 'iugu-ux'
   s.add_dependency 'database_cleaner'
   s.add_dependency 'compass-rails'
   # s.add_dependency "jquery-rails"

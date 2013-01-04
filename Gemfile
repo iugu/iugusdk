@@ -10,7 +10,7 @@ gem "jquery-rails"
 # gem 'simple_form', :git => 'git://github.com/plataformatec/simple_form.git'
 
 # gem 'iugu-api', :path => "../iugu-api"
-gem 'iugu-ux', :path => "../iugu-ux"
+# gem 'iugu-ux', :path => "../iugu-ux"
 
 # Declare any dependencies that are still in development here instead of in
 # your gemspec. These might include edge Rails or gems from your path or
