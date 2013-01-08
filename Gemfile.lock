@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    iugusdk (1.0.0.alpha.11)
+    iugusdk (1.0.0.alpha.12)
       activeuuid
       coffee-script
       compass
@@ -96,7 +96,7 @@ GEM
       xpath (~> 0.1.4)
     childprocess (0.3.6)
       ffi (~> 1.0, >= 1.0.6)
-    chunky_png (1.2.6)
+    chunky_png (1.2.7)
     cocaine (0.4.2)
     coffee-script (2.2.0)
       coffee-script-source
@@ -156,7 +156,7 @@ GEM
     httpauth (0.2.0)
     i18n (0.6.1)
     iugu-api (0.0.3)
-    iugu-ux (0.8.0)
+    iugu-ux (0.8.5)
       coffee-script
       compass
       eco
@@ -292,7 +292,7 @@ GEM
     ruby_parser (3.0.4)
       sexp_processor (~> 4.1)
     rubyzip (0.9.9)
-    sass (3.3.0.alpha.67)
+    sass (3.3.0.alpha.69)
     sass-rails (3.2.5)
       railties (~> 3.2.0)
       sass (>= 3.1.10)
