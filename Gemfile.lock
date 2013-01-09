@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    iugusdk (1.0.0.alpha.13)
+    iugusdk (1.0.0.alpha.14)
       activeuuid
       coffee-script
       compass
@@ -116,7 +116,7 @@ GEM
     delayed_job_active_record (0.3.3)
       activerecord (>= 2.1.0, < 4)
       delayed_job (~> 3.0)
-    devise (2.1.2)
+    devise (2.2.0)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.1)
       railties (~> 3.1)
@@ -156,7 +156,7 @@ GEM
     httpauth (0.2.0)
     i18n (0.6.1)
     iugu-api (0.0.3)
-    iugu-ux (0.8.5)
+    iugu-ux (0.8.7)
       coffee-script
       compass
       eco
