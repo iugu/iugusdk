@@ -7,17 +7,38 @@ class IuguMailer < Devise::Mailer
     "iugu/mailer"
   end
 
+  def reset_password_instructions(record, opts={})
+    set_locale(record)
+    super(record)
+    set_default_locale
+  end
+
   def invitation(user_invitation)
+    set_locale(user)
     @user_invitation = user_invitation
-    mail(to: @user_invitation.email, :subject => "Convite para sua conta") do |format|
+    mail(to: @user_invitation.email, :subject => I18n.t("user_invitation")) do |format|
       format.html { render "iugu/mailer/invitation" }
     end
+    set_default_locale
   end
 
   def welcome(user)
+    set_locale(user)
     @user = user
-    mail(to: @user.email, :subject => "Bem vindo!") do |format|
+    mail(to: @user.email, :subject => I18n.t("user_welcome")) do |format|
       format.html { render "iugu/mailer/welcome" }
     end
+    set_default_locale
+  end
+
+  private
+
+  def set_locale(user)  
+    @default_locale = I18n.locale 
+    I18n.locale = user.locale
+  end
+
+  def set_default_locale
+    I18n.locale = @default_locale
   end
 end
