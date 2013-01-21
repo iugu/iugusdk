@@ -106,23 +106,23 @@
         = @user.token.token
     = link_to I18n.t("iugu.api_renew"), renew_user_token_path + "#api", :class => "button no-bottom-margin"
 
-  %hr
-  .container.no-bottom-margin{ :style => "background-color:#FFF5F5" }
-    = render partial: "iugu/shared/notices", locals: { group: :remove_user }
-    - if @user.destroying?
-      .element-spacing
-        = I18n.t("iugu.user_destruction_in")
-        %div
-          %strong
-            = I18n.l( @user.destruction_job.run_at, :format => :default )
+  - if IuguSDK::enable_user_cancel
+    %hr
+    .container.no-bottom-margin{ :style => "background-color:#FFF5F5" }
+      = render partial: "iugu/shared/notices", locals: { group: :remove_user }
+      - if @user.destroying?
+        .element-spacing
+          = I18n.t("iugu.user_destruction_in")
+          %div
+            %strong
+              = I18n.l( @user.destruction_job.run_at, :format => :default )
 
-      - unless @user.destruction_job.locked_at
-        = link_to I18n.t("iugu.undo"), profile_cancel_destruction_path + "#remove_user", :confirm => I18n.t("iugu.are_you_sure?"), :class => "button warning no-bottom-margin"
+        - unless @user.destruction_job.locked_at
+          = link_to I18n.t("iugu.undo"), profile_cancel_destruction_path + "#remove_user", :confirm => I18n.t("iugu.are_you_sure?"), :class => "button warning no-bottom-margin"
 
-    - else
-      %h3
-        = I18n.t("iugu.remove_user")
-      %p
-        = I18n.t("iugu.remove_user_warning")
-      - if IuguSDK::enable_user_cancel
-        = link_to I18n.t("iugu.remove_user"), profile_destroy_path + "#remove_user", :confirm => I18n.t("iugu.are_you_sure?"), :class => "button warning no-bottom-margin"
+      - else
+        %h3
+          = I18n.t("iugu.remove_user")
+        %p
+          = I18n.t("iugu.remove_user_warning")
+          = link_to I18n.t("iugu.remove_user"), profile_destroy_path + "#remove_user", :confirm => I18n.t("iugu.are_you_sure?"), :class => "button warning no-bottom-margin"
