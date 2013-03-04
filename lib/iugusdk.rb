@@ -7,7 +7,7 @@ require 'iugusdk/root_tenancy_url'
 require 'iugusdk/session_parameter_middleware'
 require "iugusdk/engine"
 require "iugusdk/iugusdk_base_controller"
-require "http_accept_language"
+# require "http_accept_language"
 require 'devise'
 require 'omniauth'
 require 'omniauth-twitter'
