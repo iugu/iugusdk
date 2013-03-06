@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    iugusdk (1.0.0.alpha.16)
+    iugusdk (1.0.0.alpha.17)
       activeuuid
       coffee-script
       compass
@@ -14,7 +14,6 @@ PATH
       fuubar
       haml
       haml-rails
-      http_accept_language
       iugu-api
       iugu-ux
       kaminari
@@ -111,7 +110,7 @@ GEM
       compass (>= 0.12.2, < 0.14)
     database_cleaner (0.9.1)
     default_value_for (2.0.1)
-    delayed_job (3.0.4)
+    delayed_job (3.0.5)
       activesupport (~> 3.0)
     delayed_job_active_record (0.3.3)
       activerecord (>= 2.1.0, < 4)
@@ -152,7 +151,6 @@ GEM
     hashie (1.2.0)
     highline (1.6.15)
     hike (1.2.1)
-    http_accept_language (1.0.2)
     httpauth (0.2.0)
     i18n (0.6.1)
     iugu-api (0.0.3)
@@ -293,7 +291,7 @@ GEM
       sexp_processor (~> 4.1)
     rubyzip (0.9.9)
     sass (3.3.0.alpha.69)
-    sass-rails (3.2.5)
+    sass-rails (3.2.6)
       railties (~> 3.2.0)
       sass (>= 3.1.10)
       tilt (~> 1.3)
