@@ -20,6 +20,11 @@ class Iugu::RegistrationsController < Devise::RegistrationsController
     end
   end
 
+  def create
+    params[:user][:locale] = @matched_locale_from_browser unless params[:user][:locale]
+    super
+  end
+
   def try_first
     if IuguSDK::enable_guest_user
       @user = User.create_guest
