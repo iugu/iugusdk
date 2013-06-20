@@ -7,6 +7,8 @@ Rails.application.routes.draw do
 
     get "settings" => "iugu/settings#index", :as => "settings"
     get "settings/accounts" => "iugu/account#index", :as => "account_settings"
+    get 'settings/account/(:id)/plans' => 'iugu/plan#index', :as => 'plan_index'
+    post 'settings/account/(:id)/change_plan' => 'iugu/plan#change', :as => 'plan_change'
     get "settings/account/(:id)" => "iugu/account#view", :as => "account_view"
     delete "settings/account/(:id)" => "iugu/account#destroy", :as => "account_destroy"
     delete "settings/account/(:id)/cancel" => "iugu/account#cancel_destruction", :as => "account_cancel_destruction"

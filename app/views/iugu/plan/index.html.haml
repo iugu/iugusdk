@@ -1,0 +1,22 @@
+= I18n.t "iugu.available_plans"
+%br
+%br
+%table
+  %tr
+    %th
+      = I18n.t "iugu.plan"
+    %th
+      = "#{I18n.t("iugu.price")} (#{@currency})"
+    %th
+    - @plans.each do |plan|
+      %tr
+        %td
+          = plan.name
+        %td
+          - price = plan.price_by_currency @currency
+          = price.value_cents
+        %td
+          - if plan.identifier == @subscription.plan_identifier
+            = I18n.t "iugu.your_plan"
+          - else
+            = link_to(I18n.t("iugu.change_plan"), plan_change_url(id: @account.id.to_param, plan: plan.identifier), method: :post)

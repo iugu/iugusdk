@@ -13,6 +13,11 @@ class Iugu::AccountController < Iugu::AccountSettingsController
     else
       @account = current_user_account.account
     end
+    if IuguSDK::enable_subscription_features
+      subscription = Iugu::Api::Subscription.find @account.subscription_id
+      plan = Iugu::Api::Plan.find_by_identifier subscription.plan_identifier
+      @plan_name = plan.try :name
+    end
     @primary_domain = @account.account_domains.where(:primary => true).first if @account
     render 'iugu/settings/account'
   end

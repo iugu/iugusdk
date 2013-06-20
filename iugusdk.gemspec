@@ -18,10 +18,10 @@ Gem::Specification.new do |s|
 
   s.add_dependency "rails", ">= 3.1.5"
   s.add_dependency 'coffee-script'
-  s.add_dependency 'sass', ">= 3.3.0.alpha.3"
+  s.add_dependency 'sass', "3.2.9"
   s.add_dependency 'eco'
   s.add_dependency 'haml'
-  s.add_dependency 'compass'
+  s.add_dependency 'compass', ">= 0.12.2"
   s.add_dependency 'haml-rails'
   s.add_dependency 'rails-i18n'
   s.add_dependency 'simple_form'

@@ -1,7 +1,7 @@
 Pricing
 %br
 - @plans.each do |plan|
-  = plan.name
+  = link_to plan.name, new_user_registration_path(plan: plan.identifier)
   - plan.prices.each do |price|
     = "-"
     = price.value_cents

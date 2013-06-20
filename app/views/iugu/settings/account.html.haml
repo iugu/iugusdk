@@ -17,8 +17,8 @@
 
 - if IuguSDK::enable_subscription_features
   %br
-  = I18n.t("iugu.plan_name")
-  = link_to I18n.t("iugu.change")
+  = "#{I18n.t "iugu.plan"}: #{@plan_name} "
+  = link_to I18n.t("iugu.change"), plan_index_url
 
 - unless IuguSDK::enable_custom_domain == false && IuguSDK::enable_account_alias == false
   %br

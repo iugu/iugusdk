@@ -18,8 +18,8 @@ class Account < ActiveRecord::Base
   validates :subdomain, :uniqueness => true, :unless => Proc.new { |a| a.subdomain.blank? }
   validate :subdomain_blacklist, :name
 
-  attr_accessible :subdomain, :name, :plan_id, :price_id, :email
-  attr_accessor :plan_id, :price_id, :email
+  attr_accessible :subdomain, :name, :plan_identifier, :currency, :email
+  attr_accessor :plan_identifier, :currency, :email
 
   after_create :set_first_subdomain, :unless => :subdomain?
 
@@ -57,7 +57,8 @@ class Account < ActiveRecord::Base
   private
 
   def subscribe
-    subscription = Iugu::Api::Subscription.create(plan_id: plan_id, price_id: price_id, email: email)
+    customer = Iugu::Api::Customer.create email: email
+    subscription = Iugu::Api::Subscription.create plan_identifier: plan_identifier, currency: currency, customer_id: customer.id.to_param
     self.subscription_id = subscription.id
     subscription.errors.empty?
   end
