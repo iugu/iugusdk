@@ -8,7 +8,7 @@
     %th
       = "#{I18n.t("iugu.price")} (#{@currency})"
     %th
-    - @plans.each do |plan|
+    - @plans.reverse.each do |plan|
       %tr
         %td
           = plan.name
@@ -19,4 +19,7 @@
           - if plan.identifier == @subscription.plan_identifier
             = I18n.t "iugu.your_plan"
           - else
-            = link_to(I18n.t("iugu.change_plan"), plan_change_url(id: @account.id.to_param, plan: plan.identifier), method: :post)
+            - text = "iugu.change_plan"
+            - text = "iugu.upgrade" if price.value_cents > @subscription.price_cents
+            - text = "iugu.downgrade" if price.value_cents < @subscription.price_cents
+            = link_to(I18n.t(text), plan_change_url(id: @account.id.to_param, plan: plan.identifier), method: :post)

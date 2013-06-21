@@ -102,6 +102,8 @@ pt-BR:
     available_plans: "Planos Disponíveis"
     your_plan: "Seu Plano"
     change_plan: "Alterar Plano"
+    downgrade: "Rebaixar"
+    upgrade: "Aprimorar"
     custom_domains: "Dominios customizados"
     api_tokens: "Tokens da api"
     api_type: "Tipo de api"

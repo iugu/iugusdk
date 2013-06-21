@@ -19,8 +19,8 @@ class Iugu::PlanController < Iugu::AccountSettingsController
   private
 
   def get_index_data
-    @plans = Iugu::Api::Plan.all    
-    @subscription = Iugu::Api::Subscription.find @account.subscription_id
     @currency = locale_to_currency I18n.locale
+    @plans = Iugu::Api::Plan.with_currency @currency
+    @subscription = Iugu::Api::Subscription.find @account.subscription_id
   end
 end

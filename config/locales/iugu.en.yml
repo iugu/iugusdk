@@ -99,6 +99,8 @@ en:
     available_plans: "Available Plans"
     your_plan: "Your Plan"
     change_plan: "Change Plan"
+    downgrade: "Downgrade"
+    upgrade: "Upgrade"
     custom_domains: "Custom domains"
     api_tokens: "Api tokens"
     api_type: "Api type"
