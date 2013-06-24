@@ -19,7 +19,7 @@ pt-BR:
     already_have_account_action: "Entrar"
     generate_new_token: "Gerar novo token"
     create_account: "Criar Conta"
-    no_account: "Não possue conta?"
+    no_account: "Não possui conta?"
     no_account_action: "Registre-se"
     add: "Adicionar"
     active: "Ativa"
