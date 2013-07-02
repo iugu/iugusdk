@@ -1,0 +1,13 @@
+%table
+  %tr
+    %th ID
+    %th Total
+    %th Status
+  - @invoices.each do |invoice|
+    %tr
+      %td
+        = invoice.id
+      %td
+        = invoice.total
+      %td
+        = invoice.status

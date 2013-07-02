@@ -16,6 +16,7 @@ Rails.application.routes.draw do
     put "settings/account/(:id)" => "iugu/account#update", :as => "account_update"
     post "settings/account" => "iugu/account#create", :as => "account_create"
 
+    get "settings/account/:account_id/payment_history" => "iugu/account#payment_history", :as => "account_payment_history"
     get "settings/account/:account_id/users" => "iugu/account_users#index", :as => "account_users_index"
     get "settings/account/:account_id/user/:user_id" => "iugu/account_users#view", :as => "account_users_view"
     delete "settings/account/:account_id/user/:user_id" => "iugu/account_users#destroy", :as => "account_users_destroy"

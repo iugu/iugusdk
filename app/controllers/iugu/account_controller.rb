@@ -72,4 +72,22 @@ class Iugu::AccountController < Iugu::AccountSettingsController
 
   end
 
+  def payment_history
+    get_account
+    subscription = Iugu::Api::Subscription.find @account.subscription_id
+    customer = Iugu::Api::Customer.find subscription.customer_id
+    @invoices = customer.invoices({status_filter: ["pending", "paid"]})
+    render 'iugu/account/payment_history'
+  end
+
+  private
+
+  def get_account
+    if params[:id]
+      @account = current_user.accounts.find(params[:id])
+    else
+      @account = current_user_account.account
+    end
+  end
+
 end
