@@ -1,6 +1,5 @@
 - content_for :title do I18n.t("iugu.profile_settings") end
 
-
 - if current_user.guest
 
   = simple_form_for @user, :url => become_user_path, :method => :post do |f|
@@ -37,14 +36,13 @@
 
     %div
 
-      = @user.birthdate
 
-      = f.input :birthdate, :as => :hidden, :input_html => { :"data-selector" => "date", :"data-label" => I18n.t("activerecord.attributes.birthdate") }, :label => false
+      = f.text_field :birthdate, :placeholder => I18n.t("activerecord.attributes.birthdate"), :class => "full-width string #{@user.errors.include?(:birthdate) ? 'failure':@input_success }"
 
 
     - if AvailableLanguage.all.count > 1
       %div
-        = f.input :locale, :collection => AvailableLanguage.all, :label => false, :input_html => { :"data-label" => I18n.t("activerecord.attributes.locale"), :"data-selector" => "select" }, :include_blank => false
+        = f.input :locale, :collection => AvailableLanguage.all, :label => false, :include_blank => false, :input_html => { :"data-type" => "iux.form.combobox", :class => "full-width" }
 
     %div
       = f.submit I18n.t("iugu.save"), :class => "button default"
@@ -57,8 +55,6 @@
       .element-spacing
         %h3.no-bottom-margin
           = I18n.t "activerecord.attributes.password"
-
-
 
       - @input_success = ''
       = render partial: "iugu/shared/notices", locals: { group: :password, resource: @user }
@@ -99,7 +95,7 @@
 
   - if IuguSDK::enable_user_api
     %h3
-      = I18n.t("iugu.api_access")
+      = I18n.t("iugu.user_api_access")
     = render partial: "iugu/shared/notices", locals: { group: :api }
     .container
       %div{ :style => 'text-align:center' }

@@ -4,6 +4,7 @@
     %title= content_for?(:title) ? (yield(:title) + " - " + IuguSDK::application_title) : I18n.t("iugu.settings")
     = stylesheet_link_tag "iugu-ux"
     = stylesheet_link_tag "iugu-sdk.css"
+    = stylesheet_link_tag "settings"
     = javascript_include_tag :vendor
     = javascript_include_tag 'jquery_ujs'
     = javascript_include_tag "iugu-ux"
@@ -30,31 +31,32 @@
   %body.iugu-ui.application-background.settings
 
     .wrapper
-      .header
-        = link_to image_tag('application_logo.png'), IuguSDK::app_main_url
+      .container.no-padding
+        .header
 
-        = link_to I18n.t("iugu.back_to") + ' ' + IuguSDK::application_title, IuguSDK::app_main_url, :class => "button", :id => "btn-settings-back"
+          = link_to image_tag('application_logo.png'), IuguSDK::app_main_url
 
-      .tabbed
-        %ul.nav
-          %li{ :class => "#{controller_name=='profile'?'active':''}" }
-            %a{ :href => profile_settings_path }
+          = link_to I18n.t("iugu.back_to") + ' ' + IuguSDK::application_title, IuguSDK::app_main_url, :class => "button", :id => "btn-settings-back"
+
+        .padding
+          .group.horizontal_stacking{ :style => "width:100%" }
+            %a{ :class => "button large #{controller_name=='profile'?'active':''}", :href => profile_settings_path, :style => "width: 50%" }
               = I18n.t "iugu.profile"
-          %li{ :class => "#{controller_name=='profile'?'':'active'}" }
+
             - if IuguSDK::enable_multiple_accounts == false && current_user.accounts.count <= 1
-              = link_to I18n.t("iugu.account"), account_view_path
+              = link_to I18n.t("iugu.account"), account_view_path, :class => "button large #{controller_name=='profile'?'':'active'}", :style => "width: 50%"
             - else
-              = link_to I18n.t("iugu.accounts"), account_settings_path
-        .container.no-bottom-margin
+              = link_to I18n.t("iugu.accounts"), account_settings_path, :class => "button large #{controller_name=='profile'?'':'active'}", :style => "width: 50%"
 
-          - unless flash[:social] || flash[:group]
-            - flash.each do |name, msg|
-              - if msg.is_a? String
-                .notice.notice-red{ :class => name }
-                  %button.close{ :'data-dismiss' => "notice" }
-                    &times;
-                  %h4.notice-heading
-                    = msg
+      .container.no-bottom-margin
 
-          = yield
+        - unless flash[:social] || flash[:group]
+          - flash.each do |name, msg|
+            - if msg.is_a? String
+              .notice.notice-red{ :class => name }
+                %button.close{ :'data-dismiss' => "notice" }
+                  &times;
+                %h4.notice-heading
+                  = msg
 
+        = yield
