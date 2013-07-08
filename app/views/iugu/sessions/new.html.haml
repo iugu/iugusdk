@@ -6,7 +6,6 @@
 
       = render :partial => "iugu/shared/responsive-dialog.header"
 
-
       .padding
         %h6.no-bottom-margin
           = I18n.t("iugu.sign_in")
@@ -15,8 +14,6 @@
           - flash.each do |name, msg|
             - if msg.is_a? String
               .notice.notice-red{ :class => name }
-                %button.close{ :'data-dismiss' => "notice" }
-                  &times;
                 %h4.notice-heading
                   = msg
 
@@ -49,7 +46,7 @@
 
     - if IuguSDK::enable_signup_form
       .container.default-optional
-        %a.button.no-bottom-margin{ :href => new_registration_path(resource_name) }
+        %a.button.no-bottom-margin{ :href => new_registration_path(resource_name), :class => "bottom_button_dialog" }
           = I18n.t("iugu.no_account")
           %span.more-text
             = I18n.t("iugu.no_account_action")
