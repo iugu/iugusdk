@@ -9,6 +9,8 @@ class UserInvitation < ActiveRecord::Base
 
   belongs_to :account
 
+  attr_accessible :email, :roles, :account_id, :invited_by
+
   def self.find_by_invitation_token(invitation_token)
     begin
       user_invitation = UserInvitation.find(id = invitation_token.gsub(/.{27}$/, ''))
