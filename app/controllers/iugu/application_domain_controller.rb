@@ -5,7 +5,7 @@ class Iugu::ApplicationDomainController < ApplicationController
   private
 
   def get_account_from_domain
-    @account = Account.get_from_domain(params[:host]) if params[:host]
+    @account = Account.get_from_domain(request.host) if request.host
   end
   
 end
