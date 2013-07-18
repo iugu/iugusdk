@@ -14,6 +14,7 @@ class IuguMailer < Devise::Mailer
   end
 
   def invitation(user_invitation)
+    user = User.find(user_invitation.invited_by)
     set_locale(user)
     @user_invitation = user_invitation
     mail(to: @user_invitation.email, :subject => I18n.t("user_invitation")) do |format|
