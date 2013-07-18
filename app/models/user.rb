@@ -123,7 +123,7 @@ class User < ActiveRecord::Base
 
   def default_account( account_id=nil )
     account_id = account_id.id if account_id.is_a? Account
-    self.accounts.where( [ "accounts.id = ?", account_id] ).first || self.accounts.first
+    self.accounts.where( [ "accounts.id = ?", account_id.try(:to_uuid)] ).first || self.accounts.first
   end
 
   def become_user(data)

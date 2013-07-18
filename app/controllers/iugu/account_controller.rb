@@ -40,8 +40,11 @@ class Iugu::AccountController < Iugu::AccountSettingsController
 
   def select
     set_account(current_user, params[:id])
+    redirect_to :back
+  rescue ActionController::RedirectBackError
     redirect_to(account_settings_path, :notice => "Account selected")
   end
+  
 
   def update
     @account = Account.find(params[:id])

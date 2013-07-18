@@ -1,22 +1,21 @@
 - content_for :title do I18n.t("iugu.account") + " #{@account.id}" end
 
-%br
-%br
-%h2
-  = I18n.t("iugu.account_settings") + " (##{@account.id})"
+%h2.no-bottom-margin
+  = I18n.t("iugu.account_settings")
+  
+%h4
+  = "##{@account.id}"
 
 - if current_user.is?(:owner, @account)
   - if flash[:group] == :account_update
     = flash[:notice]
 
   = simple_form_for @account, :url => account_update_path(@account), :method => :put do |f|
-    = f.label :name, I18n.t("activerecord.attributes.name")
-    = f.text_field :name
-    %br
-    = f.submit I18n.t("iugu.save")
+    = f.text_field :name, :placeholder => I18n.t("activerecord.attributes.name")
+
+    = f.submit I18n.t("iugu.save"), :class => "button default"
 
 - if IuguSDK::enable_subscription_features
-  %br
   = "#{I18n.t "iugu.plan"}: #{@plan_name} "
   = link_to I18n.t("iugu.change"), plan_index_url
 
@@ -57,20 +56,29 @@
         - else
           = flash[:notice]
     %div
-      - @account.tokens.each do |token|
-        = "#{token.description} - #{token.api_type} - #{token.token} - #{token.created_at}"
-        %br
-      %br
+      .container
+        - @account.tokens.each do |token|
+          %table{ :style => "margin-bottom: 5px" }
+            %tr
+              %td
+                = token.api_type
+              %td
+                = token.description
+              %td
+                = l token.created_at, :format => :short
+            %tr
+              %td{ :colspan => 3 }
+                = token.token
       = form_tag(account_generate_new_token_path(@account), :method => :post) do
-        = I18n.t('iugu.api_type')
-        = select_tag :api_type, options_for_select(IuguSDK::account_api_tokens)
-        = I18n.t('iugu.description')
-        = text_field_tag :description
-        = submit_tag I18n.t('iugu.create')
+        %h3
+          = I18n.t('iugu.add')
+        %div
+          = select_tag :api_type, options_for_select(IuguSDK::account_api_tokens), :"data-type" => "iux.form.combobox", :class => "full-width"
+        %div
+          = text_field_tag :description, nil, { :placeholder => I18n.t("iugu.description") }
+        = submit_tag I18n.t("iugu.create"), :class => "button default"
 
 - if current_user.is?(:owner, @account)
-  %br
-  %br
   - unless @account.destroying?
     - if IuguSDK::enable_account_cancel
       = link_to I18n.t("iugu.cancel_account"), account_destroy_path(@account), :method => :delete

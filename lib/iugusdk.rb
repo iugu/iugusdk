@@ -18,6 +18,9 @@ require 'koala'
 require 'default_value_for'
 require 'activeuuid'
 require 'iugu-api'
+require 'iugusdk/uuid_mass_assignment_fix'
+require 'iugusdk/uuid_operators_extensions.rb'
+
 # TODO: ALE - Acho q vai precisar disto
 # require 'oauth2'
 

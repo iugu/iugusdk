@@ -26,7 +26,7 @@ class Account < ActiveRecord::Base
   before_create :subscribe, if: Proc.new { IuguSDK::enable_subscription_features }
 
   def self.get_from_domain(domain)
-    AccountDomain.verified.find_by_url(domain).try(:account) || Account.find_by_subdomain(domain.gsub(".#{IuguSDK::application_main_host}",""))
+    AccountDomain.verified.find_by_url(domain).try(:account) || Account.find_by_subdomain(domain.gsub(".#{IuguSDK::application_main_host}","")) || (AccountDomain.verified.find_by_url(domain.gsub(".#{IuguSDK::application_main_host}","")).try(:account) if domain.match(".dev"))
   end
 
   def destruction_job

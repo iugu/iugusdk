@@ -49,7 +49,7 @@
 
 
     .container.default-optional
-      %a.button.no-bottom-margin{ :href => new_session_path(resource_name) }
+      %a.button.no-bottom-margin{ :href => new_session_path(resource_name), :class => "bottom_button_dialog" }
         = I18n.t "iugu.already_have_account"
         %span.more-text
           = I18n.t "iugu.already_have_account_action"
