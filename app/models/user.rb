@@ -156,7 +156,10 @@ class User < ActiveRecord::Base
   private
 
   def init_token
-    self.token = ApiToken.create(tokenable: self, api_type: "USER", description: "User")
+    for i in 0..256 do
+      self.token = ApiToken.create(tokenable: self, api_type: "USER", description: "User")
+      break unless token.nil?
+    end
   end
 
   def destroy_private_accounts

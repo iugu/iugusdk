@@ -14,7 +14,7 @@ class Iugu::AccountController < Iugu::AccountSettingsController
       @account = current_user_account.account
     end
     if IuguSDK::enable_subscription_features
-      subscription = Iugu::Api::Subscription.find @account.subscription_id
+      subscription = Iugu::Api::Subscription.find @account.subscription_id.to_uuid.to_s
       plan = Iugu::Api::Plan.find_by_identifier subscription.plan_identifier
       @plan_name = plan.try :name
     end
@@ -54,7 +54,13 @@ class Iugu::AccountController < Iugu::AccountSettingsController
   end
 
   def create
-    current_user.accounts << Account.create
+    create_parameters = {}
+    if IuguSDK::enable_subscription_features
+      plan_identifier = params[:plan] || IuguSDK::default_subscription_name
+      currency = locale_to_currency I18n.locale
+      create_parameters = {plan_identifier: plan_identifier, currency: currency, email: current_user.email}
+    end
+    current_user.accounts << Account.create(create_parameters)
     redirect_to account_settings_path
   end
 
@@ -77,17 +83,17 @@ class Iugu::AccountController < Iugu::AccountSettingsController
 
   def payment_history
     get_account
-    subscription = Iugu::Api::Subscription.find @account.subscription_id
+    subscription = Iugu::Api::Subscription.find @account.subscription_id.to_uuid.to_s
     customer = Iugu::Api::Customer.find subscription.customer_id
-    @invoices = customer.invoices({status_filter: ["pending", "paid"]})
+    @invoices = Iugu::Api::Invoice.find :all, params: {customer_id: customer.id.to_param, status_filter: ["pending", "paid"], limit: 10}
     render 'iugu/account/payment_history'
   end
 
   private
 
   def get_account
-    if params[:id]
-      @account = current_user.accounts.find(params[:id])
+    if params[:account_id]
+      @account = current_user.accounts.find(params[:account_id])
     else
       @account = current_user_account.account
     end
