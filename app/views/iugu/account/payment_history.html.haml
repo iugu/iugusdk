@@ -11,3 +11,5 @@
         = invoice.total
       %td
         = invoice.status
+%br
+= link_to I18n.t("iugu.back"), account_view_path(id: params[:account_id]), class: "button"

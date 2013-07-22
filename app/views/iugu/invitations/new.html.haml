@@ -25,3 +25,5 @@
   %div
     = f.submit I18n.t("iugu.invite")
 
+%br
+= link_to I18n.t("iugu.back"), account_users_index_path(account_id: params[:account_id]), class: "button"

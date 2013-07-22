@@ -1,4 +1,7 @@
 pt-BR:
+  emails:
+    user_invitation: "Convite para %{account_name}"
+    user_welcome: "Bem-vindo a %{application_title}"
   errors:
     messages:
       only_owners_can_destroy_accounts: "Apenas donos podem remover contas"

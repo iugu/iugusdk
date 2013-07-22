@@ -23,3 +23,5 @@
 - if current_user.is?(:owner, @account) || current_user.is?(:admin, @account)
   %div
     = link_to I18n.t("iugu.invite"), new_invite_path(@account)
+%br
+= link_to I18n.t("iugu.back"), account_view_path(id: params[:account_id]), class: "button"

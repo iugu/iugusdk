@@ -86,3 +86,8 @@
       = link_to I18n.t("iugu.undo"), account_cancel_destruction_path(@account), :method => :delete
     - else
       = I18n.t("iugu.account_destruction_in") + @account.destruction_job.run_at.to_s
+
+- if current_user.accounts.count > 1
+  %br
+  %br
+  = link_to I18n.t("iugu.back"), account_settings_path, class: "button"

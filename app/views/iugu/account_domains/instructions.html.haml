@@ -5,3 +5,5 @@
   = link_to I18n.t("iugu.verify_domain"), verify_domain_path(:account_id => @account.id, :domain_id => @domain.id), :method => :post
 %div
   = link_to I18n.t("iugu.verify_later"), account_domains_index_path(@account.id)
+%br
+= link_to I18n.t("iugu.back"), account_domains_index_path(id: params[:account_id]), class: "button"

@@ -1,4 +1,7 @@
 en:
+  emails:
+    user_invitation: "You have been invited to %{account_name}"
+    user_welcome: "Welcome to %{application_title}"
   errors:
     messages:
       only_owners_can_destroy_accounts: "Only owners can destroy Accounts"
