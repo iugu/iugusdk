@@ -85,14 +85,29 @@ class Iugu::AccountController < Iugu::AccountSettingsController
     else
       raise ActionController::RoutingError.new('Not found')
     end
+  end
 
+  def remove_token
+    if IuguSDK::enable_account_api
+      account = current_user.accounts.find params[:account_id]
+      token = account.tokens.find params[:token] 
+      if token.destroy
+        notice = I18n.t("iugu.notices.token_removed")
+      else
+        notice = token.errors.full_messages
+      end
+      flash[:group] = :api_token
+      redirect_to account_view_path(params[:account_id]), :notice => notice
+    else
+      raise ActionController::RoutingError.new('Not found')
+    end
   end
 
   def payment_history
     get_account
     subscription = Iugu::Api::Subscription.find @account.subscription_id.to_uuid.to_s
     customer = Iugu::Api::Customer.find subscription.customer_id
-    @invoices = Iugu::Api::Invoice.find :all, params: {customer_id: customer.id.to_param, status_filter: ["pending", "paid"], limit: 10}
+    @invoices = Iugu::Api::Invoice.find :all, params: {hl: current_user.locale, customer_id: customer.id.to_param, status_filter: ["pending", "paid"], limit: 10}
     render 'iugu/account/payment_history'
   end
 

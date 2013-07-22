@@ -1,6 +1,8 @@
 class Iugu::InvitationsController < Iugu::SettingsController
 
+  prepend_before_filter :save_invitation_token, only: [:edit]
   before_filter(:only => [:new, :create]) { |c| c.must_be [:owner, :admin], :account_id } 
+  after_filter :select_account, :only => [:update]
 
   def new
     @user_invitation = UserInvitation.new
@@ -31,13 +33,18 @@ class Iugu::InvitationsController < Iugu::SettingsController
   def update
     if @user_invitation = UserInvitation.find_by_invitation_token(params[:invitation_token])
       if @user_invitation.accept(current_user)
-        redirect_to root_path
+        redirect_to IuguSDK::app_main_url
       else
         redirect_to root_path, :notice => I18n.t("iugu.notices.you_are_already_member_of_this_account")
       end
     else
       raise ActionController::RoutingError.new('Not Found')
     end
+  end
+
+  private
+  def save_invitation_token
+    session["invitation_token"] = params[:invitation_token] if params[:invitation_token]
   end
 
 end

@@ -120,6 +120,7 @@ en:
       subdomain_updated: "Subdomain successfully updated"
       you_are_already_member_of_this_account: "You already member of this account"
       new_token_generated: "New token generated"
+      token_removed: "Token removed"
       account_updated: "Account was successfully updated"
       account_not_found: "Account not found"
       user_invited: "User invited"

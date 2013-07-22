@@ -63,8 +63,10 @@
                 = token.description
               %td
                 = l token.created_at, :format => :short
+              %td
+                = link_to I18n.t("iugu.remove"), account_remove_token_path(@account, token), :class => "button no-bottom-margin", :confirm => I18n.t("iugu.are_you_sure?"), :method => :delete
             %tr
-              %td{ :colspan => 3 }
+              %td{ :colspan => 4 }
                 = token.token
       = form_tag(account_generate_new_token_path(@account), :method => :post) do
         %h3

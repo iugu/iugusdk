@@ -123,6 +123,7 @@ pt-BR:
       subdomain_updated: "Subdominio atualizado com sucesso"
       you_are_already_member_of_this_account: "Você já é membro dessa conta"
       new_token_generated: "Novo token gerado"
+      token_removed: "Token removido"
       account_updated: "Conta atualizada com sucesso."
       account_not_found: "Conta não encontrada"
       user_invited: "Usuário convidado"

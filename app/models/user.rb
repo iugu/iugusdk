@@ -20,11 +20,11 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :validatable, :omniauthable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :locale, :name, :birthdate, :guest, :account_alias, :plan_identifier, :currency
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :locale, :name, :birthdate, :guest, :account_alias, :plan_identifier, :currency, :user_invitation
 
   attr_accessor :plan_identifier, :currency
 
-  mattr_accessor :account_alias
+  mattr_accessor :account_alias, :user_invitation
   
   before_destroy :destroy_private_accounts
 
@@ -32,7 +32,7 @@ class User < ActiveRecord::Base
 
   after_create :init_token, :if => Proc.new { IuguSDK::enable_user_api }
 
-  after_create :create_account_for_user
+  after_create :create_account_for_user, :if => Proc.new { accountable? && !user_invitation }
 
   after_create :send_welcome_mail, :if => Proc.new { |r| IuguSDK::enable_welcome_mail && !r.email.blank? }
 
@@ -184,11 +184,8 @@ class User < ActiveRecord::Base
   @reconfirmable = true
   
   def create_account_for_user
-    if accountable?
-      new_account = Account.create( :subdomain => account_alias, plan_identifier: plan_identifier, currency: currency, email: email)
-      account_user = new_account.account_users.create( { :user => self } )
-    end
+    new_account = Account.create( :subdomain => account_alias, plan_identifier: plan_identifier, currency: currency, email: email)
+    account_user = new_account.account_users.create( { :user => self } )
   end
-
 
 end
