@@ -15,9 +15,11 @@
 
     = f.submit I18n.t("iugu.save"), :class => "button default"
 
-- if IuguSDK::enable_subscription_features
+- if @has_subscription
   = "#{I18n.t "iugu.plan"}: #{@plan_name} "
-  = link_to I18n.t("iugu.change"), plan_index_url
+  = link_to I18n.t("iugu.change"), plan_index_url(@account)
+
+  = link_to I18n.t("iugu.payment_history"), account_payment_history_path(@account)
 
 - unless IuguSDK::enable_custom_domain == false && IuguSDK::enable_account_alias == false
   %br
@@ -35,11 +37,6 @@
   %br
   = link_to I18n.t("iugu.users_and_roles"), account_users_index_path(@account)
 
-- if IuguSDK::enable_subscription_features
-  %br
-  %br
-  %div
-    = link_to I18n.t("iugu.payment_history"), account_payment_history_path(@account)
 
 %br
 - if IuguSDK::enable_account_api

@@ -1,3 +1,6 @@
+@import "iugu-ux/core"
+@import "compass/utilities/general/clearfix"
+
 .container
   .header
     position: relative
@@ -9,4 +12,13 @@
       position: absolute
       top: 18px
       right: 18px
-      width: 160px
+      width: 180px
+
+@include for-small-screens(390px)
+  .container
+    .header
+      #btn-settings-back
+        display: block
+        width: 100%
+        top: -53px
+        left: 0px

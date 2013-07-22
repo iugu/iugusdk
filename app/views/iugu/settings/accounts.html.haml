@@ -1,35 +1,31 @@
 - content_for :title do I18n.t("iugu.account_settings") end
 
-%h3
-  = I18n.t "iugu.account_settings"
+- if @accounts.count > 0
 
-- if current_user.accounts.count > 0
-
-  %h3 
-    - if IuguSDK::enable_multiple_accounts
-      = I18n.t("iugu.accounts")
-    - else
-      - if current_user.accounts.count > 1
-        = I18n.t("iugu.accounts")
-      - else
-        = I18n.t("iugu.account")
-
-  - current_user.accounts.each do |account|
-    %div
-      = account.name
-      - if current_user_account.account_id == account.id
-        |
-        = I18n.t("iugu.active")
-      - else
-        |
-        = link_to I18n.t("iugu.select"), account_select_path(account)
-      |
-      = link_to I18n.t("iugu.settings"), account_view_path(account)
+  %table
+    %thead
+      %th
+        Conta
+      %th
+        &nbsp;
+    %tbody
+      - @accounts.each do |account|
+        %tr
+          %td
+            = account.name
+          %td
+            .group.horizontal_stacking
+              - if current_user_account.account_id == account.id
+                = link_to I18n.t("iugu.active"), "javascript:function(){}", :class => "button no-bottom-margin disabled", :style => "width: 50%"
+              - else
+                = link_to I18n.t("iugu.select"), account_select_path(account), :class => "button no-bottom-margin", :style => "width: 50%"
+              = link_to I18n.t("iugu.settings"), account_view_path(account), :class => "button no-bottom-margin", :style => "width: 50%"
 
 - else
   %h2
     = I18n.t("iugu.i_dont_have_any_accounts")
 
+
 - if IuguSDK::enable_multiple_accounts == true
   %div
-    = link_to I18n.t("iugu.create_account"), account_create_path, :method => :post
+    = link_to I18n.t("iugu.create_account"), account_create_path, :method => :post, :class => "button full-width no-bottom-margin default" 

@@ -4,6 +4,7 @@ class Iugu::AccountController < Iugu::AccountSettingsController
   before_filter(:only => [:generate_new_token]) { |c| c.must_be :owner, :account_id }
   
   def index
+    @accounts = current_user.accounts.order(:created_at)
     render 'iugu/settings/accounts'
   end
 
@@ -13,10 +14,16 @@ class Iugu::AccountController < Iugu::AccountSettingsController
     else
       @account = current_user_account.account
     end
+
+    @has_subscription = false
+
     if IuguSDK::enable_subscription_features
-      subscription = Iugu::Api::Subscription.find @account.subscription_id.to_uuid.to_s
-      plan = Iugu::Api::Plan.find_by_identifier subscription.plan_identifier
-      @plan_name = plan.try :name
+      unless @account.subscription_id.blank?
+        @has_subscription = true
+        subscription = Iugu::Api::Subscription.find @account.subscription_id.to_uuid.to_s
+        plan = Iugu::Api::Plan.find_by_identifier subscription.plan_identifier
+        @plan_name = plan.try :name
+      end
     end
     @primary_domain = @account.account_domains.where(:primary => true).first if @account
     render 'iugu/settings/account'
