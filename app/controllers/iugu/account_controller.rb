@@ -20,8 +20,8 @@ class Iugu::AccountController < Iugu::AccountSettingsController
     if IuguSDK::enable_subscription_features
       unless @account.subscription_id.blank?
         @has_subscription = true
-        subscription = Iugu::Api::Subscription.find @account.subscription_id.to_uuid.to_s
-        plan = Iugu::Api::Plan.find_by_identifier subscription.plan_identifier
+        @subscription = @account.subscription
+        plan = Iugu::Api::Plan.find_by_identifier @subscription.plan_identifier
         @plan_name = plan.try :name
       end
     end
@@ -109,6 +109,26 @@ class Iugu::AccountController < Iugu::AccountSettingsController
     customer = Iugu::Api::Customer.find subscription.customer_id
     @invoices = Iugu::Api::Invoice.find :all, params: {hl: current_user.locale, customer_id: customer.id.to_param, status_filter: ["pending", "paid"], limit: 10}
     render 'iugu/account/payment_history'
+  end
+
+  def activate
+    get_account
+    if @account.subscription.try :activate 
+      notice = I18n.t("iugu.notices.account_activated")
+    else
+      notice = I18n.t("iugu.notices.error_activating_account")
+    end
+    redirect_to account_view_path(params[:account_id]), :notice => notice
+  end
+
+  def suspend
+    get_account
+    if @account.subscription.try :suspend 
+      notice = I18n.t("iugu.notices.account_suspended")
+    else
+      notice = I18n.t("iugu.notices.error_suspending_account")
+    end
+    redirect_to account_view_path(params[:account_id]), :notice => notice
   end
 
   private

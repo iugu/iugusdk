@@ -53,6 +53,11 @@ class Account < ActiveRecord::Base
   def name
     (super.blank? ? "#{I18n.t('iugu.account')} ##{id}" : super)
   end
+
+  def subscription
+    return nil unless subscription_id
+    Iugu::Api::Subscription.find subscription_id.to_uuid.to_s
+  end
   
   private
 

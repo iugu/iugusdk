@@ -34,11 +34,8 @@
 
 - if IuguSDK::enable_multiple_users_per_account
   %br
-  %br
-  = link_to I18n.t("iugu.users_and_roles"), account_users_index_path(@account)
+  = link_to I18n.t("iugu.users_and_roles"), account_users_index_path(@account), class: "button full-width"
 
-
-%br
 - if IuguSDK::enable_account_api
   - if current_user.is?(:owner, @account)
     %h2
@@ -78,16 +75,19 @@
         = submit_tag I18n.t("iugu.create"), :class => "button default"
 
 - if current_user.is?(:owner, @account)
+  - if @has_subscription
+    - if @subscription.suspended
+      = link_to I18n.t("iugu.activate"), account_activate_path(@account), :method => :post, class: "button full-width"
+    - else
+      = link_to I18n.t("iugu.suspend"), account_suspend_path(@account), :method => :post, class: "button full-width"
   - unless @account.destroying?
     - if IuguSDK::enable_account_cancel
-      = link_to I18n.t("iugu.cancel_account"), account_destroy_path(@account), :method => :delete
+      = link_to I18n.t("iugu.cancel_account"), account_destroy_path(@account), :method => :delete, class: "button full-width"
   - else
     - if IuguSDK::delay_account_exclusion > 0
-      = link_to I18n.t("iugu.undo"), account_cancel_destruction_path(@account), :method => :delete
+      = link_to I18n.t("iugu.undo"), account_cancel_destruction_path(@account), :method => :delete, class: "button full-width"
     - else
       = I18n.t("iugu.account_destruction_in") + @account.destruction_job.run_at.to_s
 
 - if current_user.accounts.count > 1
-  %br
-  %br
   = link_to I18n.t("iugu.back"), account_settings_path, class: "button"
