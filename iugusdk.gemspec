@@ -47,6 +47,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'iugu-ux'
   s.add_dependency 'database_cleaner'
   s.add_dependency 'compass-rails'
+  s.add_dependency 'money'
   # s.add_dependency "jquery-rails"
 
   s.add_development_dependency "mysql2"

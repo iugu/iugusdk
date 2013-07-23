@@ -18,6 +18,7 @@ require 'koala'
 require 'default_value_for'
 require 'activeuuid'
 require 'iugu-api'
+require 'money'
 require 'iugusdk/uuid_mass_assignment_fix'
 require 'iugusdk/uuid_operators_extensions.rb'
 
@@ -129,6 +130,7 @@ module IuguSDK
   self.default_layout = "settings"
   self.alternative_layout = "iugu-sdk"
 
+  Money.use_i18n = false
 
   def initialize
   end

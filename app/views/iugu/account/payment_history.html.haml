@@ -2,14 +2,17 @@
   %tr
     %th ID
     %th Total
+    %th Vencimento
     %th Status
   - @invoices.each do |invoice|
     %tr
       %td
-        = invoice.id
+        = invoice.id[-8,8]
       %td
         = invoice.total
       %td
-        = invoice.status
+        = I18n.l invoice.due_date.to_date, format: :short
+      %td
+        = I18n.t "invoice_status.#{invoice.status}"
 %br
 = link_to I18n.t("iugu.back"), account_view_path(id: params[:account_id]), class: "button"

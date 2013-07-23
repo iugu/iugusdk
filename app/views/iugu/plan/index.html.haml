@@ -14,7 +14,7 @@
           = plan.name
         %td
           - price = plan.price_by_currency @currency
-          = price.value_cents
+          = Money.new(price.value_cents, @currency).format
         %td
           - if plan.identifier == @subscription.plan_identifier
             = I18n.t "iugu.your_plan"

@@ -1,4 +1,8 @@
 pt-BR:
+  invoice_status:
+    pending: "Pendente"
+    canceled: "Cancelada"
+    paid: "Paga"
   emails:
     user_invitation: "Convite para %{account_name}"
     user_welcome: "Bem-vindo a %{application_title}"

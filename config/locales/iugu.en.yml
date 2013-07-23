@@ -1,4 +1,8 @@
 en:
+  invoice_status:
+    pending: "Pending"
+    canceled: "Canceled"
+    paid: "Paid"
   emails:
     user_invitation: "You have been invited to %{account_name}"
     user_welcome: "Welcome to %{application_title}"
