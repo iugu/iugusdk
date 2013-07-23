@@ -24,6 +24,8 @@
 
               = f.input :password, :required => false, :placeholder => I18n.t("activerecord.attributes.password"), :label => false
               // = f.input :remember_me, :as => :boolean, :label => I18n.t("activerecord.attributes.remember_me") if devise_mapping.rememberable?
+              - if !params[:invitation_token].blank?
+                = f.input :user_invitation, as: :hidden, input_html: { value: params[:invitation_token] }
             .actions
               = f.button :submit, I18n.t("iugu.sign_in"), :class => "full-width default"
 

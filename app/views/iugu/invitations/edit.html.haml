@@ -5,4 +5,9 @@
   = I18n.t("iugu.account")
   = @user_invitation.account.id.to_s
 %div
-  = link_to I18n.t("iugu.accept"), update_invite_path(:invitation_token => @user_invitation.id.to_s + @user_invitation.token), :method => :post
+  - if current_user
+    = link_to I18n.t("iugu.accept"), update_invite_path(:invitation_token => @user_invitation.id.to_s + @user_invitation.token), :method => :post
+  - else
+    Você não está logado!
+    = link_to "Já tenho conta", new_user_session_path(invitation_token: @user_invitation.id.to_s + @user_invitation.token)
+    = link_to "Criar conta", new_user_registration_path(invitation_token: @user_invitation.id.to_s + @user_invitation.token)

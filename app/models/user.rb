@@ -34,7 +34,13 @@ class User < ActiveRecord::Base
 
   after_create :create_account_for_user, :if => Proc.new { accountable? && !user_invitation }
 
+  after_create :accept_invitation, :if => Proc.new { |user| !user.user_invitation.blank? }
+
   after_create :send_welcome_mail, :if => Proc.new { |r| IuguSDK::enable_welcome_mail && !r.email.blank? }
+
+  after_rollback do
+    Rails.logger.info errors.full_messages
+  end
 
   before_save :skip_reconfirmation!, :unless => Proc.new { IuguSDK::enable_email_reconfirmation }
 
@@ -154,6 +160,11 @@ class User < ActiveRecord::Base
   end
 
   private
+
+  def accept_invitation
+    @invite = UserInvitation.find_by_invitation_token(user_invitation)
+    @invite.accept(self) if @invite
+  end
 
   def init_token
     for i in 0..256 do

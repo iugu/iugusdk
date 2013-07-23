@@ -28,6 +28,8 @@ class UserInvitation < ActiveRecord::Base
     if account.account_users.where(:user_id => user.id).empty?
       account_user = account.account_users.create(:user => user)
       account_user.set_roles(roles.split(',')) if roles
+      self.used = true
+      save
       true
     else
       false

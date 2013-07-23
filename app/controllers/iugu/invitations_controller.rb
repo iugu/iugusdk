@@ -1,6 +1,6 @@
 class Iugu::InvitationsController < Iugu::SettingsController
 
-  prepend_before_filter :save_invitation_token, only: [:edit]
+  skip_before_filter :authenticate_user!, :only => :edit
   before_filter(:only => [:new, :create]) { |c| c.must_be [:owner, :admin], :account_id } 
   after_filter :select_account, :only => [:update]
 
@@ -23,11 +23,8 @@ class Iugu::InvitationsController < Iugu::SettingsController
   end
 
   def edit
-    if @user_invitation = UserInvitation.find_by_invitation_token(params[:invitation_token])
-      @inviter = User.find(@user_invitation.invited_by)
-    else
-      raise ActionController::RoutingError.new('Not Found')
-    end
+    raise ActionController::RoutingError.new('Not Found') unless @user_invitation = UserInvitation.find_by_invitation_token(params[:invitation_token])
+    @inviter = User.find(@user_invitation.invited_by)
   end
 
   def update
@@ -41,10 +38,4 @@ class Iugu::InvitationsController < Iugu::SettingsController
       raise ActionController::RoutingError.new('Not Found')
     end
   end
-
-  private
-  def save_invitation_token
-    session["invitation_token"] = params[:invitation_token] if params[:invitation_token]
-  end
-
 end
