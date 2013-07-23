@@ -58,6 +58,34 @@ class Account < ActiveRecord::Base
     return nil unless subscription_id
     Iugu::Api::Subscription.find subscription_id.to_uuid.to_s
   end
+
+  def cached_subscription_active?
+    key = [self, "subscription_active?"]
+    if Rails.cache.exist? key
+      Rails.cache.read key
+    else
+      active = subscription_active?
+      active ? time = 1.day : time = 5.minutes
+      Rails.cache.write key, active, expires_in: time
+      active
+    end
+  end
+
+  def cached_subscription_features
+    Rails.cache.fetch([self, "subscription_features"], expires_in: 1.day) { JSON.parse(subscription_features.to_json) || {} }
+  end
+
+  def clear_cached_subscription_features
+    Rails.cache.delete [self, "subscription_features"]
+  end
+
+  def subscription_active?
+    subscription.try :active 
+  end
+
+  def subscription_features
+    subscription.try :features
+  end
   
   private
 

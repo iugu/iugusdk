@@ -10,7 +10,7 @@ class Iugu::PlanController < Iugu::AccountSettingsController
     params[:id] ? @account = current_user.accounts.find(params[:id]) : @account = current_user_account.account
 
     subscription = Iugu::Api::Subscription.find @account.subscription_id.to_uuid.to_s
-    subscription.change_plan params[:plan]
+    @account.clear_cached_subscription_features if subscription.change_plan params[:plan]
 
     get_index_data
     render 'iugu/plan/index'
