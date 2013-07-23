@@ -130,8 +130,6 @@ module IuguSDK
   self.default_layout = "settings"
   self.alternative_layout = "iugu-sdk"
 
-  Money.use_i18n = false
-
   def initialize
   end
 
