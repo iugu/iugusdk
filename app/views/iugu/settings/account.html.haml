@@ -6,6 +6,15 @@
 %h4
   = "##{@account.id}"
 
+%br
+- if @has_subscription
+  - if @subscription.suspended
+    %h1
+      Esta conta está suspensa
+  - elsif @subscription.in_trial
+    %h1
+      = "Período de testes. #{@subscription.trial_expires_at.to_date.mjd - Date.today.mjd} dia(s)"
+
 - if current_user.is?(:owner, @account)
   - if flash[:group] == :account_update
     = flash[:notice]
