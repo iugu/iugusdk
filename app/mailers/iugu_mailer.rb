@@ -1,7 +1,7 @@
 class IuguMailer < Devise::Mailer
 
-  default from: "iugu <do-not-respond@iugu.com>",
-          reply_to: "iugu <do-not-respond@iugu.com>"
+  default from: "Iugu <no-reply@iugu.com>",
+          reply_to: "Iugu <no-reply@iugu.com>"
 
   def template_paths
     "iugu/mailer"
