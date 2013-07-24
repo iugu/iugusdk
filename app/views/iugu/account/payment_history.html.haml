@@ -7,7 +7,7 @@
   - @invoices.each do |invoice|
     %tr
       %td
-        = invoice.id[-8,8]
+        = link_to invoice.id[-8,8], invoice.secure_url
       %td
         = invoice.total
       %td
