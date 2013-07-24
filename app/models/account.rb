@@ -71,6 +71,10 @@ class Account < ActiveRecord::Base
     end
   end
 
+  def clear_cached_subscription_active
+    Rails.cache.delete [self, "subscription_active?"]
+  end
+
   def cached_subscription_features
     Rails.cache.fetch([self, "subscription_features"], expires_in: 1.day) { JSON.parse(subscription_features.to_json) || {} }
   end

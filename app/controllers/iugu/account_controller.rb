@@ -115,6 +115,7 @@ class Iugu::AccountController < Iugu::AccountSettingsController
     get_account
     if @account.subscription.try :activate 
       notice = I18n.t("iugu.notices.account_activated")
+      @account.clear_cached_subscription_active
     else
       notice = I18n.t("iugu.notices.error_activating_account")
     end
@@ -125,6 +126,7 @@ class Iugu::AccountController < Iugu::AccountSettingsController
     get_account
     if @account.subscription.try :suspend 
       notice = I18n.t("iugu.notices.account_suspended")
+      @account.clear_cached_subscription_active
     else
       notice = I18n.t("iugu.notices.error_suspending_account")
     end
