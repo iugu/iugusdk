@@ -168,8 +168,12 @@ class User < ActiveRecord::Base
 
   def init_token
     for i in 0..256 do
-      self.token = ApiToken.create(tokenable: self, api_type: "USER", description: "User")
-      break unless token.nil?
+      begin
+        self.token = ApiToken.create(tokenable: self, api_type: "USER", description: "User")
+        break unless token.nil?
+      rescue
+        next
+      end
     end
   end
 
