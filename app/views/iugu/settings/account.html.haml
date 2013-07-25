@@ -1,19 +1,28 @@
 - content_for :title do I18n.t("iugu.account") + " #{@account.id}" end
 
-%h2.no-bottom-margin
+%h2
   = I18n.t("iugu.account_settings")
   
-%h4
-  = "##{@account.id}"
+%table
+  %tr
+    %td
+      = "##{@account.id}"
 
-%br
 - if @has_subscription
   - if @subscription.suspended
-    %h1
-      Esta conta está suspensa
+    %div{ :style => "border: 2px solid #F00; padding: 20px;text-align:center;background:#FFCCCC" }
+      %h1.no-bottom-margin
+        Esta conta está suspensa
+      %p.no-bottom-margin
+        Você pode reativar esta conta clicando em ativar ou quitando seus débitos.
   - elsif @subscription.in_trial
-    %h1
-      = "Período de testes. #{@subscription.trial_expires_at.to_date.mjd - Date.today.mjd} dia(s)"
+    %div{ :style => "border: 2px solid #185277; padding: 20px;text-align:center;background:#A6D0E8" }
+      %h1.no-bottom-margin
+        = "Período de testes."
+      %p.no-bottom-margin
+        = "#{@subscription.trial_expires_at.to_date.mjd - Date.today.mjd} dia(s)"
+
+%hr
 
 - if current_user.is?(:owner, @account)
   - if flash[:group] == :account_update

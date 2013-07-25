@@ -1,19 +1,29 @@
 = form_tag(account_roles_update_path(@account, :user_id => @account_user.user)) do
 
-  - if current_user.is?(:owner, @account)
-    - APP_ROLES['roles'].each do |role|
-      %div
-        = check_box_tag "roles[]", role, @account_user.is?(role), :id => "#{role}_checkbox"
-        = label_tag "#{role}_checkbox", I18n.t("iugu.#{role}")
+  %h3
+    Permissões
 
-  - elsif current_user.is?(:admin, @account)
-    - APP_ROLES['roles'].each do |role|
-      - unless role == APP_ROLES['owner_role'] || role == APP_ROLES['admin_role']
-        %div
+  %table
+    %tbody
+      %tr
+        %td
+          = @account_user.user.email
+
+  %div{ :style => "margin-bottom:20px" }
+    - if current_user.is?(:owner, @account)
+      - APP_ROLES['roles'].each do |role|
+        %div{ :style => "margin-bottom: 5px" }
           = check_box_tag "roles[]", role, @account_user.is?(role), :id => "#{role}_checkbox"
           = label_tag "#{role}_checkbox", I18n.t("iugu.#{role}")
+
+    - elsif current_user.is?(:admin, @account)
+      - APP_ROLES['roles'].each do |role|
+        - unless role == APP_ROLES['owner_role'] || role == APP_ROLES['admin_role']
+          %div{ :style => "margin-bottom: 5px" }
+            = check_box_tag "roles[]", role, @account_user.is?(role), :id => "#{role}_checkbox"
+            = label_tag "#{role}_checkbox", I18n.t("iugu.#{role}")
     
   %div
-    = submit_tag I18n.t("iugu.save")
-%br
-= link_to I18n.t("iugu.back"), account_users_index_path(account_id: params[:id]), class: "button"
+    = submit_tag I18n.t("iugu.save"), :class => "button full-width"
+
+= link_to I18n.t("iugu.back"), account_users_index_path(account_id: params[:id]), class: "button no-bottom-margin"

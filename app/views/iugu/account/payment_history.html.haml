@@ -1,3 +1,6 @@
+%h3
+  Histórico de Pagamentos
+
 %table
   %tr
     %th ID
@@ -7,12 +10,12 @@
   - @invoices.each do |invoice|
     %tr
       %td
-        = link_to invoice.id[-8,8], invoice.secure_url
+        = link_to invoice.id[-8,8], invoice.secure_url, :target => "_blank"
       %td
         = invoice.total
       %td
         = I18n.l invoice.due_date.to_date, format: :short
       %td
         = I18n.t "invoice_status.#{invoice.status}"
-%br
-= link_to I18n.t("iugu.back"), account_view_path(id: params[:account_id]), class: "button"
+
+= link_to I18n.t("iugu.back"), account_view_path(id: params[:account_id]), class: "button no-bottom-margin"
