@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    iugusdk (1.0.0.alpha.22)
+    iugusdk (1.0.0.alpha.23)
       activeuuid
       coffee-script
       compass (>= 0.12.2)
@@ -157,8 +157,8 @@ GEM
     hike (1.2.1)
     httpauth (0.2.0)
     i18n (0.6.1)
-    iugu-api (0.0.3)
-    iugu-ux (1.0.2)
+    iugu-api (0.0.4)
+    iugu-ux (1.0.3)
       coffee-script
       compass
       eco

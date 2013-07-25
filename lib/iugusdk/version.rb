@@ -1,3 +1,3 @@
 module IuguSDK
-  VERSION = "1.0.0.alpha.22"
+  VERSION = "1.0.0.alpha.23"
 end
