@@ -14,6 +14,11 @@ pt-BR:
       email_already_in_use: "Esse email já foi utilizado"
       not_supported_api_type: "tipo de api não suportado"
   iugu:
+    interval_type:
+      month: "Mês"
+      months: "Meses"
+      week: "Semana"
+      weeks: "Semanas"
     welcome: "Bem vindo"
     edit: "Editar"
     update: "Atualizar"
@@ -107,6 +112,7 @@ pt-BR:
     plan_name: "Nome do Plano"
     plan: "Plano"
     plans: "Planos"
+    duration: "Duração"
     price: "Preço"
     available_plans: "Planos Disponíveis"
     your_plan: "Seu Plano"

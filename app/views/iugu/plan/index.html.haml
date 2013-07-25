@@ -8,6 +8,8 @@
     %th
       = "#{I18n.t("iugu.price")} (#{@currency})"
     %th
+      = I18n.t "iugu.duration"
+    %th
     - @plans.reverse.each do |plan|
       %tr
         %td
@@ -15,6 +17,8 @@
         %td
           - price = plan.price_by_currency @currency
           = Money.new(price.value_cents, @currency).format
+        %td
+          = "#{plan.interval} #{I18n.t("iugu.interval_type." + (plan.interval == 1 ? plan.interval_type.singularize : plan.interval_type))}"
         %td
           - if plan.identifier == @subscription.plan_identifier
             = I18n.t "iugu.your_plan"
