@@ -22,28 +22,38 @@
   = simple_form_for @account, :url => account_update_path(@account), :method => :put do |f|
     = f.text_field :name, :placeholder => I18n.t("activerecord.attributes.name")
 
-    = f.submit I18n.t("iugu.save"), :class => "button default"
-
-- if @has_subscription
-  = "#{I18n.t "iugu.plan"}: #{@plan_name} "
-  = link_to I18n.t("iugu.change"), plan_index_url(@account)
-
-  = link_to I18n.t("iugu.payment_history"), account_payment_history_path(@account)
-
-- unless IuguSDK::enable_custom_domain == false && IuguSDK::enable_account_alias == false
-  %br
-  %br
-  = I18n.t("iugu.custom_domains")
-  - if current_user.is?(:owner, @account) || current_user.is?(:admin, @account)
-    = link_to I18n.t("iugu.manage"), account_domains_index_path(@account)
-  %br
-  - if @primary_domain
-    = I18n.t("iugu.primary") + ":"
-    = @primary_domain.url
+    = f.submit I18n.t("iugu.save"), :class => "button default no-bottom-margin"
 
 - if IuguSDK::enable_multiple_users_per_account
-  %br
   = link_to I18n.t("iugu.users_and_roles"), account_users_index_path(@account), class: "button full-width"
+
+%hr
+
+- if @has_subscription
+  %table.table
+    %thead
+      %tr
+        %th
+          = I18n.t "iugu.plan"
+        %th
+    %tbody
+      %tr
+        %td{ :style => "width: 60%" }
+          %h3{ :style => "margin:0px;padding-top:10px;padding-left:10px" }
+            = @plan_name
+        %td{ :style => "width: 40%" }
+          .group.horizontal_stacking
+            = link_to I18n.t("iugu.change"), plan_index_url(@account), class: "button"
+  = link_to I18n.t("iugu.payment_history"), account_payment_history_path(@account), class: "button full-width"
+
+  %hr
+
+- unless IuguSDK::enable_custom_domain == false && IuguSDK::enable_account_alias == false
+
+  - if current_user.is?(:owner, @account) || current_user.is?(:admin, @account)
+    = link_to I18n.t("iugu.custom_domains"), account_domains_index_path(@account), :class => "button full-width"
+
+    %hr
 
 - if IuguSDK::enable_account_api
   - if current_user.is?(:owner, @account)
@@ -91,7 +101,7 @@
       = link_to I18n.t("iugu.suspend"), account_suspend_path(@account), :method => :post, class: "button full-width"
   - unless @account.destroying?
     - if IuguSDK::enable_account_cancel
-      = link_to I18n.t("iugu.cancel_account"), account_destroy_path(@account), :method => :delete, class: "button full-width"
+      = link_to I18n.t("iugu.cancel_account"), account_destroy_path(@account), :method => :delete, class: "button full-width no-bottom-margin"
   - else
     - if IuguSDK::delay_account_exclusion > 0
       = link_to I18n.t("iugu.undo"), account_cancel_destruction_path(@account), :method => :delete, class: "button full-width"

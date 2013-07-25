@@ -119,7 +119,7 @@ pt-BR:
     change_plan: "Alterar Plano"
     downgrade: "Rebaixar"
     upgrade: "Aprimorar"
-    custom_domains: "Dominios customizados"
+    custom_domains: "Dominios personalizados"
     api_tokens: "Tokens da API"
     api_type: "Tipo de API"
     api_access: "Acesso via API"
