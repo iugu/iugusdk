@@ -6,7 +6,7 @@
     %thead
       %th
         Conta
-      %th
+      %th{ :style => "width:50%" }
         &nbsp;
     %tbody
       - @accounts.each do |account|
@@ -16,10 +16,10 @@
           %td
             .group.horizontal_stacking
               - if current_user_account.account_id == account.id
-                = link_to I18n.t("iugu.active"), "javascript:function(){}", :class => "button no-bottom-margin disabled", :style => "width: 50%"
+                = link_to I18n.t("iugu.active"), "javascript:function(){}", :class => "button no-bottom-margin disabled", :style => "width: 40%"
               - else
-                = link_to I18n.t("iugu.select"), account_select_path(account), :class => "button no-bottom-margin", :style => "width: 50%"
-              = link_to I18n.t("iugu.settings"), account_view_path(account), :class => "button no-bottom-margin", :style => "width: 50%"
+                = link_to I18n.t("iugu.select"), account_select_path(account), :class => "button no-bottom-margin", :style => "width: 40%"
+              = link_to I18n.t("iugu.settings"), account_view_path(account), :class => "button no-bottom-margin", :style => "width: 60%"
 
 - else
   %h2

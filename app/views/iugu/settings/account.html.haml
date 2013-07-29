@@ -113,9 +113,6 @@
       = link_to I18n.t("iugu.cancel_account"), account_destroy_path(@account), :method => :delete, class: "button full-width no-bottom-margin"
   - else
     - if IuguSDK::delay_account_exclusion > 0
-      = link_to I18n.t("iugu.undo"), account_cancel_destruction_path(@account), :method => :delete, class: "button full-width"
+      = link_to I18n.t("iugu.undo"), account_cancel_destruction_path(@account), :method => :delete, class: "button full-width no-bottom-margin"
     - else
       = I18n.t("iugu.account_destruction_in") + @account.destruction_job.run_at.to_s
-
-- if current_user.accounts.count > 1
-  = link_to I18n.t("iugu.back"), account_settings_path, class: "button"
