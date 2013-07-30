@@ -22,10 +22,8 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me, :locale, :name, :birthdate, :guest, :account_alias, :plan_identifier, :currency, :user_invitation
 
-  attr_accessor :plan_identifier, :currency
+  attr_accessor :plan_identifier, :currency, :account_alias, :user_invitation
 
-  mattr_accessor :account_alias, :user_invitation
-  
   before_destroy :destroy_private_accounts
 
   before_create :skip_confirmation!, :unless => Proc.new { IuguSDK::enable_user_confirmation }
