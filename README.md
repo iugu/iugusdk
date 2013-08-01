@@ -6,25 +6,29 @@ How to use it
 
 **Create your Ruby on Rails 3.2.14 Project**
 
-  $rails \_3.2.14\_ new myapp\_name -d mysql
+    rails \_3.2.14\_ new myapp\_name -d mysql
 
-  $cd myapp\_name
+    cd myapp\_name
 
 **Add to your Gemfile**
-
-    gem 'iugusdk'
+  
+```ruby
+gem 'iugusdk'
+```
 
 **Config file**
 
 config/initializers/iugusdk.rb
 
-    IuguSDK.setup do |config|
-      config.app_main_url = '/'
-      config.application_title = 'myapp_name'
-      config.application_main_host = 'myapp_domain.dev'
-      config.application_main_host = 'myapp_domain.com' if Rails.env.production?
-      #Add your other options
-    end
+```ruby
+IuguSDK.setup do |config|
+  config.app_main_url = '/'
+  config.application_title = 'myapp_name'
+  config.application_main_host = 'myapp_domain.dev'
+  config.application_main_host = 'myapp_domain.com' if Rails.env.production?
+  #Add your other options
+end
+```
 
 **Run delayed jobs**
 
@@ -73,17 +77,21 @@ More options
   Set available types of Account ApiTokens
 
   Example:
-    
-    config.account_api_tokens = [ 'test', 'admin', 'read-only' ]
+
+```ruby
+config.account_api_tokens = [ 'test', 'admin', 'read-only' ]
+```
 
 **delay_account_exclusion**
 
   Set a delay to account exclusion
   
   Examples:
-  
-    config.delay_account_exclusion = 30.minutes
-    config.delay_account_exclusion = 5.days
+
+```ruby  
+config.delay_account_exclusion = 30.minutes
+config.delay_account_exclusion = 5.days
+```
 
 **delay_user_exclusion**
 
@@ -91,5 +99,7 @@ More options
   
   Examples:
   
-    config.delay_user = 30.minutes
-    config.delay_user = 5.days
+```ruby
+config.delay_user = 30.minutes
+config.delay_user = 5.days
+```
