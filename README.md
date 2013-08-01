@@ -4,39 +4,39 @@ IuguSDK
 How to use it
 ---------
 
-**Create your Ruby on Rails 3.2.14 Project**
+- **Create your Ruby on Rails 3.2.14 Project**
 
     rails _3.2.14_ new myapp_name -d mysql
     cd myapp_name
 
-**Add to your Gemfile**
+- **Add to your Gemfile**
   
-```ruby
-gem 'iugusdk'
-```
+  ```ruby
+  gem 'iugusdk'
+  ```
 
-**Config file**
+- **Config file**
 
-config/initializers/iugusdk.rb
+  config/initializers/iugusdk.rb
 
-```ruby
-IuguSDK.setup do |config|
-  config.app_main_url = '/'
-  config.application_title = 'myapp_name'
-  config.application_main_host = 'myapp_domain.dev'
-  config.application_main_host = 'myapp_domain.com' if Rails.env.production?
+  ```ruby
+  IuguSDK.setup do |config|
+    config.app_main_url = '/'
+    config.application_title = 'myapp_name'
+    config.application_main_host = 'myapp_domain.dev'
+    config.application_main_host = 'myapp_domain.com' if Rails.env.production?
 
-  #Add your other options
-  #Example:
-  #config.enable_user_confirmation = true
-end
-```
+    #Add your other options
+    #Example:
+    #config.enable_user_confirmation = true
+  end
+  ```
 
-**Run delayed jobs**
+- **Run delayed jobs**
 
-  $bundle exec rake jobs:work
+    bundle exec rake jobs:work
 
-This is needed for delay exclusion features
+  This is needed for delay exclusion features
 
 
 Available options
@@ -96,9 +96,9 @@ Available options
 
   Example:
 
-```ruby
-config.account_api_tokens = [ 'test', 'admin', 'read-only' ]
-```
+  ```ruby
+  config.account_api_tokens = [ 'test', 'admin', 'read-only' ]
+  ```
 
 - **enable_account_cancel**
 
@@ -114,10 +114,10 @@ config.account_api_tokens = [ 'test', 'admin', 'read-only' ]
   
   Examples:
 
-```ruby  
-config.delay_account_exclusion = 30.minutes
-config.delay_account_exclusion = 5.days
-```
+  ```ruby  
+  config.delay_account_exclusion = 30.minutes
+  config.delay_account_exclusion = 5.days
+  ```
 
 - **delay_user_exclusion**
 
@@ -125,7 +125,7 @@ config.delay_account_exclusion = 5.days
   
   Examples:
   
-```ruby
-config.delay_user = 30.minutes
-config.delay_user = 5.days
-```
+  ```ruby
+  config.delay_user = 30.minutes
+  config.delay_user = 5.days
+  ```
