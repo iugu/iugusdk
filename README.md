@@ -70,9 +70,9 @@ Available options
   
   Enables alias on account
 
-**enable_custom_domains**
+**enable_custom_domain**
 
-  Enables custom domain on account
+  Allow accounts to have custom domains
 
 **enable_multiple_accounts**
   
