@@ -6,8 +6,8 @@ How to use it
 
 - **Create your Ruby on Rails 3.2.14 Project**
 
-      rails _3.2.14_ new myapp_name -d mysql
-      cd myapp_name
+        rails _3.2.14_ new myapp_name -d mysql
+        cd myapp_name
 
 - **Add to your Gemfile**
   
@@ -34,7 +34,7 @@ How to use it
 
 - **Run delayed jobs**
 
-      bundle exec rake jobs:work
+        bundle exec rake jobs:work
 
   This is needed for delay exclusion features
 
