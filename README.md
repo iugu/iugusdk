@@ -1,13 +1,18 @@
 IuguSDK
 =========
 
-Install
+How to use it
 ---------
+
+**Create your Ruby on Rails 3.2.14 Project**
+
+  $rails \_3.2.14\_ new myapp\_name -d mysql
+
+  $cd myapp\_name
 
 **Add to your Gemfile**
 
     gem 'iugusdk'
-    gem 'iugu-ux'
 
 **Config file**
 
@@ -15,11 +20,18 @@ config/initializers/iugusdk.rb
 
     IuguSDK.setup do |config|
       config.app_main_url = '/'
-      config.application_title = 'example'
-      config.application_main_host = 'example.dev'
-      config.application_main_host = 'example.com' if Rails.env.production?
+      config.application_title = 'myapp_name'
+      config.application_main_host = 'myapp_domain.dev'
+      config.application_main_host = 'myapp_domain.com' if Rails.env.production?
       #Add your other options
     end
+
+**Run delayed jobs**
+
+  $bundle exec rake jobs:work
+
+This is needed for delay exclusion features
+
 
 More options
 -----------
@@ -81,5 +93,3 @@ More options
   
     config.delay_user = 30.minutes
     config.delay_user = 5.days
-
-
