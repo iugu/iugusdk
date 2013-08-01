@@ -2,7 +2,7 @@ module IuguSDK
   class Engine < Rails::Engine
 
     initializer "iugusdk.load_app_root" do |app|
-      app.config.assets.precompile += %w( iugu-sdk.css )
+      app.config.assets.precompile += %w( iugu-sdk.css settings.css )
        IuguSDK.app_root = app.root
        app.class.configure do
          config.paths['db/migrate'] += IuguSDK::Engine.paths['db/migrate'].existent
