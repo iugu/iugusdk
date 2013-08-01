@@ -7,6 +7,7 @@ Install
 **Add to your Gemfile**
 
     gem 'iugusdk'
+    gem 'iugu-ux'
 
 **Config file**
 
