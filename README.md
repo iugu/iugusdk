@@ -6,9 +6,9 @@ How to use it
 
 **Create your Ruby on Rails 3.2.14 Project**
 
-    rails \_3.2.14\_ new myapp\_name -d mysql
+    rails _3.2.14_ new myapp_name -d mysql
 
-    cd myapp\_name
+    cd myapp_name
 
 **Add to your Gemfile**
   
