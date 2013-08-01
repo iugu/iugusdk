@@ -39,7 +39,7 @@ end
 This is needed for delay exclusion features
 
 
-More options
+Available options
 -----------
 
 **enable_social_login**
@@ -65,6 +65,14 @@ More options
 **enable_welcome_mail**
 
   Enables a Welcome email that is sent to User after registration
+
+**enable_multiple_accounts**
+  
+  Allow users to have multiple accounts
+
+**enable_multiple_users_per_account**
+
+  Allow accounts to have multiple users
 
 **enable_user_api**
 
