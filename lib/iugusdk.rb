@@ -7,7 +7,6 @@ require 'iugusdk/root_tenancy_url'
 require 'iugusdk/session_parameter_middleware'
 require "iugusdk/engine"
 require "iugusdk/iugusdk_base_controller"
-# require "http_accept_language"
 require 'devise'
 require 'omniauth'
 require 'omniauth-twitter'
@@ -18,6 +17,7 @@ require 'koala'
 require 'default_value_for'
 require 'activeuuid'
 require 'iugu-api'
+require 'iugu-ux'
 require 'money'
 require 'iugusdk/uuid_mass_assignment_fix'
 require 'iugusdk/uuid_operators_extensions.rb'
