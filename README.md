@@ -7,7 +7,6 @@ How to use it
 **Create your Ruby on Rails 3.2.14 Project**
 
     rails _3.2.14_ new myapp_name -d mysql
-
     cd myapp_name
 
 **Add to your Gemfile**
@@ -26,7 +25,10 @@ IuguSDK.setup do |config|
   config.application_title = 'myapp_name'
   config.application_main_host = 'myapp_domain.dev'
   config.application_main_host = 'myapp_domain.com' if Rails.env.production?
+
   #Add your other options
+  #Example:
+  #config.enable_user_confirmation = true
 end
 ```
 
