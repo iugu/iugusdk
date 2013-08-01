@@ -66,6 +66,14 @@ Available options
 
   Enables a Welcome email that is sent to User after registration
 
+**enable_account_alias**
+  
+  Enables alias on account
+
+**enable_custom_domains**
+
+  Enables custom domain on account
+
 **enable_multiple_accounts**
   
   Allow users to have multiple accounts
@@ -91,6 +99,14 @@ Available options
 ```ruby
 config.account_api_tokens = [ 'test', 'admin', 'read-only' ]
 ```
+
+**enable_account_cancel**
+
+  Enables account exclusion (enabled by default)
+
+**enable_user_cancel**
+
+  Enables user exclusion (enabled by default)
 
 **delay_account_exclusion**
 
