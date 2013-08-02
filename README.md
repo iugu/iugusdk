@@ -108,6 +108,39 @@ Api Options
   config.account_api_tokens = [ 'test', 'admin', 'read-only' ]
   ```
 
+Account and User Exclusion Options
+------------------
+
+- **enable_account_cancel**
+
+  Enables account exclusion (enabled by default)
+
+- **enable_user_cancel**
+
+  Enables user exclusion (enabled by default)
+
+- **delay_account_exclusion**
+
+  Set a delay to account exclusion
+  
+  Examples:
+
+  ```ruby  
+  config.delay_account_exclusion = 30.minutes
+  config.delay_account_exclusion = 5.days
+  ```
+
+- **delay_user_exclusion**
+
+  Set a delay to user exclusion
+  
+  Examples:
+  
+  ```ruby
+  config.delay_user = 30.minutes
+  config.delay_user = 5.days
+  ```
+
 Other Options
 -----------
 
@@ -143,32 +176,3 @@ Other Options
 
   Allow accounts to have multiple users
 
-- **enable_account_cancel**
-
-  Enables account exclusion (enabled by default)
-
-- **enable_user_cancel**
-
-  Enables user exclusion (enabled by default)
-
-- **delay_account_exclusion**
-
-  Set a delay to account exclusion
-  
-  Examples:
-
-  ```ruby  
-  config.delay_account_exclusion = 30.minutes
-  config.delay_account_exclusion = 5.days
-  ```
-
-- **delay_user_exclusion**
-
-  Set a delay to user exclusion
-  
-  Examples:
-  
-  ```ruby
-  config.delay_user = 30.minutes
-  config.delay_user = 5.days
-  ```
