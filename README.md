@@ -48,7 +48,7 @@ Getting Started
   This is needed for delay exclusion features
 
 
-Available Features
+Features
 =================
 
 Social Network Integration
