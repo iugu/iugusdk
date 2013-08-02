@@ -15,7 +15,7 @@ Getting Started
   gem 'iugusdk'
   ```
 
-- **Run IuguSDK config
+- **Run IuguSDK config**
 
         rails g iugusdk_config myapp_name
 
