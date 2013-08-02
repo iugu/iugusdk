@@ -15,31 +15,9 @@ Getting Started
   gem 'iugusdk'
   ```
 
-- **Create IuguSDK main config file**
+- **Run IuguSDK config
 
-  config/initializers/iugusdk.rb
-
-  ```ruby
-  IuguSDK.setup do |config|
-    config.app_main_url = '/'
-    config.application_title = 'myapp_name'
-    config.application_main_host = 'myapp_domain.dev'
-    config.application_main_host = 'myapp_domain.com' if Rails.env.production?
-
-    #Add your other options
-    #Example:
-    #config.enable_user_confirmation = true
-  end
-  ```
-
-- **Other Config Files**
-  
-  config/account_roles.yml
-
-        roles: [ admin, owner, user, guest ]
-        owner_role: owner
-        admin_role: admin
-
+        rails g iugusdk_config myapp_name
 
 - **Runnning delayed jobs**
 
@@ -51,10 +29,11 @@ Getting Started
 Features
 =================
 
-Social Network Integration
------------
-
 **Enable Features**
+  
+  Features can be enable by editing iugusdk initializer
+
+  Example:
 
   config/initializer/iugusdk.rb
 
@@ -62,17 +41,21 @@ Social Network Integration
   IuguSDK.setup do |config|
     #...
 
-    #Enable login using facebook and twitter
-
-    config.enable_social_login = true
-
-    #Allows users to link their facebook and twitter account to your application user
-
-    config.enable_social_linking = true
+    #Enabling user api
+    config.enable_user_api = true
 
     #...
   end
   ```
+
+Social Network Integration
+-----------
+
+**Features**
+
+- enable_social_login
+
+- enable_social_linking
 
 **Config Credentials**
 
