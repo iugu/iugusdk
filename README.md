@@ -19,18 +19,8 @@ Getting Started
 
         rails g iugusdk_config myapp_name
 
-- **Runnning delayed jobs**
+- **Features**
 
-        bundle exec rake jobs:work
-
-  This is needed for delay exclusion features
-
-
-Features
-=================
-
-**Enable Features**
-  
   Features can be enable by editing iugusdk initializer
 
   Example:
@@ -48,6 +38,13 @@ Features
   end
   ```
 
+- **Runnning delayed jobs**
+
+        bundle exec rake jobs:work
+
+  This is needed for delay exclusion features
+
+
 Social Network Integration
 -----------
 
@@ -61,27 +58,29 @@ Social Network Integration
 
 config/social_accounts.yml
 
-        facebook:
-          token: 'yourtoken'
-          secret: 'yoursecret'
-          scope: 'user_birthday'
-        twitter:
-          token: 'yourtoken'
-          secret: 'yoursecret'
-          scope: 
+    facebook:
+      token: 'yourtoken'
+      secret: 'yoursecret'
+      scope: 'user_birthday'
+    twitter:
+      token: 'yourtoken'
+      secret: 'yoursecret'
+      scope: 
 
 Api Options
 ------------
 
-- **enable_user_api**
+**Features**
+
+- enable_user_api
 
   Enables User api token
 
-- **enable_account_api**
+- enable_account_api
 
   Enables Account api tokens
 
-- **account_api_tokens**
+- account_api_tokens
 
   Set available types of Account ApiTokens
 
@@ -94,15 +93,17 @@ Api Options
 Account and User Exclusion Options
 ------------------
 
-- **enable_account_cancel**
+**Features**
+
+- enable_account_cancel
 
   Enables account exclusion (enabled by default)
 
-- **enable_user_cancel**
+- enable_user_cancel
 
   Enables user exclusion (enabled by default)
 
-- **delay_account_exclusion**
+- delay_account_exclusion
 
   Set a delay to account exclusion
   
@@ -113,7 +114,7 @@ Account and User Exclusion Options
   config.delay_account_exclusion = 5.days
   ```
 
-- **delay_user_exclusion**
+- delay_user_exclusion
 
   Set a delay to user exclusion
   
@@ -124,38 +125,37 @@ Account and User Exclusion Options
   config.delay_user = 5.days
   ```
 
-Other Options
+Other Features
 -----------
 
-- **enable_guest_user**
+- enable_guest_user
 
   Enables login as guest user
 
-- **enable_user_confirmation**
+- enable_user_confirmation
 
   Enables email confirmation on signup
 
-- **enable_email_reconfirmation**
+- enable_email_reconfirmation
 
   Enables email confirmation on user email change
 
-- **enable_welcome_mail**
+- enable_welcome_mail
 
   Enables a Welcome email that is sent to User after registration
 
-- **enable_account_alias**
+- enable_account_alias
   
   Enables alias on account
 
-- **enable_custom_domain**
+- enable_custom_domain
 
   Allow accounts to have custom domains
 
-- **enable_multiple_accounts**
+- enable_multiple_accounts
   
   Allow users to have multiple accounts
 
-- **enable_multiple_users_per_account**
+- enable_multiple_users_per_account
 
   Allow accounts to have multiple users
-
