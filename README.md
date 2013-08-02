@@ -1,8 +1,8 @@
 IuguSDK
 =========
 
-How to use it
----------
+Getting Started
+------------
 
 - **Create your Ruby on Rails 3.2.14 Project**
 
@@ -15,7 +15,7 @@ How to use it
   gem 'iugusdk'
   ```
 
-- **Config file**
+- **Create IuguSDK main config file**
 
   config/initializers/iugusdk.rb
 
@@ -32,23 +32,84 @@ How to use it
   end
   ```
 
-- **Run delayed jobs**
+- **Other Config Files**
+  
+  config/account_roles.yml
+
+        roles: [ admin, owner, user, guest ]
+        owner_role: owner
+        admin_role: admin
+
+
+- **Runnning delayed jobs**
 
         bundle exec rake jobs:work
 
   This is needed for delay exclusion features
 
 
-Available options
+Available Features
+=================
+
+Social Network Integration
 -----------
 
-- **enable_social_login**
+**Enable Features**
 
-  Enable login using facebook and twitter
+  config/initializer/iugusdk.rb
 
-- **enable_social_linking**
+  ```ruby
+  IuguSDK.setup do |config|
+    #...
 
-  Allows users to link their facebook and twitter account to your application user
+    #Enable login using facebook and twitter
+
+    config.enable_social_login = true
+
+    #Allows users to link their facebook and twitter account to your application user
+
+    config.enable_social_linking = true
+
+    #...
+  end
+  ```
+
+**Config Credentials**
+
+config/social_accounts.yml
+
+        facebook:
+          token: 'yourtoken'
+          secret: 'yoursecret'
+          scope: 'user_birthday'
+        twitter:
+          token: 'yourtoken'
+          secret: 'yoursecret'
+          scope: 
+
+Api Options
+------------
+
+- **enable_user_api**
+
+  Enables User api token
+
+- **enable_account_api**
+
+  Enables Account api tokens
+
+- **account_api_tokens**
+
+  Set available types of Account ApiTokens
+
+  Example:
+
+  ```ruby
+  config.account_api_tokens = [ 'test', 'admin', 'read-only' ]
+  ```
+
+Other Options
+-----------
 
 - **enable_guest_user**
 
@@ -81,24 +142,6 @@ Available options
 - **enable_multiple_users_per_account**
 
   Allow accounts to have multiple users
-
-- **enable_user_api**
-
-  Enables User api token
-
-- **enable_account_api**
-
-  Enables Account api tokens
-
-- **account_api_tokens**
-
-  Set available types of Account ApiTokens
-
-  Example:
-
-  ```ruby
-  config.account_api_tokens = [ 'test', 'admin', 'read-only' ]
-  ```
 
 - **enable_account_cancel**
 
