@@ -125,6 +125,14 @@ Account and User Exclusion Options
   config.delay_user = 5.days
   ```
 
+Web-App
+----------
+
+**Generate Structure"
+
+    rails g webapp
+
+
 Other Features
 -----------
 

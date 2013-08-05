@@ -1,0 +1,40 @@
+!!!
+%html{ :class => "no-js not-ready" }
+  %head
+    %meta{ :charset => "utf-8" }
+    %title
+      = IuguSDK::application_title
+
+    :javascript
+      window.api_token = '#{@current_user.token.token}';
+
+    = javascript_include_tag 'vendor'
+    = javascript_include_tag 'iugu-ux'
+    = stylesheet_link_tag    'iugu-ux'
+
+    %meta{ :name => "viewport", :content => "width=device-width, initial-scale=1, maximum-scale=1" }
+    %meta{ :name => "apple-mobile-web-app-capable", :content => "yes" }
+    %meta{ :name => "apple-mobile-web-status-bar-style", :content => "black" }
+    %meta{ 'http-equiv' => 'cleartype', :content => 'on' }
+    %meta{ 'http-equiv' => 'X-UA-Compatible', :content => 'IE=edge,chrome=1' }
+    %meta{ :name => 'MobileOptimized', :content => '320' }
+
+    %link{:href => "//iugu.com/imgs/favicon.ico", :rel => "icon"}/
+    %link{:href => "//iugu.com/imgs/favicon.ico", :rel => "shortcut icon"}/
+
+
+  %body.iugu-ui.ui-box-background
+
+
+    %noscript
+      .js-warning
+
+    #app
+
+    %script
+      (function() { $(function() {
+      if (typeof(run_webapp) == 'function')
+      i18n.setDefaultLocale('#{@current_user.locale}');
+      return run_webapp(true);
+      });
+      }).call(this);

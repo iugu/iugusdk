@@ -1,0 +1,72 @@
+<% environment.context_class.instance_eval { include Rails.application.routes.url_helpers } %>
+
+window.IuguUI = {}
+
+var app_domain = <%= IuguSDK::application_main_host %>;
+
+if (window.location.hostname.indexOf('xip.io') != -1) {
+    app_domain = 'xip.io';
+}
+
+var enable_debug = <%= Rails.env.production? ? 'false' : 'true' %>;
+//var enable_debug_events = <%= Rails.env.production? ? 'false' : 'true' %>;
+var enable_debug_events = false
+
+var enable_ajax_on_subdomain = false;
+var api_base = window.location.hostname + '/api/v1/';
+//var subdomain_xdr_url = api_base + 'xdreceiver.html';
+
+var app_root = '/app';
+
+var app_main_url = '<%= IuguSDK::app_main_url %>';
+var app_root_url = '<%= IuguSDK::app_root_url %>';
+
+var logout_path = '<%= destroy_user_session_path %>';
+var settings_path = '<%= settings_path %>';
+
+// Other routes
+// api_v1_profile_path
+
+rivets.formatters.toArrayRemovingDestroyed = function(collection) { 
+  var arr;
+
+  if(typeof collection !== "undefined") {
+    arr = _.clone(collection.models);
+  } else {
+    arr = []
+  }
+
+  _.each(arr, function(val, key) {
+    if(val.get('_destroy')) {
+      arr.splice(key, 1);
+    }
+  });
+
+  return arr;
+}
+
+rivets.formatters.toArray = function(collection) {
+  return collection.models;
+}
+
+rivets.configure({
+  prefix: "model",
+  adapter: {
+    subscribe: function(obj, keypath, callback) {
+      callback.wrapped = function(m, v) { callback(v) };
+      obj.on('change:' + keypath, callback.wrapped);
+    },
+
+    unsubscribe: function(obj, keypath, callback) {
+      obj.off('change:' + keypath, callback.wrapped);
+    },
+
+    read: function(obj, keypath) {
+      return obj.get(keypath);
+    },
+
+    publish: function(obj, keypath, value) {
+      obj.set(keypath, value, { silent: true } );
+    }
+  }
+});

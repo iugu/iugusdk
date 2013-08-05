@@ -1,0 +1,14 @@
+<div class="content">
+  <div class="handle-scrolling">
+    <form action="/logout" data-form="logout" style="display:none"><input type="hidden" name="_method" value="delete"></form>
+
+    <div class="nav group vertical_stacking">
+      
+      <div>
+        <a href="#" class="button tal large full-width" data-action="dashboard"><div class="icon-home"></div>Dashboard</a>
+      </div>
+
+    </div>
+
+  </div>
+</div>
