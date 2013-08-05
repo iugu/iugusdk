@@ -128,7 +128,7 @@ Account and User Exclusion Options
 Web-App
 ----------
 
-**Generate Structure"
+**Generate Structure**
 
     rails g webapp
 
