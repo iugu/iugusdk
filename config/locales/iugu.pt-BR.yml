@@ -46,6 +46,7 @@ pt-BR:
     accept: "Aceitar"
     invite: "Convidar"
     permissions: "Permissões"
+    make_owner: "Tornar Dono"
     select: "Selecionar"
     configs: "Configurações"
     error: "Erro"
@@ -53,6 +54,7 @@ pt-BR:
     account: "Conta"
     accounts: "Contas"
     account_domains: "Domínios"
+    account_user_make_owner: "Dono alterado com sucesso"
     social_unlinked: "Rede social desvinculada com sucesso"
     social_linked: "Rede social vinculada com sucesso"
     account_destruction_in: "A conta será removida em "
@@ -127,7 +129,7 @@ pt-BR:
     api_renew: "Renovar Token de Acesso"
     description: "Descrição"
     i_dont_have_any_accounts: "Eu não tenho nenhuma conta"
-    owner: "dono"
+    owner: "Dono"
     admin: "administrador"
     user: "usuário"
     guest: "convidado"
@@ -166,6 +168,8 @@ pt-BR:
       birthdate: "Data de nascimento"
       locale: "Idioma"
       remember_me: "Lembre-me"
+      user_invitation:
+        roles: "Permissões"
 
   simple_form:
     "yes": "Sim"

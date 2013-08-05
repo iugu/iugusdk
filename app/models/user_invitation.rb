@@ -2,6 +2,7 @@ class UserInvitation < ActiveRecord::Base
   include ActiveUUID::UUID
 
   validates :email, :email => true, :presence => true
+  validates :roles, presence: true
   validate :email_already_used?
   before_save :set_token
   before_create :set_sent_at

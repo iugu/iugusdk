@@ -19,17 +19,20 @@
             = account_user.user.name
         %td
           - if current_user.is?(:owner, @account) || current_user.is?(:admin, @account)
-            = link_to I18n.t("iugu.permissions"), account_roles_edit_path(@account, :user_id => account_user.user), :class => "button small no-bottom-margin"
-            - unless account_user.destroying?
-              - unless account_user.is?(:owner) || account_user.user_id == current_user.id
-                |
-                = link_to I18n.t("iugu.remove"), account_users_destroy_path(@account, :user_id => account_user.user), :method => 'delete', :class => "button small no-bottom-margin"
-            - else
-              |
-              - if IuguSDK::delay_account_user_exclusion == 0
-                = I18n.t("iugu.removing")
+            .group.horizontal_stacking
+              = link_to I18n.t("iugu.permissions"), account_roles_edit_path(@account, :user_id => account_user.user), :class => "button small no-bottom-margin", style: "#{ (current_user.is?(:owner, @account) && account_user.user_id != current_user.id)? 'width: 50%' : ''}"
+              - if current_user.is?(:owner, @account) && account_user.user_id != current_user.id
+                = link_to I18n.t("iugu.make_owner"), account_users_transfer_ownership_path(@account, :user_id => account_user.user), :class => "button small no-bottom-margin", style: "width: 50%", confirm: I18n.t('iugu.are_you_sure?'), method: 'put'
+              - unless account_user.destroying?
+                - unless account_user.is?(:owner) || account_user.user_id == current_user.id
+                  &nbsp;
+                  = link_to I18n.t("iugu.remove"), account_users_destroy_path(@account, :user_id => account_user.user), :method => 'delete', :class => "button small no-bottom-margin", confirm: I18n.t('iugu.are_you_sure?')
               - else
-                = link_to I18n.t("iugu.undo"), account_users_cancel_destruction_path(@account, :user_id => account_user.user), :method => 'delete', :class => "button small no-bottom-margin"
+                &nbsp;
+                - if IuguSDK::delay_account_user_exclusion == 0
+                  = I18n.t("iugu.removing")
+                - else
+                  = link_to I18n.t("iugu.undo"), account_users_cancel_destruction_path(@account, :user_id => account_user.user), :method => 'delete', :class => "button small no-bottom-margin"
 
 - if current_user.is?(:owner, @account) || current_user.is?(:admin, @account)
   %div

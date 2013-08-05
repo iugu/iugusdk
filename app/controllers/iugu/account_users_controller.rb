@@ -17,6 +17,17 @@ class Iugu::AccountUsersController < Iugu::AccountSettingsController
     render 'iugu/account_users/view'
   end
 
+  def transfer_ownership
+    if @account_user = AccountUser.find_by_account_id_and_user_id(params[:account_id], params[:user_id])
+      @account = Account.find(params[:account_id])
+    else
+      raise ActionController::RoutingError.new('Not Found')
+    end
+    raise ActionController::RoutingError.new('Access Denied') if @account_user.user.id == current_user.id || @account_user.is?(:owner)
+    @account.transfer_ownership @account_user.user
+    redirect_to account_users_index_path(params[:account_id]), :notice => I18n.t("iugu.account_user_make_owner")
+  end
+
   def destroy
     if @account_user = AccountUser.find_by_account_id_and_user_id(params[:account_id], params[:user_id])
       @account = Account.find(params[:account_id])

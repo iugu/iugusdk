@@ -46,6 +46,7 @@ en:
     accept: "Accept"
     invite: "Invite"
     permissions: "Permissions"
+    make_owner: "Make Owner"
     select: "Select"
     configs: "Configs"
     error: "Error"
@@ -53,6 +54,7 @@ en:
     account: "Account"
     accounts: "Accounts"
     account_domains: "Account Domains"
+    account_user_make_owner: "Owner changed successfully"
     social_unlinked: "Social Account successfully unlink"
     social_linked: "Social Account successfully linked"
     account_destruction_in: "Account will be remove at "
@@ -163,4 +165,6 @@ en:
       birthdate: "Birthdate"
       locale: "Language"
       remember_me: "Remember me"
+      user_invitation:
+        roles: "Permissions"
       

@@ -12,9 +12,10 @@
   %div{ :style => "margin-bottom:20px" }
     - if current_user.is?(:owner, @account)
       - APP_ROLES['roles'].each do |role|
-        %div{ :style => "margin-bottom: 5px" }
-          = check_box_tag "roles[]", role, @account_user.is?(role), :id => "#{role}_checkbox"
-          = label_tag "#{role}_checkbox", I18n.t("iugu.#{role}")
+        - unless role == APP_ROLES['owner_role']
+          %div{ :style => "margin-bottom: 5px" }
+            = check_box_tag "roles[]", role, @account_user.is?(role), :id => "#{role}_checkbox"
+            = label_tag "#{role}_checkbox", I18n.t("iugu.#{role}")
 
     - elsif current_user.is?(:admin, @account)
       - APP_ROLES['roles'].each do |role|

@@ -22,6 +22,7 @@ Rails.application.routes.draw do
     get "settings/account/:account_id/payment_history" => "iugu/account#payment_history", :as => "account_payment_history"
     get "settings/account/:account_id/users" => "iugu/account_users#index", :as => "account_users_index"
     get "settings/account/:account_id/user/:user_id" => "iugu/account_users#view", :as => "account_users_view"
+    put "settings/account/:account_id/user/:user_id" => "iugu/account_users#transfer_ownership", :as => "account_users_transfer_ownership"
     delete "settings/account/:account_id/user/:user_id" => "iugu/account_users#destroy", :as => "account_users_destroy"
     delete "settings/account/:account_id/user/:user_id/cancel" => "iugu/account_users#cancel_destruction", :as => "account_users_cancel_destruction"
 

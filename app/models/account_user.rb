@@ -52,6 +52,11 @@ class AccountUser < ActiveRecord::Base
     true
   end
 
+  def set_owner
+    roles.create name: "owner"
+    reload
+  end
+
   def is?(role)
     role = APP_ROLES[ "owner_role" ] if role.to_s == "owner"
     role = APP_ROLES[ "admin_role" ] if role.to_s == "admin"

@@ -90,6 +90,26 @@ class Account < ActiveRecord::Base
   def subscription_features
     subscription.try :features
   end
+
+  def owner_account_user
+    account_users.each { |au| return au if au.is? :owner }
+    nil
+  end
+
+  def transfer_ownership(user)
+    au = account_users.find_by_user_id user.id  
+    au.set_owner
+
+    owner_account_user.roles.find_by_name("owner").try :destroy if owner_account_user
+
+    if au.is? :owner
+      subscription = Iugu::Api::Subscription.find subscription_id.to_uuid.to_s
+      customer = Iugu::Api::Customer.find subscription.customer_id
+      customer.email = user.email
+      customer.name = user.name
+      customer.save
+    end
+  end
   
   private
 

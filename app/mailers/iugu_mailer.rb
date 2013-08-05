@@ -17,7 +17,7 @@ class IuguMailer < Devise::Mailer
     user = User.find(user_invitation.invited_by)
     set_locale(user)
     @user_invitation = user_invitation
-    mail(to: @user_invitation.email, :subject => I18n.t("user_invitation", account_name: @user_invitation.account.try(:name))) do |format|
+    mail(to: @user_invitation.email, :subject => I18n.t("emails.user_invitation", account_name: @user_invitation.account.try(:name))) do |format|
       format.html { render "iugu/mailer/invitation" }
     end
     set_default_locale
@@ -26,7 +26,7 @@ class IuguMailer < Devise::Mailer
   def welcome(user)
     set_locale(user)
     @user = user
-    mail(to: @user.email, :subject => I18n.t("user_welcome", application_title: IuguSDK::application_title)) do |format|
+    mail(to: @user.email, :subject => I18n.t("emails.user_welcome", application_title: IuguSDK::application_title)) do |format|
       format.html { render "iugu/mailer/welcome" }
     end
     set_default_locale
