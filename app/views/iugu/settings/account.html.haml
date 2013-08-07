@@ -52,8 +52,10 @@
             = @plan_name
         %td{ :style => "width: 40%" }
           .group.horizontal_stacking
-            = link_to I18n.t("iugu.change"), plan_index_url(@account), class: "button"
-  = link_to I18n.t("iugu.payment_history"), account_payment_history_path(@account), class: "button full-width"
+            - if current_user.is?(:owner, @account)
+              = link_to I18n.t("iugu.change"), plan_index_url(@account), class: "button"
+  - if current_user.is?(:owner, @account)
+    = link_to I18n.t("iugu.payment_history"), account_payment_history_path(@account), class: "button full-width"
 
   %hr
 

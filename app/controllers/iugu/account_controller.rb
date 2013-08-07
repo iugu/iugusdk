@@ -1,7 +1,7 @@
 class Iugu::AccountController < Iugu::AccountSettingsController
 
   before_filter(:only => [:destroy, :cancel_destruction, :update]) { |c| c.must_be :owner, :id }
-  before_filter(:only => [:generate_new_token]) { |c| c.must_be :owner, :account_id }
+  before_filter(:only => [:payment_history, :generate_new_token]) { |c| c.must_be :owner, :account_id }
   
   def index
     @accounts = current_user.accounts.order(:created_at)

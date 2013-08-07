@@ -1,4 +1,6 @@
 class Iugu::PlanController < Iugu::AccountSettingsController
+  before_filter(:only => [:index, :change]) { |c| c.must_be :owner, :id }
+
   def index
     params[:id] ? @account = current_user.accounts.find(params[:id]) : @account = current_user_account.account
     get_index_data
