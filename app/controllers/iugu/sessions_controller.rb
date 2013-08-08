@@ -4,7 +4,6 @@ class Iugu::SessionsController < Devise::SessionsController
   layout IuguSDK.alternative_layout
 
   def after_sign_in_path_for(resource_or_scope)
-    puts params
     params[:user].try(:[], :user_invitation).blank? ? IuguSDK::app_main_url : invitation_url
   end
 
