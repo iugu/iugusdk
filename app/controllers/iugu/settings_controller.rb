@@ -26,7 +26,7 @@ class Iugu::SettingsController < ApplicationController
   private
 
   def verify_token
-    if IuguSDK::enable_user_api
+    if IuguSDK::enable_user_api and current_user
       current_user.send(:init_token) unless current_user.token
     end
   end
