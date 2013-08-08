@@ -1,6 +1,7 @@
 class Iugu::SettingsController < ApplicationController
 
   before_filter :authenticate_user!, :except => :add_social
+  before_filter :verify_token
 
   layout IuguSDK.default_layout
 
@@ -20,6 +21,14 @@ class Iugu::SettingsController < ApplicationController
       access = true if @account_user.is?(roles)
     end
     raise ActionController::RoutingError.new("Access Denied") if access == false
+  end
+
+  private
+
+  def verify_token
+    if IuguSDK::enable_user_api
+      current_user.send(:init_token) unless current_user.token
+    end
   end
 
 end
