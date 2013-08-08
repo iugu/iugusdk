@@ -17,6 +17,7 @@ class IuguMailer < Devise::Mailer
     user = User.find(user_invitation.invited_by)
     set_locale(user)
     @user_invitation = user_invitation
+    @account = @user_invitation.account
     mail(to: @user_invitation.email, :subject => I18n.t("emails.user_invitation", account_name: @user_invitation.account.try(:name))) do |format|
       format.html { render "iugu/mailer/invitation" }
     end

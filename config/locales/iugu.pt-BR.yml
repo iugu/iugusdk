@@ -6,6 +6,8 @@ pt-BR:
   emails:
     user_invitation: "Convite para %{account_name}"
     user_welcome: "Bem-vindo a %{application_title}"
+    you_were_invited: "Você foi convidado(a) para se juntar a %{account_name} em %{application_name}"
+    accept_invitation: "Aceitar convite"
   errors:
     messages:
       only_owners_can_destroy_accounts: "Apenas donos podem remover contas"

@@ -1,1 +1,8 @@
-= link_to edit_invite_url(:invitation_token => @user_invitation.id.to_s + @user_invitation.token), edit_invite_url(:invitation_token => @user_invitation.id.to_s + @user_invitation.token)
+%p
+  = I18n.t("iugu.welcome") 
+  #{@user_invitation.email}!
+%p 
+  = I18n.t("emails.you_were_invited", account_name: @account.name, application_name: IuguSDK::application_title)
+
+%p 
+  = link_to I18n.t("emails.accept_invitation"), edit_invite_url(:invitation_token => @user_invitation.id.to_s + @user_invitation.token)
