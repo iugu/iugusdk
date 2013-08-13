@@ -15,6 +15,7 @@ pt-BR:
       only_social_and_no_email: "Você precisa de um email para poder apagar essa rede social"
       email_already_in_use: "Esse email já foi utilizado"
       not_supported_api_type: "tipo de api não suportado"
+      invalid_invitation: "Convite inválido"
   iugu:
     interval_type:
       month: "Mês"

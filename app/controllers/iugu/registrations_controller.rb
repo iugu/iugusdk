@@ -45,7 +45,7 @@ class Iugu::RegistrationsController < Devise::RegistrationsController
   private
 
   def invalid_invitation
-    redirect_to new_user_registration_path
+    redirect_to new_user_registration_path, flash: { error: I18n.t("errors.messages.invalid_invitation") }
   end
 
   def verify_private_api_secret
