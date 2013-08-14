@@ -36,6 +36,8 @@ class User < ActiveRecord::Base
 
   after_create :send_welcome_mail, :if => Proc.new { |r| IuguSDK::enable_welcome_mail && !r.email.blank? }
 
+  after_commit :delayed_subscribe_on_chimp, on: :create, if: Proc.new { Rails.env.production? }
+
   after_rollback do
     Rails.logger.info errors.full_messages
   end
@@ -165,7 +167,7 @@ class User < ActiveRecord::Base
   end
 
   def init_token
-    for i in 0..256 do
+    [0..256].each do
       begin
         self.token = ApiToken.create(tokenable: self, api_type: "USER", description: "User")
         break unless token.nil?
@@ -198,7 +200,7 @@ class User < ActiveRecord::Base
   
   def create_account_for_user
     new_account = Account.create( :subdomain => account_alias, plan_identifier: plan_identifier, currency: currency, email: email)
-    account_user = new_account.account_users.create( { :user => self } )
+    new_account.account_users.create( { :user => self } )
   end
 
 end
