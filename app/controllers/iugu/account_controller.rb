@@ -114,7 +114,11 @@ class Iugu::AccountController < Iugu::AccountSettingsController
   def activate
     get_account
     if @account.subscription.try :activate 
-      notice = I18n.t("iugu.notices.account_activated")
+      if @account.subscription.suspended
+        notice = I18n.t("iugu.notices.account_will_be_activated")
+      else
+        notice = I18n.t("iugu.notices.account_activated")
+      end
       @account.clear_cached_subscription_active
     else
       notice = I18n.t("iugu.notices.error_activating_account")

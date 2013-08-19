@@ -140,6 +140,7 @@ pt-BR:
     become_user: "Tornar-se um usuário"
     notices:
       account_activated: "Conta ativada com sucesso"
+      account_will_be_activated: "Uma fatura foi criada, a conta será ativada quando esta for paga"
       error_activating_account: "Erro ativando conta"
       account_suspended: "Conta desativada com sucesso"
       error_suspending_account: "Erro desativando conta"

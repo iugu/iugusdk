@@ -137,6 +137,7 @@ en:
     become_user: "Become an User"
     notices:
       account_activated: "Account successfully activated"
+      account_will_be_activated: "An invoice has been created, the account will be activated once it's paid"
       error_activating_account: "Error activating account"
       account_suspended: "Account successfully suspended"
       error_suspending_account: "Error suspending account"
