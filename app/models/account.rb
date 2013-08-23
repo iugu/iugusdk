@@ -117,7 +117,7 @@ class Account < ActiveRecord::Base
     sub = subscription
     return false unless sub
     if sub.change_plan(identifier)
-      @account.clear_cached_subscription_features
+      clear_cached_subscription_features
       return true
     end
     false
