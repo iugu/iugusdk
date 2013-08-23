@@ -1,3 +1,9 @@
+- if @account.errors.any?
+  .notice.notice-red{ :style => "margin-bottom: 15px" }
+    %ul
+      - @account.errors.full_messages.each do |msg|
+        %li
+          = msg
 %h3
   = I18n.t "iugu.available_plans"
 

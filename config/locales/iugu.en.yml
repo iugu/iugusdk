@@ -135,6 +135,8 @@ en:
     user: "user"
     guest: "guest"
     become_user: "Become an User"
+    errors:
+      impossible_change_plan_features: "Impossible to change plan, verify features"
     notices:
       account_activated: "Account successfully activated"
       account_will_be_activated: "An invoice has been created, the account will be activated once it's paid"

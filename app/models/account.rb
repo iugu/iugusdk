@@ -112,6 +112,16 @@ class Account < ActiveRecord::Base
       customer.save
     end
   end
+
+  def change_plan(identifier)
+    sub = subscription
+    return false unless sub
+    if sub.change_plan(identifier)
+      @account.clear_cached_subscription_features
+      return true
+    end
+    false
+  end
   
   private
 
