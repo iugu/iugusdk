@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    iugusdk (1.0.0.alpha.30)
+    iugusdk (1.0.0.alpha.31)
       activeuuid
       coffee-script
       compass (>= 0.12.2)
@@ -141,7 +141,7 @@ GEM
     fastercsv (1.5.5)
     ffi (1.2.0)
     fssm (0.2.10)
-    fuubar (1.1.1)
+    fuubar (1.2.1)
       rspec (~> 2.0)
       rspec-instafail (~> 0.2.0)
       ruby-progressbar (~> 1.0)
