@@ -69,7 +69,7 @@ class AccountDomain < ActiveRecord::Base
 
   def validate_pattern
     if url
-      errors.add(:url, "Invalid Pattern") unless url.match /^([a-z0-9]*\.)*[a-z0-9]*$/
+      errors.add(:url, "Invalid URL") unless url.match /^\S+\.([a-z0-9]*\.)*[a-z0-9]*$/
     end
   end
 
