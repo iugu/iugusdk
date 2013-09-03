@@ -21,6 +21,7 @@ require 'iugu-ux'
 require 'money'
 require 'iugusdk/uuid_mass_assignment_fix'
 require 'iugusdk/uuid_operators_extensions.rb'
+require 'iugusdk/subdomain_validator.rb'
 
 # TODO: ALE - Acho q vai precisar disto
 # require 'oauth2'

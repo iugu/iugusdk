@@ -16,7 +16,7 @@ class Account < ActiveRecord::Base
   end
 
   validates :subdomain, :uniqueness => true, :unless => Proc.new { |a| a.subdomain.blank? }
-  validate :subdomain_blacklist, :name
+  validates :subdomain, subdomain: { reserved: IuguSDK::custom_domain_invalid_prefixes }, :unless => Proc.new { |a| a.subdomain.blank? }
 
   attr_accessible :subdomain, :name, :plan_identifier, :currency, :email
   attr_accessor :plan_identifier, :currency, :email
@@ -134,14 +134,6 @@ class Account < ActiveRecord::Base
 
   def set_first_subdomain
     self.update_attribute(:subdomain, "#{IuguSDK::account_alias_prefix}#{id}")
-  end
-
-  def subdomain_blacklist
-    if subdomain
-      IuguSDK::custom_domain_invalid_prefixes.each do |invalid_prefix|
-        errors.add(:subdomain, "Subdomain blacklisted") if subdomain == invalid_prefix
-      end
-    end
   end
 
   def remove_subscription
