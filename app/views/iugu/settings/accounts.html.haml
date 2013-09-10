@@ -1,12 +1,15 @@
 - content_for :title do I18n.t("iugu.account_settings") end
 
+%h1
+  Contas
+
 - if @accounts.count > 0
 
-  %table
+  %table{ class: "table" }
     %thead
       %th
-        Conta
-      %th{ :style => "width:50%" }
+        &nbsp;
+      %th
         &nbsp;
     %tbody
       - @accounts.each do |account|
@@ -14,12 +17,12 @@
           %td
             = account.name
           %td
-            .group.horizontal_stacking
+            .btn-group.pull-right
               - if current_user_account && current_user_account.account_id == account.id
-                = link_to I18n.t("iugu.active"), "javascript:function(){}", :class => "button no-bottom-margin disabled", :style => "width: 40%"
+                = link_to I18n.t("iugu.active"), "javascript:function(){}", :class => "btn btn-primary"
               - else
-                = link_to I18n.t("iugu.select"), account_select_path(account), :class => "button no-bottom-margin", :style => "width: 40%"
-              = link_to I18n.t("iugu.settings"), account_view_path(account), :class => "button no-bottom-margin", :style => "width: 60%"
+                = link_to I18n.t("iugu.select"), account_select_path(account), :class => "btn btn-primary"
+              = link_to I18n.t("iugu.settings"), account_view_path(account), :class => "btn btn-primary"
 
 - else
   %h2
@@ -28,4 +31,4 @@
 
 - if IuguSDK::enable_multiple_accounts == true
   %div
-    = link_to I18n.t("iugu.create_account"), account_create_path, :method => :post, :class => "button full-width no-bottom-margin default" 
+    = link_to I18n.t("iugu.create_account"), account_create_path, :method => :post, :class => "btn btn-lg btn-success btn-block" 

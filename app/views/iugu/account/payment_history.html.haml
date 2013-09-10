@@ -1,7 +1,7 @@
-%h3
+%h1
   Histórico de Pagamentos
 
-%table
+%table.table
   %tr
     %th ID
     %th Total
@@ -18,4 +18,4 @@
       %td
         = I18n.t "invoice_status.#{invoice.status}"
 
-= link_to I18n.t("iugu.back"), account_view_path(id: params[:account_id]), class: "button no-bottom-margin"
+= link_to I18n.t("iugu.back"), account_view_path(id: params[:account_id]), class: "btn btn-primary btn-block"

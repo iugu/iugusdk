@@ -1,25 +1,24 @@
 - content_for :title do I18n.t("iugu.profile_settings") end
 
+%h1
+  Perfil
+
 - if current_user.guest
 
   = simple_form_for @user, :url => become_user_path, :method => :post do |f|
 
-    = render partial: "iugu/shared/notices", locals: { group: :profile_update, resource: @user }
+    = render partial: "iugu/shared/notices", role: "form", locals: { group: :profile_update, resource: @user }
 
-    %div
-      = f.label :email
-      = f.email_field :email
+    .form-group
+      = f.email_field :email, input_html: { class: "form-control" }
 
-    %div
-      = f.label :password, I18n.t("activerecord.attributes.password")
-      = f.password_field :password
+    .form-group
+      = f.password_field :password, input_html: { class: "form-control" }
   
-    %div
-      = f.label :password_confirmation, I18n.t("activerecord.attributes.password_confirmation")
-      = f.password_field :password_confirmation
+    .form-group
+      = f.password_field :password_confirmation, input_html: { class: "form-control" }
 
-    %div
-      = f.submit I18n.t("iugu.become_user")
+    = f.submit I18n.t("iugu.become_user"), input_html: { class: "btn btn-lg btn-block btn-default" }
 
 - else
 
@@ -30,27 +29,31 @@
     - @input_success = ''
     = render partial: "iugu/shared/notices", locals: { group: :profile_update, resource: @user }
 
-    = f.text_field :name, :placeholder => I18n.t("activerecord.attributes.name"), :class => "full-width string #{@user.errors.include?(:name) ? 'failure':@input_success }"
+    .row
+      - if AvailableLanguage.all.count > 1
+        .col-md-4
+          .form-group
+            = f.select :locale, AvailableLanguage.all, {}, :class => "form-control"
 
-    = f.email_field :email, :placeholder => "E-mail", :class => "full-width string #{@user.errors.include?(:email) ? 'failure':@input_success }"
+      .col-md-8
+        .form-group{ class: "form-group #{@user.errors.include?(:name) ? 'has-error':@input_success}" }
+          = f.text_field :name, :placeholder => I18n.t("activerecord.attributes.name"), class: "form-control"
 
-    %div
+    .row
+      .col-md-4
+        .form-group{ class: "form-group #{@user.errors.include?(:birthplace) ? 'has-error':@input_success}" }
+          = f.input :birthdate, as: :string, label: false, :placeholder => I18n.t("activerecord.attributes.birthdate"), input_html: { class: "form-control", type: "date" }
+          
+      .col-md-8
+        .form-group{ class: "form-group #{@user.errors.include?(:email) ? 'has-error':@input_success}" }
+          = f.email_field :email, :placeholder => "E-mail", class: "form-control"
 
-
-      = f.text_field :birthdate, :placeholder => I18n.t("activerecord.attributes.birthdate"), :class => "full-width string #{@user.errors.include?(:birthdate) ? 'failure':@input_success }"
-
-
-    - if AvailableLanguage.all.count > 1
-      %div
-        = f.input :locale, :collection => AvailableLanguage.all, :label => false, :include_blank => false, :input_html => { :"data-type" => "iux.form.combobox", :class => "full-width" }
-
-    %div
-      = f.submit I18n.t("iugu.save"), :class => "button default"
+    = f.submit I18n.t("iugu.save"), :class => "btn-block btn btn-lg btn-primary"
 
 
   - if IuguSDK::enable_signup_form
 
-    = simple_form_for @user, :url => profile_update_path + "#password", :method => :post do |f|
+    = simple_form_for @user, :url => profile_update_path + "#password", role: "form", :method => :post do |f|
 
       .element-spacing
         %h3.no-bottom-margin
@@ -59,14 +62,18 @@
       - @input_success = ''
       = render partial: "iugu/shared/notices", locals: { group: :password, resource: @user }
 
-      = f.password_field :password, :placeholder => I18n.t("activerecord.attributes.password"), :class => "full-width string #{@user.errors.include?(:password) ? 'failure':@input_success }"
+      .row
+        .col-md-6
+          .form-group{ class: "form-group #{@user.errors.include?(:password) ? 'has-error':@input_success}" }
+            = f.password_field :password, :placeholder => I18n.t("activerecord.attributes.password"), class: "form-control"
 
-
-      = f.password_field :password_confirmation, :placeholder => I18n.t("activerecord.attributes.password_confirmation"), :class => "full-width string #{@user.errors.include?(:password) ? 'failure':@input_success }"
+        .col-md-6
+          .form-group{ class: "form-group #{@user.errors.include?(:password) ? 'has-error':@input_success}" }
+            = f.password_field :password_confirmation, :placeholder => I18n.t("activerecord.attributes.password_confirmation"), class: "form-control"
 
       = hidden_field_tag "form_group", :password
   
-      = f.submit I18n.t("iugu.save"), :id => "new_password_submit", :class => "button no-bottom-margin"
+      = f.submit I18n.t("iugu.save"), :id => "new_password_submit", :class => "btn btn-lg btn-primary btn-block"
 
   - if IuguSDK::enable_social_linking
 
@@ -97,10 +104,10 @@
     %h3
       = I18n.t("iugu.user_api_access")
     = render partial: "iugu/shared/notices", locals: { group: :api }
-    .container
-      %div{ :style => 'text-align:center' }
+    .panel.panel-default
+      %div{ class: "panel-body", style: "text-align: center;" }
         = @user.token.token
-    = link_to I18n.t("iugu.api_renew"), renew_user_token_path + "#api", :class => "button no-bottom-margin"
+    = link_to I18n.t("iugu.api_renew"), renew_user_token_path + "#api", :class => "btn btn-lg btn-primary btn-block"
 
   - if IuguSDK::enable_user_cancel
     %hr

@@ -1,9 +1,9 @@
+%h1
+  Permissões
+
 = form_tag(account_roles_update_path(@account, :user_id => @account_user.user)) do
 
-  %h3
-    Permissões
-
-  %table
+  %table.table
     %tbody
       %tr
         %td
@@ -25,6 +25,7 @@
             = label_tag "#{role}_checkbox", I18n.t("iugu.#{role}")
     
   %div
-    = submit_tag I18n.t("iugu.save"), :class => "button full-width"
+    = submit_tag I18n.t("iugu.save"), :class => "btn btn-primary btn-block"
 
-= link_to I18n.t("iugu.back"), account_users_index_path(account_id: params[:id]), class: "button no-bottom-margin"
+%br
+= link_to I18n.t("iugu.back"), account_users_index_path(account_id: params[:id]), class: "btn btn-primary btn-block"

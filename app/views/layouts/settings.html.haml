@@ -2,10 +2,10 @@
 %html{ :class => "no-js not-ready" }
   %head
     %title= content_for?(:title) ? (yield(:title) + " - " + IuguSDK::application_title) : I18n.t("iugu.settings")
-    = stylesheet_link_tag "iugu-ux"
-    = stylesheet_link_tag "iugu-sdk.css"
-    = stylesheet_link_tag "settings"
+    = stylesheet_link_tag "//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.no-icons.min.css"
+    = stylesheet_link_tag "//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css"
     = javascript_include_tag :vendor
+    = javascript_include_tag "//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"
     = javascript_include_tag 'jquery_ujs'
     = javascript_include_tag "iugu-ux"
 
@@ -28,35 +28,50 @@
     %meta{ name:"apple-mobile-web-app-capable", :content => "yes" }
 
 
-  %body.iugu-ui.application-background.settings
+  %body
 
-    .wrapper
-      .container.no-padding
-        .header
-
+    %nav{ class: "navbar navbar-default navbar-fixed-top", role: "navigation" }
+      .navbar-header
+        %button{ class: "navbar-toggle", type: "button", data: { toggle: "collapse", target: ".navbar-ex1-collapse" } }
+          %span.sr-only
+            Toggle Navigation
+          %span.icon-bar
+          %span.icon-bar
+          %span.icon-bar
+        .navbar-brand
           = link_to image_tag('application_logo.png'), IuguSDK::app_main_url
-
-          = link_to I18n.t("iugu.back_to") + ' ' + IuguSDK::application_title, IuguSDK::app_main_url, :class => "button", :id => "btn-settings-back"
-
-        .padding
-          .group.horizontal_stacking{ :style => "width:100%" }
-            %a{ :class => "button large #{controller_name=='profile'?'active':''}", :href => profile_settings_path, :style => "width: 50%" }
+      %div.collapse.navbar-collapse.navbar-ex1-collapse
+        %ul.nav.navbar-nav
+          %li{ :class => "#{controller_name=='profile'?'active':''}" }
+            %a{ :href => profile_settings_path }
               = I18n.t "iugu.profile"
-
+          %li{ class: "#{controller_name=='account'?'active':''}" }
             - if IuguSDK::enable_multiple_accounts == false && current_user.accounts.count <= 1
-              = link_to I18n.t("iugu.account"), account_view_path, :class => "button large #{controller_name=='profile'?'':'active'}", :style => "width: 50%"
+              = link_to I18n.t("iugu.account"), account_view_path
             - else
-              = link_to I18n.t("iugu.accounts"), account_settings_path, :class => "button large #{controller_name=='profile'?'':'active'}", :style => "width: 50%"
+              = link_to I18n.t("iugu.accounts"), account_settings_path
 
-      .container.no-bottom-margin
+    - unless flash[:social] || flash[:group]
+      - flash.each do |name, msg|
+        - if msg.is_a? String
+          .notice.notice-red{ :class => name }
+            %button.close{ :'data-dismiss' => "notice" }
+              &times;
+            %h4.notice-heading
+              = msg
 
-        - unless flash[:social] || flash[:group]
-          - flash.each do |name, msg|
-            - if msg.is_a? String
-              .notice.notice-red{ :class => name }
-                %button.close{ :'data-dismiss' => "notice" }
-                  &times;
-                %h4.notice-heading
-                  = msg
+    .container
+      .row{ style: "padding-top: 90px" }
+        .col-md-3{ style: "padding-top: 20px" }
+          %ul.nav.nav-pills.nav-stacked
+            %li{ :class => "#{controller_name=='profile'?'active':''}" }
+              %a{ :href => profile_settings_path }
+                = I18n.t "iugu.profile"
+            %li{ class: "#{controller_name=='account'?'active':''}" }
+              - if IuguSDK::enable_multiple_accounts == false && current_user.accounts.count <= 1
+                = link_to I18n.t("iugu.account"), account_view_path
+              - else
+                = link_to I18n.t("iugu.accounts"), account_settings_path
 
-        = yield
+        .col-md-9
+          = yield

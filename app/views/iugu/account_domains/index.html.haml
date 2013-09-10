@@ -1,4 +1,4 @@
-%h2
+%h1
   = I18n.t("iugu.account_domains")
 
 - if flash[:group] == :account_domain
@@ -6,25 +6,21 @@
     = flash[:notice]
 
 - if IuguSDK::enable_account_alias == true
-  %div
-    = simple_form_for @account, :url => update_subdomain_path(:id => @account.id), :method => :put do |f|
-      - if @account.errors.any?
-        .notice.notice-red
-          %ul
-            - @account.errors.full_messages.each do |msg|
-              %li
-                = msg
+  = simple_form_for @account, :url => update_subdomain_path(:id => @account.id), :method => :put do |f|
+    - if @account.errors.any?
+      .notice.notice-red
+        %ul
+          - @account.errors.full_messages.each do |msg|
+            %li
+              = msg
 
-      .clearfix
-        .left{ :style => "width:60%;float:left" }
-          = f.label :subdomain, "Subdomínio"
-          = f.text_field :subdomain
-        .right{ :style => "width:40%;float:right;padding-top:30px" }
-          %div{ :style => "padding-left:10px" }
-            = "." + IuguSDK::application_main_host
-      = f.submit I18n.t("iugu.save"), :class => "button full-width"
+    .form-group
+      = f.text_field :subdomain, class: "form-control"
+      = "." + IuguSDK::application_main_host
+    = f.submit I18n.t("iugu.save"), :class => "btn btn-block btn-primary"
 
 - if IuguSDK::enable_custom_domain == true
+  %br
 
   %div
     = simple_form_for @account_domain, :url => create_domain_path(@account.id) do |f|
@@ -36,8 +32,9 @@
               %li
                 = msg
 
-      = f.text_field :url, :placeholder => "Domínio"
-      = f.submit I18n.t("iugu.add"), :class => "button full-width no-margin-bottom"
+      .form-group
+        = f.text_field :url, :placeholder => "Domínio", class: "form-control"
+      = f.submit I18n.t("iugu.add"), :class => "btn btn-primary btn-block"
 
   - if @account_domains.count > 0
     %table.table
@@ -66,12 +63,13 @@
             .group
               - unless domain.primary
                 - if domain.verified
-                  = link_to I18n.t("iugu.set_primary"), primary_domain_path(:account_id => @account.id, :domain_id => domain.id), :method => :post, :class => "button small"
+                  = link_to I18n.t("iugu.set_primary"), primary_domain_path(:account_id => @account.id, :domain_id => domain.id), :method => :post, :class => "btn btn-block btn-primary"
 
               - unless domain.verified
-                = link_to I18n.t("iugu.verify_domain"), account_domains_instructions_path(:account_id => @account.id, :domain_id => domain.id), :class => "button small"
+                = link_to I18n.t("iugu.verify_domain"), account_domains_instructions_path(:account_id => @account.id, :domain_id => domain.id), :class => "btn btn-block btn-primary"
 
               - if current_user.is?(:owner, @account)
-                = link_to I18n.t("iugu.remove"), account_domains_destroy_path(:account_id => @account.id, :domain_id => domain.id), :method => :delete, :class => "button small"
+                = link_to I18n.t("iugu.remove"), account_domains_destroy_path(:account_id => @account.id, :domain_id => domain.id), :method => :delete, :class => "btn btn-block btn-primary"
 
-= link_to I18n.t("iugu.back"), account_view_path(id: params[:account_id]), class: "button no-bottom-margin"
+%br
+= link_to I18n.t("iugu.back"), account_view_path(id: params[:account_id]), class: "btn btn-primary btn-block"

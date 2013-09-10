@@ -1,7 +1,7 @@
-%h3
+%h1
   Convidar um usuário
 
-= simple_form_for @user_invitation, :url => create_invite_path(@account.id), :method => :post do |f|
+= simple_form_for @user_invitation, role: "form", :url => create_invite_path(@account.id), :method => :post do |f|
   - if @user_invitation.errors.any?
     .notice.notice-red{ :style => "margin-bottom: 15px" }
       %ul
@@ -9,9 +9,10 @@
           %li
             = msg
 
+  .form-group
+    = f.email_field :email, :placeholder => "e-mail", :class => "form-control"
+
   %div
-    = f.email_field :email, :placeholder => "e-mail", :class => "full-width"
-  %div{ :style => "padding-top:20px;padding-bottom:10px" }
     %h4
       Permissões
     - if current_user.is?(:owner, @account)
@@ -29,6 +30,7 @@
             = label_tag "#{role}_checkbox", I18n.t("iugu.#{role}")
 
   %div{ :style => "margin-top: 10px" }
-    = f.submit I18n.t("iugu.invite"), :class => "button full-width"
+    = f.submit I18n.t("iugu.invite"), :class => "btn btn-primary btn-block"
 
-= link_to I18n.t("iugu.back"), account_users_index_path(account_id: params[:account_id]), class: "button no-bottom-margin"
+%br
+= link_to I18n.t("iugu.back"), account_users_index_path(account_id: params[:account_id]), class: "btn btn-primary btn-block"

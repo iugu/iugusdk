@@ -1,26 +1,24 @@
-%div
-  %h3
-    Confirmar a propriedade do domínio
+%h1
+  Confirmar a propriedade do domínio
 
-  %table
-    %tr
-      %td{ :style => "text-align:center" }
-        = @domain.url
+.panel.panel-default
+  .panel-body{ style: "text-align: center" }
+    = @domain.url
 
-  %p
-    Para podermos ativar o domínio no #{IuguSDK::application_title}, precisamos confirmar se você é o proprietário. Fazemos isto por meio da confirmação da propriedade do domínio. Isso protege seu domínio, garantindo que somente sua organização possa ativar o uso em nosso sistema.
+%p
+  Para podermos ativar o domínio no #{IuguSDK::application_title}, precisamos confirmar se você é o proprietário. Fazemos isto por meio da confirmação da propriedade do domínio. Isso protege seu domínio, garantindo que somente sua organização possa ativar o uso em nosso sistema.
 
-  %p
-    Para confirmar seu domínio, você deve criar um registro CNAME em seu painel de gerenciamento de domínios (Consulte seu provedor de serviços DNS). Adicione uma entrada CNAME com token abaixo:
-  %table
-    %tr
-      %td{ :style => "text-align:center" }
-        = @domain.calculate_token
-  %p
-    Após inserir o registro em seu painel. Você pode continuar com a verificação do domínio
+%p
+  Para confirmar seu domínio, você deve criar um registro CNAME em seu painel de gerenciamento de domínios (Consulte seu provedor de serviços DNS). Adicione uma entrada CNAME com token abaixo:
+
+.panel.panel-default
+  .panel-body{ style: "text-align: center" }
+    = @domain.calculate_token
+%p
+  Após inserir o registro em seu painel. Você pode continuar com a verificação do domínio
 %div{ :style => "padding-bottom: 5px" }
-  = link_to I18n.t("iugu.verify_domain"), verify_domain_path(:account_id => @account.id, :domain_id => @domain.id), :method => :post, :class => "button full-width no-bottom-margin"
+  = link_to I18n.t("iugu.verify_domain"), verify_domain_path(:account_id => @account.id, :domain_id => @domain.id), :method => :post, :class => "btn btn-primary btn-block"
+%div{ :style => "padding-bottom: 5px" }
+  = link_to I18n.t("iugu.verify_later"), account_domains_index_path(@account.id), :class => "btn btn-primary btn-block"
 %div
-  = link_to I18n.t("iugu.verify_later"), account_domains_index_path(@account.id), :class => "button full-width"
-
-= link_to I18n.t("iugu.back"), account_domains_index_path(id: params[:account_id]), class: "button no-bottom-margin"
+  = link_to I18n.t("iugu.back"), account_domains_index_path(id: params[:account_id]), class: "btn btn-primary btn-block"
