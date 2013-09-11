@@ -105,7 +105,7 @@ class Account < ActiveRecord::Base
     owner_account_user.roles.find_by_name("owner").try :destroy if owner_account_user
 
     if au.is? :owner
-      subscription = Iugu::Api::Subscription.find subscription_id.to_uuid.to_s
+      subscription = Iugu::Api::Subscription.find subscription_id.to_s.to_uuid.to_s
       customer = Iugu::Api::Customer.find subscription.customer_id
       customer.email = user.email
       customer.name = user.name
