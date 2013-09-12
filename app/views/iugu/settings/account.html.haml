@@ -79,28 +79,27 @@
         - else
           = flash[:notice]
     %div
-      .container
+      %table.table.table-bordered
         - @account.tokens.each do |token|
-          %table{ :style => "margin-bottom: 5px" }
-            %tr
-              %td
-                = token.api_type
-              %td
-                = token.description
-              %td
-                = l token.created_at, :format => :short
-              %td
-                = link_to I18n.t("iugu.remove"), account_remove_token_path(@account, token), :class => "btn btn-primary btn-block", :confirm => I18n.t("iugu.are_you_sure?"), :method => :delete
-            %tr
-              %td{ :colspan => 4 }
-                = token.token
+          %tr
+            %td
+              = token.api_type
+            %td
+              = token.description
+            %td
+              = l token.created_at, :format => :short
+            %td
+              = link_to I18n.t("iugu.remove"), account_remove_token_path(@account, token), :class => "btn btn-danger btn-block", :confirm => I18n.t("iugu.are_you_sure?"), :method => :delete
+          %tr
+            %td{ :colspan => 4 }
+              = token.token
       = form_tag(account_generate_new_token_path(@account), :method => :post) do
         %h3
           = I18n.t('iugu.add')
-        %div
-          = select_tag :api_type, options_for_select(IuguSDK::account_api_tokens), :"data-type" => "iux.form.combobox", :class => "full-width"
-        %div
-          = text_field_tag :description, nil, { :placeholder => I18n.t("iugu.description") }
+        .form-group
+          = select_tag :api_type, options_for_select(IuguSDK::account_api_tokens), :class => "form-control"
+        .form-group
+          = text_field_tag :description, nil, { :placeholder => I18n.t("iugu.description") , class: "form-control" }
         = submit_tag I18n.t("iugu.create"), :class => "btn btn-primary btn-block"
 
 - if current_user.is?(:owner, @account)
