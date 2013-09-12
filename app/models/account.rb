@@ -58,7 +58,7 @@ class Account < ActiveRecord::Base
 
   def subscription
     return nil unless subscription_id
-    Iugu::Api::Subscription.find subscription_id.to_uuid.to_s
+    Iugu::Api::Subscription.find subscription_id.to_s.to_uuid.to_s
   end
 
   def cached_subscription_active?
