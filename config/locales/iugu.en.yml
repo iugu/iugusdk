@@ -135,6 +135,9 @@ en:
     user: "user"
     guest: "guest"
     become_user: "Become an User"
+    trial_period: "Trial Period"
+    this_account_is_suspended: "This account is suspended"
+    click_to_activate: "You can activate this account by clicking activate or paying your debits."
     errors:
       impossible_change_plan_features: "Impossible to change plan, verify features"
     notices:

@@ -12,15 +12,15 @@
   - if @subscription.suspended
     %div{ :style => "border: 2px solid #F00; padding: 20px;text-align:center;background:#FFCCCC" }
       %h1.no-bottom-margin
-        Esta conta está suspensa
+        = I18n.t("iugu.this_account_is_suspended")
       %p.no-bottom-margin
-        Você pode reativar esta conta clicando em ativar ou quitando seus débitos.
+        = I18n.t("iugu.click_to_activate")
   - elsif @subscription.in_trial
     %div{ :style => "border: 2px solid #185277; padding: 20px;text-align:center;background:#A6D0E8" }
       %h1.no-bottom-margin
-        = "Período de testes."
+        = I18n.t("iugu.trial_period")
       %p.no-bottom-margin
-        = "#{@subscription.trial_expires_at.to_date.mjd - Date.today.mjd} dia(s)"
+        = "#{@subscription.expires_at.to_date.mjd - Date.today.mjd} dia(s)"
 
 %hr
 

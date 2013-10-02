@@ -138,6 +138,9 @@ pt-BR:
     user: "usuário"
     guest: "convidado"
     become_user: "Tornar-se um usuário"
+    trial_period: "Período de testes"
+    this_account_is_suspended: "Esta conta está suspensa"
+    click_to_activate: "Você pode reativar esta conta clicando em ativar ou quitando seus débitos."
     errors:
       impossible_change_plan_features: "Impossível alterar plano, verifique as funcionalidades"
     notices:
