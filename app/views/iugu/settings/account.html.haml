@@ -104,7 +104,7 @@
 
 - if current_user.is?(:owner, @account)
   - if @has_subscription
-    - if @subscription.suspended
+    - if @subscription.suspended or @subscription.in_trial
       = link_to I18n.t("iugu.activate"), account_activate_path(@account), :method => :post, class: "btn btn-success btn-block"
     - else
       = link_to I18n.t("iugu.suspend"), account_suspend_path(@account), :method => :post, class: "btn btn-warning btn-block"
