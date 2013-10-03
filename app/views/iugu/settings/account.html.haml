@@ -15,12 +15,12 @@
         = I18n.t("iugu.this_account_is_suspended")
       %p.no-bottom-margin
         = I18n.t("iugu.click_to_activate")
-  - elsif @subscription.in_trial
+  - elsif @subscription.in_trial and (@trial_days = (@subscription.expires_at.to_date.mjd - Date.today.mjd)) > 0
     %div{ :style => "border: 2px solid #185277; padding: 20px;text-align:center;background:#A6D0E8" }
       %h1.no-bottom-margin
         = I18n.t("iugu.trial_period")
       %p.no-bottom-margin
-        = "#{@subscription.expires_at.to_date.mjd - Date.today.mjd} dia(s)"
+        = "#{@trial_days} dia(s)"
 
 %hr
 
