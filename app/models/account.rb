@@ -99,10 +99,11 @@ class Account < ActiveRecord::Base
   end
 
   def transfer_ownership(user)
+    old_owner = owner_account_user
     au = account_users.find_by_user_id user.id  
+    return unless au
     au.set_owner
-
-    owner_account_user.roles.find_by_name("owner").try :destroy if owner_account_user
+    old_owner.roles.find_by_name("owner").try :destroy if old_owner
 
     if au.is? :owner
       subscription = Iugu::Api::Subscription.find subscription_id.to_s.to_uuid.to_s
