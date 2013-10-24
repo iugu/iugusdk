@@ -2,21 +2,23 @@
   = I18n.t("iugu.account_domains")
 
 - if flash[:group] == :account_domain
-  .notice.notice-green
+  .alert.alert-success
     = flash[:notice]
 
 - if IuguSDK::enable_account_alias == true
   = simple_form_for @account, :url => update_subdomain_path(:id => @account.id), :method => :put do |f|
     - if @account.errors.any?
-      .notice.notice-red
+      .alert.alert-danger
         %ul
           - @account.errors.full_messages.each do |msg|
             %li
               = msg
 
-    .form-group
+    %div{ class: "input-group #{ "has-error" if @account.errors[:subdomain].present? }" }
       = f.text_field :subdomain, class: "form-control"
-      = "." + IuguSDK::application_main_host
+      %span.input-group-addon
+        = "." + IuguSDK::application_main_host
+    %br
     = f.submit I18n.t("iugu.save"), :class => "btn btn-block btn-primary"
 
 - if IuguSDK::enable_custom_domain == true
@@ -26,13 +28,13 @@
     = simple_form_for @account_domain, :url => create_domain_path(@account.id) do |f|
 
       - if @account_domain.errors.any?
-        .notice.notice-red{ :style => "margin-bottom: 15px" }
+        .alert.alert-danger{ :style => "margin-bottom: 15px" }
           %ul
             - @account_domain.errors.full_messages.each do |msg|
               %li
                 = msg
 
-      .form-group
+      %div{ class: "form-group #{ "has-error" if @account_domain.errors[:url].present? }" }
         = f.text_field :url, :placeholder => "Domínio", class: "form-control"
       = f.submit I18n.t("iugu.add"), :class => "btn btn-primary btn-block"
 

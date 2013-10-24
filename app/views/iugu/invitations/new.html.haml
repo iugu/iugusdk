@@ -2,14 +2,9 @@
   Convidar um usuário
 
 = simple_form_for @user_invitation, role: "form", :url => create_invite_path(@account.id), :method => :post do |f|
-  - if @user_invitation.errors.any?
-    .notice.notice-red{ :style => "margin-bottom: 15px" }
-      %ul
-        - @user_invitation.errors.full_messages.each do |msg|
-          %li
-            = msg
+  = render partial: "iugu/shared/notices", locals: { group: :user_invitation, resource: @user_invitation }
 
-  .form-group
+  .form-group{ class: "#{ "has-error" if @user_invitation.errors[:email].present? }" }
     = f.email_field :email, :placeholder => "e-mail", :class => "form-control"
 
   %div

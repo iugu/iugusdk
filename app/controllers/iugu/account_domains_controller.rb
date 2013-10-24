@@ -53,10 +53,10 @@ class Iugu::AccountDomainsController < Iugu::AccountSettingsController
       if @domain.verify 
         redirect_to account_domains_index_path(params[:account_id]), :notice => I18n.t("iugu.notices.domain_verified")
       else
-        redirect_to account_domains_instructions_path(:account_id => params[:account_id], :domain_id => params[:domain_id]), :notice => I18n.t("iugu.notices.domain_not_verified")
+        redirect_to account_domains_instructions_path(:account_id => params[:account_id], :domain_id => params[:domain_id]), flash: { :error => I18n.t("iugu.notices.domain_not_verified") }
       end
     rescue
-      redirect_to account_domains_index_path(params[:account_id]), :notice => I18n.t("iugu.notices.domain_not_found")
+      redirect_to account_domains_index_path(params[:account_id]), flash: { :error => I18n.t("iugu.notices.domain_not_found") }
     end
   end
 

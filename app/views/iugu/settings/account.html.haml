@@ -25,11 +25,10 @@
 %hr
 
 - if current_user.is?(:owner, @account)
-  - if flash[:group] == :account_update
-    = flash[:notice]
+  = render partial: "iugu/shared/notices", locals: { group: :account_update, resource: @account }
 
   = simple_form_for @account, role: "form", :url => account_update_path(@account), :method => :put do |f|
-    .form-group
+    .form-group{ class: "#{ "has-error" if @account.errors[:name].present? }" }
       = f.text_field :name, :placeholder => I18n.t("activerecord.attributes.name"), class: "form-control"
 
     = f.submit I18n.t("iugu.save"), :class => "btn btn-lg btn-primary btn-block"
