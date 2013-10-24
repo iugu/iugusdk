@@ -47,7 +47,8 @@ class Iugu::AccountController < Iugu::AccountSettingsController
 
   def select
     set_account(current_user, params[:id])
-    redirect_to :back
+    #redirect_to :back
+    redirect_to IuguSDK::app_main_url
   rescue ActionController::RedirectBackError
     redirect_to(account_settings_path, :notice => "Account selected")
   end
@@ -67,8 +68,11 @@ class Iugu::AccountController < Iugu::AccountSettingsController
       currency = locale_to_currency I18n.locale
       create_parameters = {plan_identifier: plan_identifier, currency: currency, email: current_user.email}
     end
-    current_user.accounts << Account.create(create_parameters)
-    redirect_to account_settings_path
+    acc = Account.create(create_parameters)
+    current_user.accounts << acc
+    #redirect_to account_view_path(acc)
+    set_account(current_user, acc.id.to_param)
+    redirect_to IuguSDK::app_main_url
   end
 
   def generate_new_token

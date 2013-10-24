@@ -1,5 +1,5 @@
 - if @account.errors.any?
-  .notice.notice-red{ :style => "margin-bottom: 15px" }
+  .alert.alert-danger{ :style => "margin-bottom: 15px" }
     %ul
       - @account.errors.full_messages.each do |msg|
         %li

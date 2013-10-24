@@ -10,11 +10,13 @@ class Iugu::InvitationsController < Iugu::SettingsController
   end
 
   def create
+    flash[:group] = :user_invitation
     params[:user_invitation][:roles] = params[:user_invitation][:roles].try(:join, ',')
     params[:user_invitation][:account_id] = params[:account_id]
     params[:user_invitation][:invited_by] = current_user.id
     @user_invitation = UserInvitation.create(params[:user_invitation])
     unless @user_invitation.new_record?
+      flash[:group] = :general
       redirect_to account_users_index_path(params[:account_id]), :notice => I18n.t("iugu.notices.user_invited")
     else
       @account = Account.find(params[:account_id])
