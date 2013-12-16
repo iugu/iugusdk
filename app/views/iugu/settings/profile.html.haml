@@ -51,29 +51,27 @@
     = f.submit I18n.t("iugu.save"), :class => "btn-block btn btn-lg btn-primary"
 
 
-  - if IuguSDK::enable_signup_form
+  = simple_form_for @user, :url => profile_update_path + "#password", role: "form", :method => :post do |f|
 
-    = simple_form_for @user, :url => profile_update_path + "#password", role: "form", :method => :post do |f|
+    .element-spacing
+      %h3.no-bottom-margin
+        = I18n.t "activerecord.attributes.password"
 
-      .element-spacing
-        %h3.no-bottom-margin
-          = I18n.t "activerecord.attributes.password"
+    - @input_success = ''
+    = render partial: "iugu/shared/notices", locals: { group: :password, resource: @user }
 
-      - @input_success = ''
-      = render partial: "iugu/shared/notices", locals: { group: :password, resource: @user }
+    .row
+      .col-md-6
+        .form-group{ class: "form-group #{@user.errors.include?(:password) ? 'has-error':@input_success}" }
+          = f.password_field :password, :placeholder => I18n.t("activerecord.attributes.password"), class: "form-control"
 
-      .row
-        .col-md-6
-          .form-group{ class: "form-group #{@user.errors.include?(:password) ? 'has-error':@input_success}" }
-            = f.password_field :password, :placeholder => I18n.t("activerecord.attributes.password"), class: "form-control"
+      .col-md-6
+        .form-group{ class: "form-group #{@user.errors.include?(:password) ? 'has-error':@input_success}" }
+          = f.password_field :password_confirmation, :placeholder => I18n.t("activerecord.attributes.password_confirmation"), class: "form-control"
 
-        .col-md-6
-          .form-group{ class: "form-group #{@user.errors.include?(:password) ? 'has-error':@input_success}" }
-            = f.password_field :password_confirmation, :placeholder => I18n.t("activerecord.attributes.password_confirmation"), class: "form-control"
+    = hidden_field_tag "form_group", :password
 
-      = hidden_field_tag "form_group", :password
-  
-      = f.submit I18n.t("iugu.save"), :id => "new_password_submit", :class => "btn btn-lg btn-primary btn-block"
+    = f.submit I18n.t("iugu.save"), :id => "new_password_submit", :class => "btn btn-lg btn-primary btn-block"
 
   - if IuguSDK::enable_social_linking
 
