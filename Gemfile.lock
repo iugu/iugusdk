@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    iugusdk (1.0.5)
+    iugusdk (1.0.6)
       activeuuid
       coffee-script
       compass (>= 0.12.2)
@@ -70,7 +70,7 @@ GEM
       uuidtools
     addressable (2.3.2)
     afm (0.2.0)
-    arel (3.0.2)
+    arel (3.0.3)
     bcrypt-ruby (3.1.2)
     bourne (1.1.2)
       mocha (= 0.10.5)
@@ -96,10 +96,10 @@ GEM
       xpath (~> 0.1.4)
     childprocess (0.3.6)
       ffi (~> 1.0, >= 1.0.6)
-    chunky_png (1.2.8)
+    chunky_png (1.2.9)
     climate_control (0.0.3)
       activesupport (>= 3.0)
-    cocaine (0.5.1)
+    cocaine (0.5.3)
       climate_control (>= 0.0.3, < 1.0)
     coffee-script (2.2.0)
       coffee-script-source
@@ -110,8 +110,8 @@ GEM
       chunky_png (~> 1.2)
       fssm (>= 0.2.7)
       sass (~> 3.1)
-    compass-rails (1.0.3)
-      compass (>= 0.12.2, < 0.14)
+    compass-rails (1.1.2)
+      compass (>= 0.12.2)
     database_cleaner (1.2.0)
     default_value_for (2.0.3)
     delayed_job (4.0.0)
@@ -131,7 +131,7 @@ GEM
       execjs
     eco-source (1.1.0.rc.1)
     erubis (2.7.0)
-    execjs (2.0.1)
+    execjs (2.0.2)
     fabrication (2.4.0)
     faker (1.1.2)
       i18n (~> 0.5)
@@ -157,7 +157,7 @@ GEM
     httpauth (0.2.0)
     i18n (0.6.1)
     iugu-api (0.0.4)
-    iugu-ux (1.0.6)
+    iugu-ux (1.0.9)
       coffee-script
       compass
       eco
@@ -170,7 +170,7 @@ GEM
     json (1.7.6)
     jwt (0.1.8)
       multi_json (>= 1.5)
-    kaminari (0.14.1)
+    kaminari (0.15.0)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
     koala (1.6.0)
@@ -208,7 +208,7 @@ GEM
     omniauth (1.1.4)
       hashie (>= 1.2, < 3)
       rack
-    omniauth-facebook (1.4.1)
+    omniauth-facebook (1.5.1)
       omniauth-oauth2 (~> 1.1.0)
     omniauth-oauth (1.0.1)
       oauth
@@ -219,11 +219,11 @@ GEM
     omniauth-twitter (1.0.1)
       multi_json (~> 1.3)
       omniauth-oauth (~> 1.0)
-    orm_adapter (0.4.0)
-    paperclip (3.5.1)
+    orm_adapter (0.5.0)
+    paperclip (3.5.2)
       activemodel (>= 3.0.0)
       activesupport (>= 3.0.0)
-      cocaine (~> 0.5.0)
+      cocaine (~> 0.5.3)
       mime-types
     pdf-reader (1.3.3)
       Ascii85 (~> 1.0.0)
@@ -239,7 +239,7 @@ GEM
     prawn_rails (0.0.11)
       prawn (>= 0.11.1)
       railties (>= 3.0.0)
-    rabl (0.8.6)
+    rabl (0.9.3)
       activesupport (>= 2.3.14)
     rack (1.4.1)
     rack-cache (1.2)
@@ -256,8 +256,9 @@ GEM
       activesupport (= 3.2.9)
       bundler (~> 1.0)
       railties (= 3.2.9)
-    rails-i18n (0.7.4)
+    rails-i18n (3.0.0)
       i18n (~> 0.5)
+      rails (>= 3.0.0, < 4.0.0)
     railties (3.2.9)
       actionpack (= 3.2.9)
       activesupport (= 3.2.9)
@@ -307,7 +308,7 @@ GEM
     shoulda-matchers (1.4.2)
       activesupport (>= 3.0.0)
       bourne (~> 1.1.2)
-    simple_form (2.1.0)
+    simple_form (2.1.1)
       actionpack (~> 3.0)
       activemodel (~> 3.0)
     simplecov (0.7.1)
@@ -326,7 +327,7 @@ GEM
       polyglot
       polyglot (>= 0.3.1)
     ttfunk (1.0.3)
-    tzinfo (0.3.37)
+    tzinfo (0.3.38)
     uuidtools (2.1.4)
     warden (1.2.3)
       rack (>= 1.0)
