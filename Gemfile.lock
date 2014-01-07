@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    iugusdk (1.0.6)
+    iugusdk (1.0.7)
       activeuuid
       coffee-script
       compass (>= 0.12.2)
@@ -157,7 +157,7 @@ GEM
     httpauth (0.2.0)
     i18n (0.6.1)
     iugu-api (0.0.4)
-    iugu-ux (1.0.9)
+    iugu-ux (1.0.11)
       coffee-script
       compass
       eco
@@ -233,9 +233,11 @@ GEM
       ttfunk
     polyglot (0.3.3)
     populator (1.0.0)
-    prawn (0.12.0)
-      pdf-reader (>= 0.9.0)
-      ttfunk (~> 1.0.2)
+    prawn (0.13.0)
+      afm
+      pdf-reader (~> 1.2)
+      ruby-rc4
+      ttfunk (~> 1.0.3)
     prawn_rails (0.0.11)
       prawn (>= 0.11.1)
       railties (>= 3.0.0)
@@ -286,7 +288,7 @@ GEM
       rspec-core (~> 2.12.0)
       rspec-expectations (~> 2.12.0)
       rspec-mocks (~> 2.12.0)
-    ruby-progressbar (1.2.0)
+    ruby-progressbar (1.4.0)
     ruby-rc4 (0.1.5)
     ruby2ruby (2.0.1)
       ruby_parser (~> 3.0.0)
