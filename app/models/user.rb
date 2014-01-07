@@ -20,9 +20,9 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :validatable, :omniauthable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :locale, :name, :birthdate, :guest, :account_alias, :plan_identifier, :currency, :user_invitation
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :locale, :name, :birthdate, :guest, :account_alias, :account_name, :plan_identifier, :currency, :user_invitation
 
-  attr_accessor :plan_identifier, :currency, :account_alias, :user_invitation
+  attr_accessor :plan_identifier, :currency, :account_alias, :account_name, :user_invitation
 
   before_destroy :destroy_private_accounts
 
@@ -199,7 +199,13 @@ class User < ActiveRecord::Base
   @reconfirmable = true
   
   def create_account_for_user
-    new_account = Account.create( :subdomain => account_alias, plan_identifier: plan_identifier, currency: currency, email: email)
+    new_account = Account.create(
+      subdomain: account_alias,
+      plan_identifier: plan_identifier,
+      currency: currency,
+      email: (email or nil),
+      name: (account_name or nil)
+    )
     new_account.account_users.create( { :user => self } )
   end
 
