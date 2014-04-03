@@ -21,6 +21,7 @@ class Iugu::RegistrationsController < Devise::RegistrationsController
       invite = UserInvitation.find_by_invitation_token(params[:user][:user_invitation])
       return invalid_invitation if !invite or invite.try(:used)
     end
+    cookies[:signup] = 1
     params[:user][:locale] = @matched_locale_from_browser unless params[:user][:locale]
     super
   end
