@@ -35,7 +35,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'nokogiri'
   s.add_dependency 'less'
   s.add_dependency 'kaminari'
-  s.add_dependency 'devise', "= 2.1.2"
+  s.add_dependency 'devise', "= 2.1.4"
   s.add_dependency 'omniauth'
   s.add_dependency 'omniauth-twitter'
   s.add_dependency 'omniauth-facebook'
