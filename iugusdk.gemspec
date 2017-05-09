@@ -40,7 +40,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'omniauth-twitter'
   s.add_dependency 'omniauth-facebook'
   # s.add_dependency 'http_accept_language'
-  s.add_dependency 'delayed_job_active_record', '= 4.0.3'
+  s.add_dependency 'delayed_job_active_record', '= 4.1.0'
   s.add_dependency 'koala'
   s.add_dependency 'activeuuid', '= 0.6.0'
   s.add_dependency 'iugu-api'
