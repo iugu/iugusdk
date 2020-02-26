@@ -32,7 +32,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'paperclip'
   s.add_dependency 'prawn'
   s.add_dependency 'prawn_rails'
-  s.add_dependency 'nokogiri'
+  s.add_dependency 'nokogiri', '>= 1.10.8'
   s.add_dependency 'less'
   s.add_dependency 'kaminari'
   s.add_dependency 'devise', "= 2.1.4"
